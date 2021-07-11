@@ -49,13 +49,19 @@
   <ItemGroup>
     <Compile Include="AnimationInfo.c.cs" />
     <Compile Include="AnimationInfo.h.cs" />
+    <Compile Include="ArchiveInfo.cs" />
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="CharPtr.cs" />
+    <Compile Include="DirectReader.cpp.cs" />
     <Compile Include="DirectReader.h.cs" />
+    <Compile Include="DirPaths.cs" />
     <Compile Include="DirPaths.h.cs" />
     <Compile Include="DirtyRect.h.cs" />
+    <Compile Include="FileInfo.cs" />
+    <Compile Include="FILEPtr.cs" />
     <Compile Include="Fontinfo.h.cs" />
     <Compile Include="graphics_common.h.cs" />
+    <Compile Include="IntPtr.cs" />
     <Compile Include="Layer.h.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
