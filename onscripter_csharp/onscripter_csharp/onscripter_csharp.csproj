@@ -54,7 +54,7 @@
     <Compile Include="CharPtr.cs" />
     <Compile Include="DirectReader.cpp.cs" />
     <Compile Include="DirectReader.h.cs" />
-    <Compile Include="DirPaths.cs" />
+    <Compile Include="DirPaths.cpp.cs" />
     <Compile Include="DirPaths.h.cs" />
     <Compile Include="DirtyRect.h.cs" />
     <Compile Include="FileInfo.cs" />
