@@ -50,6 +50,7 @@
     <Compile Include="AnimationInfo.c.cs" />
     <Compile Include="AnimationInfo.h.cs" />
     <Compile Include="ArchiveInfo.cs" />
+    <Compile Include="BaseReader.cs" />
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="CharPtr.cs" />
     <Compile Include="DirectReader.cpp.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="Fontinfo.h.cs" />
     <Compile Include="graphics_common.h.cs" />
     <Compile Include="IntPtr.cs" />
+    <Compile Include="Layer.cpp.cs" />
     <Compile Include="Layer.h.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
