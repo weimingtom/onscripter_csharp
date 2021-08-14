@@ -73,6 +73,8 @@
     </Compile>
     <Compile Include="NsaReader.cpp.cs" />
     <Compile Include="NsaReader.h.cs" />
+    <Compile Include="onscripter.cpp.cs" />
+    <Compile Include="ONScripterLabel.cs" />
     <Compile Include="ONScripterLabel.h.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
