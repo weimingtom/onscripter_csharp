@@ -76,6 +76,7 @@
     <Compile Include="onscripter.cpp.cs" />
     <Compile Include="ONScripterLabel.cs" />
     <Compile Include="ONScripterLabel.h.cs" />
+    <Compile Include="ONScripterLabel_animation.cpp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="resize_image.h.cs" />
