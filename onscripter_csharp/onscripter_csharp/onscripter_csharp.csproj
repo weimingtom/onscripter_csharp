@@ -52,6 +52,7 @@
     <Compile Include="ArchiveInfo.cs" />
     <Compile Include="BaseReader.cs" />
     <Compile Include="BaseReader.h.cs" />
+    <Compile Include="ButtonLink.cs" />
     <Compile Include="CharPtr.cs" />
     <Compile Include="DirectReader.cpp.cs" />
     <Compile Include="DirectReader.h.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="NsaReader.cpp.cs" />
     <Compile Include="NsaReader.h.cs" />
     <Compile Include="onscripter.cpp.cs" />
+    <Compile Include="ONScripterLabel.cpp.cs" />
     <Compile Include="ONScripterLabel.cs" />
     <Compile Include="ONScripterLabel.h.cs" />
     <Compile Include="ONScripterLabel_animation.cpp.cs" />
