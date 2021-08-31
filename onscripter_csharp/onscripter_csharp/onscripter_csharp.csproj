@@ -69,6 +69,7 @@
     <Compile Include="IntPtr.cs" />
     <Compile Include="Layer.cpp.cs" />
     <Compile Include="Layer.h.cs" />
+    <Compile Include="LineBreakType.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -89,6 +90,7 @@
     <Compile Include="ONScripterLabel_image.cpp.cs" />
     <Compile Include="ONScripterLabel_rmenu.cpp.cs" />
     <Compile Include="ONScripterLabel_sound.cpp.cs" />
+    <Compile Include="ONScripterLabel_text.cpp.cs" />
     <Compile Include="OVInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
