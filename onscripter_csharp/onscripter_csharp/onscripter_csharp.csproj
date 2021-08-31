@@ -73,6 +73,7 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="MessageId.cs" />
     <Compile Include="NsaReader.cpp.cs" />
     <Compile Include="NsaReader.h.cs" />
     <Compile Include="onscripter.cpp.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="ONScripterLabel_file.cpp.cs" />
     <Compile Include="ONScripterLabel_file2.cpp.cs" />
     <Compile Include="ONScripterLabel_image.cpp.cs" />
+    <Compile Include="ONScripterLabel_rmenu.cpp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="resize_image.h.cs" />
