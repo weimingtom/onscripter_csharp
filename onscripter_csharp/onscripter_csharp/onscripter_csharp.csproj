@@ -50,6 +50,7 @@
     <Compile Include="AnimationInfo.c.cs" />
     <Compile Include="AnimationInfo.h.cs" />
     <Compile Include="ArchiveInfo.cs" />
+    <Compile Include="ArrayVariable.cs" />
     <Compile Include="BaseReader.cs" />
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="ButtonLink.cs" />
@@ -67,9 +68,12 @@
     <Compile Include="Fontinfo.h.cs" />
     <Compile Include="graphics_common.h.cs" />
     <Compile Include="IntPtr.cs" />
+    <Compile Include="LabelInfo.cs" />
     <Compile Include="Layer.cpp.cs" />
     <Compile Include="Layer.h.cs" />
     <Compile Include="LineBreakType.cs" />
+    <Compile Include="LogInfo.cs" />
+    <Compile Include="LogLink.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -100,6 +104,7 @@
     <Compile Include="SarReader.cpp.cs" />
     <Compile Include="SarReader.h.cs" />
     <Compile Include="SaveFileInfo.cs" />
+    <Compile Include="ScriptHandler.cpp.cs" />
     <Compile Include="ScriptHandler.h.cs" />
     <Compile Include="ScriptParser.h.cs" />
     <Compile Include="SDL_Color.cs" />
@@ -113,6 +118,8 @@
     <Compile Include="Uint32Ptr.cs" />
     <Compile Include="Uint8Ptr.cs" />
     <Compile Include="UnsignedCharPtr.cs" />
+    <Compile Include="VariableData.cs" />
+    <Compile Include="VariableInfo.cs" />
     <Compile Include="version.h.cs" />
     <Compile Include="winres.h.cs" />
   </ItemGroup>
