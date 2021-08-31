@@ -106,6 +106,7 @@
     <Compile Include="SaveFileInfo.cs" />
     <Compile Include="ScriptHandler.cpp.cs" />
     <Compile Include="ScriptHandler.h.cs" />
+    <Compile Include="ScriptParser.cpp.cs" />
     <Compile Include="ScriptParser.h.cs" />
     <Compile Include="SDL_Color.cs" />
     <Compile Include="SDL_Event.cs" />
