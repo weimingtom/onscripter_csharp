@@ -108,6 +108,7 @@
     <Compile Include="ScriptHandler.h.cs" />
     <Compile Include="ScriptParser.cpp.cs" />
     <Compile Include="ScriptParser.h.cs" />
+    <Compile Include="ScriptParser_command.cpp.cs" />
     <Compile Include="SDL_Color.cs" />
     <Compile Include="SDL_Event.cs" />
     <Compile Include="SDL_KeyboardEvent.cs" />
