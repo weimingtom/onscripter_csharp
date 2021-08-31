@@ -97,6 +97,7 @@
     <Compile Include="resize_image.cpp.cs" />
     <Compile Include="resize_image.h.cs" />
     <Compile Include="resources.h.cs" />
+    <Compile Include="SarReader.cpp.cs" />
     <Compile Include="SarReader.h.cs" />
     <Compile Include="SaveFileInfo.cs" />
     <Compile Include="ScriptHandler.h.cs" />
