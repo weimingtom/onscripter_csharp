@@ -85,6 +85,7 @@
     <Compile Include="ONScripterLabel_event.cpp.cs" />
     <Compile Include="ONScripterLabel_file.cpp.cs" />
     <Compile Include="ONScripterLabel_file2.cpp.cs" />
+    <Compile Include="ONScripterLabel_image.cpp.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="resize_image.h.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="SaveFileInfo.cs" />
     <Compile Include="ScriptHandler.h.cs" />
     <Compile Include="ScriptParser.h.cs" />
+    <Compile Include="SDL_Color.cs" />
     <Compile Include="SDL_Event.cs" />
     <Compile Include="SDL_KeyboardEvent.cs" />
     <Compile Include="SDL_MouseButtonEvent.cs" />
