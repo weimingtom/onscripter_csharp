@@ -588,7 +588,7 @@ namespace onscripter_csharp
 //			    script_h.processError(str, title, reason, true, is_simple);
 			}
 			
-			public void errorAndExit( CharPtr str, CharPtr reason, CharPtr title, bool is_simple )
+			public void errorAndExit( CharPtr str, CharPtr reason = null, CharPtr title = null, bool is_simple = false )
 			{
 //			    if (title == NULL)
 //			        title = "Parse Error";

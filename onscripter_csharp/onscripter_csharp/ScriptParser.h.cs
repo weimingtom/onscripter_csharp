@@ -92,9 +92,9 @@ namespace onscripter_csharp
 //		    unsigned char *buf;
 //		    long decoded_length;
 //		};
-//		
-//		class ScriptParser
-//		{
+		
+		public partial class ScriptParser
+		{
 //		public:
 //			struct MusicStruct{
 //		        int volume;
@@ -290,13 +290,13 @@ namespace onscripter_csharp
 //		           SYSTEM_AUTOMODE    = 9,
 //		           SYSTEM_END         = 10
 //		    };
-//		    enum { RET_NOMATCH   = 0,
-//		           RET_SKIP_LINE = 1,
-//		           RET_CONTINUE  = 2,
-//		           RET_NO_READ   = 4,
-//		           RET_EOL       = 8, // end of line (0x0a is found)
-//		           RET_EOT       = 16 // end of text (the end of string_buffer is reached)
-//		    };
+		    public const int RET_NOMATCH   = 0,
+		           RET_SKIP_LINE = 1,
+		           RET_CONTINUE  = 2,
+		           RET_NO_READ   = 4,
+		           RET_EOL       = 8, // end of line (0x0a is found)
+		           RET_EOT       = 16 // end of text (the end of string_buffer is reached)
+		    ;
 //		#if MSC_VER <= 1200
 //			public:
 //		#endif
@@ -612,14 +612,14 @@ namespace onscripter_csharp
 //		    char *pretextgosub_label;
 //		    char *loadgosub_label;
 //		    char *rgosub_label;
-//		
-//		    ScriptHandler script_h;
-//		    
+		
+		    ScriptHandler script_h = new ScriptHandler();
+		    
 //		    unsigned char *key_table;
 //		
 //		    void createKeyTable( const char *key_exe );
-//		};
-//		
+		};
+		
 //		#endif // __SCRIPT_PARSER_H__
 	}
 }

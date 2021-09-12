@@ -55,6 +55,7 @@
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="ButtonLink.cs" />
     <Compile Include="CharPtr.cs" />
+    <Compile Include="CLib.cs" />
     <Compile Include="DirectReader.cpp.cs" />
     <Compile Include="DirectReader.h.cs" />
     <Compile Include="DirPaths.cpp.cs" />
@@ -120,8 +121,6 @@
     <Compile Include="Uint32Ptr.cs" />
     <Compile Include="Uint8Ptr.cs" />
     <Compile Include="UnsignedCharPtr.cs" />
-    <Compile Include="VariableData.cs" />
-    <Compile Include="VariableInfo.cs" />
     <Compile Include="version.h.cs" />
     <Compile Include="winres.h.cs" />
   </ItemGroup>

@@ -15,5 +15,20 @@ namespace onscripter_csharp
 		public CharPtr()
 		{
 		}
+		
+		public CharPtr(string str) {
+			
+		}
+		
+		public CharPtr(char[] str) {
+			
+		}
+		
+		public CharPtr(CharPtr str) {
+			
+		}
+		
+		public static implicit operator CharPtr(string str) { return new CharPtr(str); }
+		public static implicit operator CharPtr(char[] chars) { return new CharPtr(chars); }
 	}
 }

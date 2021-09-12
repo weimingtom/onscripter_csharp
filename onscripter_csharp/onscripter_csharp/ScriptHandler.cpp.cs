@@ -1183,7 +1183,7 @@ namespace onscripter_csharp
 //			    return 0;
 			}
 			
-			public void readVariable( bool reread_flag )
+			public void readVariable( bool reread_flag = false)
 			{
 //			    end_status = END_NONE;
 //			    current_variable.type = VAR_NONE;
@@ -1221,7 +1221,7 @@ namespace onscripter_csharp
 //			    next_script = checkComma(buf);
 			}
 			
-			public void setInt( VariableInfo var_info, int val, int offset )
+			public void setInt( VariableInfo var_info, int val, int offset = 0 )
 			{
 //			    if ( var_info->type & VAR_INT ){
 //			        setNumVariable( var_info->var_no + offset, val );

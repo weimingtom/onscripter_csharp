@@ -1692,44 +1692,42 @@ namespace onscripter_csharp
 			
 			public int addCommand()
 			{
-				return 0;
-//			    script_h.readVariable();
-//			    
-//			    if ( script_h.current_variable.type == ScriptHandler::VAR_INT ||
-//			         script_h.current_variable.type == ScriptHandler::VAR_ARRAY ){
-//			        int val = script_h.getIntVariable( &script_h.current_variable );
-//			        script_h.pushVariable();
-//			
-//			        script_h.setInt( &script_h.pushed_variable, val+script_h.readInt() );
-//			    }
-//			    else if ( script_h.current_variable.type == ScriptHandler::VAR_STR ){
-//			        int no = script_h.current_variable.var_no;
-//			
-//			        const char *buf = script_h.readStr();
-//			        ScriptHandler::VariableData &vd = script_h.getVariableData(no);
-//			        char *tmp_buffer = vd.str;
-//			
-//			        if ( tmp_buffer ){
-//			            vd.str = new char[ strlen( tmp_buffer ) + strlen( buf ) + 1 ];
-//			            strcpy( vd.str, tmp_buffer );
-//			            strcat( vd.str, buf );
-//			            delete[] tmp_buffer;
-//			        }
-//			        else{
-//			            vd.str = new char[ strlen( buf ) + 1 ];
-//			            strcpy( vd.str, buf );
-//			        }
-//			    }
-//			    else errorAndExit( "add: no variable." );
-//			
-//			    return RET_CONTINUE;
+			    script_h.readVariable();
+			    
+			    if ( script_h.current_variable.type == ScriptHandler.VAR_INT ||
+			         script_h.current_variable.type == ScriptHandler.VAR_ARRAY ){
+			        int val = script_h.getIntVariable( script_h.current_variable );
+			        script_h.pushVariable();
+			
+			        script_h.setInt( script_h.pushed_variable, val+script_h.readInt() );
+			    }
+			    else if ( script_h.current_variable.type == ScriptHandler.VAR_STR ){
+			        int no = script_h.current_variable.var_no;
+			
+			        CharPtr buf = script_h.readStr();
+			        ScriptHandler.VariableData vd = script_h.getVariableData(no);
+			        CharPtr tmp_buffer = new CharPtr(vd.str);
+			
+			        if ( tmp_buffer != null ){
+			            vd.str = new char[ strlen( tmp_buffer ) + strlen( buf ) + 1 ];
+			            strcpy( vd.str, tmp_buffer );
+			            strcat( vd.str, buf );
+			            tmp_buffer = null; //delete[] tmp_buffer;
+			        }
+			        else{
+			            vd.str = new char[ strlen( buf ) + 1 ];
+			            strcpy( vd.str, buf );
+			        }
+			    }
+			    else errorAndExit( "add: no variable." );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int dsoundCommand()
 			{
-				return 0;
 			    //added to remove "unsupported command" warnings for 'dsound'
-//			    return RET_CONTINUE;
+			    return RET_CONTINUE;
 			}
 		}
 	}

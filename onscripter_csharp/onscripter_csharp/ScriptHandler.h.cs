@@ -72,8 +72,8 @@ namespace onscripter_csharp
 //		
 //		class ONScripterLabel;
 //		
-//		class ScriptHandler
-//		{
+		public partial class ScriptHandler
+		{
 //		public:
 //		    enum { END_NONE       = 0,
 //		           END_COMMA      = 1,
@@ -121,20 +121,20 @@ namespace onscripter_csharp
 //		            return *this;
 //		        };
 //		    };
-//		
-//		    enum { VAR_NONE  = 0,
-//		           VAR_INT   = 1,  // integer
-//		           VAR_ARRAY = 2,  // array
-//		           VAR_STR   = 4,  // string
-//		           VAR_CONST = 8,  // direct value or alias, not variable
-//		           VAR_PTR   = 16  // pointer to a variable, e.g. i%0, s%0
-//		    };
-//		    struct VariableInfo{
-//		        int type;
-//		        int var_no;   // for integer(%), array(?), string($) variable
-//		        ArrayVariable array; // for array(?)
-//		    };
-//		
+		
+		    public const int VAR_NONE  = 0,
+		           VAR_INT   = 1,  // integer
+		           VAR_ARRAY = 2,  // array
+		           VAR_STR   = 4,  // string
+		           VAR_CONST = 8,  // direct value or alias, not variable
+		           VAR_PTR   = 16  // pointer to a variable, e.g. i%0, s%0
+		    ;
+		    public class VariableInfo{
+		        public int type;
+		        public int var_no;   // for integer(%), array(?), string($) variable
+		        public ArrayVariable array = new ArrayVariable(); // for array(?)
+		    };
+		
 //		    ScriptHandler();
 //		    ~ScriptHandler();
 //		
@@ -266,33 +266,33 @@ namespace onscripter_csharp
 //		    LogLink *findAndAddLog( LogInfo &info, const char *name, bool add_flag );
 //		    void resetLog( LogInfo &info );
 //		    
-//		    /* ---------------------------------------- */
-//		    /* Variable */
-//		    struct VariableData{
-//		        int num;
-//		        bool num_limit_flag;
-//		        int num_limit_upper;
-//		        int num_limit_lower;
-//		        char *str;
-//		
-//		        VariableData(){
-//		            str = NULL;
-//		            reset(true);
-//		        };
-//		        void reset(bool limit_reset_flag){
-//		            num = 0;
-//		            if (limit_reset_flag)
-//		                num_limit_flag = false;
-//		            if (str){
-//		                delete[] str;
-//		                str = NULL;
-//		            }
-//		        };
-//		    };
+		    /* ---------------------------------------- */
+		    /* Variable */
+		    public class VariableData{
+		        public int num;
+		        public bool num_limit_flag;
+		        public int num_limit_upper;
+		        public int num_limit_lower;
+		        public CharPtr str;
+		
+		        public VariableData(){
+		            str = null;
+		            reset(true);
+		        }
+		        public void reset(bool limit_reset_flag){
+		            num = 0;
+		            if (limit_reset_flag)
+		                num_limit_flag = false;
+		            if (str != null){
+		                //delete[] str;
+		                str = null;
+		            }
+		        }
+		    };
 //		    VariableData &getVariableData(int no);
-//		
-//		    VariableInfo current_variable, pushed_variable;
-//		    
+		
+		    public VariableInfo current_variable = new VariableInfo(), pushed_variable = new VariableInfo();
+		    
 //		    int screen_size;
 //		    enum { SCREEN_SIZE_640x480 = 0,
 //		           SCREEN_SIZE_800x600 = 1,
@@ -492,9 +492,9 @@ namespace onscripter_csharp
 //		
 //		    unsigned char key_table[256];
 //		    bool key_table_flag;
-//		};
-//		
-//		
-//		#endif // __SCRIPT_HANDLER_H__
+		};
+		
+		
+		//#endif // __SCRIPT_HANDLER_H__
 	}
 }
