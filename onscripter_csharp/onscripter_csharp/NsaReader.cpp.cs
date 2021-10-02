@@ -50,10 +50,10 @@ namespace onscripter_csharp
 //		#define NSA_ARCHIVE_NAME "arc"
 //		#define NSA_ARCHIVE_NAME2 "arc%d"
 		
-		public partial class NsaReader
+		public partial class NsaReader : SarReader
 		{
 			public NsaReader( DirPaths path, int nsaoffset, UnsignedCharPtr key_table )
-//			        :SarReader( path, key_table )
+			        :base( path, key_table )
 			{
 //			    sar_flag = true;
 //			    nsa_offset = nsaoffset;
@@ -73,7 +73,7 @@ namespace onscripter_csharp
 			
 //			#ifndef TOOLS_BUILD
 			
-			public int open( CharPtr nsa_path )
+			public override int open( CharPtr nsa_path )
 			{
 				return 0;
 //			    const DirPaths paths = DirPaths(nsa_path);
@@ -231,13 +231,13 @@ namespace onscripter_csharp
 			
 //			#endif //TOOLS_BUILD
 			
-			CharPtr getArchiveName()
+			public override CharPtr getArchiveName()
 			{
 				return null;
 //			    return "nsa";
 			}
 			
-			public int getNumFiles(){
+			public override int getNumFiles(){
 				return 0;
 //			    int i;
 //			    int total = archive_info.num_of_files; // start with sar files, if any
@@ -272,7 +272,7 @@ namespace onscripter_csharp
 //			    return ai->fi_list[i].original_length;
 			}
 			
-			public uint getFileLength( CharPtr file_name )
+			public override uint getFileLength( CharPtr file_name )
 			{
 				return 0;
 //			    size_t ret;
@@ -301,7 +301,7 @@ namespace onscripter_csharp
 //			    return 0;
 			}
 			
-			uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location )
+			public override uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location )
 			{
 				return 0;
 //			    size_t ret;
@@ -343,7 +343,7 @@ namespace onscripter_csharp
 //			    return 0;
 			}
 			
-			public FileInfo getFileByIndex( uint index )
+			public override FileInfo getFileByIndex( uint index )
 			{
 				return null;
 //			    int i;

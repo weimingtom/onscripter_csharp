@@ -168,7 +168,7 @@ namespace onscripter_csharp
 //		    
 //		    // function for direct manipulation of script address 
 //		    inline char *getCurrent(){ return current_script; };
-//		    inline char *getNext(){ return next_script; };
+		    public CharPtr getNext(){ return next_script; }
 //		    void setCurrent(char *pos);
 //		    void pushCurrent( char *pos );
 //		    void popCurrent();
@@ -317,15 +317,15 @@ namespace onscripter_csharp
 //		           CMD_USERDEF = 3,
 //		           CMD_UNKNOWN = 4
 //		    } current_cmd_type;
-//		    char errbuf[MAX_ERRBUF_LEN]; //intended for use creating error messages
-//		                                 // before they are passed to errorAndExit,
-//		                                 // simpleErrorAndExit or processError
+		    public char[] errbuf = new char[MAX_ERRBUF_LEN]; //intended for use creating error messages
+		                                 // before they are passed to errorAndExit,
+		                                 // simpleErrorAndExit or processError
 //		    void processError( const char *str, const char *title=NULL,
 //		                       const char *detail=NULL, bool is_warning=false,
 //		                       bool is_simple=false );
 //		
-//		    BaseReader *cBR;
-//		
+		    public BaseReader cBR = null;
+		
 //		    enum LanguageScript {
 //		        NO_SCRIPT_PREF  = 0,
 //		        LATIN_SCRIPT    = 1,
@@ -480,7 +480,7 @@ namespace onscripter_csharp
 //		    bool english_mode;
 //		
 //		    char *current_script;
-//		    char *next_script;
+		    public CharPtr next_script;
 //		
 //		    char *pushed_current_script;
 //		    char *pushed_next_script;

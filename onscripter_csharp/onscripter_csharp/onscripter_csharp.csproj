@@ -51,7 +51,6 @@
     <Compile Include="AnimationInfo.h.cs" />
     <Compile Include="ArchiveInfo.cs" />
     <Compile Include="ArrayVariable.cs" />
-    <Compile Include="BaseReader.cs" />
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="ButtonLink.cs" />
     <Compile Include="CharPtr.cs" />

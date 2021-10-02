@@ -1421,273 +1421,256 @@ namespace onscripter_csharp
 			
 			public int defsubCommand()
 			{
-				return 0;
-//			    const char *cmd = script_h.readName();
-//			
-//			    if (cmd[0] >= 'a' && cmd[0] <= 'z'){
-//			        UserFuncHash &ufh = user_func_hash[cmd[0]-'a'];
-//			        ufh.last->next = new UserFuncLUT();
-//			        ufh.last = ufh.last->next;
-//			        setStr( &ufh.last->command, cmd );
-//			    }
-//			    
-//			    return RET_CONTINUE;
+				CharPtr cmd = script_h.readName();
+			
+			    if (cmd[0] >= 'a' && cmd[0] <= 'z'){
+			        UserFuncHash ufh = user_func_hash[cmd[0]-'a'];
+			        ufh.last.next = new UserFuncLUT();
+			        ufh.last = ufh.last.next;
+			        CharPtr temp = new CharPtr(ufh.last.command); 
+			        setStr( ref temp, cmd );
+			    }
+			    
+			    return RET_CONTINUE;
 			}
 			
 			public int defsevolCommand()
 			{
-				return 0;
-//			    int vol = script_h.readInt();
-//			    if (use_default_volume)
-//			        se_volume = vol;
-//			
-//			    return RET_CONTINUE;
+			    int vol = script_h.readInt();
+			    if (use_default_volume)
+			        se_volume = vol;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int defmp3volCommand()
 			{
-				return 0;
-//			    int vol = script_h.readInt();
-//			    if (use_default_volume)
-//			        music_volume = vol;
-//			
-//			    return RET_CONTINUE;
+			    int vol = script_h.readInt();
+			    if (use_default_volume)
+			        music_volume = vol;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int defaultspeedCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "defaultspeed: not in the define section" );
-//			
-//			    for ( int i=0 ; i<3 ; i++ ) default_text_speed[i] = script_h.readInt();
-//			
-//			    return RET_CONTINUE;
+			    if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "defaultspeed: not in the define section" );
+			
+			    for ( int i=0 ; i<3 ; i++ ) default_text_speed[i] = script_h.readInt();
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int defaultfontCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "defaultfont: not in the define section" );
-//			
-//			    setStr( &default_env_font, script_h.readStr() );
-//			
-//			    return RET_CONTINUE;
+				if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "defaultfont: not in the define section" );
+			
+			    setStr( ref default_env_font, script_h.readStr() );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int decCommand()
 			{
-				return 0;
-//			    int val = script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, val-1 );
-//			
-//			    return RET_CONTINUE;
+			    int val = script_h.readInt();
+			    script_h.setInt( script_h.current_variable, val-1 );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int dateCommand()
 			{
-				return 0;
-//			    time_t t = time(NULL);
-//			    struct tm *tm = localtime( &t );
-//			
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, tm->tm_year % 100 );
-//			
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, tm->tm_mon + 1 );
-//			
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, tm->tm_mday );
-//			
-//			    return RET_CONTINUE;
+				time_t t = time(null);
+			    tm tm = localtime( t );
+			
+			    script_h.readInt();
+			    script_h.setInt( script_h.current_variable, tm.tm_year % 100 );
+			
+			    script_h.readInt();
+			    script_h.setInt( script_h.current_variable, tm.tm_mon + 1 );
+			
+			    script_h.readInt();
+			    script_h.setInt( script_h.current_variable, tm.tm_mday );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int cosCommand()
 			{
-				return 0;
-//			    script_h.readInt();
-//			    script_h.pushVariable();
-//			
-//			    int val = script_h.readInt();
-//			    script_h.setInt(&script_h.pushed_variable, (int)(cos(M_PI*val/180.0)*1000.0));
-//			
-//			    return RET_CONTINUE;
+				script_h.readInt();
+			    script_h.pushVariable();
+			
+			    int val = script_h.readInt();
+			    script_h.setInt(script_h.pushed_variable, (int)(cos(M_PI*val/180.0)*1000.0));
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int cmpCommand()
 			{
-				return 0;
-//			    script_h.readInt();
-//			    script_h.pushVariable();
-//			    
-//			    script_h.readStr();
-//			    char *save_buf = script_h.saveStringBuffer();
-//			
-//			    const char *buf = script_h.readStr();
-//			
-//			    int val = strcmp( save_buf, buf );
-//			    if      ( val > 0 ) val = 1;
-//			    else if ( val < 0 ) val = -1;
-//			    script_h.setInt( &script_h.pushed_variable, val );
-//			
-//			    return RET_CONTINUE;
+			    script_h.readInt();
+			    script_h.pushVariable();
+			    
+			    script_h.readStr();
+			    CharPtr save_buf = script_h.saveStringBuffer();
+			
+			    CharPtr buf = script_h.readStr();
+			
+			    int val = strcmp( save_buf, buf );
+			    if      ( val > 0 ) val = 1;
+			    else if ( val < 0 ) val = -1;
+			    script_h.setInt( script_h.pushed_variable, val );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int clickvoiceCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "clickvoice: not in the define section" );
-//			
-//			    for ( int i=0 ; i<CLICKVOICE_NUM ; i++ )
-//			        setStr( &clickvoice_file_name[i], script_h.readStr() );
-//			
-//			    return RET_CONTINUE;
+			    if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "clickvoice: not in the define section" );
+			
+			    for ( int i=0 ; i<CLICKVOICE_NUM ; i++ )
+			        setStr( ref clickvoice_file_name[i], script_h.readStr() );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int clickstrCommand()
 			{
-				return 0;
-//			    script_h.readStr();
-//			    const char *buf = script_h.saveStringBuffer();
-//			
-//			    clickstr_line = script_h.readInt();
-//			
-//			    script_h.setClickstr( buf );
-//			           
-//			    return RET_CONTINUE;
+				script_h.readStr();
+			    CharPtr buf = script_h.saveStringBuffer();
+			
+			    clickstr_line = script_h.readInt();
+			
+			    script_h.setClickstr( buf );
+			           
+			    return RET_CONTINUE;
 			}
 			
 			public int clickskippageCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "clickskippage: not in the define section" );
-//			
-//			    clickskippage_flag = true;
-//			
-//			    return RET_CONTINUE;
+				if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "clickskippage: not in the define section" );
+			
+			    clickskippage_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int btnnowindoweraseCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "btnnowindowerase: not in the define section" );
-//			
-//			    btnnowindowerase_flag = true;
-//			
-//			    return RET_CONTINUE;
+			    if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "btnnowindowerase: not in the define section" );
+			
+			    btnnowindowerase_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int breakCommand()
 			{
-				return 0;
-//			//Mion: apparently NScr allows 'break' outside of a for loop, it just skips ahead to 'next'
-//			    bool unnested = false;
-//			    if (!last_nest_info->previous || last_nest_info->nest_mode != NestInfo::FOR) {
-//			        unnested = true;
-//			        errorAndCont("break: not in 'for' loop");
-//			    }
-//			
-//			    char *buf = script_h.getNext();
-//			    if ( buf[0] == '*' ){
-//			        if (!unnested) {
-//			            last_nest_info = last_nest_info->previous;
-//			            delete last_nest_info->next;
-//			            last_nest_info->next = NULL;
-//			        }
-//			        setCurrentLabel( script_h.readLabel()+1 );
-//			    }
-//			    else{
-//			        break_flag = true;
-//			    }
-//			    
-//			    return RET_CONTINUE;
+			//Mion: apparently NScr allows 'break' outside of a for loop, it just skips ahead to 'next'
+			    bool unnested = false;
+			    if (null==last_nest_info.previous || last_nest_info.nest_mode != NestInfo.FOR) {
+			        unnested = true;
+			        errorAndCont("break: not in 'for' loop");
+			    }
+			
+			    CharPtr buf = script_h.getNext();
+			    if ( buf[0] == '*' ){
+			        if (!unnested) {
+			            last_nest_info = last_nest_info.previous;
+			            //delete last_nest_info.next;
+			            last_nest_info.next = null;
+			        }
+			    	setCurrentLabel( script_h.readLabel().inc() );
+			    }
+			    else{
+			        break_flag = true;
+			    }
+			    
+			    return RET_CONTINUE;
 			}
 			
 			public int atoiCommand()
 			{
-				return 0;
-//			    script_h.readInt();
-//			    script_h.pushVariable();
-//			    
-//			    const char *buf = script_h.readStr();
-//			        
-//			    script_h.setInt( &script_h.pushed_variable, atoi(buf) );
-//			    
-//			    return RET_CONTINUE;
+			    script_h.readInt();
+			    script_h.pushVariable();
+			    
+			    CharPtr buf = script_h.readStr();
+			        
+			    script_h.setInt( script_h.pushed_variable, atoi(buf) );
+			    
+			    return RET_CONTINUE;
 			}
 			
 			public int arcCommand()
 			{
-				return 0;
-//			    const char *buf = script_h.readStr();
-//			    char *buf2 = new char[ strlen( buf ) + 1 ];
-//			    strcpy( buf2, buf );
-//			
-//			    int i = 0;
-//			    while ( buf2[i] != '|' && buf2[i] != '\0' ) i++;
-//			    buf2[i] = '\0';
-//			
-//			    if ( strcmp( script_h.cBR->getArchiveName(), "direct" ) == 0 ){
-//			        delete script_h.cBR;
-//			        script_h.cBR = new SarReader( archive_path, key_table );
-//			        if ( script_h.cBR->open( buf2 ) ){
-//			            snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                     "arc: couldn't open archive '%s'", buf2);
-//			            errorAndCont( script_h.errbuf );
-//			        }
-//			    }
-//			    else if ( strcmp( script_h.cBR->getArchiveName(), "sar" ) == 0 ){
-//			        if ( script_h.cBR->open( buf2 ) ){
-//			            snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                     "arc: couldn't open archive '%s'", buf2);
-//			            errorAndCont( script_h.errbuf );
-//			        }
-//			    }
-//			    // skipping "arc" commands after "ns?" command
-//			    
-//			    delete[] buf2;
-//			    
-//			    return RET_CONTINUE;
+			    CharPtr buf = script_h.readStr();
+			    CharPtr buf2 = new char[ strlen( buf ) + 1 ];
+			    strcpy( buf2, buf );
+			
+			    int i = 0;
+			    while ( buf2[i] != '|' && buf2[i] != '\0' ) i++;
+			    buf2[i] = '\0';
+			
+			    if ( strcmp( script_h.cBR.getArchiveName(), "direct" ) == 0 ){
+			        script_h.cBR = null;
+			        script_h.cBR = new SarReader( archive_path, key_table );
+			        if ( script_h.cBR.open( buf2 )!=0 ){
+			            snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                     "arc: couldn't open archive '%s'", buf2);
+			            errorAndCont( script_h.errbuf );
+			        }
+			    }
+			    else if ( strcmp( script_h.cBR.getArchiveName(), "sar" ) == 0 ){
+			        if ( script_h.cBR.open( buf2 )!=0 ){
+			            snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                     "arc: couldn't open archive '%s'", buf2);
+			            errorAndCont( script_h.errbuf );
+			        }
+			    }
+			    // skipping "arc" commands after "ns?" command
+			    
+			    buf2 = null;
+			    
+			    return RET_CONTINUE;
 			}
 			
 			public int addnsadirCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "addnsadir: not in the define section" );
-//			
-//			    const char *buf = script_h.readStr();
-//			    
-//			    nsa_path.add(buf);
-//			
-//			    delete script_h.cBR;
-//			    script_h.cBR = new NsaReader( archive_path, nsa_offset, key_table );
-//			    if ( script_h.cBR->open( nsa_path.get_all_paths() ) ){
-//			        errorAndCont( "addnsadir: couldn't open any NSA archives" );
-//			    }
-//			
-//			    return RET_CONTINUE;
+			    if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "addnsadir: not in the define section" );
+			
+			    CharPtr buf = script_h.readStr();
+			    
+			    nsa_path.add(buf);
+			
+			    script_h.cBR = null;
+			    script_h.cBR = new NsaReader( archive_path, nsa_offset, key_table );
+			    if ( script_h.cBR.open( nsa_path.get_all_paths() )!=0 ){
+			        errorAndCont( "addnsadir: couldn't open any NSA archives" );
+			    }
+			
+			    return RET_CONTINUE;
 			}
 			
 			//Mion: for kinsoku
 			public int addkinsokuCommand()
 			{
-				return 0;
-//			    if ( current_mode != DEFINE_MODE )
-//			        errorAndExit( "addkinsoku: not in the define section" );
-//			
-//			    script_h.readStr();
-//			    char *start = script_h.saveStringBuffer();
-//			    const char *end = script_h.readStr();
-//			    setKinsoku(start, end, true);
-//			    if (debug_level > 0)
-//			        printf("addkinsoku: \"%s\",\"%s\"\n", start, end);
-//			    
-//			    return RET_CONTINUE;
+			    if ( current_mode != DEFINE_MODE )
+			        errorAndExit( "addkinsoku: not in the define section" );
+			
+			    script_h.readStr();
+			    CharPtr start = script_h.saveStringBuffer();
+			    CharPtr end = script_h.readStr();
+			    setKinsoku(start, end, true);
+			    if (debug_level > 0)
+			        printf("addkinsoku: \"%s\",\"%s\"\n", start, end);
+			    
+			    return RET_CONTINUE;
 			}
 			
 			public int addCommand()

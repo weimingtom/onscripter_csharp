@@ -69,7 +69,7 @@ namespace onscripter_csharp
 		private static uint cpufuncs;
 		
 		//#if !defined(BPP16)
-		private static bool is_inv_alpha_lut_initialized = false;
+		public static bool is_inv_alpha_lut_initialized = false;
 		private static UInt32[] inv_alpha_lut = new UInt32[256];
 		//#endif
 		

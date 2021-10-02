@@ -244,39 +244,41 @@ namespace onscripter_csharp
 //		            return script_h.readStr();
 //		    }
 //		protected:
-//		    struct UserFuncLUT{
-//		        struct UserFuncLUT *next;
-//		        char *command;
-//		        bool lua_flag;
-//		        UserFuncLUT(): next(NULL), command(NULL), lua_flag(false){}
-//		        ~UserFuncLUT(){
-//		            if (command) delete[] command;
-//		        };
-//		    };
-//		
-//		    struct UserFuncHash{
-//		        UserFuncLUT root;
-//		        UserFuncLUT *last;
-//		    } user_func_hash['z'-'a'+1];
-//		
-//		    struct NestInfo{
-//		        enum { LABEL = 0,
-//		               FOR   = 1 };
-//		        struct NestInfo *previous, *next;
-//		        int  nest_mode;
-//		        char *next_script; // points into script_buffer; used in gosub and for
-//		        int  var_no, to, step; // used in for
-//		        bool textgosub_flag; // used in textgosub and pretextgosub
-//		        int  rgosub_click_state; // used for rgosub
-//		        bool rgosub_1byte_mode; // used for rgosub
-//		
+		    public class UserFuncLUT{
+		        public UserFuncLUT next;
+		        public CharPtr command;
+		        public bool lua_flag;
+		        public UserFuncLUT() { next = (null); command = (null); lua_flag = (false); }
+		        ~UserFuncLUT(){
+		            if (command != null) command = null;
+		        }
+		    }
+		
+		    public class UserFuncHash {
+				public UserFuncLUT root = new UserFuncLUT();
+		        public UserFuncLUT last = null;
+		    } 
+			public UserFuncHash[] user_func_hash = new UserFuncHash['z'-'a'+1];
+		
+		    public class NestInfo{
+		        public const int LABEL = 0;
+		        public const int FOR   = 1;
+		        public NestInfo previous = null, next = null;
+		        public int  nest_mode;
+		        public CharPtr next_script; // points into script_buffer; used in gosub and for
+		        public int  var_no, to, step; // used in for
+		        public bool textgosub_flag; // used in textgosub and pretextgosub
+		        public int  rgosub_click_state; // used for rgosub
+		        public bool rgosub_1byte_mode; // used for rgosub
+		
 //		        NestInfo()
 //		        : previous(NULL), next(NULL), nest_mode(LABEL),
 //		          next_script(NULL), var_no(0), to(0), step(0),
 //		          textgosub_flag(false),
 //		          rgosub_click_state(CLICK_NONE), rgosub_1byte_mode(false) {}
 //		        //pointers previous, next, & next_script do not need to be freed
-//		    } last_tilde;
+		    }
+			public NestInfo last_tilde = new NestInfo();
 //		
 //		    enum { SYSTEM_NULL        = 0,
 //		           SYSTEM_SKIP        = 1,
@@ -289,7 +291,7 @@ namespace onscripter_csharp
 //		           SYSTEM_YESNO       = 8,
 //		           SYSTEM_AUTOMODE    = 9,
 //		           SYSTEM_END         = 10
-//		    };
+//		    }
 		    public const int RET_NOMATCH   = 0,
 		           RET_SKIP_LINE = 1,
 		           RET_CONTINUE  = 2,
@@ -308,9 +310,9 @@ namespace onscripter_csharp
 //		#if MSC_VER <= 1200
 //			protected:
 //		#endif
-//		    enum{ NORMAL_MODE, DEFINE_MODE };
-//		    int current_mode;
-//		    int debug_level;
+		    public const int NORMAL_MODE = 0, DEFINE_MODE = 1;
+		    public int current_mode;
+		    public int debug_level;
 //		
 //		#ifdef MACOSX
 //		    bool is_bundled;
@@ -319,36 +321,36 @@ namespace onscripter_csharp
 //		    char *bundle_app_name;
 //		#endif
 //		    char *cmdline_game_id;
-//		    DirPaths archive_path;
-//		    DirPaths nsa_path;
-//		    int nsa_offset;
-//		    bool globalon_flag;
-//		    bool labellog_flag;
-//		    bool filelog_flag;
-//		    bool kidokuskip_flag;
-//		    bool kidokumode_flag;
-//		
-//		    bool clickskippage_flag;
-//		
-//		    int z_order;
-//		    bool rmode_flag;
-//		    bool windowback_flag;
-//		    bool btnnowindowerase_flag;
-//		    bool usewheel_flag;
-//		    bool useescspc_flag;
-//		    bool mode_wave_demo_flag;
-//		    bool mode_saya_flag;
-//		    bool mode_ext_flag;
-//		    bool force_button_shortcut_flag;
-//		    bool rubyon_flag;
-//		    bool rubyon2_flag;
-//		    bool zenkakko_flag;
-//		    bool pagetag_flag;
-//		    int  windowchip_sprite_no;
-//		    
-//		    int string_buffer_offset;
-//		
-//		    NestInfo root_nest_info, *last_nest_info;
+		    DirPaths archive_path = new DirPaths();
+		    public DirPaths nsa_path = new DirPaths();
+		    public int nsa_offset = 0;
+		    public bool globalon_flag;
+		    public bool labellog_flag;
+		    public bool filelog_flag;
+		    public bool kidokuskip_flag;
+		    public bool kidokumode_flag;
+		
+		    public bool clickskippage_flag;
+		
+		    public int z_order;
+		    public bool rmode_flag;
+		    public bool windowback_flag;
+		    public bool btnnowindowerase_flag;
+		    public bool usewheel_flag;
+		    public bool useescspc_flag;
+		    public bool mode_wave_demo_flag;
+		    public bool mode_saya_flag;
+		    public bool mode_ext_flag;
+		    public bool force_button_shortcut_flag;
+		    public bool rubyon_flag;
+		    public bool rubyon2_flag;
+		    public bool zenkakko_flag;
+		    public bool pagetag_flag;
+		    public int  windowchip_sprite_no;
+		    
+		    public int string_buffer_offset;
+		
+		    public NestInfo root_nest_info = new NestInfo(), last_nest_info = null;
 //		    ScriptHandler::LabelInfo current_label_info;
 //		    int current_line;
 //		
@@ -431,10 +433,10 @@ namespace onscripter_csharp
 //		    int lookback_sp[2];
 //		    uchar3 lookback_color;
 //		    
-//		    /* ---------------------------------------- */
-//		    /* For loop related variables */
-//		    bool break_flag;
-//		    
+		    /* ---------------------------------------- */
+		    /* For loop related variables */
+		    public bool break_flag;
+		    
 //		    /* ---------------------------------------- */
 //		    /* Transmode related variables */
 //		    int trans_mode;
@@ -463,11 +465,11 @@ namespace onscripter_csharp
 //		    size_t save_data_len;
 //		    
 //		    bool errorsave;
-//		    
-//		    /* ---------------------------------------- */
-//		    /* Text related variables */
-//		    char *default_env_font;
-//		    int default_text_speed[3];
+		    
+		    /* ---------------------------------------- */
+		    /* Text related variables */
+		    public CharPtr default_env_font;
+		    public int[] default_text_speed = new int[3];
 //		    struct Page{
 //		        struct Page *next, *previous;
 //		
@@ -489,13 +491,13 @@ namespace onscripter_csharp
 //		            return 0;
 //		        };
 //		    } *page_list, *start_page, *current_page; // ring buffer
-//		    int  max_page_list;
-//		    int  clickstr_line;
-//		    int  clickstr_state;
-//		    int  linepage_mode;
-//		    int  num_chars_in_sentence;
-//		    bool english_mode;
-//		
+		    public int  max_page_list;
+		    public int  clickstr_line;
+		    public int  clickstr_state;
+		    public int  linepage_mode;
+		    public int  num_chars_in_sentence;
+		    public bool english_mode;
+		
 //		    struct Kinsoku {
 //		        char chr[2];
 //		    } *start_kinsoku, *end_kinsoku; //Mion: for kinsoku chars
@@ -507,17 +509,17 @@ namespace onscripter_csharp
 //		    /* ---------------------------------------- */
 //		    /* Sound related variables */
 //		    MusicStruct music_struct;
-//		    int music_volume;
-//		    int voice_volume;
-//		    int se_volume;
-//		    bool use_default_volume;
-//		
-//		    enum { CLICKVOICE_NORMAL  = 0,
-//		           CLICKVOICE_NEWPAGE = 1,
-//		           CLICKVOICE_NUM     = 2
-//		    };
-//		    char *clickvoice_file_name[CLICKVOICE_NUM];
-//		
+		    public int music_volume;
+		    public int voice_volume;
+		    public int se_volume;
+		    public bool use_default_volume;
+		
+		    public const int CLICKVOICE_NORMAL  = 0;
+		    public const int CLICKVOICE_NEWPAGE = 1;
+		    public const int CLICKVOICE_NUM     = 2;
+		    
+		    public CharPtr[] clickvoice_file_name = new CharPtr[CLICKVOICE_NUM];
+		
 //		    enum { SELECTVOICE_OPEN   = 0,
 //		           SELECTVOICE_OVER   = 1,
 //		           SELECTVOICE_SELECT = 2,
@@ -615,8 +617,8 @@ namespace onscripter_csharp
 		
 		    ScriptHandler script_h = new ScriptHandler();
 		    
-//		    unsigned char *key_table;
-//		
+		    public UnsignedCharPtr key_table;
+		
 //		    void createKeyTable( const char *key_exe );
 		};
 		

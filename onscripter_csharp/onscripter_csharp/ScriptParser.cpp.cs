@@ -581,7 +581,7 @@ namespace onscripter_csharp
 //			    debug_level++;
 			}
 			
-			public void errorAndCont( CharPtr str, CharPtr reason, CharPtr title, bool is_simple )
+			public void errorAndCont( CharPtr str, CharPtr reason = null, CharPtr title = null, bool is_simple = false )
 			{
 //			    if (title == NULL)
 //			        title = "Parse Issue";
@@ -1046,7 +1046,7 @@ namespace onscripter_csharp
 			}
 //			#endif
 			
-			public void setStr( CharPtr[] dst, CharPtr src, int num )
+			public void setStr( ref CharPtr dst, CharPtr src, int num=-1 )
 			{
 //			    if ( *dst ) delete[] *dst;
 //			    *dst = NULL;

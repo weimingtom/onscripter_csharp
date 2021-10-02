@@ -47,9 +47,9 @@ namespace onscripter_csharp
 //		#include "SarReader.h"
 //		#define WRITE_LENGTH 4096
 		
-		public partial class SarReader {
+		public partial class SarReader : DirectReader {
 			public SarReader( DirPaths path, UnsignedCharPtr key_table )
-//			        :DirectReader( path, key_table )
+			        :base( path, key_table )
 			{
 //			    root_archive_info = last_archive_info = &archive_info;
 //			    num_of_sar_archives = 0;
@@ -60,7 +60,7 @@ namespace onscripter_csharp
 //			    close();
 //			}
 			
-			public int open( CharPtr name )
+			public override int open( CharPtr name )
 			{
 				return 0;
 //			    ArchiveInfo* info = new ArchiveInfo();
@@ -368,7 +368,7 @@ namespace onscripter_csharp
 			
 //			#endif //TOOLS_BUILD
 			
-			public int close()
+			public override int close()
 			{
 				return 0;
 //			    ArchiveInfo *info = archive_info.next;
@@ -383,13 +383,13 @@ namespace onscripter_csharp
 //			    return 0;
 			}
 			
-			public CharPtr getArchiveName()
+			public override CharPtr getArchiveName()
 			{
 				return null;
 //			    return "sar";
 			}
 			
-			public int getNumFiles(){
+			public override int getNumFiles(){
 				return 0;
 //			    ArchiveInfo *info = archive_info.next;
 //			    int num = 0;
@@ -423,7 +423,7 @@ namespace onscripter_csharp
 //			    return i;
 			}
 			
-			public uint getFileLength( CharPtr file_name )
+			public override uint getFileLength( CharPtr file_name )
 			{
 				return 0;
 //			#ifndef TOOLS_BUILD
@@ -475,7 +475,7 @@ namespace onscripter_csharp
 //			    return ret;
 			}
 			
-			public uint getFile( CharPtr file_name, UnsignedCharPtr buf, ref int location )
+			public virtual uint getFile( CharPtr file_name, UnsignedCharPtr buf, ref int location )
 			{
 				return 0;
 //			    size_t ret;
@@ -492,7 +492,7 @@ namespace onscripter_csharp
 //			    return j;
 			}
 			
-			public FileInfo getFileByIndex( uint index )
+			public override FileInfo getFileByIndex( uint index )
 			{
 				return null;
 //			    ArchiveInfo *info = archive_info.next;

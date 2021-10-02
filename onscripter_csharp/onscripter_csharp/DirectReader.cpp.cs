@@ -84,7 +84,7 @@ namespace onscripter_csharp
 //		#define N (1 << EI)  /* buffer size */
 //		#define F ((1 << EJ) + P)  /* lookahead buffer size */
 		
-		public partial class DirectReader
+		public partial class DirectReader : BaseReader
 		{
 			public DirectReader(DirPaths path, UnsignedCharPtr key_table )
 			{
@@ -135,7 +135,7 @@ namespace onscripter_csharp
 //			    }
 //			}
 			
-			bool hasTwoByteChar(CharPtr str)
+			public bool hasTwoByteChar(CharPtr str)
 			{
 				return false;
 //			    const char *ptr = str;
@@ -147,7 +147,7 @@ namespace onscripter_csharp
 //			    return false;
 			}
 			
-			FILEPtr fopen(CharPtr path, CharPtr mode)
+			public FILEPtr fopen(CharPtr path, CharPtr mode)
 			{
 				return null;
 //			    //NOTE: path is likely SJIS, but if called by getFileHandle on
@@ -262,7 +262,7 @@ namespace onscripter_csharp
 //			    return fp;
 			}
 			
-			byte readChar( FILEPtr fp )
+			public byte readChar( FILEPtr fp )
 			{
 				return 0;
 //			    unsigned char ret = 0;
@@ -273,7 +273,7 @@ namespace onscripter_csharp
 //			    return ret;
 			}
 			
-			ushort readShort( FILEPtr fp )
+			public ushort readShort( FILEPtr fp )
 			{
 				return 0;
 //			    unsigned short ret = 0;
@@ -285,7 +285,7 @@ namespace onscripter_csharp
 //			    return ret;
 			}
 			
-			ulong readLong( FILEPtr fp )
+			public ulong readLong( FILEPtr fp )
 			{
 				return 0;
 //			    unsigned long ret = 0;
@@ -301,13 +301,13 @@ namespace onscripter_csharp
 //			    return ret;
 			}
 			
-			void writeChar( FILEPtr fp, byte ch )
+			public void writeChar( FILEPtr fp, byte ch )
 			{
 //			    if (fwrite( &ch, 1, 1, fp ) != 1)
 //			        fputs("Warning: writeChar failed\n", stderr);
 			}
 			
-			void writeShort( FILEPtr fp, ushort ch )
+			public void writeShort( FILEPtr fp, ushort ch )
 			{
 //			    unsigned char buf[2];
 //			
@@ -317,7 +317,7 @@ namespace onscripter_csharp
 //			        fputs("Warning: writeShort failed\n", stderr);
 			}
 			
-			void writeLong( FILEPtr fp, ulong ch )
+			public void writeLong( FILEPtr fp, ulong ch )
 			{
 //			    unsigned char buf[4];
 //			    
@@ -329,48 +329,48 @@ namespace onscripter_csharp
 //			        fputs("Warning: writeLong failed\n", stderr);
 			}
 			
-			ushort swapShort( ushort ch )
+			public ushort swapShort( ushort ch )
 			{
 				return 0;
 //			    return ((ch & 0xff00) >> 8) | ((ch & 0x00ff) << 8);
 			}
 			
-			ulong swapLong( ulong ch )
+			public ulong swapLong( ulong ch )
 			{
 				return 0;
 //			    return ((ch & 0xff000000) >> 24) | ((ch & 0x00ff0000) >> 8) |
 //			           ((ch & 0x0000ff00) << 8) | ((ch & 0x000000ff) << 24);
 			}
 			
-			int open( CharPtr name )
+			public override int open( CharPtr name )
 			{
 			    return 0;
 			}
 			
-			int close()
+			public override int close()
 			{
 			    return 0;
 			}
 
 			
-			CharPtr getArchiveName()
+			public override CharPtr getArchiveName()
 			{
 				return null;
 //			    return "direct";
 			}
 			
-			int getNumFiles()
+			public override int getNumFiles()
 			{
 			    return 0;
 			}
 			    
-			void registerCompressionType( CharPtr ext, int type )
+			public override void registerCompressionType( CharPtr ext, int type )
 			{
 //			    last_registered_compression_type->next = new RegisteredCompressionType(ext, type);
 //			    last_registered_compression_type = last_registered_compression_type->next;
 			}
 			    
-			int getRegisteredCompressionType( CharPtr file_name )
+			public int getRegisteredCompressionType( CharPtr file_name )
 			{
 				return 0;
 //			    const char *ext_buf = file_name + strlen(file_name);
@@ -392,7 +392,7 @@ namespace onscripter_csharp
 //			    return NO_COMPRESSION;
 			}
 			    
-			FileInfo getFileByIndex( uint index )
+			public override FileInfo getFileByIndex( uint index )
 			{
 				return null;
 //			    DirectReader::FileInfo fi;
@@ -400,7 +400,7 @@ namespace onscripter_csharp
 //			    return fi;
 			}
 			
-			FILEPtr getFileHandle( CharPtr file_name, ref int compression_type, ref uint length )
+			public FILEPtr getFileHandle( CharPtr file_name, ref int compression_type, ref uint length )
 			{
 				return null;
 //			    //NOTE: file_name is assumed to use SJIS encoding
@@ -481,7 +481,7 @@ namespace onscripter_csharp
 //			    return fp;
 			}
 			
-			uint getFileLength( CharPtr file_name )
+			public override uint getFileLength( CharPtr file_name )
 			{
 				return 0;
 //			    int compression_type;
@@ -493,7 +493,7 @@ namespace onscripter_csharp
 //			    return len;
 			}
 			
-			uint getFile( CharPtr file_name, UnsignedCharPtr buffer,
+			public override uint getFile( CharPtr file_name, UnsignedCharPtr buffer,
 			                              IntPtr location )
 			{
 				return 0;
@@ -524,7 +524,7 @@ namespace onscripter_csharp
 //			    return total;
 			}
 			
-			void convertFromSJISToEUC( CharPtr buf )
+			public void convertFromSJISToEUC( CharPtr buf )
 			{
 //			    int i = 0;
 //			    while ( buf[i] ) {
@@ -554,7 +554,7 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			void convertFromSJISToUTF8( CharPtr dst_buf, CharPtr src_buf )
+			public void convertFromSJISToUTF8( CharPtr dst_buf, CharPtr src_buf )
 			{
 //			#if defined(RECODING_FILENAMES) || defined(UTF8_FILESYSTEM)
 //			#if defined(MACOSX)
@@ -590,7 +590,7 @@ namespace onscripter_csharp
 //			#endif //RECODING_FILENAMES || UTF8_FILESYSTEM, WIN32
 			}
 			
-			int getbit( FILEPtr fp, int n )
+			public int getbit( FILEPtr fp, int n )
 			{
 				return 0;
 //			    int i, x = 0;
@@ -614,7 +614,7 @@ namespace onscripter_csharp
 //			    return x;
 			}
 			
-			uint decodeSPB( FILEPtr fp, uint offset, UnsignedCharPtr buf )
+			public uint decodeSPB( FILEPtr fp, uint offset, UnsignedCharPtr buf )
 			{
 				return 0;
 //			    unsigned int count;
@@ -709,7 +709,7 @@ namespace onscripter_csharp
 //			    return total_size;
 			}
 			
-			uint decodeLZSS( ArchiveInfo ai, int no, UnsignedCharPtr buf )
+			public uint decodeLZSS( ArchiveInfo ai, int no, UnsignedCharPtr buf )
 			{
 				return 0;
 //			    unsigned int count = 0;
@@ -741,7 +741,7 @@ namespace onscripter_csharp
 //			    return count;
 			}
 			
-			uint getDecompressedFileLength( int type, FILEPtr fp, uint offset )
+			public uint getDecompressedFileLength( int type, FILEPtr fp, uint offset )
 			{
 				return 0;
 //			    size_t length=0;

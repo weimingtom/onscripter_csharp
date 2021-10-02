@@ -55,10 +55,10 @@ namespace onscripter_csharp
 //		#define DELIMITER '/'
 //		#endif
 //		
-//		#define MAX_ERRBUF_LEN 512
+		public const int MAX_ERRBUF_LEN = 512;
 		
-//		struct BaseReader
-//		{
+		public abstract class BaseReader
+		{
 //		    enum {
 //		        NO_COMPRESSION   = 0,
 //		        SPB_COMPRESSION  = 1,
@@ -103,24 +103,24 @@ namespace onscripter_csharp
 //		            if (fi_list) delete[] fi_list;
 //		        }
 //		    };
-//		
-//		    //static char errbuf[MAX_ERRBUF_LEN]; // for passing back error details
-//		
-//		    virtual ~BaseReader(){};
-//		    
-//		    virtual int open( const char *name=NULL ) = 0;
-//		    virtual int close() = 0;
-//		    
-//		    virtual const char *getArchiveName() const = 0;
-//		    virtual int  getNumFiles() = 0;
-//		    virtual void registerCompressionType( const char *ext, int type ) = 0;
-//		
-//		    virtual struct FileInfo getFileByIndex( unsigned int index ) = 0;
-//		    //file_name parameter is assumed to use SJIS encoding
-//		    virtual size_t getFileLength( const char *file_name ) = 0;
-//		    virtual size_t getFile( const char *file_name, unsigned char *buffer, int *location=NULL ) = 0;
-//		};
-//		
+		
+			public static char[] errbuf = new char[MAX_ERRBUF_LEN]; // for passing back error details
+		
+//		    virtual ~BaseReader(){}
+		    
+		    public abstract int open( CharPtr name=null );
+		    public abstract int close();
+		    
+		    public abstract CharPtr getArchiveName();
+		    public abstract int  getNumFiles();
+		    public abstract void registerCompressionType( CharPtr ext, int type );
+		
+		    public abstract FileInfo getFileByIndex( uint index );
+		    //file_name parameter is assumed to use SJIS encoding
+		    public abstract uint getFileLength( CharPtr file_name );
+		    public abstract uint getFile( CharPtr file_name, UnsignedCharPtr buffer, IntPtr location=null );
+		}
+		
 //		#endif // __BASE_READER_H__
 	
 	

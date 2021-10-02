@@ -45,14 +45,14 @@ namespace onscripter_csharp
 			
 		public partial class DirPaths
 		{
-			public DirPaths( CharPtr new_paths )
+			public DirPaths( CharPtr new_paths = null )
 //			: num_paths(0), paths(NULL), all_paths(NULL)
 			{
 			    //printf("DirPaths cons\n");
 //			    add(new_paths);
 			}
 			
-			DirPaths( DirPaths dp )
+			public DirPaths( DirPaths dp )
 			{
 			    //printf("DirPaths copy cons\n");
 //			    set(dp);
@@ -67,7 +67,7 @@ namespace onscripter_csharp
 //			    return *this;
 //			}
 			
-			void set( DirPaths dp )
+			public void set( DirPaths dp )
 			{
 //			    memcpy(this, &dp, sizeof(DirPaths));
 //			    if (paths != NULL) {
@@ -105,12 +105,12 @@ namespace onscripter_csharp
 //			    }
 //			}
 //			
-			void add( DirPaths dp )
+			public void add( DirPaths dp )
 			{
 //			    add(dp.get_all_paths());
 			}
 			
-			void add( CharPtr new_paths )
+			public void add( CharPtr new_paths )
 			{
 //			    //don't add null paths
 //			    if (new_paths == NULL) return;
@@ -211,7 +211,7 @@ namespace onscripter_csharp
 //			    snprintf(dptr, len, "%s", paths[cur_num]);
 			}
 			
-			CharPtr get_path( int n )
+			public CharPtr get_path( int n )
 			{
 				return null;
 //			    if ((n == 0) || ((n > 0) && (n < num_paths))) {
@@ -224,7 +224,7 @@ namespace onscripter_csharp
 			}
 			
 			// Returns a delimited string containing all paths
-			CharPtr get_all_paths()
+			public CharPtr get_all_paths()
 			{
 				return null;
 //			    if (all_paths != NULL)
@@ -233,14 +233,14 @@ namespace onscripter_csharp
 //			        return "";
 			}
 			
-			int get_num_paths() 
+			public int get_num_paths() 
 			{
 				return 0;
 //			    return num_paths;
 			}
 			
 			// Returns the length of the longest path
-			uint max_path_len()
+			public uint max_path_len()
 			{
 				return 0;
 //			    size_t len = 0;
