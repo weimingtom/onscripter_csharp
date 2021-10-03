@@ -11,6 +11,11 @@ using System;
 namespace onscripter_csharp
 {
 	public partial class ONScripter {
+		public const int EOF = -1; //FIXME:????
+		public const int SEEK_SET = 1; //FIXME:
+		public const int SEEK_END = 2; //FIXME:
+		
+		
 		public class time_t {
 			
 		}
@@ -78,6 +83,23 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static void memcpy(IntPtr s1, IntPtr s2, uint length)
+		{
+			
+		}
+		public static void memcpy(UnsignedCharPtr s1, UnsignedCharPtr s2, uint length)
+		{
+			
+		}
+		public static void memcpy(CharPtr s1, UnsignedCharPtr s2, uint length)
+		{
+			
+		}
+		public static void memcpy(UnsignedCharPtr s1, CharPtr s2, uint length)
+		{
+			
+		}
+		
 		
 		public static CharPtr strrchr(CharPtr str, char ch)
 		{
@@ -98,5 +120,61 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		
+		public static FILEPtr fopen( CharPtr path, CharPtr mode)
+		{
+			return null;
+		}
+		
+		public static int fgetc(FILEPtr fp)
+		{
+			return 0;
+		}
+		
+		public static void fclose(FILEPtr fp)
+		{
+			
+		}
+		
+		public static void fseek(FILEPtr fp, int pos, int mode)
+		{
+			
+		}
+
+		public static long ftell(FILEPtr fp)
+		{
+			return 0;
+		}
+		
+		public static uint fread(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
+		{
+			return 0;
+		}
+		public static uint fwrite(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
+		{
+			return 0;
+		}
+		public static uint fwrite(CharPtr buffer, uint size, uint count, FILEPtr fp)
+		{
+			return 0;
+		}
+		
+		public static int remove(CharPtr str)
+		{
+			return 0;
+		}
+		public static int rename(CharPtr str,CharPtr str2)
+		{
+			return 0;
+		}
+		public static int fputs(CharPtr buffer, FILEPtr fp)
+		{
+			return 0;
+		}
+		public static int fputc(char buffer, FILEPtr fp)
+		{
+			return 0;
+		}
+		
 	}
 }

@@ -717,647 +717,638 @@ namespace onscripter_csharp
 			
 			public void saveGlovalData()
 			{
-//			    if ( !globalon_flag ) return;
-//			
-//			    file_io_buf_ptr = 0;
-//			    writeVariables( script_h.global_variable_border, VARIABLE_RANGE, false );
-//			    allocFileIOBuf();
-//			    writeVariables( script_h.global_variable_border, VARIABLE_RANGE, true );
-//			
-//			    if (saveFileIOBuf( "gloval.sav" ))
-//			        errorAndExit( "can't open 'gloval.sav' for writing", NULL, "I/O Error" );
+			    if ( !globalon_flag ) return;
+			
+			    file_io_buf_ptr = 0;
+			    writeVariables( script_h.global_variable_border, VARIABLE_RANGE, false );
+			    allocFileIOBuf();
+			    writeVariables( script_h.global_variable_border, VARIABLE_RANGE, true );
+			
+			    if (0!=saveFileIOBuf( "gloval.sav" ))
+			        errorAndExit( "can't open 'gloval.sav' for writing", null, "I/O Error" );
 			}
 			
 			public void allocFileIOBuf()
 			{
-//			    if (file_io_buf_ptr > file_io_buf_len){
-//			        file_io_buf_len = file_io_buf_ptr;
-//			        if (file_io_buf) delete[] file_io_buf;
-//			        file_io_buf = new unsigned char[file_io_buf_len];
-//			
-//			        if (save_data_buf){
-//			            memcpy(file_io_buf, save_data_buf, save_data_len);
-//			            delete[] save_data_buf;
-//			        }
-//			        save_data_buf = new unsigned char[file_io_buf_len];
-//			        memcpy(save_data_buf, file_io_buf, save_data_len);
-//			    }
-//			    file_io_buf_ptr = 0;
+			    if (file_io_buf_ptr > file_io_buf_len){
+			        file_io_buf_len = file_io_buf_ptr;
+			        if (null!=file_io_buf) file_io_buf = null;//delete[] file_io_buf;
+			        file_io_buf = new UnsignedCharPtr(new byte[file_io_buf_len]);
+			
+			        if (null!=save_data_buf){
+			            memcpy(file_io_buf, save_data_buf, save_data_len);
+			            save_data_buf = null;//delete[] save_data_buf;
+			        }
+			        save_data_buf = new UnsignedCharPtr(new byte[file_io_buf_len]);
+			        memcpy(save_data_buf, file_io_buf, save_data_len);
+			    }
+			    file_io_buf_ptr = 0;
 			}
 			
-			public int saveFileIOBuf( CharPtr filename, int offset, CharPtr savestr )
+			public int saveFileIOBuf( CharPtr filename, int offset=0, CharPtr savestr=null )
 			{
-				return 0;
-//			    FILE *fp;
-//			    int retval = 0;
-//			    size_t ret = 0;
-//			    bool usesavedir = true;
-//			    // all files except envdata go in savedir
-//			    if (!strcmp( filename, "envdata" ))
-//			        usesavedir = false;
-//			
-//			    //Mion: create a temporary file, to avoid overwriting valid files
-//			    // (if an error occurs)
-//			    const char *root = script_h.save_path;
-//			    if (usesavedir && script_h.savedir)
-//			        root = script_h.savedir;
-//			
-//			    char *fullname = new char[strlen(root)+strlen(filename)+1];
-//			    sprintf( fullname, "%s%s", root, filename );
-//			    char *tmp = new char[strlen(fullname) + 9];
-//			    sprintf(tmp, "%s.tmpfile", fullname);
-//			
-//			    if ( (fp = ::fopen( tmp, "wb" )) == NULL ) {
-//			        retval = -1;
-//			        goto save_io_cleanup;
-//			    }
-//			
-//			    ret = fwrite(file_io_buf+offset, 1, file_io_buf_ptr-offset, fp);
-//			
-//			    if (savestr){
-//			        size_t savelen = strlen(savestr);
-//			        if ( (fputc('"', fp) == EOF) ||
-//			             (fwrite(savestr, 1, savelen, fp) != savelen) ||
-//			             (fputs("\"*", fp) == EOF) ) {
-//			            snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                     "error writing to '%s'", filename);
-//			            errorAndCont( script_h.errbuf, NULL, "I/O Issue" );
-//			        }
-//			    }
-//			
-//			    fclose(fp);
-//			
-//			    if (ret != file_io_buf_ptr-offset) {
-//			        retval = -2;
-//			        goto save_io_cleanup;
-//			    }
-//			
-//			    //now rename the tmp file and see if errors occur
-//			    //(using "ret =" to avoid compiler warnings about unused return values)
-//			    ret = remove(fullname); //ignore errors (like if fullname doesn't exist)
-//			    if (rename(tmp, fullname)) {
-//			        retval = -1;
-//			        goto save_io_cleanup;
-//			    }
-//			
-//			  save_io_cleanup:
-//			    delete[] fullname;
-//			    delete[] tmp;
-//			
-//			    return retval;
+				FILEPtr fp;
+			    int retval = 0;
+			    uint ret = 0;
+			    bool usesavedir = true;
+			    // all files except envdata go in savedir
+			    if (0==strcmp( filename, "envdata" ))
+			        usesavedir = false;
+			
+			    //Mion: create a temporary file, to avoid overwriting valid files
+			    // (if an error occurs)
+			    CharPtr root = script_h.save_path;
+			    if (usesavedir && null!=script_h.savedir)
+			        root = script_h.savedir;
+			
+			    CharPtr fullname = new char[strlen(root)+strlen(filename)+1];
+			    sprintf( fullname, "%s%s", root, filename );
+			    CharPtr tmp = new char[strlen(fullname) + 9];
+			    sprintf(tmp, "%s.tmpfile", fullname);
+			
+			    if ( (fp = ONScripter.fopen( tmp, "wb" )) == null ) {
+			        retval = -1;
+			        goto save_io_cleanup;
+			    }
+			
+			    ret = (uint)fwrite(new UnsignedCharPtr(file_io_buf,offset), 1, (uint)(file_io_buf_ptr-offset), fp);
+			
+			    if (null!=savestr){
+			        uint savelen = strlen(savestr);
+			        if ( (fputc('"', fp) == EOF) ||
+			             (fwrite(savestr, 1, savelen, fp) != savelen) ||
+			             (fputs("\"*", fp) == EOF) ) {
+			            snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                     "error writing to '%s'", filename);
+			            errorAndCont( script_h.errbuf, null, "I/O Issue" );
+			        }
+			    }
+			
+			    fclose(fp);
+			
+			    if (ret != file_io_buf_ptr-offset) {
+			        retval = -2;
+			        goto save_io_cleanup;
+			    }
+			
+			    //now rename the tmp file and see if errors occur
+			    //(using "ret =" to avoid compiler warnings about unused return values)
+			    ret = (uint)remove(fullname); //ignore errors (like if fullname doesn't exist)
+			    if (0!=rename(tmp, fullname)) {
+			        retval = -1;
+			        goto save_io_cleanup;
+			    }
+			
+			  save_io_cleanup:
+			    fullname = null;//delete[] fullname;
+			    tmp = null;//delete[] tmp;
+			
+			    return retval;
 			}
 			
 			public int loadFileIOBuf( CharPtr filename )
 			{
-				return 0;
-//			    FILE *fp;
-//			    bool usesavedir = true;
-//			    if (!strcmp( filename, "envdata" ))
-//			        usesavedir = false;
-//			    if ( (fp = fopen( filename, "rb", true, usesavedir )) == NULL )
-//			        return -1;
-//			    
-//			    fseek(fp, 0, SEEK_END);
-//			    size_t len = ftell(fp);
-//			    file_io_buf_ptr = len+1;
-//			    allocFileIOBuf();
-//			
-//			    fseek(fp, 0, SEEK_SET);
-//			    size_t ret = fread(file_io_buf, 1, len, fp);
-//			    fclose(fp);
-//			    file_io_buf[len] = 0;
-//			
-//			    if (ret != len) return -2;
-//			    
-//			    return 0;
+				FILEPtr fp;
+			    bool usesavedir = true;
+			    if (0==strcmp( filename, "envdata" ))
+			        usesavedir = false;
+			    if ( (fp = fopen( filename, "rb", true, usesavedir )) == null )
+			        return -1;
+			    
+			    fseek(fp, 0, SEEK_END);
+			    uint len = (uint)ftell(fp);
+			    file_io_buf_ptr = len+1;
+			    allocFileIOBuf();
+			
+			    fseek(fp, 0, SEEK_SET);
+			    uint ret = fread(file_io_buf, 1, len, fp);
+			    fclose(fp);
+			    file_io_buf[len] = 0;
+			
+			    if (ret != len) return -2;
+			    
+			    return 0;
 			}
 			
 			public void writeChar(char c, bool output_flag)
 			{
-//			    if (output_flag)
-//			        file_io_buf[file_io_buf_ptr] = (unsigned char)c;
-//			    file_io_buf_ptr++;
+			    if (output_flag)
+			        file_io_buf[file_io_buf_ptr] = (byte)c;
+			    file_io_buf_ptr++;
 			}
 			
 			public char readChar()
 			{
-				return '\0';
-//			    if (file_io_buf_ptr >= file_io_buf_len ) return 0;
-//			    return (char)file_io_buf[file_io_buf_ptr++];
+				if (file_io_buf_ptr >= file_io_buf_len ) return (char)0;
+			    return (char)file_io_buf[file_io_buf_ptr++];
 			}
 			
 			public void writeInt(int i, bool output_flag)
 			{
-//			    if (output_flag){
-//			        file_io_buf[file_io_buf_ptr++] = i & 0xff;
-//			        file_io_buf[file_io_buf_ptr++] = (i >> 8) & 0xff;
-//			        file_io_buf[file_io_buf_ptr++] = (i >> 16) & 0xff;
-//			        file_io_buf[file_io_buf_ptr++] = (i >> 24) & 0xff;
-//			    }
-//			    else{
-//			        file_io_buf_ptr += 4;
-//			    }
+			    if (output_flag){
+					file_io_buf[file_io_buf_ptr++] = (byte)(i & 0xff);
+			        file_io_buf[file_io_buf_ptr++] = (byte)((i >> 8) & 0xff);
+			        file_io_buf[file_io_buf_ptr++] = (byte)((i >> 16) & 0xff);
+					file_io_buf[file_io_buf_ptr++] = (byte)((i >> 24) & 0xff);
+			    }
+			    else{
+			        file_io_buf_ptr += 4;
+			    }
 			}
 			
 			public int readInt()
 			{
-				return 0;
-//			    if (file_io_buf_ptr+3 >= file_io_buf_len ) return 0;
-//			    
-//			    int i =
-//			        (unsigned int)file_io_buf[file_io_buf_ptr+3] << 24 |
-//			        (unsigned int)file_io_buf[file_io_buf_ptr+2] << 16 |
-//			        (unsigned int)file_io_buf[file_io_buf_ptr+1] << 8 |
-//			        (unsigned int)file_io_buf[file_io_buf_ptr];
-//			    file_io_buf_ptr += 4;
-//			
-//			    return i;
+				if (file_io_buf_ptr+3 >= file_io_buf_len ) return 0;
+			    
+				int i = (int)(
+			        (uint)file_io_buf[file_io_buf_ptr+3] << 24 |
+			        (uint)file_io_buf[file_io_buf_ptr+2] << 16 |
+			        (uint)file_io_buf[file_io_buf_ptr+1] << 8 |
+			        (uint)file_io_buf[file_io_buf_ptr]);
+			    file_io_buf_ptr += 4;
+			
+			    return i;
 			}
 			
 			public void writeStr(CharPtr s, bool output_flag)
 			{
-//			    if ( s && s[0] ){
-//			        if (output_flag)
-//			            memcpy( file_io_buf + file_io_buf_ptr,
-//			                    s,
-//			                    strlen(s) );
-//			        file_io_buf_ptr += strlen(s);
-//			    }
-//			    writeChar( 0, output_flag );
+			    if ( null!=s && 0!=s[0] ){
+			        if (output_flag)
+			        	memcpy( new UnsignedCharPtr(file_io_buf, (int)file_io_buf_ptr),
+			                    s,
+			                    strlen(s) );
+			        file_io_buf_ptr += strlen(s);
+			    }
+				writeChar( (char)0, output_flag );
 			}
 			
-			public void readStr(CharPtr[] s)
+			public void readStr(ref CharPtr s)
 			{
-//			    int counter = 0;
-//			
-//			    while (file_io_buf_ptr+counter < file_io_buf_len){
-//			        if (file_io_buf[file_io_buf_ptr+counter++] == 0) break;
-//			    }
-//			    
-//			    if (*s) delete[] *s;
-//			    *s = NULL;
-//			    
-//			    if (counter > 1){
-//			        *s = new char[counter+1];
-//			        memcpy(*s, file_io_buf + file_io_buf_ptr, counter);
-//			        (*s)[counter] = 0;
-//			    }
-//			    file_io_buf_ptr += counter;
+			    int counter = 0;
+			
+			    while (file_io_buf_ptr+counter < file_io_buf_len){
+			    	if (file_io_buf[(int)(file_io_buf_ptr+counter++)] == 0) break;
+			    }
+			    
+			    if (null!=s) s = null;//delete[] *s;
+			    s = null;
+			    
+			    if (counter > 1){
+			        s = new char[counter+1];
+			        memcpy(s, new UnsignedCharPtr(file_io_buf, (int)file_io_buf_ptr), (uint)counter);
+			        s[counter] = (char)0;
+			    }
+			    file_io_buf_ptr = (uint)(file_io_buf_ptr + counter); //file_io_buf_ptr += counter;
 			}
 			
 			public void writeVariables( int from, int to, bool output_flag )
 			{
-//			    for (int i=from ; i<to ; i++){
-//			        writeInt( script_h.getVariableData(i).num, output_flag );
-//			        writeStr( script_h.getVariableData(i).str, output_flag );
-//			    }
+			    for (int i=from ; i<to ; i++){
+			        writeInt( script_h.getVariableData(i).num, output_flag );
+			        writeStr( script_h.getVariableData(i).str, output_flag );
+			    }
 			}
 			
 			public void readVariables( int from, int to )
 			{
-//			    for (int i=from ; i<to ; i++){
-//			        script_h.getVariableData(i).num = readInt();
-//			        readStr( &script_h.getVariableData(i).str );
-//			    }
+			    for (int i=from ; i<to ; i++){
+			        script_h.getVariableData(i).num = readInt();
+			        readStr( ref script_h.getVariableData(i).str );
+			    }
 			}
 			
 			public void writeArrayVariable( bool output_flag )
 			{
-//			    ScriptHandler::ArrayVariable *av = script_h.getRootArrayVariable();
-//			
-//			    while(av){
-//			        int i, dim = 1;
-//			        for ( i=0 ; i<av->num_dim ; i++ )
-//			            dim *= av->dim[i];
-//			        
-//			        for ( i=0 ; i<dim ; i++ ){
-//			            unsigned long ch = av->data[i];
-//			            if (output_flag){
-//			                file_io_buf[file_io_buf_ptr+3] = (unsigned char)((ch>>24) & 0xff);
-//			                file_io_buf[file_io_buf_ptr+2] = (unsigned char)((ch>>16) & 0xff);
-//			                file_io_buf[file_io_buf_ptr+1] = (unsigned char)((ch>>8)  & 0xff);
-//			                file_io_buf[file_io_buf_ptr]   = (unsigned char)(ch & 0xff);
-//			            }
-//			            file_io_buf_ptr += 4;
-//			        }
-//			        av = av->next;
-//			    }
+			    ScriptHandler.ArrayVariable av = script_h.getRootArrayVariable();
+			
+			    while(null!=av){
+			        int i, dim = 1;
+			        for ( i=0 ; i<av.num_dim ; i++ )
+			            dim *= av.dim[i];
+			        
+			        for ( i=0 ; i<dim ; i++ ){
+			        	ulong ch = (ulong)av.data[i];
+			            if (output_flag){
+			                file_io_buf[file_io_buf_ptr+3] = (byte)((ch>>24) & 0xff);
+			                file_io_buf[file_io_buf_ptr+2] = (byte)((ch>>16) & 0xff);
+			                file_io_buf[file_io_buf_ptr+1] = (byte)((ch>>8)  & 0xff);
+			                file_io_buf[file_io_buf_ptr]   = (byte)(ch & 0xff);
+			            }
+			            file_io_buf_ptr += 4;
+			        }
+			        av = av.next;
+			    }
 			}
 			
 			public void readArrayVariable()
 			{
-//			    ScriptHandler::ArrayVariable *av = script_h.getRootArrayVariable();
-//			
-//			    while(av){
-//			        int i, dim = 1;
-//			        for ( i=0 ; i<av->num_dim ; i++ )
-//			            dim *= av->dim[i];
-//			        
-//			        for ( i=0 ; i<dim ; i++ ){
-//			            unsigned long ret;
-//			            if (file_io_buf_ptr+3 >= file_io_buf_len ) return;
-//			            ret = file_io_buf[file_io_buf_ptr+3];
-//			            ret = ret << 8 | file_io_buf[file_io_buf_ptr+2];
-//			            ret = ret << 8 | file_io_buf[file_io_buf_ptr+1];
-//			            ret = ret << 8 | file_io_buf[file_io_buf_ptr];
-//			            file_io_buf_ptr += 4;
-//			            av->data[i] = ret;
-//			        }
-//			        av = av->next;
-//			    }
+			    ScriptHandler.ArrayVariable av = script_h.getRootArrayVariable();
+			
+			    while(null!=av){
+			        int i, dim = 1;
+			        for ( i=0 ; i<av.num_dim ; i++ )
+			            dim *= av.dim[i];
+			        
+			        for ( i=0 ; i<dim ; i++ ){
+			            ulong ret;
+			            if (file_io_buf_ptr+3 >= file_io_buf_len ) return;
+			            ret = file_io_buf[file_io_buf_ptr+3];
+			            ret = ret << 8 | file_io_buf[file_io_buf_ptr+2];
+			            ret = ret << 8 | file_io_buf[file_io_buf_ptr+1];
+			            ret = ret << 8 | file_io_buf[file_io_buf_ptr];
+			            file_io_buf_ptr += 4;
+			            av.data[i] = (int)ret;
+			        }
+			        av = av.next;
+			    }
 			}
 			
 			public void writeLog( ScriptHandler.LogInfo info )
 			{
-//			    file_io_buf_ptr = 0;
-//			    bool output_flag = false;
-//			    for (int n=0 ; n<2 ; n++){
-//			        int  i,j;
-//			        char buf[10];
-//			
-//			        sprintf( buf, "%d", info.num_logs );
-//			        for ( i=0 ; i<(int)strlen( buf ) ; i++ ) writeChar( buf[i], output_flag );
-//			        writeChar( 0x0a, output_flag );
-//			
-//			        ScriptHandler::LogLink *cur = info.root_log.next;
-//			        for ( i=0 ; i<info.num_logs ; i++ ){
-//			            writeChar( '"', output_flag );
-//			            for ( j=0 ; j<(int)strlen( cur->name ) ; j++ )
-//			                writeChar( cur->name[j] ^ 0x84, output_flag );
-//			            writeChar( '"', output_flag );
-//			            cur = cur->next;
-//			        }
-//			
-//			        if (n==1) break;
-//			        allocFileIOBuf();
-//			        output_flag = true;
-//			    }
-//			
-//			    if (saveFileIOBuf( info.filename )){
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                 "can't write to '%s'", info.filename);
-//			        errorAndExit( script_h.errbuf, NULL, "I/O Error" );
-//			    }
+			    file_io_buf_ptr = 0;
+			    bool output_flag = false;
+			    for (int n=0 ; n<2 ; n++){
+			        int  i,j;
+			        char[] buf = new char[10];
+			
+			        sprintf( buf, "%d", info.num_logs );
+			        for ( i=0 ; i<(int)strlen( buf ) ; i++ ) writeChar( buf[i], output_flag );
+			        writeChar( (char)0x0a, output_flag );
+			
+			        ScriptHandler.LogLink cur = info.root_log.next;
+			        for ( i=0 ; i<info.num_logs ; i++ ){
+			            writeChar( '"', output_flag );
+			            for ( j=0 ; j<(int)strlen( cur.name ) ; j++ )
+			            	writeChar( (char)(cur.name[j] ^ 0x84), output_flag );
+			            writeChar( '"', output_flag );
+			            cur = cur.next;
+			        }
+			
+			        if (n==1) break;
+			        allocFileIOBuf();
+			        output_flag = true;
+			    }
+			
+			    if (0!=saveFileIOBuf( info.filename )){
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                 "can't write to '%s'", info.filename);
+			        errorAndExit( script_h.errbuf, null, "I/O Error" );
+			    }
 			}
 			
 			public void readLog( ScriptHandler.LogInfo info )
 			{
-//			    script_h.resetLog( info );
-//			    
-//			    if (loadFileIOBuf( info.filename ) == 0){
-//			        int i, j, ch, count = 0;
-//			        char buf[100];
-//			
-//			        while( (ch = readChar()) != 0x0a ){
-//			            count = count * 10 + ch - '0';
-//			        }
-//			
-//			        for ( i=0 ; i<count ; i++ ){
-//			            readChar();
-//			            j = 0; 
-//			            while( (ch = readChar()) != '"' ) buf[j++] = ch ^ 0x84;
-//			            buf[j] = '\0';
-//			
-//			            script_h.findAndAddLog( info, buf, true );
-//			        }
-//			    }
+			    script_h.resetLog( info );
+			    
+			    if (loadFileIOBuf( info.filename ) == 0){
+			        int i, j, ch, count = 0;
+			        char[] buf = new char[100];
+			
+			        while( (ch = readChar()) != 0x0a ){
+			            count = count * 10 + ch - '0';
+			        }
+			
+			        for ( i=0 ; i<count ; i++ ){
+			            readChar();
+			            j = 0; 
+			            while( (ch = readChar()) != '"' ) buf[j++] = (char)(ch ^ 0x84);
+			            buf[j] = '\0';
+			
+			            script_h.findAndAddLog( info, buf, true );
+			        }
+			    }
 			}
 			
 			public void deleteNestInfo()
 			{
-//			    NestInfo *info = root_nest_info.next;
-//			    while(info){
-//			        NestInfo *tmp = info;
-//			        info = info->next;
-//			        delete tmp;
-//			    }
-//			    root_nest_info.next = NULL;
-//			    last_nest_info = &root_nest_info;
+			    NestInfo info = root_nest_info.next;
+			    while(null!=info){
+			        NestInfo tmp = info;
+			        info = info.next;
+			        tmp = null;
+			    }
+			    root_nest_info.next = null;
+			    last_nest_info = root_nest_info;
 			}
 			
-//			#ifndef NO_LAYER_EFFECTS
+			#if !NO_LAYER_EFFECTS
 			public void deleteLayerInfo()
 			{
-//			    while (layer_info) {
-//			        LayerInfo *tmp = layer_info;
-//			        layer_info = layer_info->next;
-//			        delete tmp;
-//			    }
+			    while (null!=layer_info) {
+			        LayerInfo tmp = layer_info;
+			        layer_info = layer_info.next;
+			        tmp = null;
+			    }
 			}
-//			#endif
+			#endif
 			
 			public void setStr( ref CharPtr dst, CharPtr src, int num=-1 )
 			{
-//			    if ( *dst ) delete[] *dst;
-//			    *dst = NULL;
-//			    
-//			    if ( src ){
-//			        if (num >= 0){
-//			            *dst = new char[ num + 1 ];
-//			            memcpy( *dst, src, num );
-//			            (*dst)[num] = '\0';
-//			        }
-//			        else{
-//			            *dst = new char[ strlen( src ) + 1];
-//			            strcpy( *dst, src );
-//			        }
-//			    }
+				if ( dst!=null ) dst = null;//delete[] *dst;
+			    dst = null;
+			    
+			    if ( src!=null ){
+			        if (num >= 0){
+			            dst = new char[ num + 1 ];
+			            memcpy( dst, src, (uint)num );
+			            dst[num] = '\0';
+			        }
+			        else{
+			            dst = new char[ strlen( src ) + 1];
+			            strcpy( dst, src );
+			        }
+			    }
 			}
 			
 			public void setCurrentLabel( CharPtr label )
 			{
-//			    current_label_info = script_h.lookupLabel( label );
-//			    current_line = script_h.getLineByAddress( current_label_info.start_address );
-//			    script_h.setCurrent( current_label_info.start_address );
+			    current_label_info = script_h.lookupLabel( label );
+			    current_line = script_h.getLineByAddress( current_label_info.start_address );
+			    script_h.setCurrent( current_label_info.start_address );
 			}
 			
 			public void readToken()
 			{
-//			    script_h.readToken();
-//			    string_buffer_offset = 0;
-//			
-//			    if (script_h.isText() && (linepage_mode > 0) &&
-//			        (script_h.getNext()[0] == 0x0a)){
-//			        // ugly work around
-//			        unsigned int len = strlen(script_h.getStringBuffer());
-//			        //Mion: text buffers don't end with newline anymore...
-//			        // checked next_script for the newline
-//			        if (script_h.getStringBuffer()[len-1] == '_'){
-//			            script_h.trimStringBuffer(1);
-//			        } else if ((script_h.getStringBuffer()[len-1] != '@') &&
-//			                   (script_h.getStringBuffer()[len-1] != '\\')){
-//			            if (linepage_mode == 1){
-//			                script_h.addStringBuffer('\\');
-//			            }
-//			            else {
-//			                // insert a clickwait-or-newpage
-//			                script_h.addStringBuffer('\\');
-//			                script_h.addStringBuffer('@');
-//			            }
-//			        }
-//			    }
+			    script_h.readToken();
+			    string_buffer_offset = 0;
+			
+			    if (script_h.isText() && (linepage_mode > 0) &&
+			        (script_h.getNext()[0] == 0x0a)){
+			        // ugly work around
+			        uint len = strlen(script_h.getStringBuffer());
+			        //Mion: text buffers don't end with newline anymore...
+			        // checked next_script for the newline
+			        if (script_h.getStringBuffer()[len-1] == '_'){
+			            script_h.trimStringBuffer(1);
+			        } else if ((script_h.getStringBuffer()[len-1] != '@') &&
+			                   (script_h.getStringBuffer()[len-1] != '\\')){
+			            if (linepage_mode == 1){
+			                script_h.addStringBuffer('\\');
+			            }
+			            else {
+			                // insert a clickwait-or-newpage
+			                script_h.addStringBuffer('\\');
+			                script_h.addStringBuffer('@');
+			            }
+			        }
+			    }
 			}
 			
 			public int readEffect( EffectLink effect )
 			{
-				return 0;
-//			    int num = 1;
-//			    
-//			    effect->effect = script_h.readInt();
-//			    if ( script_h.getEndStatus() & ScriptHandler::END_COMMA ){
-//			        num++;
-//			        effect->duration = script_h.readInt();
-//			        if ( script_h.getEndStatus() & ScriptHandler::END_COMMA ){
-//			            num++;
-//			            const char *buf = script_h.readStr();
-//			            effect->anim.setImageName( buf );
-//			        }
-//			        else
-//			            effect->anim.remove();
-//			    }
-//			    else if (effect->effect < 0 || effect->effect > 255){
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                 "effect %d out of range, changing to 0", effect->effect);
-//			        errorAndCont( script_h.errbuf );
-//			        effect->effect = 0; // to suppress error
-//			    }
-//			
-//			    //printf("readEffect %d: %d %d %s\n", num, effect->effect, effect->duration, effect->anim.image_name );
-//			    return num;
+				int num = 1;
+			    
+			    effect.effect = script_h.readInt();
+			    if ( (script_h.getEndStatus() & ScriptHandler.END_COMMA)!=0 ){
+			        num++;
+			        effect.duration = script_h.readInt();
+			        if ( (script_h.getEndStatus() & ScriptHandler.END_COMMA)!=0 ){
+			            num++;
+			            CharPtr buf = script_h.readStr();
+			            effect.anim.setImageName( buf );
+			        }
+			        else
+			            effect.anim.remove();
+			    }
+			    else if (effect.effect < 0 || effect.effect > 255){
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                 "effect %d out of range, changing to 0", effect.effect);
+			        errorAndCont( script_h.errbuf );
+			        effect.effect = 0; // to suppress error
+			    }
+			
+			    //printf("readEffect %d: %d %d %s\n", num, effect->effect, effect->duration, effect->anim.image_name );
+			    return num;
 			}
 			
 			public EffectLink parseEffect(bool init_flag)
 			{
-				return null;
-//			    if (init_flag) tmp_effect.anim.remove();
-//			
-//			    int num = readEffect(&tmp_effect);
-//			
-//			    if (num > 1) return &tmp_effect;
-//			    if (tmp_effect.effect == 0 || tmp_effect.effect == 1) return &tmp_effect;
-//			
-//			    EffectLink *link = &root_effect_link;
-//			    while(link){
-//			        if (link->no == tmp_effect.effect) return link;
-//			        link = link->next;
-//			    }
-//			
-//			    snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			             "effect %d not found", tmp_effect.effect);
-//			    errorAndExit( script_h.errbuf );
-//			
-//			    return NULL;
+				if (init_flag) tmp_effect.anim.remove();
+			
+			    int num = readEffect(tmp_effect);
+			
+			    if (num > 1) return tmp_effect;
+			    if (tmp_effect.effect == 0 || tmp_effect.effect == 1) return tmp_effect;
+			
+			    EffectLink link = root_effect_link;
+			    while(null!=link){
+			        if (link.no == tmp_effect.effect) return link;
+			        link = link.next;
+			    }
+			
+			    snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			             "effect %d not found", tmp_effect.effect);
+			    errorAndExit( script_h.errbuf );
+			
+			    return null;
 			}
 			
-			public FILEPtr fopen( CharPtr path, CharPtr mode, bool save, bool usesavedir )
+			public FILEPtr fopen( CharPtr path, CharPtr mode, bool save = false, bool usesavedir = false )
 			{
-				return null;
-//			    const char* root;
-//			    char *file_name;
-//			    FILE *fp = NULL;
-//			
-//			    if (usesavedir && script_h.savedir) {
-//			        root = script_h.savedir;
-//			        file_name = new char[strlen(root)+strlen(path)+1];
-//			        sprintf( file_name, "%s%s", root, path );
-//			        //printf("parser:fopen(\"%s\")\n", file_name);
-//			
-//			        fp = ::fopen( file_name, mode );
-//			    } else if (save) {
-//			        root = script_h.save_path;
-//			        file_name = new char[strlen(root)+strlen(path)+1];
-//			        sprintf( file_name, "%s%s", root, path );
-//			        //printf("parser:fopen(\"%s\")\n", file_name);
-//			
-//			        fp = ::fopen( file_name, mode );
-//			    } else {
-//			        // search within archive_path dirs
-//			        file_name = new char[archive_path.max_path_len()+strlen(path)+1];
-//			        for (int n=0; n<(archive_path.get_num_paths()); n++) {
-//			            root = archive_path.get_path(n);
-//			            //printf("root: %s\n", root);
-//			            sprintf( file_name, "%s%s", root, path );
-//			            //printf("parser:fopen(\"%s\")\n", file_name);
-//			            fp = ::fopen( file_name, mode );
-//			            if (fp != NULL) break;
-//			        }
-//			    }
-//			
-//			    delete[] file_name;
-//			    return fp;
+				CharPtr root;
+			    CharPtr file_name;
+			    FILEPtr fp = null;
+			
+			    if (usesavedir && null!=script_h.savedir) {
+			        root = script_h.savedir;
+			        file_name = new char[strlen(root)+strlen(path)+1];
+			        sprintf( file_name, "%s%s", root, path );
+			        //printf("parser:fopen(\"%s\")\n", file_name);
+			
+			        fp = ONScripter.fopen( file_name, mode );
+			    } else if (save) {
+			        root = script_h.save_path;
+			        file_name = new char[strlen(root)+strlen(path)+1];
+			        sprintf( file_name, "%s%s", root, path );
+			        //printf("parser:fopen(\"%s\")\n", file_name);
+			
+			        fp = ONScripter.fopen( file_name, mode );
+			    } else {
+			        // search within archive_path dirs
+			        file_name = new char[archive_path.max_path_len()+strlen(path)+1];
+			        for (int n=0; n<(archive_path.get_num_paths()); n++) {
+			            root = archive_path.get_path(n);
+			            //printf("root: %s\n", root);
+			            sprintf( file_name, "%s%s", root, path );
+			            //printf("parser:fopen(\"%s\")\n", file_name);
+			            fp = ONScripter.fopen( file_name, mode );
+			            if (fp != null) break;
+			        }
+			    }
+			
+			    file_name = null; //delete[] file_name;
+			    return fp;
 			}
 			
 			public void createKeyTable( CharPtr key_exe )
 			{
-//			    if (!key_exe) return;
-//			    
-//			    FILE *fp = ::fopen(key_exe, "rb");
-//			    if (fp == NULL){
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                 "createKeyTable: can't open EXE file '%s'", key_exe);
-//			        errorAndCont(script_h.errbuf, NULL, "Init Issue", true);
-//			        return;
-//			    }
-//			
-//			    key_table = new unsigned char[256];
-//			
-//			    int i;
-//			    for (i=0 ; i<256 ; i++) key_table[i] = i;
-//			
-//			    unsigned char ring_buffer[256];
-//			    int ring_start = 0, ring_last = 0;
-//			    
-//			    int ch, count;
-//			    while((ch = fgetc(fp)) != EOF){
-//			        i = ring_start;
-//			        count = 0;
-//			        while (i != ring_last &&
-//			               ring_buffer[i] != ch ){
-//			            count++;
-//			            i = (i+1)%256;
-//			        }
-//			        if (i == ring_last && count == 255) break;
-//			        if (i != ring_last)
-//			            ring_start = (i+1)%256;
-//			        ring_buffer[ring_last] = ch;
-//			        ring_last = (ring_last+1)%256;
-//			    }
-//			    fclose(fp);
-//			
-//			    if (ch == EOF)
-//			        errorAndExit( "createKeyTable: can't find a key table.", NULL, "Init Issue", true );
-//			
-//			    // Key table creation
-//			    ring_buffer[ring_last] = ch;
-//			    for (i=0 ; i<256 ; i++)
-//			        key_table[ring_buffer[(ring_start+i)%256]] = i;
-//			}
-//			
-//			//Mion: for setting the default Save/Load Menu labels
-//			//(depending on the current system menu language)
-//			void ScriptParser::setDefaultMenuLabels()
-//			{
-//			    if (script_h.system_menu_script != ScriptHandler::JAPANESE_SCRIPT) {
-//			        setStr( &save_menu_name, "[ Save ]" );
-//			        setStr( &load_menu_name, "[ Load ]" );
-//			        setStr( &save_item_name, "Slot " );
-//			    }
-//			    else {
-//			        setStr( &save_menu_name, "亙僙乕僽亜" );
-//			        setStr( &load_menu_name, "亙儘乕僪亜" );
-//			        setStr( &save_item_name, "偟偍傝" );
-//			    }
+			    if (null==key_exe) return;
+			    
+			    FILEPtr fp = ONScripter.fopen(key_exe, "rb");
+			    if (fp == null){
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                 "createKeyTable: can't open EXE file '%s'", key_exe);
+			        errorAndCont(script_h.errbuf, null, "Init Issue", true);
+			        return;
+			    }
+			
+			    key_table = new UnsignedCharPtr(new byte[256]);
+			
+			    int i;
+			    for (i=0 ; i<256 ; i++) key_table[i] = (byte)i;
+			
+			    byte[] ring_buffer = new byte[256];
+			    int ring_start = 0, ring_last = 0;
+			    
+			    int ch, count;
+			    while((ch = fgetc(fp)) != EOF){
+			        i = ring_start;
+			        count = 0;
+			        while (i != ring_last &&
+			               ring_buffer[i] != ch ){
+			            count++;
+			            i = (i+1)%256;
+			        }
+			        if (i == ring_last && count == 255) break;
+			        if (i != ring_last)
+			            ring_start = (i+1)%256;
+			        ring_buffer[ring_last] = (byte)ch;
+			        ring_last = (ring_last+1)%256;
+			    }
+			    fclose(fp);
+			
+			    if (ch == EOF)
+			        errorAndExit( "createKeyTable: can't find a key table.", null, "Init Issue", true );
+			
+			    // Key table creation
+			    ring_buffer[ring_last] = (byte)ch;
+			    for (i=0 ; i<256 ; i++)
+			    	key_table[ring_buffer[(ring_start+i)%256]] = (byte)i;
+			}
+			
+			//Mion: for setting the default Save/Load Menu labels
+			//(depending on the current system menu language)
+			public void setDefaultMenuLabels()
+			{
+			    if (script_h.system_menu_script != ScriptHandler.LanguageScript.JAPANESE_SCRIPT) {
+			        setStr( ref save_menu_name, "[ Save ]" );
+			        setStr( ref load_menu_name, "[ Load ]" );
+			        setStr( ref save_item_name, "Slot " );
+			    }
+			    else {
+			        setStr( ref save_menu_name, "亙僙乕僽亜" );
+			        setStr( ref load_menu_name, "亙儘乕僪亜" );
+			        setStr( ref save_item_name, "偟偍傝" );
+			    }
 			}
 			
 			//Mion: for kinsoku
 			public void setKinsoku(CharPtr start_chrs, CharPtr end_chrs, bool add)
 			{
-//			    int num_start, num_end, i;
-//			    const char *kchr;
-//			    Kinsoku *tmp;
-//			
-//			    // count chrs
-//			    num_start = 0;
-//			    kchr = start_chrs;
-//			    while (*kchr != '\0') {
-//			        if IS_TWO_BYTE(*kchr) kchr++;
-//			        kchr++;
-//			        num_start++;
-//			    }
-//			
-//			    num_end = 0;
-//			    kchr = end_chrs;
-//			    while (*kchr != '\0') {
-//			        if IS_TWO_BYTE(*kchr) kchr++;
-//			        kchr++;
-//			        num_end++;
-//			    }
-//			
-//			    if (add) {
-//			        if (start_kinsoku != NULL)
-//			            tmp = start_kinsoku;
-//			        else {
-//			            tmp = new Kinsoku[1];
-//			            num_start_kinsoku = 0;
-//			        }
-//			    } else {
-//			        if (start_kinsoku != NULL)
-//			            delete[] start_kinsoku;
-//			        tmp = new Kinsoku[1];
-//			        num_start_kinsoku = 0;
-//			    }
-//			    start_kinsoku = new Kinsoku[num_start_kinsoku + num_start];
-//			    kchr = start_chrs;
-//			    for (i=0; i<num_start_kinsoku+num_start; i++) {
-//			        if (i < num_start_kinsoku)
-//			            start_kinsoku[i].chr[0] = tmp[i].chr[0];
-//			        else
-//			            start_kinsoku[i].chr[0] = *kchr++;
-//			        if IS_TWO_BYTE(start_kinsoku[i].chr[0]) {
-//			            if (i < num_start_kinsoku)
-//			                start_kinsoku[i].chr[1] = tmp[i].chr[1];
-//			            else
-//			                start_kinsoku[i].chr[1] = *kchr++;
-//			        } else {
-//			            start_kinsoku[i].chr[1] = '\0';
-//			        }
-//			    }
-//			    num_start_kinsoku += num_start;
-//			    delete[] tmp;
-//			
-//			    if (add) {
-//			        if (end_kinsoku != NULL)
-//			            tmp = end_kinsoku;
-//			        else {
-//			            tmp = new Kinsoku[1];
-//			            num_end_kinsoku = 0;
-//			        }
-//			    } else {
-//			        if (end_kinsoku != NULL)
-//			            delete[] end_kinsoku;
-//			        tmp = new Kinsoku[1];
-//			        num_end_kinsoku = 0;
-//			    }
-//			    end_kinsoku = new Kinsoku[num_end_kinsoku + num_end];
-//			    kchr = end_chrs;
-//			    for (i=0; i<num_end_kinsoku+num_end; i++) {
-//			        if (i < num_end_kinsoku)
-//			            end_kinsoku[i].chr[0] = tmp[i].chr[0];
-//			        else
-//			            end_kinsoku[i].chr[0] = *kchr++;
-//			        if IS_TWO_BYTE(end_kinsoku[i].chr[0]) {
-//			            if (i < num_end_kinsoku)
-//			                end_kinsoku[i].chr[1] = tmp[i].chr[1];
-//			            else
-//			                end_kinsoku[i].chr[1] = *kchr++;
-//			        } else {
-//			            end_kinsoku[i].chr[1] = '\0';
-//			        }
-//			    }
-//			    num_end_kinsoku += num_end;
-//			    delete[] tmp;
+			    int num_start, num_end, i;
+			    CharPtr kchr;
+			    Kinsoku[] tmp;
+			
+			    // count chrs
+			    num_start = 0;
+			    kchr = start_chrs;
+			    while (kchr[0] != '\0') {
+			    	if (IS_TWO_BYTE(kchr[0])) kchr.inc();
+			        kchr.inc();
+			        num_start++;
+			    }
+			
+			    num_end = 0;
+			    kchr = end_chrs;
+			    while (kchr[0] != '\0') {
+			    	if (IS_TWO_BYTE(kchr[0])) kchr.inc();
+			        kchr.inc();
+			        num_end++;
+			    }
+			
+			    if (add) {
+			        if (start_kinsoku != null)
+			            tmp = start_kinsoku;
+			        else {
+			            tmp = new Kinsoku[1];
+			            num_start_kinsoku = 0;
+			        }
+			    } else {
+			        if (start_kinsoku != null)
+			            start_kinsoku = null; //delete[] start_kinsoku;
+			        tmp = new Kinsoku[1];
+			        num_start_kinsoku = 0;
+			    }
+			    start_kinsoku = new Kinsoku[num_start_kinsoku + num_start];
+			    kchr = start_chrs;
+			    for (i=0; i<num_start_kinsoku+num_start; i++) {
+			        if (i < num_start_kinsoku)
+			            start_kinsoku[i].chr[0] = tmp[i].chr[0];
+			        else
+			        	{ start_kinsoku[i].chr[0] = kchr[0]; kchr.inc(); }
+			        if (IS_TWO_BYTE(start_kinsoku[i].chr[0])) {
+			            if (i < num_start_kinsoku)
+			                start_kinsoku[i].chr[1] = tmp[i].chr[1];
+			            else
+			            	{ start_kinsoku[i].chr[1] = kchr[0]; kchr.inc(); }
+			        } else {
+			            start_kinsoku[i].chr[1] = '\0';
+			        }
+			    }
+			    num_start_kinsoku += num_start;
+			    tmp = null; //delete[] tmp;
+			
+			    if (add) {
+			        if (end_kinsoku != null)
+			            tmp = end_kinsoku;
+			        else {
+			            tmp = new Kinsoku[1];
+			            num_end_kinsoku = 0;
+			        }
+			    } else {
+			        if (end_kinsoku != null)
+			            end_kinsoku = null; //delete[] end_kinsoku;
+			        tmp = new Kinsoku[1];
+			        num_end_kinsoku = 0;
+			    }
+			    end_kinsoku = new Kinsoku[num_end_kinsoku + num_end];
+			    kchr = end_chrs;
+			    for (i=0; i<num_end_kinsoku+num_end; i++) {
+			        if (i < num_end_kinsoku)
+			            end_kinsoku[i].chr[0] = tmp[i].chr[0];
+			        else
+			        	{ end_kinsoku[i].chr[0] = kchr[0]; kchr.inc(); }
+			        if (IS_TWO_BYTE(end_kinsoku[i].chr[0])) {
+			            if (i < num_end_kinsoku)
+			                end_kinsoku[i].chr[1] = tmp[i].chr[1];
+			            else
+			            	{ end_kinsoku[i].chr[1] = kchr[0]; kchr.inc(); }
+			        } else {
+			            end_kinsoku[i].chr[1] = '\0';
+			        }
+			    }
+			    num_end_kinsoku += num_end;
+			    tmp = null; //delete[] tmp;
 			}
 			
 			public bool isStartKinsoku(CharPtr str)
 			{
-				return false;
-//			    for (int i=0; i<num_start_kinsoku; i++) {
-//			        if ((start_kinsoku[i].chr[0] == *str) &&
-//			            (start_kinsoku[i].chr[1] == *(str+1)))
-//			            return true;
-//			    }
-//			    return false;
+				for (int i=0; i<num_start_kinsoku; i++) {
+					if ((start_kinsoku[i].chr[0] == str[0]) &&
+					    (start_kinsoku[i].chr[1] == str[1]))
+			            return true;
+			    }
+			    return false;
 			}
 			
 			public bool isEndKinsoku(CharPtr str)
 			{
-				return false;
-//			    for (int i=0; i<num_end_kinsoku; i++) {
-//			        if ((end_kinsoku[i].chr[0] == *str) &&
-//			            (end_kinsoku[i].chr[1] == *(str+1)))
-//			            return true;
-//			    }
-//			    return false;
+				for (int i=0; i<num_end_kinsoku; i++) {
+					if ((end_kinsoku[i].chr[0] == str[0]) &&
+					    (end_kinsoku[i].chr[1] == str[1]))
+			            return true;
+			    }
+			    return false;
 			}
 		}
 	}

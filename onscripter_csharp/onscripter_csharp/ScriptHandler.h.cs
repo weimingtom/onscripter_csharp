@@ -58,14 +58,14 @@ namespace onscripter_csharp
 		//#include "BaseReader.h"
 		//#include "DirPaths.h"
 		
-//		#define VARIABLE_RANGE 4096
-//		
+		public const int VARIABLE_RANGE = 4096;
+		
 //		//#define IS_TWO_BYTE(x) \
 //		//        ( ((x) & 0xe0) == 0xe0 || ((x) & 0xe0) == 0x80 )
-//		#define IS_TWO_BYTE(x) \
-//		        ( ((x) & 0xe0) == 0xe0 || ((x) & 0xe0) == 0x80 || \
-//					(((x) & 0xff) >=0xA1 && ((x) & 0xff) <=0xFE) )
-//		
+		public static bool IS_TWO_BYTE(int x) {
+		    return ( ((x) & 0xe0) == 0xe0 || ((x) & 0xe0) == 0x80 ||
+			 (((x) & 0xff) >=0xA1 && ((x) & 0xff) <=0xFE) ); }
+		
 //		#define MAX_ERRBUF_LEN 512
 //		
 //		typedef unsigned char uchar3[3];
@@ -88,39 +88,40 @@ namespace onscripter_csharp
 		        public int  num_of_lines;
 		    }
 		
-//		    struct ArrayVariable{
-//		        struct ArrayVariable* next;
-//		        int no;
-//		        int num_dim;
-//		        int dim[20];
-//		        int *data;
-//		        ArrayVariable(){
-//		            next = NULL;
-//		            data = NULL;
-//		        };
-//		        ~ArrayVariable(){
-//		            if (data) delete[] data;
-//		        };
-//		        ArrayVariable& operator=(const ArrayVariable& av){
-//		            no = av.no;
-//		            num_dim = av.num_dim;
-//		
-//		            int total_dim = 1;
-//		            for (int i=0 ; i<20 ; i++){
-//		                dim[i] = av.dim[i];
-//		                total_dim *= dim[i];
-//		            }
-//		
-//		            if (data) delete[] data;
-//		            data = NULL;
-//		            if (av.data){
-//		                data = new int[total_dim];
-//		                memcpy(data, av.data, sizeof(int)*total_dim);
-//		            }
-//		
-//		            return *this;
-//		        };
-//		    };
+		    public class ArrayVariable{
+		        public ArrayVariable next = null;
+		        public int no;
+		        public int num_dim;
+		        public int[] dim = new int[20];
+		        public IntPtr data = null;
+		        public ArrayVariable(){
+		            next = null;
+		            data = null;
+		        }
+		        ~ArrayVariable(){
+		            if (null!=data) data = null;//delete[] data;
+		        }
+		        //FIXME:???operator=
+		        public ArrayVariable assign(ArrayVariable av){
+		            no = av.no;
+		            num_dim = av.num_dim;
+		
+		            int total_dim = 1;
+		            for (int i=0 ; i<20 ; i++){
+		                dim[i] = av.dim[i];
+		                total_dim *= dim[i];
+		            }
+		
+		            if (data!=null) data=null;//delete[] data;
+		            data = null;
+		            if (null!=av.data){
+		            	data = new IntPtr(new int[total_dim]);
+		            	memcpy(data, av.data, (uint)(sizeof(int)*total_dim));
+		            }
+		
+		            return this;
+		        }
+		    }
 		
 		    public const int VAR_NONE  = 0,
 		           VAR_INT   = 1,  // integer
@@ -294,21 +295,21 @@ namespace onscripter_csharp
 		
 		    public VariableInfo current_variable = new VariableInfo(), pushed_variable = new VariableInfo();
 		    
-//		    int screen_size;
-//		    enum { SCREEN_SIZE_640x480 = 0,
-//		           SCREEN_SIZE_800x600 = 1,
-//		           SCREEN_SIZE_400x300 = 2,
-//		           SCREEN_SIZE_320x240 = 3
-//		    };
-//		    int global_variable_border;
-//		    
-//		    char *game_identifier;
-//		    char *save_path;
-//		    //Mion: savedir is set by savedirCommand, stores save files
-//		    // and main stored gamedata files except envdata
-//		    char *savedir;
-//		    int  game_hash;
-//		
+		    public int screen_size;
+		    public const int SCREEN_SIZE_640x480 = 0;
+		    public const int SCREEN_SIZE_800x600 = 1;
+		    public const int SCREEN_SIZE_400x300 = 2;
+		    public const int SCREEN_SIZE_320x240 = 3;
+		    
+		    public int global_variable_border;
+		    
+		    public CharPtr game_identifier;
+		    public CharPtr save_path;
+		    //Mion: savedir is set by savedirCommand, stores save files
+		    // and main stored gamedata files except envdata
+		    public CharPtr savedir;
+		    public int  game_hash;
+		
 //		    //Mion: for more helpful error msgs
 //		    bool strict_warnings;
 //		    char current_cmd[64];
@@ -327,12 +328,13 @@ namespace onscripter_csharp
 //		
 		    public BaseReader cBR = null;
 		
-//		    enum LanguageScript {
-//		        NO_SCRIPT_PREF  = 0,
-//		        LATIN_SCRIPT    = 1,
-//		        JAPANESE_SCRIPT = 2
-//		    } preferred_script, default_script, system_menu_script;
-//		
+		    public enum LanguageScript {
+		        NO_SCRIPT_PREF  = 0,
+		        LATIN_SCRIPT    = 1,
+		        JAPANESE_SCRIPT = 2
+		    }
+		    public LanguageScript preferred_script, default_script, system_menu_script;
+		
 //		    //Mion: these are used to keep track of clickwait points in the script
 //		    //for rgosub, to use as return script points
 //		    char **rgosub_wait_pos;

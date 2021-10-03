@@ -499,10 +499,11 @@ namespace onscripter_csharp
 		    public int  num_chars_in_sentence;
 		    public bool english_mode;
 		
-//		    struct Kinsoku {
-//		        char chr[2];
-//		    } *start_kinsoku, *end_kinsoku; //Mion: for kinsoku chars
-//		    int num_start_kinsoku, num_end_kinsoku;
+		    public class Kinsoku {
+		    	public char[] chr = new char[2];
+		    } 
+		    public Kinsoku[] start_kinsoku = null; public Kinsoku[] end_kinsoku = null; //Mion: for kinsoku chars
+		    public int num_start_kinsoku, num_end_kinsoku;
 //		    void setKinsoku(const char *start_chrs, const char *end_chrs, bool add); //Mion
 //		    bool isStartKinsoku(const char *str);
 //		    bool isEndKinsoku(const char *str);
