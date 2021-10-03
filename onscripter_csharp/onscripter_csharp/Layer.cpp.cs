@@ -182,7 +182,7 @@ namespace onscripter_csharp
 //		static int om_count = 0;
 //		static bool initialized_om_surfaces = false;
 
-		public partial class OldMovieLayer {
+		public partial class OldMovieLayer : Layer {
 			public OldMovieLayer( int w, int h )
 			{
 //			    width = w;
@@ -275,7 +275,7 @@ namespace onscripter_csharp
 			}
 			
 			// Called once each frame.  Updates effect parameters.
-			public void update()
+			public override void update()
 			{
 //			    if (!initialized) return;
 //			
@@ -311,7 +311,7 @@ namespace onscripter_csharp
 //			    }
 			}
 
-			public CharPtr message( CharPtr message, ref int ret_int )
+			public override CharPtr message( CharPtr message, ref int ret_int )
 			{
 				return null;
 	//		    int sprite_no = 0;
@@ -402,7 +402,7 @@ namespace onscripter_csharp
 			// Called every time the screen is refreshed.
 			// Draws the background image with the old-movie effect applied, using the settings adopted at the
 			// last call to updateOldMovie().
-			public void refresh(SDL_Surface surface, SDL_Rect clip)
+			public override void refresh(SDL_Surface surface, ref SDL_Rect clip)
 			{
 //			    if (!initialized) return;
 //			
@@ -483,7 +483,7 @@ namespace onscripter_csharp
 		 *
 		 * C++ coding by Mion, Sep 2008
 		 */
-		public partial class FuruLayer {
+		public partial class FuruLayer : Layer {
 //			#define FURU_RATE_COEF 0.2
 //			
 //			static float *base_disp_table = NULL;
@@ -542,7 +542,7 @@ namespace onscripter_csharp
 //			    initialized = true;
 			}
 			
-			public void update()
+			public override void update()
 			{
 //			    if (initialized && !paused) {
 //			        if (amplitude != 0)
@@ -676,7 +676,7 @@ namespace onscripter_csharp
 //			    freq = freq * FURU_AMP_TABLE_SIZE / 360;
 			}
 			
-			public CharPtr message( CharPtr message, ref int ret_int )
+			public override CharPtr message( CharPtr message, ref int ret_int )
 			{
 				return null;
 //			    int num_cells[3], tmp[5];
@@ -829,7 +829,7 @@ namespace onscripter_csharp
 //			    return ret_str;
 			}
 			
-			public void refresh(SDL_Surface surface, SDL_Rect clip)
+			public override void refresh(SDL_Surface surface, ref SDL_Rect clip)
 			{
 //			    if (initialized) {
 //			        const int virt_w = width + max_sp_w;

@@ -68,26 +68,26 @@ namespace onscripter_csharp
 //		            (color1[2] == color2[2]));
 //		}
 		
-//		class AnimationInfo{
+		public partial class AnimationInfo{
 //		public:
 //		#ifdef BPP16
 //		    typedef Uint16 ONSBuf;
 //		#else
 //		    typedef Uint32 ONSBuf;
 //		#endif    
-//		    enum { TRANS_ALPHA          = 1,
-//		           TRANS_TOPLEFT        = 2,
-//		           TRANS_COPY           = 3,
-//		           TRANS_STRING         = 4,
-//		           TRANS_DIRECT         = 5,
-//		           TRANS_PALLETTE       = 6,
-//		           TRANS_TOPRIGHT       = 7,
-//		           TRANS_MASK           = 8,
-//		#ifndef NO_LAYER_EFFECTS
-//		           TRANS_LAYER          = 9
-//		#endif
-//		    };
-//		
+		    public const int TRANS_ALPHA          = 1;
+		    public const int TRANS_TOPLEFT        = 2;
+		    public const int TRANS_COPY           = 3;
+		    public const int TRANS_STRING         = 4;
+		    public const int TRANS_DIRECT         = 5;
+		    public const int TRANS_PALLETTE       = 6;
+		    public const int TRANS_TOPRIGHT       = 7;
+		    public const int TRANS_MASK           = 8;
+		#if !NO_LAYER_EFFECTS
+		    public const int TRANS_LAYER          = 9;
+		#endif
+		    
+		
 //		    bool is_copy; // allocated buffers should not be deleted from a copied instance
 //		    bool stale_image; //set to true when the image needs to be created/redone
 //		
@@ -205,7 +205,7 @@ namespace onscripter_csharp
 //		    //Mion: for resizing (moved from ONScripterLabel)
 //		    static void resetResizeBuffer();
 //		    static int resizeSurface( SDL_Surface *src, SDL_Surface *dst, int num_cells=1 );
-//		};
+		}
 		
 		//#endif // __ANIMATION_INFO_H__
 	}

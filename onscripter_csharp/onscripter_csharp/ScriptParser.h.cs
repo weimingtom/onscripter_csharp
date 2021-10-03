@@ -70,18 +70,18 @@ namespace onscripter_csharp
 //		#ifndef M_PI
 //		#define M_PI 3.14159265358979323846
 //		#endif
-//		
-//		#define DEFAULT_FONT_SIZE 26
-//		
-//		#define DEFAULT_LOOKBACK_NAME0 "uoncur.bmp"
-//		#define DEFAULT_LOOKBACK_NAME1 "uoffcur.bmp"
-//		#define DEFAULT_LOOKBACK_NAME2 "doncur.bmp"
-//		#define DEFAULT_LOOKBACK_NAME3 "doffcur.bmp"
-//		
-//		// Mion: kinsoku
-//		#define DEFAULT_START_KINSOKU "乿亁乯乶乸丄丅丆丏丒丠両丷丼乀乁乆乕"
-//		#define DEFAULT_END_KINSOKU   "乽亀乮乵乷"
-//		
+		
+		public const int DEFAULT_FONT_SIZE = 26;
+		
+		public const string DEFAULT_LOOKBACK_NAME0 = "uoncur.bmp";
+		public const string DEFAULT_LOOKBACK_NAME1 = "uoffcur.bmp";
+		public const string DEFAULT_LOOKBACK_NAME2 = "doncur.bmp";
+		public const string DEFAULT_LOOKBACK_NAME3 = "doffcur.bmp";
+		
+		// Mion: kinsoku
+		public const string DEFAULT_START_KINSOKU = "乿亁乯乶乸丄丅丆丏丒丠両丷丼乀乁乆乕";
+		public const string DEFAULT_END_KINSOKU   = "乽亀乮乵乷";
+		
 //		typedef unsigned char uchar3[3];
 //		
 //		struct OVInfo{
@@ -231,18 +231,18 @@ namespace onscripter_csharp
 //		    void add_debug_level();
 //		    void errorAndExit( const char *str, const char *reason=NULL, const char *title=NULL, bool is_simple=false );
 //		    void errorAndCont( const char *str, const char *reason=NULL, const char *title=NULL, bool is_simple=false );
-//		
-//		    //Mion: syntax flags
-//		    bool allow_color_type_only;    // only allow color type (#RRGGBB) for args of color type,
-//		                                   // i.e. not string variables
-//		    bool set_tag_page_origin_to_1; // 'gettaglog' will consider the current page as 1, not 0
-//		    bool answer_dialog_with_yes_ok;// give 'yesnobox' and 'okcancelbox' 'yes/ok' results
-//		    inline const char *readColorStr() {
-//		        if (allow_color_type_only)
-//		            return script_h.readColor();
-//		        else
-//		            return script_h.readStr();
-//		    }
+		
+		    //Mion: syntax flags
+		    public bool allow_color_type_only;    // only allow color type (#RRGGBB) for args of color type,
+		                                   // i.e. not string variables
+		    public bool set_tag_page_origin_to_1; // 'gettaglog' will consider the current page as 1, not 0
+		    public bool answer_dialog_with_yes_ok;// give 'yesnobox' and 'okcancelbox' 'yes/ok' results
+		    public CharPtr readColorStr() {
+		        if (allow_color_type_only)
+		            return script_h.readColor();
+		        else
+		            return script_h.readStr();
+		    }
 //		protected:
 		    public class UserFuncLUT{
 		        public UserFuncLUT next;
@@ -302,11 +302,11 @@ namespace onscripter_csharp
 //		#if MSC_VER <= 1200
 //			public:
 //		#endif
-//		    enum { CLICK_NONE    = 0,
-//		           CLICK_WAIT    = 1,
-//		           CLICK_NEWPAGE = 2,
-//		           CLICK_WAITEOL = 4
-//		    };
+		    public const int CLICK_NONE    = 0;
+		    public const int CLICK_WAIT    = 1;
+		    public const int CLICK_NEWPAGE = 2;
+		    public const int CLICK_WAITEOL = 4;
+		    
 //		#if MSC_VER <= 1200
 //			protected:
 //		#endif
@@ -351,9 +351,9 @@ namespace onscripter_csharp
 		    public int string_buffer_offset;
 		
 		    public NestInfo root_nest_info = new NestInfo(), last_nest_info = null;
-//		    ScriptHandler::LabelInfo current_label_info;
-//		    int current_line;
-//		
+		    public ScriptHandler.LabelInfo current_label_info = new ScriptHandler.LabelInfo();
+		    public int current_line;
+		
 //		#ifdef USE_LUA
 //		    LUAHandler lua_handler;
 //		#endif
@@ -363,84 +363,85 @@ namespace onscripter_csharp
 //		#ifdef RCA_SCALE
 //		    float scr_stretch_x, scr_stretch_y;
 //		#endif
-//		    int preferred_width;
-//		    int script_width, script_height;
-//		    int screen_ratio1, screen_ratio2;
-//		    int screen_width, screen_height;
-//		    int screen_texture_width, screen_texture_height;
-//		    int screen_bpp;
-//		    char *version_str;
-//		    int underline_value;
-//		    int humanpos[3]; // l,c,r
-//		    char *savedir;
-//		
+		    public int preferred_width;
+		    public int script_width, script_height;
+		    public int screen_ratio1, screen_ratio2;
+		    public int screen_width, screen_height;
+		    public int screen_texture_width, screen_texture_height;
+		    public int screen_bpp;
+		    public CharPtr version_str;
+		    public int underline_value;
+		    public int[] humanpos = new int[3]; // l,c,r
+		    public CharPtr savedir;
+		
 //		    void deleteNestInfo();
 //		    void setStr( char **dst, const char *src, int num=-1 );
 //		    
 //		    void readToken();
 //		
-//		    /* ---------------------------------------- */
-//		    /* Effect related variables */
-//		    struct EffectLink{
-//		        struct EffectLink *next;
-//		        int no;
-//		        int effect;
-//		        int duration;
-//		        AnimationInfo anim;
-//		
-//		        EffectLink(){
-//		            next = NULL;
-//		            effect = 10;
-//		            duration = 0;
-//		        };
-//		    };
-//		    
-//		    EffectLink root_effect_link, *last_effect_link, window_effect, tmp_effect;
-//		    
-//		    int effect_blank;
-//		    bool effect_cut_flag;
-//		
+		    /* ---------------------------------------- */
+		    /* Effect related variables */
+		    public class EffectLink{
+		        public EffectLink next = null;
+		        public int no;
+		        public int effect;
+		        public int duration;
+		        public AnimationInfo anim = new AnimationInfo();
+		
+		        public EffectLink(){
+		            next = null;
+		            effect = 10;
+		            duration = 0;
+		        }
+		    }
+		    
+		    public EffectLink root_effect_link = new EffectLink(), last_effect_link = null, window_effect = new EffectLink(), tmp_effect = new EffectLink();
+		    
+		    public int effect_blank;
+		    public bool effect_cut_flag;
+		
 //		    int readEffect( EffectLink *effect );
 //		    EffectLink *parseEffect(bool init_flag);
 //		
 //		    /* ---------------------------------------- */
-//		#ifndef NO_LAYER_EFFECTS
-//		    /* Layer related variables */ //Mion
-//		    struct LayerInfo{
-//		        struct LayerInfo *next;
-//		        Layer *handler;
-//		        int num;
-//		        Uint32 interval;
-//		        Uint32 last_update;
-//		        LayerInfo(){
-//		            num = -1;
-//		            interval = last_update = 0;
-//		            handler = NULL;
-//		            next = NULL;
-//		        }
-//		        ~LayerInfo(){
-//		            if (handler) {
-//		                delete handler;
-//		                handler = NULL;
-//		            }
-//		        }
-//		    } *layer_info;
+		#if !NO_LAYER_EFFECTS
+		    /* Layer related variables */ //Mion
+		    public class LayerInfo{
+		        public LayerInfo next = null;
+		        public Layer handler = null;
+		        public int num;
+		        public UInt32 interval;
+		        public UInt32 last_update;
+		        public LayerInfo(){
+		            num = -1;
+		            interval = last_update = 0;
+		            handler = null;
+		            next = null;
+		        }
+		        ~LayerInfo(){
+		            if (handler!=null) {
+		                //delete handler;
+		                handler = null;
+		            }
+		        }
+		    }
+		    public LayerInfo layer_info = null;
 //		    void deleteLayerInfo();
-//		#endif
-//		    /* ---------------------------------------- */
-//		    /* Lookback related variables */
-//		    //char *lookback_image_name[4];
-//		    int lookback_sp[2];
-//		    uchar3 lookback_color;
-//		    
+		#endif
+		    /* ---------------------------------------- */
+		    /* Lookback related variables */
+		    //char *lookback_image_name[4];
+		    public int[] lookback_sp = new int[2];
+		    public byte[] lookback_color = new Byte[3];
+		    
 		    /* ---------------------------------------- */
 		    /* For loop related variables */
 		    public bool break_flag;
 		    
-//		    /* ---------------------------------------- */
-//		    /* Transmode related variables */
-//		    int trans_mode;
-//		    
+		    /* ---------------------------------------- */
+		    /* Transmode related variables */
+		    public int trans_mode;
+		    
 //		    /* ---------------------------------------- */
 //		    /* Save/Load related variables */
 //		    struct SaveFileInfo{
@@ -452,19 +453,19 @@ namespace onscripter_csharp
 //		        char sjis_hour[5];
 //		        char sjis_minute[5];
 //		    };
-//		    unsigned int num_save_file;
-//		    char *save_menu_name;
-//		    char *load_menu_name;
-//		    char *save_item_name;
+		    public uint num_save_file;
+		    public CharPtr save_menu_name;
+		    public CharPtr load_menu_name;
+		    public CharPtr save_item_name;
 //		    void setDefaultMenuLabels();
-//		
-//		    unsigned char *save_data_buf;
-//		    unsigned char *file_io_buf;
-//		    size_t file_io_buf_ptr;
-//		    size_t file_io_buf_len;
-//		    size_t save_data_len;
-//		    
-//		    bool errorsave;
+		
+		    public UnsignedCharPtr save_data_buf;
+		    public UnsignedCharPtr file_io_buf;
+		    public uint file_io_buf_ptr;
+		    public uint file_io_buf_len;
+		    public uint save_data_len;
+		    
+		    public bool errorsave;
 		    
 		    /* ---------------------------------------- */
 		    /* Text related variables */
@@ -520,70 +521,72 @@ namespace onscripter_csharp
 		    
 		    public CharPtr[] clickvoice_file_name = new CharPtr[CLICKVOICE_NUM];
 		
-//		    enum { SELECTVOICE_OPEN   = 0,
-//		           SELECTVOICE_OVER   = 1,
-//		           SELECTVOICE_SELECT = 2,
-//		           SELECTVOICE_NUM    = 3
-//		    };
-//		    char *selectvoice_file_name[SELECTVOICE_NUM];
-//		
-//		    enum { MENUSELECTVOICE_OPEN   = 0,
-//		           MENUSELECTVOICE_CANCEL = 1,
-//		           MENUSELECTVOICE_OVER   = 2,
-//		           MENUSELECTVOICE_CLICK  = 3,
-//		           MENUSELECTVOICE_WARN   = 4,
-//		           MENUSELECTVOICE_YES    = 5,
-//		           MENUSELECTVOICE_NO     = 6,
-//		           MENUSELECTVOICE_NUM    = 7
-//		    };
-//		    char *menuselectvoice_file_name[MENUSELECTVOICE_NUM];
-//		     
-//		    /* ---------------------------------------- */
-//		    /* Font related variables */
-//		    Fontinfo *current_font, sentence_font, menu_font, ruby_font;
-//		    struct RubyStruct{
-//		        enum { NONE,
-//		               BODY,
-//		               RUBY };
-//		        int stage;
-//		        int body_count;
-//		        char *ruby_start;
-//		        char *ruby_end;
-//		        int ruby_count;
-//		        int margin;
-//		
-//		        int font_size_xy[2];
-//		        char *font_name;
-//		
-//		        RubyStruct(){
-//		            stage = NONE;
-//		            font_size_xy[0] = 0;
-//		            font_size_xy[1] = 0;
-//		            font_name = NULL;
-//		        };
-//		        ~RubyStruct(){
-//		            if ( font_name ) delete[] font_name;
-//		        };
-//		    } ruby_struct;
-//		    int shade_distance[2];
-//		
-//		    /* ---------------------------------------- */
-//		    /* RMenu related variables */
-//		    struct RMenuLink{
-//		        RMenuLink *next;
-//		        char *label;
-//		        int system_call_no;
-//		
-//		        RMenuLink(){
-//		            next  = NULL;
-//		            label = NULL;
-//		        };
-//		        ~RMenuLink(){
-//		            if (label) delete[] label;
-//		        };
-//		    } root_rmenu_link;
-//		    unsigned int rmenu_link_num, rmenu_link_width;
-//		
+		    public const int SELECTVOICE_OPEN   = 0;
+		    public const int SELECTVOICE_OVER   = 1;
+		    public const int SELECTVOICE_SELECT = 2;
+		    public const int SELECTVOICE_NUM    = 3;
+		    
+		    public CharPtr[] selectvoice_file_name = new CharPtr[SELECTVOICE_NUM];
+		
+		    public const int MENUSELECTVOICE_OPEN   = 0;
+		    public const int MENUSELECTVOICE_CANCEL = 1;
+		    public const int MENUSELECTVOICE_OVER   = 2;
+		    public const int MENUSELECTVOICE_CLICK  = 3;
+		    public const int MENUSELECTVOICE_WARN   = 4;
+		    public const int MENUSELECTVOICE_YES    = 5;
+		    public const int MENUSELECTVOICE_NO     = 6;
+		    public const int MENUSELECTVOICE_NUM    = 7;
+		    
+		    public CharPtr[] menuselectvoice_file_name = new CharPtr[MENUSELECTVOICE_NUM];
+		     
+		    /* ---------------------------------------- */
+		    /* Font related variables */
+		    public Fontinfo current_font = null, sentence_font = new Fontinfo(), menu_font = new Fontinfo(), ruby_font = new Fontinfo();
+		    public class RubyStruct{
+		        public const int NONE = 0;
+		        public const int BODY = 1;
+		        public const int RUBY = 2;
+		        public int stage;
+		        public int body_count;
+		        public CharPtr ruby_start;
+		        public CharPtr ruby_end;
+		        public int ruby_count;
+		        public int margin;
+		
+		        public int[] font_size_xy = new int[2];
+		        public CharPtr font_name;
+		
+		        public RubyStruct(){
+		            stage = NONE;
+		            font_size_xy[0] = 0;
+		            font_size_xy[1] = 0;
+		            font_name = null;
+		        }
+		        ~RubyStruct(){
+		            if ( null!=font_name ) font_name = null;
+		        }
+		    }
+		    public RubyStruct ruby_struct = new RubyStruct();
+		    public int[] shade_distance = new int[2];
+		
+		    /* ---------------------------------------- */
+		    /* RMenu related variables */
+		    public class RMenuLink{
+		        public RMenuLink next;
+		        public CharPtr label;
+		        public int system_call_no;
+		
+		        public RMenuLink(){
+		            next  = null;
+		            label = null;
+		        }
+		        ~RMenuLink(){
+		            if (label!=null) label=null;
+		        }
+		    } 
+		    public RMenuLink root_rmenu_link = new RMenuLink();
+		    public uint rmenu_link_num, rmenu_link_width;
+		
 //		    void deleteRMenuLink();
 //		    int getSystemCallNo( const char *buffer );
 //		    unsigned char convHexToDec( char ch );
@@ -608,14 +611,14 @@ namespace onscripter_csharp
 //		    void writeLog( ScriptHandler::LogInfo &info );
 //		    void readLog( ScriptHandler::LogInfo &info );
 //		
-//		    /* ---------------------------------------- */
-//		    /* System customize related variables */
-//		    char *textgosub_label;
-//		    char *pretextgosub_label;
-//		    char *loadgosub_label;
-//		    char *rgosub_label;
+		    /* ---------------------------------------- */
+		    /* System customize related variables */
+		    public CharPtr textgosub_label;
+		    public CharPtr pretextgosub_label;
+		    public CharPtr loadgosub_label;
+		    public CharPtr rgosub_label;
 		
-		    ScriptHandler script_h = new ScriptHandler();
+		    public ScriptHandler script_h = new ScriptHandler();
 		    
 		    public UnsignedCharPtr key_table;
 		

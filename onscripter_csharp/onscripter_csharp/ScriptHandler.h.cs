@@ -75,19 +75,19 @@ namespace onscripter_csharp
 		public partial class ScriptHandler
 		{
 //		public:
-//		    enum { END_NONE       = 0,
-//		           END_COMMA      = 1,
-//		           END_1BYTE_CHAR = 2,
-//		           END_COMMA_READ = 4 // for LUA
-//		    };
-//		    struct LabelInfo{
-//		        char *name;
-//		        char *label_header;
-//		        char *start_address;
-//		        int  start_line;
-//		        int  num_of_lines;
-//		    };
-//		
+		    public const int END_NONE       = 0;
+		    public const int END_COMMA      = 1;
+		    public const int END_1BYTE_CHAR = 2;
+		    public const int END_COMMA_READ = 4; // for LUA
+		    
+		    public class LabelInfo{
+		        public CharPtr name;
+		        public CharPtr label_header;
+		        public CharPtr start_address;
+		        public int  start_line;
+		        public int  num_of_lines;
+		    }
+		
 //		    struct ArrayVariable{
 //		        struct ArrayVariable* next;
 //		        int no;
@@ -156,18 +156,18 @@ namespace onscripter_csharp
 //		    int  readInt();
 //		    int  parseInt( char **buf );
 //		    void skipToken();
-//		
-//		    // function for string access
-//		    inline char *getStringBuffer(){ return string_buffer; };
-//		    inline char *getSavedStringBuffer(){ return saved_string_buffer; };
+		
+		    // function for string access
+		    public CharPtr getStringBuffer(){ return string_buffer; }
+		    public CharPtr getSavedStringBuffer(){ return saved_string_buffer; }
 //		    char *saveStringBuffer();
 //		    void addStringBuffer( char ch );
 //		    void trimStringBuffer( unsigned int n );
 //		    void pushStringBuffer(int offset); // used in textgosub and pretextgosub
 //		    int  popStringBuffer(); // used in textgosub and pretextgosub
-//		    
-//		    // function for direct manipulation of script address 
-//		    inline char *getCurrent(){ return current_script; };
+		    
+		    // function for direct manipulation of script address 
+		    public CharPtr getCurrent(){ return current_script; }
 		    public CharPtr getNext(){ return next_script; }
 //		    void setCurrent(char *pos);
 //		    void pushCurrent( char *pos );
@@ -187,8 +187,8 @@ namespace onscripter_csharp
 //		    bool isName( const char *name );
 //		    bool isText();
 //		    bool compareString( const char *buf );
-//		    void setEndStatus(int val){ end_status |= val; };
-//		    inline int getEndStatus(){ return end_status; };
+		    public void setEndStatus(int val){ end_status |= val; }
+		    public int getEndStatus(){ return end_status; }
 //		    inline void toggle1ByteEndStatus() {
 //		        if (end_status && END_1BYTE_CHAR)
 //		            end_status &= ~END_1BYTE_CHAR;
@@ -197,8 +197,8 @@ namespace onscripter_csharp
 //		    }
 //		    void skipLine( int no=1 );
 //		    void setLinepage( bool val );
-//		    void setEnglishMode( bool val ){ english_mode = val; };
-//		
+		    public void setEnglishMode( bool val ){ english_mode = val; }
+		
 //		    // function for kidoku history
 //		    bool isKidoku();
 //		    void markAsKidoku( char *address=NULL );
@@ -241,28 +241,29 @@ namespace onscripter_csharp
 //		
 //		    bool findNumAlias( const char *str, int *value );
 //		    bool findStrAlias( const char *str, char* buffer );
-//		
-//		    enum { LABEL_LOG = 0,
-//		           FILE_LOG = 1
-//		    };
-//		    struct LogLink{
-//		        LogLink *next;
-//		        char *name;
-//		
-//		        LogLink(){
-//		            next = NULL;
-//		            name = NULL;
-//		        };
-//		        ~LogLink(){
-//		            if ( name ) delete[] name;
-//		        };
-//		    };
-//		    struct LogInfo{
-//		        LogLink root_log;
-//		        LogLink *current_log;
-//		        int num_logs;
-//		        const char *filename;
-//		    } log_info[2];
+		
+		    public const int LABEL_LOG = 0;
+		    public const int FILE_LOG = 1;
+		    
+		    public class LogLink{
+		        public LogLink next = null;
+		        public CharPtr name = null;
+		
+		        public LogLink(){
+		            next = null;
+		            name = null;
+		        }
+		        ~LogLink(){
+		            if ( name!=null ) name = null;//delete[] name;
+		        }
+		    }
+		    public class LogInfo{
+		    	public LogLink root_log = new LogLink();
+		        public LogLink current_log = null;
+		        public int num_logs;
+		        public CharPtr filename;
+		    }
+		    public LogInfo[] log_info = new LogInfo[2];
 //		    LogLink *findAndAddLog( LogInfo &info, const char *name, bool add_flag );
 //		    void resetLog( LogInfo &info );
 //		    
@@ -339,13 +340,13 @@ namespace onscripter_csharp
 //		    int total_rgosub_wait_size;
 //		    int num_rgosub_waits;
 //		    int cur_rgosub_wait;
-//		    
-//		    bool is_rgosub_click;
-//		    bool rgosub_click_newpage;
-//		    bool rgosub_1byte_mode;
-//		
-//		    bool ignore_textgosub_newline;
-//		
+		    
+		    public bool is_rgosub_click;
+		    public bool rgosub_click_newpage;
+		    public bool rgosub_1byte_mode;
+		
+		    public bool ignore_textgosub_newline;
+		
 //		    //Mion: onscripter-en special text escape characters
 //		    enum {
 //		        TXTBTN_START = 0x01, // for '<' in unmarked text as a textbtn delimiter
@@ -456,32 +457,32 @@ namespace onscripter_csharp
 //		    int  script_buffer_length;
 //		    char *script_buffer;
 //		    char *tmp_script_buf;
-//		    
-//		    char *string_buffer; // update only be readToken
-//		    int  string_counter;
-//		    char *saved_string_buffer; // updated only by saveStringBuffer
-//		    char *str_string_buffer; // updated only by readStr
-//		    char *gosub_string_buffer; // used in textgosub and pretextgosub
-//		    int gosub_string_offset; // used in textgosub and pretextgosub
-//		
+		    
+		    public CharPtr string_buffer; // update only be readToken
+		    public int  string_counter;
+		    public CharPtr saved_string_buffer; // updated only by saveStringBuffer
+		    public CharPtr str_string_buffer; // updated only by readStr
+		    public CharPtr gosub_string_buffer; // used in textgosub and pretextgosub
+		    public int gosub_string_offset; // used in textgosub and pretextgosub
+		
 //		    LabelInfo *label_info;
 //		    int num_of_labels;
 //		
 //		    bool skip_enabled;
 //		    bool kidokuskip_flag;
 //		    char *kidoku_buffer;
-//		
-//		    bool text_flag; // true if the current token is text
-//		    int  end_status;
-//		    bool linepage_flag;
-//		    bool textgosub_flag;
-//		    bool rgosub_flag;
-//		    char *clickstr_list;
-//		    bool english_mode;
-//		
-//		    char *current_script;
+		
+		    public bool text_flag; // true if the current token is text
+		    public int  end_status;
+		    public bool linepage_flag;
+		    public bool textgosub_flag;
+		    public bool rgosub_flag;
+		    public CharPtr clickstr_list;
+		    public bool english_mode;
+		
+		    public CharPtr current_script;
 		    public CharPtr next_script;
-//		
+		
 //		    char *pushed_current_script;
 //		    char *pushed_next_script;
 //		

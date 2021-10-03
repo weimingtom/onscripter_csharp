@@ -691,6 +691,50 @@ namespace onscripter_csharp
 //			    return string_buffer;
 			}
 			
+			//FIXME: added, for readColor(is_color=NULL)
+			public CharPtr readColor()
+			{
+				return null;
+//			    // bare color type - not a string variable
+//			    end_status = END_NONE;
+//			    current_variable.type = VAR_NONE;
+//			
+//			    current_script = next_script;
+//			    SKIP_SPACE( current_script );
+//			    char *buf = current_script;
+//			
+//			    string_counter = 0;
+//			    addStringBuffer( '#' );
+//			    char ch = *(++buf);
+//			    int i;
+//			    for (i=0; i<7; i++) {
+//			        if ( ((ch >= '0') && (ch <= '9')) ||
+//			             ((ch >= 'a') && (ch <= 'f')) ||
+//			             ((ch >= 'A') && (ch <= 'F')) ) {
+//			            addStringBuffer( ch );
+//			            ch = *(++buf);
+//			        } else
+//			            break;
+//			    }
+//			    if (i!=6) {
+//			        if (is_color != NULL) {
+//			            *is_color = false;
+//			            string_counter = 0;
+//			            addStringBuffer( '\0' );
+//			            return string_buffer;
+//			        } else {
+//			            strncpy(string_buffer, current_script, 16);
+//			            string_buffer[16] = '\0';
+//			            errorAndExit( "readColor: not a valid color type." );
+//			        }
+//			    }
+//			    addStringBuffer( '\0' );
+//			    next_script = checkComma(buf);
+//			    if (is_color != NULL)
+//			        *is_color = true;
+//			
+//			    return string_buffer;				
+			}
 			public CharPtr readColor(ref bool is_color)
 			{
 				return null;

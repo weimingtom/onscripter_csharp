@@ -88,7 +88,7 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public bool setEffect( EffectLink effect, bool generate_effect_dst, bool update_backup_surface )
+			public bool setEffect( ScriptParser.EffectLink effect, bool generate_effect_dst, bool update_backup_surface )
 			{
 				return false;
 //			    if ( effect->effect == 0 ) return true;
@@ -186,7 +186,7 @@ namespace onscripter_csharp
 //			    return false;
 			}
 			
-			public bool doEffect( EffectLink effect, bool clear_dirty_region )
+			public bool doEffect( ScriptParser.EffectLink effect, bool clear_dirty_region )
 			{
 				return false;
 //			    bool first_time = (effect_counter == 0);

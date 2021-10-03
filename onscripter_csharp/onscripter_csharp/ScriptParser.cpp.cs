@@ -569,7 +569,7 @@ namespace onscripter_csharp
 //			        dstcolor[i] = srccolor[i];
 			}
 			
-			public void readColor( byte[] color, CharPtr buf ){
+			public void readColor( ref byte[] color, CharPtr buf ){
 //			    if ( buf[0] != '#' ) errorAndExit("readColor: no preceding #.");
 //			    (*color)[0] = convHexToDec( buf[1] ) << 4 | convHexToDec( buf[2] );
 //			    (*color)[1] = convHexToDec( buf[3] ) << 4 | convHexToDec( buf[4] );
@@ -967,7 +967,7 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public void writeLog( LogInfo info )
+			public void writeLog( ScriptHandler.LogInfo info )
 			{
 //			    file_io_buf_ptr = 0;
 //			    bool output_flag = false;
@@ -1000,7 +1000,7 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public void readLog( LogInfo info )
+			public void readLog( ScriptHandler.LogInfo info )
 			{
 //			    script_h.resetLog( info );
 //			    

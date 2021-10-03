@@ -44,26 +44,26 @@ namespace onscripter_csharp
 		
 		// OS X pollutes the main namespace with its own FontInfo type, so we
 		// have to use something else.
-//		class Fontinfo {
+		public partial class Fontinfo {
 //		public:
 //		    enum { YOKO_MODE = 0,
 //		           TATE_MODE = 1
 //		    };
-//		    void *ttf_font;
-//		    uchar3 color;
-//		    uchar3 on_color, off_color, nofile_color;
-//		    int font_size_xy[2];
-//		    int top_xy[2]; // Top left origin
-//		    int num_xy[2]; // Row and column of the text windows
-//		    int xy[2]; // Current position
-//		    int pitch_xy[2]; // Width and height of a character
-//		    int wait_time;
-//		    bool is_bold;
-//		    bool is_shadow;
-//		    bool is_transparent;
-//		    bool is_newline_accepted;
-//		    uchar3  window_color;
-//		
+		    public UnsignedCharPtr ttf_font;
+		    public byte[] color = new Byte[3];
+			public byte[] on_color = new Byte[3], off_color = new Byte[3], nofile_color = new Byte[3];
+			public int[] font_size_xy = new int[2];
+			public int[] top_xy = new int[2]; // Top left origin
+			public int[] num_xy = new int[2]; // Row and column of the text windows
+		    public int[] xy = new int[2]; // Current position
+		    public int[] pitch_xy = new int[2]; // Width and height of a character
+		    public int wait_time;
+		    public bool is_bold;
+		    public bool is_shadow;
+		    public bool is_transparent;
+		    public bool is_newline_accepted;
+		    public byte[]  window_color = new byte[3];
+		
 //		    int line_offset_xy[2]; // ruby offset for each line
 //		    int ruby_offset_xy[2]; // ruby offset for the whole sentence
 //		    bool rubyon_flag;
@@ -92,7 +92,7 @@ namespace onscripter_csharp
 //		    SDL_Rect calcUpdatedArea(int start_xy[2], int ratio1, int ratio2 );
 //		    void addShadeArea(SDL_Rect &rect, int shade_distance[2] );
 //		    int initRuby(Fontinfo &body_info, int body_count, int ruby_count);
-//		};
+		}
 		
 		//#endif // __FONT_INFO_H__
 	}

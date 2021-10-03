@@ -46,22 +46,22 @@ namespace onscripter_csharp
 		
 		//struct Pt { int x; int y; int type; int cell; };
 		
-//		struct Layer
-//		{
-//		    BaseReader *reader;
-//		    AnimationInfo *sprite_info, *sprite;
-//		    int width, height;
-//		
-//		    virtual ~Layer(){};
-//		    
-//		    void setSpriteInfo( AnimationInfo *sinfo, AnimationInfo *anim ){
-//		        sprite_info = sinfo;
-//		        sprite = anim;
-//		    };
-//		    virtual void update( ) = 0;
-//		    virtual char* message( const char *message, int &ret_int ) = 0;
-//		    virtual void refresh( SDL_Surface* surface, SDL_Rect &clip ) = 0;
-//		};
+		public abstract class Layer
+		{
+		    public BaseReader reader;
+		    public AnimationInfo sprite_info, sprite;
+		    public int width, height;
+		
+		    ~Layer(){}
+		    
+		    public void setSpriteInfo( AnimationInfo sinfo, AnimationInfo anim ){
+		        sprite_info = sinfo;
+		        sprite = anim;
+		    }
+		    public abstract void update( );
+		    public abstract CharPtr message( CharPtr message, ref int ret_int );
+		    public abstract void refresh( SDL_Surface surface, ref SDL_Rect clip );
+		}
 //		
 //		#ifndef BPP16
 //		// OldMovieLayer: emulation of Takashi Toyama's "oldmovie.dll" NScripter plugin filter

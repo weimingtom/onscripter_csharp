@@ -50,6 +50,10 @@ namespace onscripter_csharp
 			
 		}
 		
+		public CharPtr(CharPtr str, int offset) {
+			
+		}
+		
 		public static implicit operator CharPtr(string str) { return new CharPtr(str); }
 		public static implicit operator CharPtr(char[] chars) { return new CharPtr(chars); }
 		
@@ -64,9 +68,11 @@ namespace onscripter_csharp
 			set { chars[index + offset] = value; }
 		}
 		
-		public CharPtr inc()
+		//++
+		public CharPtr inc() 
 		{
-			_index++;
+			//FIXME:not correct
+			this._index++;
 			return this;
 		}
 	}
