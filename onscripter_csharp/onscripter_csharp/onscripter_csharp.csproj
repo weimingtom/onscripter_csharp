@@ -79,7 +79,6 @@
     <Compile Include="NsaReader.h.cs" />
     <Compile Include="onscripter.cpp.cs" />
     <Compile Include="ONScripterLabel.cpp.cs" />
-    <Compile Include="ONScripterLabel.cs" />
     <Compile Include="ONScripterLabel.h.cs" />
     <Compile Include="ONScripterLabel_animation.cpp.cs" />
     <Compile Include="ONScripterLabel_command.cpp.cs" />

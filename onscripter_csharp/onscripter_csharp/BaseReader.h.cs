@@ -50,7 +50,7 @@ namespace onscripter_csharp
 //		#endif
 //		
 //		#ifdef WIN32
-//		#define DELIMITER '\\'
+		public const char DELIMITER = '\\';
 //		#else
 //		#define DELIMITER '/'
 //		#endif

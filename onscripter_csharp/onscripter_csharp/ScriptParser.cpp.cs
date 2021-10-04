@@ -78,139 +78,146 @@ namespace onscripter_csharp
 //		#define DEFAULT_TEXT_SPEED_HIGHT  10
 //		
 //		#define MAX_PAGE_LIST 16
-//		
-//		typedef int (ScriptParser::*FuncList)();
-//		static struct FuncLUT{
-//		    char command[30];
-//		    FuncList method;
-//		} func_lut[] = {
-//		    {"zenkakko", &ScriptParser::zenkakkoCommand},
-//		    {"windoweffect", &ScriptParser::effectCommand},
-//		    {"windowchip", &ScriptParser::windowchipCommand},
-//		    {"windowback", &ScriptParser::windowbackCommand},
-//		    {"versionstr", &ScriptParser::versionstrCommand},
-//		    {"usewheel", &ScriptParser::usewheelCommand},
-//		    {"useescspc", &ScriptParser::useescspcCommand},
-//		    {"underline", &ScriptParser::underlineCommand},
-//		    {"transmode", &ScriptParser::transmodeCommand},
-//		    {"time", &ScriptParser::timeCommand},
-//		    {"textgosub", &ScriptParser::textgosubCommand},
-//		    {"tan", &ScriptParser::tanCommand},
-//		    {"sub", &ScriptParser::subCommand},
-//		    {"stralias", &ScriptParser::straliasCommand},
-//		    {"spi", &ScriptParser::soundpressplginCommand},
-//		    {"soundpressplgin", &ScriptParser::soundpressplginCommand},
-//		    {"skip",     &ScriptParser::skipCommand},
-//		    {"sin", &ScriptParser::sinCommand},
-//		    {"shadedistance",     &ScriptParser::shadedistanceCommand},
-//		    {"setlayer", &ScriptParser::setlayerCommand},
-//		    {"setkinsoku",   &ScriptParser::setkinsokuCommand},
-//		    {"selectvoice",     &ScriptParser::selectvoiceCommand},
-//		    {"selectcolor",     &ScriptParser::selectcolorCommand},
-//		    {"savenumber",     &ScriptParser::savenumberCommand},
-//		    {"savename",     &ScriptParser::savenameCommand},
-//		    {"savedir",     &ScriptParser::savedirCommand},
-//		    {"sar",    &ScriptParser::nsaCommand},
-//		    {"rubyon2",    &ScriptParser::rubyonCommand},
-//		    {"rubyon",    &ScriptParser::rubyonCommand},
-//		    {"rubyoff",    &ScriptParser::rubyoffCommand},
-//		    {"roff",    &ScriptParser::roffCommand},
-//		    {"rmenu",    &ScriptParser::rmenuCommand},
-//		    {"rgosub",   &ScriptParser::rgosubCommand},
-//		    {"return",   &ScriptParser::returnCommand},
-//		    {"pretextgosub", &ScriptParser::pretextgosubCommand},
-//		    {"pagetag", &ScriptParser::pagetagCommand},
-//		    {"numalias", &ScriptParser::numaliasCommand},
-//		    {"nsadir",    &ScriptParser::nsadirCommand},
-//		    {"nsa",    &ScriptParser::nsaCommand},
-//		    {"notif",    &ScriptParser::ifCommand},
-//		    {"next",    &ScriptParser::nextCommand},
-//		    {"ns3",    &ScriptParser::nsaCommand},
-//		    {"ns2",    &ScriptParser::nsaCommand},
-//		    {"mul",      &ScriptParser::mulCommand},
-//		    {"movl",      &ScriptParser::movCommand},
-//		    {"mov10",      &ScriptParser::movCommand},
-//		    {"mov9",      &ScriptParser::movCommand},
-//		    {"mov8",      &ScriptParser::movCommand},
-//		    {"mov7",      &ScriptParser::movCommand},
-//		    {"mov6",      &ScriptParser::movCommand},
-//		    {"mov5",      &ScriptParser::movCommand},
-//		    {"mov4",      &ScriptParser::movCommand},
-//		    {"mov3",      &ScriptParser::movCommand},
-//		    {"mov",      &ScriptParser::movCommand},
-//		    {"mode_wave_demo", &ScriptParser::mode_wave_demoCommand},
-//		    {"mode_saya", &ScriptParser::mode_sayaCommand},
-//		    {"mode_ext", &ScriptParser::mode_extCommand},
-//		    {"mod",      &ScriptParser::modCommand},
-//		    {"mid",      &ScriptParser::midCommand},
-//		    {"menusetwindow",      &ScriptParser::menusetwindowCommand},
-//		    {"menuselectvoice",      &ScriptParser::menuselectvoiceCommand},
-//		    {"menuselectcolor",      &ScriptParser::menuselectcolorCommand},
-//		    {"maxkaisoupage",      &ScriptParser::maxkaisoupageCommand},
-//		    {"luasub",      &ScriptParser::luasubCommand},
-//		    {"luacall",      &ScriptParser::luacallCommand},
-//		    {"lookbacksp",      &ScriptParser::lookbackspCommand},
-//		    {"lookbackcolor",      &ScriptParser::lookbackcolorCommand},
-//		    //{"lookbackbutton",      &ScriptParser::lookbackbuttonCommand},
-//		    {"loadgosub",      &ScriptParser::loadgosubCommand},
-//		    {"linepage2",    &ScriptParser::linepageCommand},
-//		    {"linepage",    &ScriptParser::linepageCommand},
-//		    {"len",      &ScriptParser::lenCommand},
-//		    {"labellog",      &ScriptParser::labellogCommand},
-//		    {"kidokuskip", &ScriptParser::kidokuskipCommand},
-//		    {"kidokumode", &ScriptParser::kidokumodeCommand},
-//		    {"itoa2", &ScriptParser::itoaCommand},
-//		    {"itoa", &ScriptParser::itoaCommand},
-//		    {"intlimit", &ScriptParser::intlimitCommand},
-//		    {"inc",      &ScriptParser::incCommand},
-//		    {"if",       &ScriptParser::ifCommand},
-//		    {"humanz",       &ScriptParser::humanzCommand},
-//		    {"humanpos",       &ScriptParser::humanposCommand},
-//		    {"goto",     &ScriptParser::gotoCommand},
-//		    {"gosub",    &ScriptParser::gosubCommand},
-//		    {"globalon",    &ScriptParser::globalonCommand},
-//		    {"getparam",    &ScriptParser::getparamCommand},
-//		    //{"game",    &ScriptParser::gameCommand},
-//		    {"for",   &ScriptParser::forCommand},
-//		    {"filelog",   &ScriptParser::filelogCommand},
-//		    {"errorsave",   &ScriptParser::errorsaveCommand},
-//		    {"english",   &ScriptParser::englishCommand},
-//		    {"effectcut",   &ScriptParser::effectcutCommand},
-//		    {"effectblank",   &ScriptParser::effectblankCommand},
-//		    {"effect",   &ScriptParser::effectCommand},
-//		    {"dsound",   &ScriptParser::dsoundCommand},
-//		    {"div",   &ScriptParser::divCommand},
-//		    {"dim",   &ScriptParser::dimCommand},
-//		    {"defvoicevol",   &ScriptParser::defvoicevolCommand},
-//		    {"defsub",   &ScriptParser::defsubCommand},
-//		    {"defsevol",   &ScriptParser::defsevolCommand},
-//		    {"defmp3vol",   &ScriptParser::defmp3volCommand},
-//		    {"defbgmvol",   &ScriptParser::defmp3volCommand},
-//		    {"defaultspeed", &ScriptParser::defaultspeedCommand},
-//		    {"defaultfont", &ScriptParser::defaultfontCommand},
-//		    {"dec",   &ScriptParser::decCommand},
-//		    {"dec",   &ScriptParser::decCommand},
-//		    {"date",   &ScriptParser::dateCommand},
-//		    {"cos", &ScriptParser::cosCommand},
-//		    {"cmp",      &ScriptParser::cmpCommand},
-//		    {"clickvoice",   &ScriptParser::clickvoiceCommand},
-//		    {"clickstr",   &ScriptParser::clickstrCommand},
-//		    {"clickskippage", &ScriptParser::clickskippageCommand},
-//		    {"btnnowindowerase",   &ScriptParser::btnnowindoweraseCommand},
-//		    {"break",   &ScriptParser::breakCommand},
-//		    {"automode", &ScriptParser::mode_extCommand},
-//		    {"atoi",      &ScriptParser::atoiCommand},
-//		    {"arc",      &ScriptParser::arcCommand},
-//		    {"addnsadir",    &ScriptParser::addnsadirCommand},
-//		    {"addkinsoku",   &ScriptParser::addkinsokuCommand},
-//		    {"add",      &ScriptParser::addCommand},
-//		    {"", NULL}
-//		};
-//		
-//		static struct FuncHash{
-//		    int start;
-//		    int end;
-//		} func_hash['z'-'a'+1];
+		
+		public delegate int FuncList_ScriptParser(ScriptParser this_);
+		public class FuncLUT_ScriptParser {
+			public char[] command = new char[30];
+		    public FuncList_ScriptParser method;
+		    public FuncLUT_ScriptParser(CharPtr str, FuncList_ScriptParser method)
+		    {
+		    	strcpy(this.command, str);
+		    	this.method = method;
+		    }
+		} 
+		public static FuncLUT_ScriptParser[] func_lut_ScriptParser = new FuncLUT_ScriptParser[] {
+		    new FuncLUT_ScriptParser("zenkakko", delegate (ScriptParser this_) { return this_.zenkakkoCommand(); } ),
+		    new FuncLUT_ScriptParser("windoweffect", delegate (ScriptParser this_) { return this_.effectCommand(); } ),
+		    new FuncLUT_ScriptParser("windowchip", delegate (ScriptParser this_) { return this_.windowchipCommand(); } ),
+		    new FuncLUT_ScriptParser("windowback", delegate (ScriptParser this_) { return this_.windowbackCommand(); } ),
+		    new FuncLUT_ScriptParser("versionstr", delegate (ScriptParser this_) { return this_.versionstrCommand(); } ),
+		    new FuncLUT_ScriptParser("usewheel", delegate (ScriptParser this_) { return this_.usewheelCommand(); } ),
+		    new FuncLUT_ScriptParser("useescspc", delegate (ScriptParser this_) { return this_.useescspcCommand(); } ),
+		    new FuncLUT_ScriptParser("underline", delegate (ScriptParser this_) { return this_.underlineCommand(); } ),
+		    new FuncLUT_ScriptParser("transmode", delegate (ScriptParser this_) { return this_.transmodeCommand(); } ),
+		    new FuncLUT_ScriptParser("time", delegate (ScriptParser this_) { return this_.timeCommand(); } ),
+		    new FuncLUT_ScriptParser("textgosub", delegate (ScriptParser this_) { return this_.textgosubCommand(); } ),
+		    new FuncLUT_ScriptParser("tan", delegate (ScriptParser this_) { return this_.tanCommand(); } ),
+		    new FuncLUT_ScriptParser("sub", delegate (ScriptParser this_) { return this_.subCommand(); } ),
+		    new FuncLUT_ScriptParser("stralias", delegate (ScriptParser this_) { return this_.straliasCommand(); } ),
+		    new FuncLUT_ScriptParser("spi", delegate (ScriptParser this_) { return this_.soundpressplginCommand(); } ),
+		    new FuncLUT_ScriptParser("soundpressplgin", delegate (ScriptParser this_) { return this_.soundpressplginCommand(); } ),
+		    new FuncLUT_ScriptParser("skip",     delegate (ScriptParser this_) { return this_.skipCommand(); } ),
+		    new FuncLUT_ScriptParser("sin", delegate (ScriptParser this_) { return this_.sinCommand(); } ),
+		    new FuncLUT_ScriptParser("shadedistance",     delegate (ScriptParser this_) { return this_.shadedistanceCommand(); } ),
+		    new FuncLUT_ScriptParser("setlayer", delegate (ScriptParser this_) { return this_.setlayerCommand(); } ),
+		    new FuncLUT_ScriptParser("setkinsoku",   delegate (ScriptParser this_) { return this_.setkinsokuCommand(); } ),
+		    new FuncLUT_ScriptParser("selectvoice",     delegate (ScriptParser this_) { return this_.selectvoiceCommand(); } ),
+		    new FuncLUT_ScriptParser("selectcolor",     delegate (ScriptParser this_) { return this_.selectcolorCommand(); } ),
+		    new FuncLUT_ScriptParser("savenumber",     delegate (ScriptParser this_) { return this_.savenumberCommand(); } ),
+		    new FuncLUT_ScriptParser("savename",     delegate (ScriptParser this_) { return this_.savenameCommand(); } ),
+		    new FuncLUT_ScriptParser("savedir",     delegate (ScriptParser this_) { return this_.savedirCommand(); } ),
+		    new FuncLUT_ScriptParser("sar",    delegate (ScriptParser this_) { return this_.nsaCommand(); } ),
+		    new FuncLUT_ScriptParser("rubyon2",    delegate (ScriptParser this_) { return this_.rubyonCommand(); } ),
+		    new FuncLUT_ScriptParser("rubyon",    delegate (ScriptParser this_) { return this_.rubyonCommand(); } ),
+		    new FuncLUT_ScriptParser("rubyoff",    delegate (ScriptParser this_) { return this_.rubyoffCommand(); } ),
+		    new FuncLUT_ScriptParser("roff",    delegate (ScriptParser this_) { return this_.roffCommand(); } ),
+		    new FuncLUT_ScriptParser("rmenu",    delegate (ScriptParser this_) { return this_.rmenuCommand(); } ),
+		    new FuncLUT_ScriptParser("rgosub",   delegate (ScriptParser this_) { return this_.rgosubCommand(); } ),
+		    new FuncLUT_ScriptParser("return",   delegate (ScriptParser this_) { return this_.returnCommand(); } ),
+		    new FuncLUT_ScriptParser("pretextgosub", delegate (ScriptParser this_) { return this_.pretextgosubCommand(); } ),
+		    new FuncLUT_ScriptParser("pagetag", delegate (ScriptParser this_) { return this_.pagetagCommand(); } ),
+		    new FuncLUT_ScriptParser("numalias", delegate (ScriptParser this_) { return this_.numaliasCommand(); } ),
+		    new FuncLUT_ScriptParser("nsadir",    delegate (ScriptParser this_) { return this_.nsadirCommand(); } ),
+		    new FuncLUT_ScriptParser("nsa",    delegate (ScriptParser this_) { return this_.nsaCommand(); } ),
+		    new FuncLUT_ScriptParser("notif",    delegate (ScriptParser this_) { return this_.ifCommand(); } ),
+		    new FuncLUT_ScriptParser("next",    delegate (ScriptParser this_) { return this_.nextCommand(); } ),
+		    new FuncLUT_ScriptParser("ns3",    delegate (ScriptParser this_) { return this_.nsaCommand(); } ),
+		    new FuncLUT_ScriptParser("ns2",    delegate (ScriptParser this_) { return this_.nsaCommand(); } ),
+		    new FuncLUT_ScriptParser("mul",      delegate (ScriptParser this_) { return this_.mulCommand(); } ),
+		    new FuncLUT_ScriptParser("movl",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov10",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov9",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov8",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov7",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov6",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov5",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov4",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov3",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mov",      delegate (ScriptParser this_) { return this_.movCommand(); } ),
+		    new FuncLUT_ScriptParser("mode_wave_demo", delegate (ScriptParser this_) { return this_.mode_wave_demoCommand(); } ),
+		    new FuncLUT_ScriptParser("mode_saya", delegate (ScriptParser this_) { return this_.mode_sayaCommand(); } ),
+		    new FuncLUT_ScriptParser("mode_ext", delegate (ScriptParser this_) { return this_.mode_extCommand(); } ),
+		    new FuncLUT_ScriptParser("mod",      delegate (ScriptParser this_) { return this_.modCommand(); } ),
+		    new FuncLUT_ScriptParser("mid",      delegate (ScriptParser this_) { return this_.midCommand(); } ),
+		    new FuncLUT_ScriptParser("menusetwindow",      delegate (ScriptParser this_) { return this_.menusetwindowCommand(); } ),
+		    new FuncLUT_ScriptParser("menuselectvoice",      delegate (ScriptParser this_) { return this_.menuselectvoiceCommand(); } ),
+		    new FuncLUT_ScriptParser("menuselectcolor",      delegate (ScriptParser this_) { return this_.menuselectcolorCommand(); } ),
+		    new FuncLUT_ScriptParser("maxkaisoupage",      delegate (ScriptParser this_) { return this_.maxkaisoupageCommand(); } ),
+		    new FuncLUT_ScriptParser("luasub",      delegate (ScriptParser this_) { return this_.luasubCommand(); } ),
+		    new FuncLUT_ScriptParser("luacall",      delegate (ScriptParser this_) { return this_.luacallCommand(); } ),
+		    new FuncLUT_ScriptParser("lookbacksp",      delegate (ScriptParser this_) { return this_.lookbackspCommand(); } ),
+		    new FuncLUT_ScriptParser("lookbackcolor",      delegate (ScriptParser this_) { return this_.lookbackcolorCommand(); } ),
+		    //new FuncLUT_ScriptParser("lookbackbutton",      delegate (ScriptParser this_) { return this_.lookbackbuttonCommand(); } ),
+		    new FuncLUT_ScriptParser("loadgosub",      delegate (ScriptParser this_) { return this_.loadgosubCommand(); } ),
+		    new FuncLUT_ScriptParser("linepage2",    delegate (ScriptParser this_) { return this_.linepageCommand(); } ),
+		    new FuncLUT_ScriptParser("linepage",    delegate (ScriptParser this_) { return this_.linepageCommand(); } ),
+		    new FuncLUT_ScriptParser("len",      delegate (ScriptParser this_) { return this_.lenCommand(); } ),
+		    new FuncLUT_ScriptParser("labellog",      delegate (ScriptParser this_) { return this_.labellogCommand(); } ),
+		    new FuncLUT_ScriptParser("kidokuskip", delegate (ScriptParser this_) { return this_.kidokuskipCommand(); } ),
+		    new FuncLUT_ScriptParser("kidokumode", delegate (ScriptParser this_) { return this_.kidokumodeCommand(); } ),
+		    new FuncLUT_ScriptParser("itoa2", delegate (ScriptParser this_) { return this_.itoaCommand(); } ),
+		    new FuncLUT_ScriptParser("itoa", delegate (ScriptParser this_) { return this_.itoaCommand(); } ),
+		    new FuncLUT_ScriptParser("intlimit", delegate (ScriptParser this_) { return this_.intlimitCommand(); } ),
+		    new FuncLUT_ScriptParser("inc",      delegate (ScriptParser this_) { return this_.incCommand(); } ),
+		    new FuncLUT_ScriptParser("if",       delegate (ScriptParser this_) { return this_.ifCommand(); } ),
+		    new FuncLUT_ScriptParser("humanz",       delegate (ScriptParser this_) { return this_.humanzCommand(); } ),
+		    new FuncLUT_ScriptParser("humanpos",       delegate (ScriptParser this_) { return this_.humanposCommand(); } ),
+		    new FuncLUT_ScriptParser("goto",     delegate (ScriptParser this_) { return this_.gotoCommand(); } ),
+		    new FuncLUT_ScriptParser("gosub",    delegate (ScriptParser this_) { return this_.gosubCommand(); } ),
+		    new FuncLUT_ScriptParser("globalon",    delegate (ScriptParser this_) { return this_.globalonCommand(); } ),
+		    new FuncLUT_ScriptParser("getparam",    delegate (ScriptParser this_) { return this_.getparamCommand(); } ),
+		    //new FuncLUT_ScriptParser("game",    delegate (ScriptParser this_) { return this_.gameCommand(); } ),
+		    new FuncLUT_ScriptParser("for",   delegate (ScriptParser this_) { return this_.forCommand(); } ),
+		    new FuncLUT_ScriptParser("filelog",   delegate (ScriptParser this_) { return this_.filelogCommand(); } ),
+		    new FuncLUT_ScriptParser("errorsave",   delegate (ScriptParser this_) { return this_.errorsaveCommand(); } ),
+		    new FuncLUT_ScriptParser("english",   delegate (ScriptParser this_) { return this_.englishCommand(); } ),
+		    new FuncLUT_ScriptParser("effectcut",   delegate (ScriptParser this_) { return this_.effectcutCommand(); } ),
+		    new FuncLUT_ScriptParser("effectblank",   delegate (ScriptParser this_) { return this_.effectblankCommand(); } ),
+		    new FuncLUT_ScriptParser("effect",   delegate (ScriptParser this_) { return this_.effectCommand(); } ),
+		    new FuncLUT_ScriptParser("dsound",   delegate (ScriptParser this_) { return this_.dsoundCommand(); } ),
+		    new FuncLUT_ScriptParser("div",   delegate (ScriptParser this_) { return this_.divCommand(); } ),
+		    new FuncLUT_ScriptParser("dim",   delegate (ScriptParser this_) { return this_.dimCommand(); } ),
+		    new FuncLUT_ScriptParser("defvoicevol",   delegate (ScriptParser this_) { return this_.defvoicevolCommand(); } ),
+		    new FuncLUT_ScriptParser("defsub",   delegate (ScriptParser this_) { return this_.defsubCommand(); } ),
+		    new FuncLUT_ScriptParser("defsevol",   delegate (ScriptParser this_) { return this_.defsevolCommand(); } ),
+		    new FuncLUT_ScriptParser("defmp3vol",   delegate (ScriptParser this_) { return this_.defmp3volCommand(); } ),
+		    new FuncLUT_ScriptParser("defbgmvol",   delegate (ScriptParser this_) { return this_.defmp3volCommand(); } ),
+		    new FuncLUT_ScriptParser("defaultspeed", delegate (ScriptParser this_) { return this_.defaultspeedCommand(); } ),
+		    new FuncLUT_ScriptParser("defaultfont", delegate (ScriptParser this_) { return this_.defaultfontCommand(); } ),
+		    new FuncLUT_ScriptParser("dec",   delegate (ScriptParser this_) { return this_.decCommand(); } ),
+		    new FuncLUT_ScriptParser("dec",   delegate (ScriptParser this_) { return this_.decCommand(); } ),
+		    new FuncLUT_ScriptParser("date",   delegate (ScriptParser this_) { return this_.dateCommand(); } ),
+		    new FuncLUT_ScriptParser("cos", delegate (ScriptParser this_) { return this_.cosCommand(); } ),
+		    new FuncLUT_ScriptParser("cmp",      delegate (ScriptParser this_) { return this_.cmpCommand(); } ),
+		    new FuncLUT_ScriptParser("clickvoice",   delegate (ScriptParser this_) { return this_.clickvoiceCommand(); } ),
+		    new FuncLUT_ScriptParser("clickstr",   delegate (ScriptParser this_) { return this_.clickstrCommand(); } ),
+		    new FuncLUT_ScriptParser("clickskippage", delegate (ScriptParser this_) { return this_.clickskippageCommand(); } ),
+		    new FuncLUT_ScriptParser("btnnowindowerase",   delegate (ScriptParser this_) { return this_.btnnowindoweraseCommand(); } ),
+		    new FuncLUT_ScriptParser("break",   delegate (ScriptParser this_) { return this_.breakCommand(); } ),
+		    new FuncLUT_ScriptParser("automode", delegate (ScriptParser this_) { return this_.mode_extCommand(); } ),
+		    new FuncLUT_ScriptParser("atoi",      delegate (ScriptParser this_) { return this_.atoiCommand(); } ),
+		    new FuncLUT_ScriptParser("arc",      delegate (ScriptParser this_) { return this_.arcCommand(); } ),
+		    new FuncLUT_ScriptParser("addnsadir",    delegate (ScriptParser this_) { return this_.addnsadirCommand(); } ),
+		    new FuncLUT_ScriptParser("addkinsoku",   delegate (ScriptParser this_) { return this_.addkinsokuCommand(); } ),
+		    new FuncLUT_ScriptParser("add",      delegate (ScriptParser this_) { return this_.addCommand(); } ),
+		    new FuncLUT_ScriptParser("", null),
+		};
+		
+		public class FuncHash_ScriptParser {
+		    public int start;
+		    public int end;
+		}
+		public static FuncHash_ScriptParser[] func_hash_ScriptParser = new FuncHash_ScriptParser['z'-'a'+1];
 		
 		
 		public partial class ScriptParser {
@@ -597,122 +604,120 @@ namespace onscripter_csharp
 			
 			public int parseLine()
 			{
-				return 0;
-//			    const char *cmd = script_h.getStringBuffer() + string_buffer_offset;
-//			
-//			    if ( (debug_level > 0) && (*cmd != ':') && (*cmd != 0x0a) ) {
-//			        printf("ScriptParser::Parseline %s\n", cmd );
-//			        fflush(stdout);
-//			    }
-//			
-//			    script_h.current_cmd[0] = '\0';
-//			    script_h.current_cmd_type = ScriptHandler::CMD_NONE;
-//			
-//			    if ( *cmd == ';' ) return RET_CONTINUE;
-//			    else if ( *cmd == '*' ) return RET_CONTINUE;
-//			    else if ( *cmd == ':' ) return RET_CONTINUE;
-//			    else if ( script_h.isText() ) return RET_NOMATCH;
-//			
-//			    if (*cmd != '_'){
-//			        snprintf(script_h.current_cmd, 64, "%s", cmd);
-//			        //Check against user-defined cmds
-//			        if (cmd[0] >= 'a' && cmd[0] <= 'z'){
-//						//TODO:
-//						char debugstr[256] = {0};
-//						sprintf(debugstr, "<<<<<<<< %s\n", cmd); 
-//						OutputDebugString(debugstr);
-//			
-//			            UserFuncHash &ufh = user_func_hash[cmd[0]-'a'];
-//			            UserFuncLUT *uf = ufh.root.next;
-//			            while(uf){
-//			                if (!strcmp( uf->command, cmd )){
-//			                    if (uf->lua_flag){
-//			#ifdef USE_LUA
-//			                        if (lua_handler.callFunction(false, cmd))
-//			                            errorAndExit( lua_handler.error_str, NULL, "Lua Error" );
-//			#endif
-//			                    }
-//			                    else{
-//			                        gosubReal( cmd, script_h.getNext() );
-//			                    }
-//			                    return RET_CONTINUE;
-//			                }
-//			                uf = uf->next;
-//			            }
-//			        }
-//			    }
-//			    else{
-//			        cmd++;
-//			    }
-//			
-//			    //Check against builtin cmds
-//			    if (cmd[0] >= 'a' && cmd[0] <= 'z'){
-//			        FuncHash &fh = func_hash[cmd[0]-'a'];
-//			        for (int i=fh.start ; i<=fh.end ; i++){
-//			            if ( !strcmp( func_lut[i].command, cmd ) ){
-//			                return (this->*func_lut[i].method)();
-//			            }
-//			        }
-//			    }
-//			
-//			    return RET_NOMATCH;
+				CharPtr cmd = new CharPtr(script_h.getStringBuffer(), string_buffer_offset);
+			
+				if ( (debug_level > 0) && (cmd[0] != ':') && (cmd[0] != 0x0a) ) {
+			        printf("ScriptParser::Parseline %s\n", cmd );
+			        fflush(stdout);
+			    }
+			
+			    script_h.current_cmd[0] = '\0';
+			    script_h.current_cmd_type = ScriptHandler.CMD_NONE;
+			
+			    if ( cmd[0] == ';' ) return RET_CONTINUE;
+			    else if ( cmd[0] == '*' ) return RET_CONTINUE;
+			    else if ( cmd[0] == ':' ) return RET_CONTINUE;
+			    else if ( script_h.isText() ) return RET_NOMATCH;
+			
+			    if (cmd[0] != '_'){
+			        snprintf(script_h.current_cmd, 64, "%s", cmd);
+			        //Check against user-defined cmds
+			        if (cmd[0] >= 'a' && cmd[0] <= 'z'){
+						//TODO:
+						char[] debugstr = new char[256];
+						sprintf(debugstr, "<<<<<<<< %s\n", cmd); 
+						OutputDebugString(debugstr);
+			
+			            UserFuncHash ufh = user_func_hash[cmd[0]-'a'];
+			            UserFuncLUT uf = ufh.root.next;
+			            while(null!=uf){
+			                if (0==strcmp( uf.command, cmd )){
+			                    if (uf.lua_flag){
+			#if USE_LUA
+			                        if (lua_handler.callFunction(false, cmd))
+			                            errorAndExit( lua_handler.error_str, NULL, "Lua Error" );
+			#endif
+			                    }
+			                    else{
+			                        gosubReal( cmd, script_h.getNext() );
+			                    }
+			                    return RET_CONTINUE;
+			                }
+			                uf = uf.next;
+			            }
+			        }
+			    }
+			    else{
+			    	cmd.inc();
+			    }
+			
+			    //Check against builtin cmds
+			    if (cmd[0] >= 'a' && cmd[0] <= 'z'){
+			        FuncHash fh = func_hash[cmd[0]-'a'];
+			        for (int i=fh.start ; i<=fh.end ; i++){
+			            if ( 0==strcmp( func_lut_ScriptParser[i].command, cmd ) ){
+			                return func_lut_ScriptParser[i].method(this);
+			            }
+			        }
+			    }
+			
+			    return RET_NOMATCH;
 			}
 			
 			public void deleteRMenuLink()
 			{
-//			    RMenuLink *link = root_rmenu_link.next;
-//			    while(link){
-//			        RMenuLink *tmp = link;
-//			        link = link->next;
-//			        delete tmp;
-//			    }
-//			    root_rmenu_link.next = NULL;
-//			
-//			    rmenu_link_num   = 0;
-//			    rmenu_link_width = 0;
+			    RMenuLink link = root_rmenu_link.next;
+			    while(null!=link){
+			        RMenuLink tmp = link;
+			        link = link.next;
+			        tmp = null;//delete tmp;
+			    }
+			    root_rmenu_link.next = null;
+			
+			    rmenu_link_num   = 0;
+			    rmenu_link_width = 0;
 			}
 			
 			public int getSystemCallNo( CharPtr buffer )
 			{
-				return 0;
-//			    if      ( !strcmp( buffer, "skip" ) )        return SYSTEM_SKIP;
-//			    else if ( !strcmp( buffer, "reset" ) )       return SYSTEM_RESET;
-//			    else if ( !strcmp( buffer, "save" ) )        return SYSTEM_SAVE;
-//			    else if ( !strcmp( buffer, "load" ) )        return SYSTEM_LOAD;
-//			    else if ( !strcmp( buffer, "lookback" ) )    return SYSTEM_LOOKBACK;
-//			    else if ( !strcmp( buffer, "windowerase" ) ) return SYSTEM_WINDOWERASE;
-//			    else if ( !strcmp( buffer, "rmenu" ) )       return SYSTEM_MENU;
-//			    else if ( !strcmp( buffer, "automode" ) )    return SYSTEM_AUTOMODE;
-//			    else if ( !strcmp( buffer, "end" ) )         return SYSTEM_END;
-//			    else{
-//			        printf("Unsupported system call %s\n", buffer );
-//			        return -1;
-//			    }
+				if      ( 0==strcmp( buffer, "skip" ) )        return SYSTEM_SKIP;
+			    else if ( 0==strcmp( buffer, "reset" ) )       return SYSTEM_RESET;
+			    else if ( 0==strcmp( buffer, "save" ) )        return SYSTEM_SAVE;
+			    else if ( 0==strcmp( buffer, "load" ) )        return SYSTEM_LOAD;
+			    else if ( 0==strcmp( buffer, "lookback" ) )    return SYSTEM_LOOKBACK;
+			    else if ( 0==strcmp( buffer, "windowerase" ) ) return SYSTEM_WINDOWERASE;
+			    else if ( 0==strcmp( buffer, "rmenu" ) )       return SYSTEM_MENU;
+			    else if ( 0==strcmp( buffer, "automode" ) )    return SYSTEM_AUTOMODE;
+			    else if ( 0==strcmp( buffer, "end" ) )         return SYSTEM_END;
+			    else{
+			        printf("Unsupported system call %s\n", buffer );
+			        return -1;
+			    }
 			}
 			
 			public void setArchivePath(CharPtr path)
 			{
-//			    archive_path = DirPaths(path);
-//			    //printf("archive_path: %s\n", archive_path.get_all_paths());
+			    archive_path = new DirPaths(path);
+			    //printf("archive_path: %s\n", archive_path.get_all_paths());
 			}
 			
 			public void setSavePath(CharPtr path)
 			{
-//			    if ( (path == NULL) || (*path == '\0') ||
-//			         (path[strlen(path)-1] == DELIMITER) ) {
-//			        setStr( &script_h.save_path, path );
-//			    } else {
-//			        if (script_h.save_path) delete[] script_h.save_path;
-//			        script_h.save_path = new char[ strlen(path) + 2 ];
-//			        sprintf( script_h.save_path, "%s%c", path, DELIMITER );
-//			    }
+				if ( (path == null) || (path[0] == '\0') ||
+			         (path[strlen(path)-1] == DELIMITER) ) {
+			        setStr( ref script_h.save_path, path );
+			    } else {
+			        if (null!=script_h.save_path) script_h.save_path = null;//delete[] script_h.save_path;
+			        script_h.save_path = new char[ strlen(path) + 2 ];
+			        sprintf( script_h.save_path, "%s%c", path, DELIMITER );
+			    }
 			}
 			
 			public void setNsaOffset(CharPtr off)
 			{
-//			    int offset = atoi(off);
-//			    if (offset > 0)
-//			        nsa_offset = offset;
+			    int offset = atoi(off);
+			    if (offset > 0)
+			        nsa_offset = offset;
 			}
 			
 			public void saveGlovalData()

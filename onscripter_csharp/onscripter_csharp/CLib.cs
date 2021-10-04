@@ -14,6 +14,7 @@ namespace onscripter_csharp
 		public const int EOF = -1; //FIXME:????
 		public const int SEEK_SET = 1; //FIXME:
 		public const int SEEK_END = 2; //FIXME:
+		public const FILEPtr stdout = null;//FIXME:
 		
 		
 		public class time_t {
@@ -174,6 +175,15 @@ namespace onscripter_csharp
 		public static int fputc(char buffer, FILEPtr fp)
 		{
 			return 0;
+		}
+		
+		public static void fflush(FILEPtr fp)
+		{
+		}
+		
+		public static void OutputDebugString(CharPtr str)
+		{
+			
 		}
 		
 	}

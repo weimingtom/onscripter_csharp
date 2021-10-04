@@ -279,19 +279,19 @@ namespace onscripter_csharp
 //		        //pointers previous, next, & next_script do not need to be freed
 		    }
 			public NestInfo last_tilde = new NestInfo();
-//		
-//		    enum { SYSTEM_NULL        = 0,
-//		           SYSTEM_SKIP        = 1,
-//		           SYSTEM_RESET       = 2,
-//		           SYSTEM_SAVE        = 3,
-//		           SYSTEM_LOAD        = 4,
-//		           SYSTEM_LOOKBACK    = 5,
-//		           SYSTEM_WINDOWERASE = 6,
-//		           SYSTEM_MENU        = 7,
-//		           SYSTEM_YESNO       = 8,
-//		           SYSTEM_AUTOMODE    = 9,
-//		           SYSTEM_END         = 10
-//		    }
+		
+		    public const int SYSTEM_NULL        = 0;
+		    public const int SYSTEM_SKIP        = 1;
+		    public const int SYSTEM_RESET       = 2;
+		    public const int SYSTEM_SAVE        = 3;
+		    public const int SYSTEM_LOAD        = 4;
+		    public const int SYSTEM_LOOKBACK    = 5;
+		    public const int SYSTEM_WINDOWERASE = 6;
+		    public const int SYSTEM_MENU        = 7;
+		    public const int SYSTEM_YESNO       = 8;
+		    public const int SYSTEM_AUTOMODE    = 9;
+		    public const int SYSTEM_END         = 10;
+		    
 		    public const int RET_NOMATCH   = 0,
 		           RET_SKIP_LINE = 1,
 		           RET_CONTINUE  = 2,

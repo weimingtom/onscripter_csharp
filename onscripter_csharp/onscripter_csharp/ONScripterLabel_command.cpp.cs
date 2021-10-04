@@ -4185,10 +4185,11 @@ namespace onscripter_csharp
 //			    flush( refreshMode() );
 //			
 //			    return RET_CONTINUE;
-//			}
-//			
-//			int ONScripterLabel::btntimeCommand()
-//			{
+			}
+			
+			public int btntimeCommand()
+			{
+				return 0;
 //			    if ( script_h.isName( "btntime2" ) )
 //			        btntime2_flag = true;
 //			    else
@@ -4196,17 +4197,19 @@ namespace onscripter_csharp
 //			    btntime_value = script_h.readInt();
 //			
 //			    return RET_CONTINUE;
-//			}
-//			
-//			int ONScripterLabel::btndownCommand()
-//			{
+			}
+			
+			public int btndownCommand()
+			{
+				return 0;
 //			    btndown_flag = (script_h.readInt()==1)?true:false;
 //			
 //			    return RET_CONTINUE;
-//			}
-//			
-//			int ONScripterLabel::btndefCommand()
-//			{
+			}
+			
+			public int btndefCommand()
+			{
+				return 0;
 //			    if (script_h.compareString("clear")){
 //			        script_h.readName();
 //			    }

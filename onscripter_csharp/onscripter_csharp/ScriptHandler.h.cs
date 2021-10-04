@@ -310,15 +310,15 @@ namespace onscripter_csharp
 		    public CharPtr savedir;
 		    public int  game_hash;
 		
-//		    //Mion: for more helpful error msgs
-//		    bool strict_warnings;
-//		    char current_cmd[64];
-//		    enum { CMD_NONE    = 0,
-//		           CMD_BUILTIN = 1,
-//		           CMD_TEXT    = 2,
-//		           CMD_USERDEF = 3,
-//		           CMD_UNKNOWN = 4
-//		    } current_cmd_type;
+		    //Mion: for more helpful error msgs
+		    public bool strict_warnings;
+		    public char[] current_cmd = new char[64];
+		    public const int CMD_NONE    = 0;
+		    public const int CMD_BUILTIN = 1;
+		    public const int CMD_TEXT    = 2;
+		    public const int CMD_USERDEF = 3;
+		    public const int CMD_UNKNOWN = 4;
+		    public int current_cmd_type;
 		    public char[] errbuf = new char[MAX_ERRBUF_LEN]; //intended for use creating error messages
 		                                 // before they are passed to errorAndExit,
 		                                 // simpleErrorAndExit or processError
