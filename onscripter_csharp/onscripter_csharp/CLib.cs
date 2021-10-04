@@ -186,5 +186,14 @@ namespace onscripter_csharp
 			
 		}
 		
+		public static void srand(time_t t)
+		{
+			
+		}
+		
+		public static double rand()
+		{
+			return 0;
+		}
 	}
 }

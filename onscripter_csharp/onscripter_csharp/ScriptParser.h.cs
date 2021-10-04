@@ -313,14 +313,14 @@ namespace onscripter_csharp
 		    public const int NORMAL_MODE = 0, DEFINE_MODE = 1;
 		    public int current_mode;
 		    public int debug_level;
-//		
-//		#ifdef MACOSX
-//		    bool is_bundled;
-//		    char *bundle_res_path;
-//		    char *bundle_app_path;
-//		    char *bundle_app_name;
-//		#endif
-//		    char *cmdline_game_id;
+		
+		#if MACOSX
+		    bool is_bundled;
+		    char *bundle_res_path;
+		    char *bundle_app_path;
+		    char *bundle_app_name;
+		#endif
+		    public CharPtr cmdline_game_id;
 		    DirPaths archive_path = new DirPaths();
 		    public DirPaths nsa_path = new DirPaths();
 		    public int nsa_offset = 0;
@@ -471,27 +471,28 @@ namespace onscripter_csharp
 		    /* Text related variables */
 		    public CharPtr default_env_font;
 		    public int[] default_text_speed = new int[3];
-//		    struct Page{
-//		        struct Page *next, *previous;
-//		
-//		        char *text;
-//		        int max_text;
-//		        int text_count;
-//		        char *tag;
-//		
-//		        Page(): next(NULL), previous(NULL),
-//		                text(NULL), max_text(0), text_count(0), tag(NULL){}
-//		        ~Page(){
-//		            if (text) delete[] text; text = NULL;
-//		            if (tag)  delete[] tag;  tag = NULL;
-//		            next = previous = NULL;
-//		        }
-//		        int add(unsigned char ch){
-//		            if (text_count >= max_text) return -1;
-//		            text[text_count++] = ch;
-//		            return 0;
-//		        };
-//		    } *page_list, *start_page, *current_page; // ring buffer
+		    public class Page{
+		        public Page next, previous;
+		
+		        public CharPtr text;
+		        public int max_text;
+		        public int text_count;
+		        public CharPtr tag;
+		
+		        public Page() { next = (null); previous = (null);
+		                text = (null); max_text = (0); text_count = (0); tag = (null); }
+		        ~Page(){
+		            if (null!=text) /*delete[] text;*/ text = null;
+		            if (null!=tag)  /*delete[] tag;*/  tag = null;
+		            next = previous = null;
+		        }
+		        public int add(byte ch){
+		            if (text_count >= max_text) return -1;
+		            text[text_count++] = (char)ch;
+		            return 0;
+		        }
+		    }
+		    public Page page_list = null, start_page = null, current_page = null; // ring buffer
 		    public int  max_page_list;
 		    public int  clickstr_line;
 		    public int  clickstr_state;

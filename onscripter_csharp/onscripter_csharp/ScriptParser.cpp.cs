@@ -69,15 +69,15 @@ namespace onscripter_csharp
 //		#ifdef _MSC_VER
 //		#define snprintf _snprintf
 //		#endif
-//		
-//		#define VERSION_STR1 "ONScripter-EN"
-//		#define VERSION_STR2 "Copyright (C) 2001-2010 Studio O.G.A., 2007-2010 \"Uncle\" Mion Sonozaki. All Rights Reserved."
-//		
-//		#define DEFAULT_TEXT_SPEED_LOW    40
-//		#define DEFAULT_TEXT_SPEED_MIDDLE 20
-//		#define DEFAULT_TEXT_SPEED_HIGHT  10
-//		
-//		#define MAX_PAGE_LIST 16
+		
+		public const string VERSION_STR1 = "ONScripter-EN";
+		public const string VERSION_STR2 = "Copyright (C) 2001-2010 Studio O.G.A., 2007-2010 \"Uncle\" Mion Sonozaki. All Rights Reserved.";
+		
+		public const int DEFAULT_TEXT_SPEED_LOW    = 40;
+		public const int DEFAULT_TEXT_SPEED_MIDDLE = 20;
+		public const int DEFAULT_TEXT_SPEED_HIGHT  = 10;
+		
+		public const int MAX_PAGE_LIST = 16;
 		
 		public delegate int FuncList_ScriptParser(ScriptParser this_);
 		public class FuncLUT_ScriptParser {
@@ -222,384 +222,382 @@ namespace onscripter_csharp
 		
 		public partial class ScriptParser {
 			public ScriptParser()
-//			//Using an initialization list to make sure pointers start out NULL
-//			:
-//			#ifdef MACOSX
-//			  bundle_res_path(NULL), bundle_app_path(NULL), bundle_app_name(NULL),
-//			#endif
-//			  cmdline_game_id(NULL), last_nest_info(NULL), version_str(NULL),
-//			  savedir(NULL), last_effect_link(NULL),
-//			#ifndef NO_LAYER_EFFECTS
-//			  layer_info(NULL),
-//			#endif
-//			  save_menu_name(NULL), load_menu_name(NULL), save_item_name(NULL),
-//			  save_data_buf(NULL), file_io_buf(NULL), default_env_font(NULL),
-//			  page_list(NULL), start_page(NULL), current_page(NULL),
-//			  start_kinsoku(NULL), end_kinsoku(NULL), current_font(NULL),
-//			  textgosub_label(NULL), pretextgosub_label(NULL),
-//			  loadgosub_label(NULL), rgosub_label(NULL), key_table(NULL)
+			//Using an initialization list to make sure pointers start out NULL
 			{
-//			    resetDefineFlags();
-//			
-//			    debug_level = 0;
-//			    srand( time(NULL) );
-//			    rand();
-//			
-//			#ifdef MACOSX
-//			    is_bundled = false;
-//			#endif
-//			    nsa_offset = 0;
-//			    force_button_shortcut_flag = false;
-//			    
-//			    file_io_buf_ptr = 0;
-//			    file_io_buf_len = 0;
-//			    save_data_len = 0;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Sound related variables */
-//			    int i;
-//			    for ( i=0 ; i<     CLICKVOICE_NUM ; i++ )
-//			             clickvoice_file_name[i] = NULL;
-//			    for ( i=0 ; i<    SELECTVOICE_NUM ; i++ )
-//			            selectvoice_file_name[i] = NULL;
-//			    for ( i=0 ; i<MENUSELECTVOICE_NUM ; i++ )
-//			        menuselectvoice_file_name[i] = NULL;
-//			
-//			    //Default kinsoku
-//			    num_start_kinsoku = num_end_kinsoku = 0;
-//			    setKinsoku(DEFAULT_START_KINSOKU, DEFAULT_END_KINSOKU, false);
-//			
-//			    //onscripter script syntax options (for running some older nscr games)
-//			    allow_color_type_only = false;
-//			    set_tag_page_origin_to_1 = false;
-//			    answer_dialog_with_yes_ok = false;
-//			
-//			#ifdef RCA_SCALE
-//			    scr_stretch_x = scr_stretch_y = 1.0;
-//			#endif
-//			    preferred_width = 0;
-//			
-//			    errorsave = false;
-//			
-//			    //initialize cmd function table hash
-//			    for (i='z'-'a' ; i>=0 ; i--){
-//			        func_hash[i].start = -1;
-//			        func_hash[i].end = -2;
-//			    }
-//			    int idx = 0;
-//			    while (func_lut[idx].method){
-//			        int j = func_lut[idx].command[0]-'a';
-//			        if (func_hash[j].start == -1) func_hash[j].start = idx;
-//			        func_hash[j].end = idx;
-//			        idx++;
-//			    }
+			#if MACOSX
+			  bundle_res_path(NULL), bundle_app_path(NULL), bundle_app_name(NULL),
+			#endif
+			  cmdline_game_id = (null); last_nest_info = (null); version_str = (null);
+			  savedir = (null); last_effect_link = (null);
+			#if !NO_LAYER_EFFECTS
+			  layer_info = (null);
+			#endif
+			  save_menu_name = (null); load_menu_name = (null); save_item_name = (null);
+			  save_data_buf = (null); file_io_buf = (null); default_env_font = (null);
+			  page_list = (null); start_page = (null); current_page = (null);
+			  start_kinsoku = (null); end_kinsoku = (null); current_font = (null);
+			  textgosub_label = (null); pretextgosub_label = (null);
+			  loadgosub_label = (null); rgosub_label = (null); key_table = (null);
+			
+			    resetDefineFlags();
+			
+			    debug_level = 0;
+			    srand( time(null) );
+			    rand();
+			
+			#if MACOSX
+			    is_bundled = false;
+			#endif
+			    nsa_offset = 0;
+			    force_button_shortcut_flag = false;
+			    
+			    file_io_buf_ptr = 0;
+			    file_io_buf_len = 0;
+			    save_data_len = 0;
+			
+			    /* ---------------------------------------- */
+			    /* Sound related variables */
+			    int i;
+			    for ( i=0 ; i<     CLICKVOICE_NUM ; i++ )
+			             clickvoice_file_name[i] = null;
+			    for ( i=0 ; i<    SELECTVOICE_NUM ; i++ )
+			            selectvoice_file_name[i] = null;
+			    for ( i=0 ; i<MENUSELECTVOICE_NUM ; i++ )
+			        menuselectvoice_file_name[i] = null;
+			
+			    //Default kinsoku
+			    num_start_kinsoku = num_end_kinsoku = 0;
+			    setKinsoku(DEFAULT_START_KINSOKU, DEFAULT_END_KINSOKU, false);
+			
+			    //onscripter script syntax options (for running some older nscr games)
+			    allow_color_type_only = false;
+			    set_tag_page_origin_to_1 = false;
+			    answer_dialog_with_yes_ok = false;
+			
+			#if RCA_SCALE
+			    scr_stretch_x = scr_stretch_y = 1.0;
+			#endif
+			    preferred_width = 0;
+			
+			    errorsave = false;
+			
+			    //initialize cmd function table hash
+			    for (i='z'-'a' ; i>=0 ; i--){
+			        func_hash[i].start = -1;
+			        func_hash[i].end = -2;
+			    }
+			    int idx = 0;
+			    while (null!=func_lut_ScriptParser[idx].method){
+			        int j = func_lut_ScriptParser[idx].command[0]-'a';
+			        if (func_hash[j].start == -1) func_hash[j].start = idx;
+			        func_hash[j].end = idx;
+			        idx++;
+			    }
 			}
 			
-//			ScriptParser::~ScriptParser()
-//			{
-//			    reset();
-//			
-//			    if (version_str) delete[] version_str;
-//			    if (save_menu_name) delete[] save_menu_name;
-//			    if (load_menu_name) delete[] load_menu_name;
-//			    if (save_item_name) delete[] save_item_name;
-//			
-//			    if (file_io_buf) delete[] file_io_buf;
-//			    if (save_data_buf) delete[] save_data_buf;
-//			
-//			    if (start_kinsoku) delete[] start_kinsoku;
-//			    if (end_kinsoku) delete[] end_kinsoku;
-//			
-//			#ifdef MACOSX
-//			    if (bundle_res_path) delete[] bundle_res_path;
-//			    if (bundle_app_path) delete[] bundle_app_path;
-//			    if (bundle_app_name) delete[] bundle_app_name;
-//			#endif
-//			    if (cmdline_game_id) delete[] cmdline_game_id;
-//			    if (savedir) delete[] savedir;
-//			}
+			~ScriptParser()
+			{
+			    reset();
+			
+			    if (null!=version_str) version_str = null;//delete[] version_str;
+			    if (null!=save_menu_name) save_menu_name = null;//delete[] save_menu_name;
+			    if (null!=load_menu_name) load_menu_name = null;//delete[] load_menu_name;
+			    if (null!=save_item_name) save_item_name = null;//delete[] save_item_name;
+			
+			    if (null!=file_io_buf) file_io_buf = null;//delete[] file_io_buf;
+			    if (null!=save_data_buf) save_data_buf = null;//delete[] save_data_buf;
+			
+			    if (null!=start_kinsoku) start_kinsoku = null;//delete[] start_kinsoku;
+			    if (null!=end_kinsoku) end_kinsoku = null;//delete[] end_kinsoku;
+			
+			#if MACOSX
+			    if (bundle_res_path) delete[] bundle_res_path;
+			    if (bundle_app_path) delete[] bundle_app_path;
+			    if (bundle_app_name) delete[] bundle_app_name;
+			#endif
+			    if (null!=cmdline_game_id) cmdline_game_id = null;//delete[] cmdline_game_id;
+			    if (null!=savedir) savedir = null;//delete[] savedir;
+			}
 			
 			public void reset()
 			{
-//			    resetDefineFlags();
-//			
-//			    int i;
-//			    for (i='z'-'a' ; i>=0 ; i--){
-//			        UserFuncHash &ufh = user_func_hash[i];
-//			        UserFuncLUT *func = ufh.root.next;
-//			        while(func){
-//			            UserFuncLUT *tmp = func;
-//			            func = func->next;
-//			            delete tmp;
-//			        }
-//			        ufh.root.next = NULL;
-//			        ufh.last = &ufh.root;
-//			    }
-//			
-//			    // reset misc variables
-//			    nsa_path = DirPaths();
-//			
-//			    if (version_str) delete[] version_str;
-//			    version_str = new char[strlen(VERSION_STR1)+
-//			                           strlen("\n")+
-//			                           strlen(VERSION_STR2)+
-//			                           strlen("\n")+
-//			                           +1];
-//			    sprintf( version_str, "%s\n%s\n", VERSION_STR1, VERSION_STR2 );
-//			
-//			    /* Text related variables */
-//			    sentence_font.reset();
-//			    menu_font.reset();
-//			    ruby_font.reset();
-//			    current_font = &sentence_font;
-//			
-//			    if (page_list){
-//			        delete[] page_list;
-//			        page_list = NULL;
-//			    }
-//			    //current_page & start_page point to page_list elements
-//			    current_page = start_page = NULL;
-//			    
-//			    textgosub_label = NULL;
-//			    pretextgosub_label = NULL;
-//			    loadgosub_label = NULL;
-//			    rgosub_label = NULL;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Sound related variables */
-//			    for ( i=0 ; i<     CLICKVOICE_NUM ; i++ )
-//			        setStr(&clickvoice_file_name[i], NULL);
-//			    for ( i=0 ; i<    SELECTVOICE_NUM ; i++ )
-//			        setStr(&selectvoice_file_name[i], NULL);
-//			    for ( i=0 ; i<MENUSELECTVOICE_NUM ; i++ )
-//			        setStr(&menuselectvoice_file_name[i], NULL);
-//			
-//			    /* Menu related variables */
-//			    setDefaultMenuLabels();
-//			    deleteRMenuLink();
-//			
-//			    /* Effect related variables */
-//			    EffectLink *link = root_effect_link.next;
-//			    while(link){
-//			        EffectLink *tmp = link;
-//			        link = link->next;
-//			        delete tmp;
-//			    }
-//			    last_effect_link = &root_effect_link;
-//			    last_effect_link->next = NULL;
-//			
-//			#ifndef NO_LAYER_EFFECTS
-//			    deleteLayerInfo();
-//			#endif
-//			
-//			    readLog( script_h.log_info[ScriptHandler::LABEL_LOG] );
+			    resetDefineFlags();
+			
+			    int i;
+			    for (i='z'-'a' ; i>=0 ; i--){
+			        UserFuncHash ufh = user_func_hash[i];
+			        UserFuncLUT func = ufh.root.next;
+			        while(null!=func){
+			            UserFuncLUT tmp = func;
+			            func = func.next;
+			            tmp = null;//delete tmp;
+			        }
+			        ufh.root.next = null;
+			        ufh.last = ufh.root;
+			    }
+			
+			    // reset misc variables
+			    nsa_path = new DirPaths();
+			
+			    if (null!=version_str) version_str = null; // delete[] version_str;
+			    version_str = new char[strlen(VERSION_STR1)+
+			                           strlen("\n")+
+			                           strlen(VERSION_STR2)+
+			                           strlen("\n")+
+			                           +1];
+			    sprintf( version_str, "%s\n%s\n", VERSION_STR1, VERSION_STR2 );
+			
+			    /* Text related variables */
+			    sentence_font.reset();
+			    menu_font.reset();
+			    ruby_font.reset();
+			    current_font = sentence_font;
+			
+			    if (null!=page_list){
+			        //delete[] page_list;
+			        page_list = null;
+			    }
+			    //current_page & start_page point to page_list elements
+			    current_page = start_page = null;
+			    
+			    textgosub_label = null;
+			    pretextgosub_label = null;
+			    loadgosub_label = null;
+			    rgosub_label = null;
+			
+			    /* ---------------------------------------- */
+			    /* Sound related variables */
+			    for ( i=0 ; i<     CLICKVOICE_NUM ; i++ )
+			        setStr(ref clickvoice_file_name[i], null);
+			    for ( i=0 ; i<    SELECTVOICE_NUM ; i++ )
+			        setStr(ref selectvoice_file_name[i], null);
+			    for ( i=0 ; i<MENUSELECTVOICE_NUM ; i++ )
+			        setStr(ref menuselectvoice_file_name[i], null);
+			
+			    /* Menu related variables */
+			    setDefaultMenuLabels();
+			    deleteRMenuLink();
+			
+			    /* Effect related variables */
+			    EffectLink link = root_effect_link.next;
+			    while(null!=link){
+			        EffectLink tmp = link;
+			        link = link.next;
+			        tmp = null;//delete tmp;
+			    }
+			    last_effect_link = root_effect_link;
+			    last_effect_link.next = null;
+			
+			#if !NO_LAYER_EFFECTS
+			    deleteLayerInfo();
+			#endif
+			
+			    readLog( script_h.log_info[ScriptHandler.LABEL_LOG] );
 			}
 			
 			public void resetDefineFlags()
 			{
-//			    globalon_flag = false;
-//			    labellog_flag = false;
-//			    filelog_flag = false;
-//			    kidokuskip_flag = false;
-//			    clickskippage_flag = false;
-//			
-//			    rmode_flag = true;
-//			    windowback_flag = false;
-//			    btnnowindowerase_flag = false;
-//			    usewheel_flag = false;
-//			    useescspc_flag = false;
-//			    mode_wave_demo_flag = false;
-//			    mode_saya_flag = false;
-//			    mode_ext_flag = false;
-//			    rubyon_flag = rubyon2_flag = false;
-//			    zenkakko_flag = false;
-//			    pagetag_flag = false;
-//			    windowchip_sprite_no = -1;
-//			    string_buffer_offset = 0;
-//			
-//			    break_flag = false;
-//			    trans_mode = AnimationInfo::TRANS_TOPLEFT;
-//			
-//			    z_order = 499;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Lookback related variables */
-//			    lookback_sp[0] = lookback_sp[1] = -1;
-//			    lookback_color[0] = 0xff;
-//			    lookback_color[1] = 0xff;
-//			    lookback_color[2] = 0x00;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Save/Load related variables */
-//			    num_save_file = 9;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Text related variables */
-//			    shade_distance[0] = 1;
-//			    shade_distance[1] = 1;
-//			    
-//			    default_text_speed[0] = DEFAULT_TEXT_SPEED_LOW;
-//			    default_text_speed[1] = DEFAULT_TEXT_SPEED_MIDDLE;
-//			    default_text_speed[2] = DEFAULT_TEXT_SPEED_HIGHT;
-//			    max_page_list = MAX_PAGE_LIST+1;
-//			    num_chars_in_sentence = 0;
-//			
-//			    clickstr_line = 0;
-//			    clickstr_state = CLICK_NONE;
-//			    linepage_mode = 0;
-//			    english_mode = false;
-//			    
-//			    /* ---------------------------------------- */
-//			    /* Menu related variables */
-//			    menu_font.font_size_xy[0] = DEFAULT_FONT_SIZE;
-//			    menu_font.font_size_xy[1] = DEFAULT_FONT_SIZE;
-//			    menu_font.top_xy[0] = 0;
-//			    menu_font.top_xy[1] = 16;
-//			    menu_font.num_xy[0] = 32;
-//			    menu_font.num_xy[1] = 23;
-//			    menu_font.pitch_xy[0] = menu_font.font_size_xy[0];
-//			    menu_font.pitch_xy[1] = 2 + menu_font.font_size_xy[1];
-//			    menu_font.window_color[0] = menu_font.window_color[1] = menu_font.window_color[2] = 0xcc;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Effect related variables */
-//			    effect_blank = 10;
-//			    effect_cut_flag = false;
-//			
-//			    window_effect.effect = 1;
-//			    window_effect.duration = 0;
-//			    root_effect_link.no = 0;
-//			    root_effect_link.effect = 0;
-//			    root_effect_link.duration = 0;
-//			
-//			    current_mode = DEFINE_MODE;
+			    globalon_flag = false;
+			    labellog_flag = false;
+			    filelog_flag = false;
+			    kidokuskip_flag = false;
+			    clickskippage_flag = false;
+			
+			    rmode_flag = true;
+			    windowback_flag = false;
+			    btnnowindowerase_flag = false;
+			    usewheel_flag = false;
+			    useescspc_flag = false;
+			    mode_wave_demo_flag = false;
+			    mode_saya_flag = false;
+			    mode_ext_flag = false;
+			    rubyon_flag = rubyon2_flag = false;
+			    zenkakko_flag = false;
+			    pagetag_flag = false;
+			    windowchip_sprite_no = -1;
+			    string_buffer_offset = 0;
+			
+			    break_flag = false;
+			    trans_mode = AnimationInfo.TRANS_TOPLEFT;
+			
+			    z_order = 499;
+			
+			    /* ---------------------------------------- */
+			    /* Lookback related variables */
+			    lookback_sp[0] = lookback_sp[1] = -1;
+			    lookback_color[0] = 0xff;
+			    lookback_color[1] = 0xff;
+			    lookback_color[2] = 0x00;
+			
+			    /* ---------------------------------------- */
+			    /* Save/Load related variables */
+			    num_save_file = 9;
+			
+			    /* ---------------------------------------- */
+			    /* Text related variables */
+			    shade_distance[0] = 1;
+			    shade_distance[1] = 1;
+			    
+			    default_text_speed[0] = DEFAULT_TEXT_SPEED_LOW;
+			    default_text_speed[1] = DEFAULT_TEXT_SPEED_MIDDLE;
+			    default_text_speed[2] = DEFAULT_TEXT_SPEED_HIGHT;
+			    max_page_list = MAX_PAGE_LIST+1;
+			    num_chars_in_sentence = 0;
+			
+			    clickstr_line = 0;
+			    clickstr_state = CLICK_NONE;
+			    linepage_mode = 0;
+			    english_mode = false;
+			    
+			    /* ---------------------------------------- */
+			    /* Menu related variables */
+			    menu_font.font_size_xy[0] = DEFAULT_FONT_SIZE;
+			    menu_font.font_size_xy[1] = DEFAULT_FONT_SIZE;
+			    menu_font.top_xy[0] = 0;
+			    menu_font.top_xy[1] = 16;
+			    menu_font.num_xy[0] = 32;
+			    menu_font.num_xy[1] = 23;
+			    menu_font.pitch_xy[0] = menu_font.font_size_xy[0];
+			    menu_font.pitch_xy[1] = 2 + menu_font.font_size_xy[1];
+			    menu_font.window_color[0] = menu_font.window_color[1] = menu_font.window_color[2] = 0xcc;
+			
+			    /* ---------------------------------------- */
+			    /* Effect related variables */
+			    effect_blank = 10;
+			    effect_cut_flag = false;
+			
+			    window_effect.effect = 1;
+			    window_effect.duration = 0;
+			    root_effect_link.no = 0;
+			    root_effect_link.effect = 0;
+			    root_effect_link.duration = 0;
+			
+			    current_mode = DEFINE_MODE;
 			}
 			
 			public int open()
 			{
-				return 0;
-//			    script_h.cBR = new DirectReader( archive_path, key_table );
-//			    script_h.cBR->open();
-//			
-//			    script_h.game_identifier = cmdline_game_id;
-//			    cmdline_game_id = NULL;
-//			
-//			    if ( script_h.readScript( archive_path ) ) return -1;
-//			
-//			    switch ( script_h.screen_size ){
-//			    //for PDA, set ratios to create a 320x240 screen
-//			      case ScriptHandler::SCREEN_SIZE_800x600:
-//			#ifdef PDA
-//			        screen_ratio1 = 2;
-//			        screen_ratio2 = 5;
-//			#else
-//			        screen_ratio1 = 1;
-//			        screen_ratio2 = 1;
-//			#endif
-//			        script_width = 800;
-//			        script_height = 600;
-//			        break;
-//			      case ScriptHandler::SCREEN_SIZE_400x300:
-//			#ifdef PDA
-//			        screen_ratio1 = 4;
-//			        screen_ratio2 = 5;
-//			#else
-//			        screen_ratio1 = 1;
-//			        screen_ratio2 = 1;
-//			#endif
-//			        script_width = 400;
-//			        script_height = 300;
-//			        break;
-//			      case ScriptHandler::SCREEN_SIZE_320x240:
-//			        screen_ratio1 = 1;
-//			        screen_ratio2 = 1;
-//			        script_width = 320;
-//			        script_height = 240;
-//			        break;
-//			      case ScriptHandler::SCREEN_SIZE_640x480:
-//			      default:
-//			#ifdef PDA
-//			        screen_ratio1 = 1;
-//			        screen_ratio2 = 2;
-//			#else
-//			        screen_ratio1 = 1;
-//			        screen_ratio2 = 1;
-//			#endif
-//			        script_width = 640;
-//			        script_height = 480;
-//			        break;
-//			    }
-//			
-//			#ifndef PDA
-//			    if (preferred_width > 0) {
-//			        screen_ratio1 = preferred_width;
-//			        screen_ratio2 = script_width;
-//			    }
-//			#endif
-//			    screen_width  = script_width * screen_ratio1 / screen_ratio2;
-//			    screen_height = script_height * screen_ratio1 / screen_ratio2;
-//			    underline_value = script_height - 1;
-//			    for (int i=0; i<3; i++)
-//			        humanpos[i] = (script_width/4) * (i+1);
-//			    if (debug_level > 0)
-//			        printf("humanpos: %d,%d,%d; underline: %d\n", humanpos[0], humanpos[1],
-//			               humanpos[2], underline_value);
-//			
-//			    return 0;
+				script_h.cBR = new DirectReader( archive_path, key_table );
+			    script_h.cBR.open();
+			
+			    script_h.game_identifier = cmdline_game_id;
+			    cmdline_game_id = null;
+			
+			    if ( 0!=script_h.readScript( archive_path ) ) return -1;
+			
+			    switch ( script_h.screen_size ){
+			    //for PDA, set ratios to create a 320x240 screen
+			      case ScriptHandler.SCREEN_SIZE_800x600:
+			#if PDA
+			        screen_ratio1 = 2;
+			        screen_ratio2 = 5;
+			#else
+			        screen_ratio1 = 1;
+			        screen_ratio2 = 1;
+			#endif
+			        script_width = 800;
+			        script_height = 600;
+			        break;
+			      case ScriptHandler.SCREEN_SIZE_400x300:
+			#if PDA
+			        screen_ratio1 = 4;
+			        screen_ratio2 = 5;
+			#else
+			        screen_ratio1 = 1;
+			        screen_ratio2 = 1;
+			#endif
+			        script_width = 400;
+			        script_height = 300;
+			        break;
+			      case ScriptHandler.SCREEN_SIZE_320x240:
+			        screen_ratio1 = 1;
+			        screen_ratio2 = 1;
+			        script_width = 320;
+			        script_height = 240;
+			        break;
+			      case ScriptHandler.SCREEN_SIZE_640x480:
+			      default:
+			#if PDA
+			        screen_ratio1 = 1;
+			        screen_ratio2 = 2;
+			#else
+			        screen_ratio1 = 1;
+			        screen_ratio2 = 1;
+			#endif
+			        script_width = 640;
+			        script_height = 480;
+			        break;
+			    }
+			
+			#if !PDA
+			    if (preferred_width > 0) {
+			        screen_ratio1 = preferred_width;
+			        screen_ratio2 = script_width;
+			    }
+			#endif
+			    screen_width  = script_width * screen_ratio1 / screen_ratio2;
+			    screen_height = script_height * screen_ratio1 / screen_ratio2;
+			    underline_value = script_height - 1;
+			    for (int i=0; i<3; i++)
+			        humanpos[i] = (script_width/4) * (i+1);
+			    if (debug_level > 0)
+			        printf("humanpos: %d,%d,%d; underline: %d\n", humanpos[0], humanpos[1],
+			               humanpos[2], underline_value);
+			
+			    return 0;
 			}
 			
-//			#ifdef MACOSX
+			#if MACOSX
 			public void checkBundled()
 			{
 			    // check whether this onscripter is bundled, and if so find the
 			    // resources and app directories
 			    
-//			    ONSCocoa::getBundleInfo(&bundle_res_path, &bundle_app_path, &bundle_app_name);
-//			    is_bundled = true; // always bundled on OS X
+			    ONSCocoa::getBundleInfo(&bundle_res_path, &bundle_app_path, &bundle_app_name);
+			    is_bundled = true; // always bundled on OS X
 			}
-//			#endif
+			#endif
 			
 			public byte convHexToDec( char ch )
 			{
-				return 0;
-//			    if      ( '0' <= ch && ch <= '9' ) return ch - '0';
-//			    else if ( 'a' <= ch && ch <= 'f' ) return ch - 'a' + 10;
-//			    else if ( 'A' <= ch && ch <= 'F' ) return ch - 'A' + 10;
-//			    else errorAndExit("convHexToDec: not valid character for color.");
-//			
-//			    return 0;
+				if      ( '0' <= ch && ch <= '9' ) return (byte)(ch - '0');
+			    else if ( 'a' <= ch && ch <= 'f' ) return (byte)(ch - 'a' + 10);
+				else if ( 'A' <= ch && ch <= 'F' ) return (byte)(ch - 'A' + 10);
+			    else errorAndExit("convHexToDec: not valid character for color.");
+			
+			    return 0;
 			}
 			
 			public void setColor( byte[] dstcolor, byte[] srccolor )
 			{
-//			    for (int i=0; i<3; i++)
-//			        dstcolor[i] = srccolor[i];
+			    for (int i=0; i<3; i++)
+			        dstcolor[i] = srccolor[i];
 			}
 			
 			public void readColor( ref byte[] color, CharPtr buf ){
-//			    if ( buf[0] != '#' ) errorAndExit("readColor: no preceding #.");
-//			    (*color)[0] = convHexToDec( buf[1] ) << 4 | convHexToDec( buf[2] );
-//			    (*color)[1] = convHexToDec( buf[3] ) << 4 | convHexToDec( buf[4] );
-//			    (*color)[2] = convHexToDec( buf[5] ) << 4 | convHexToDec( buf[6] );
+			    if ( buf[0] != '#' ) errorAndExit("readColor: no preceding #.");
+			    color[0] = (byte)(convHexToDec( buf[1] ) << 4 | convHexToDec( buf[2] ));
+			    color[1] = (byte)(convHexToDec( buf[3] ) << 4 | convHexToDec( buf[4] ));
+			    color[2] = (byte)(convHexToDec( buf[5] ) << 4 | convHexToDec( buf[6] ));
 			}
 			
 			public void add_debug_level()
 			{
-//			    debug_level++;
+			    debug_level++;
 			}
 			
 			public void errorAndCont( CharPtr str, CharPtr reason = null, CharPtr title = null, bool is_simple = false )
 			{
-//			    if (title == NULL)
-//			        title = "Parse Issue";
-//			    script_h.processError(str, title, reason, true, is_simple);
+			    if (title == null)
+			        title = "Parse Issue";
+			    script_h.processError(str, title, reason, true, is_simple);
 			}
 			
 			public void errorAndExit( CharPtr str, CharPtr reason = null, CharPtr title = null, bool is_simple = false )
 			{
-//			    if (title == NULL)
-//			        title = "Parse Error";
-//			    script_h.processError(str, title, reason, false, is_simple);
+			    if (title == null)
+			        title = "Parse Error";
+			    script_h.processError(str, title, reason, false, is_simple);
 			}
 			
 			public int parseLine()
