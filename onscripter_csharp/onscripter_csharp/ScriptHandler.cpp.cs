@@ -69,8 +69,8 @@ namespace onscripter_csharp
 //		
 //		#define TMP_SCRIPT_BUF_LEN 4096
 //		#define STRING_BUFFER_LENGTH 2048
-//		
-//		#define SKIP_SPACE(p) while ( *(p) == ' ' || *(p) == '\t' ) (p)++
+		
+		public static void SKIP_SPACE(CharPtr p) { while ( p[0] == ' ' || p[0] == '\t' ) p.inc(); }
 		
 		public partial class ScriptHandler {
 			public ScriptHandler()
@@ -691,51 +691,8 @@ namespace onscripter_csharp
 //			    return string_buffer;
 			}
 			
-			//FIXME: added, for readColor(is_color=NULL)
-			public CharPtr readColor()
-			{
-				return null;
-//			    // bare color type - not a string variable
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			
-//			    current_script = next_script;
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			
-//			    string_counter = 0;
-//			    addStringBuffer( '#' );
-//			    char ch = *(++buf);
-//			    int i;
-//			    for (i=0; i<7; i++) {
-//			        if ( ((ch >= '0') && (ch <= '9')) ||
-//			             ((ch >= 'a') && (ch <= 'f')) ||
-//			             ((ch >= 'A') && (ch <= 'F')) ) {
-//			            addStringBuffer( ch );
-//			            ch = *(++buf);
-//			        } else
-//			            break;
-//			    }
-//			    if (i!=6) {
-//			        if (is_color != NULL) {
-//			            *is_color = false;
-//			            string_counter = 0;
-//			            addStringBuffer( '\0' );
-//			            return string_buffer;
-//			        } else {
-//			            strncpy(string_buffer, current_script, 16);
-//			            string_buffer[16] = '\0';
-//			            errorAndExit( "readColor: not a valid color type." );
-//			        }
-//			    }
-//			    addStringBuffer( '\0' );
-//			    next_script = checkComma(buf);
-//			    if (is_color != NULL)
-//			        *is_color = true;
-//			
-//			    return string_buffer;				
-			}
-			public CharPtr readColor(ref bool is_color)
+			//FIXME:added is_not_null_is_color
+			public CharPtr readColor(ref bool is_color, bool is_not_null_is_color)
 			{
 				return null;
 //			    // bare color type - not a string variable
@@ -1728,7 +1685,7 @@ namespace onscripter_csharp
 //			    last_str_alias = last_str_alias->next;
 			}
 			
-			public bool findNumAlias( CharPtr str, IntPtr value )
+			public bool findNumAlias( CharPtr str, ref int value )
 			{
 				return false;
 //			    Alias *p_num_alias = root_num_alias.next;
@@ -1857,7 +1814,7 @@ namespace onscripter_csharp
 //			    exit(-1);
 			}
 			
-			public void errorAndExit( CharPtr str, CharPtr detail, CharPtr title, bool is_warning )
+			public void errorAndExit( CharPtr str, CharPtr detail = null, CharPtr title = null, bool is_warning = false )
 			{
 //			    if (title == NULL)
 //			        title = "Script Error";
@@ -2089,108 +2046,107 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public int parseInt( CharPtr[] buf )
+			public int parseInt( ref CharPtr buf )
 			{
-				return 0;
-//			    int ret = 0;
-//			
-//			    SKIP_SPACE( *buf );
-//			
-//			    if ( **buf == '%' ){
-//			        (*buf)++;
-//			        current_variable.var_no = parseInt(buf);
-//			        current_variable.type = VAR_INT;
-//			        return getVariableData(current_variable.var_no).num;
-//			    }
-//			    else if ( **buf == '?' ){
-//			        ArrayVariable av;
-//			        current_variable.var_no = parseArray( buf, av );
-//			        current_variable.type = VAR_ARRAY;
-//			        current_variable.array = av;
-//			        return *getArrayPtr( current_variable.var_no, current_variable.array, 0 );
-//			    }
-//			    else{
-//			        char ch, alias_buf[256];
-//			        int alias_buf_len = 0, alias_no = 0;
-//			        bool direct_num_flag = false;
-//			        bool num_alias_flag = false;
-//			
-//			        char *buf_start = *buf;
-//			        while( 1 ){
-//			            ch = **buf;
-//			
-//			            if ( (ch >= 'a' && ch <= 'z') ||
-//			                 (ch >= 'A' && ch <= 'Z') ||
-//			                 ch == '_' ){
-//			                if (ch >= 'A' && ch <= 'Z') ch += 'a' - 'A';
-//			                if ( direct_num_flag ) break;
-//			                num_alias_flag = true;
-//			                alias_buf[ alias_buf_len++ ] = ch;
-//			            }
-//			            else if ( ch >= '0' && ch <= '9' ){
-//			                if ( !num_alias_flag ) direct_num_flag = true;
-//			                if ( direct_num_flag )
-//			                    alias_no = alias_no * 10 + ch - '0';
-//			                else
-//			                    alias_buf[ alias_buf_len++ ] = ch;
-//			            }
-//			            else break;
-//			            (*buf)++;
-//			        }
-//			
-//			        if ( *buf - buf_start  == 0 ){
-//			            current_variable.type = VAR_NONE;
-//			            return 0;
-//			        }
-//			
-//			        /* ---------------------------------------- */
-//			        /* Solve num aliases */
-//			        if ( num_alias_flag ){
-//			            alias_buf[ alias_buf_len ] = '\0';
-//			
-//				    if ( !findNumAlias( (const char*) alias_buf, &alias_no ) ) {
-//			                //printf("can't find num alias for %s... assume 0.\n", alias_buf );
-//			                current_variable.type = VAR_NONE;
-//			                *buf = buf_start;
-//			                return 0;
-//				    }
-//				}
-//			        current_variable.type = VAR_INT | VAR_CONST;
-//			        ret = alias_no;
-//			    }
-//			
-//			    SKIP_SPACE( *buf );
-//			
-//			    return ret;
+				int ret = 0;
+			
+			    SKIP_SPACE( buf );
+			
+			    if ( buf[0] == '%' ){
+			    	buf.inc();
+			        current_variable.var_no = parseInt(ref buf);
+			        current_variable.type = VAR_INT;
+			        return getVariableData(current_variable.var_no).num;
+			    }
+			    else if ( buf[0] == '?' ){
+			    	ArrayVariable av = new ArrayVariable();
+			        current_variable.var_no = parseArray( ref buf, av );
+			        current_variable.type = VAR_ARRAY;
+			        current_variable.array = av;
+			        return getArrayPtr( current_variable.var_no, current_variable.array, 0 )[0];
+			    }
+			    else{
+			    	char ch; char[] alias_buf = new char[256];
+			        int alias_buf_len = 0, alias_no = 0;
+			        bool direct_num_flag = false;
+			        bool num_alias_flag = false;
+			
+			        CharPtr buf_start = new CharPtr(buf);
+			        while( true ){
+			        	ch = buf[0];
+			
+			            if ( (ch >= 'a' && ch <= 'z') ||
+			                 (ch >= 'A' && ch <= 'Z') ||
+			                 ch == '_' ){
+			        		if (ch >= 'A' && ch <= 'Z') ch += (char)('a' - 'A');
+			                if ( direct_num_flag ) break;
+			                num_alias_flag = true;
+			                alias_buf[ alias_buf_len++ ] = ch;
+			            }
+			            else if ( ch >= '0' && ch <= '9' ){
+			                if ( !num_alias_flag ) direct_num_flag = true;
+			                if ( direct_num_flag )
+			                    alias_no = alias_no * 10 + ch - '0';
+			                else
+			                    alias_buf[ alias_buf_len++ ] = ch;
+			            }
+			            else break;
+			            buf.inc();
+			        }
+			
+			        if ( CharPtr.minus(buf, buf_start)  == 0 ){
+			            current_variable.type = VAR_NONE;
+			            return 0;
+			        }
+			
+			        /* ---------------------------------------- */
+			        /* Solve num aliases */
+			        if ( num_alias_flag ){
+			            alias_buf[ alias_buf_len ] = '\0';
+			
+			            if ( !findNumAlias( new CharPtr( alias_buf), ref alias_no ) ) {
+			                //printf("can't find num alias for %s... assume 0.\n", alias_buf );
+			                current_variable.type = VAR_NONE;
+			                buf = new CharPtr(buf_start);
+			                return 0;
+				    	}
+					}
+			        current_variable.type = VAR_INT | VAR_CONST;
+			        ret = alias_no;
+			    }
+			
+			    SKIP_SPACE( buf );
+			
+			    return ret;
 			}
 			
-			public int parseIntExpression( CharPtr[] buf )
+			public int parseIntExpression( ref CharPtr buf )
 			{
-				return 0;
-//			    int num[3], op[2]; // internal buffer
-//			
-//			    SKIP_SPACE( *buf );
-//			
-//			    readNextOp( buf, NULL, &num[0] );
-//			
-//			    readNextOp( buf, &op[0], &num[1] );
-//			    if ( op[0] == OP_INVALID )
-//			        return num[0];
-//			
-//			    while(1){
-//			        readNextOp( buf, &op[1], &num[2] );
-//			        if ( op[1] == OP_INVALID ) break;
-//			
-//			        if ( !(op[0] & 0x04) && (op[1] & 0x04) ){ // if priority of op[1] is higher than op[0]
-//			            num[1] = calcArithmetic( num[1], op[1], num[2] );
-//			        }
-//			        else{
-//			            num[0] = calcArithmetic( num[0], op[0], num[1] );
-//			            op[0] = op[1];
-//			            num[1] = num[2];
-//			        }
-//			    }
-//			    return calcArithmetic( num[0], op[0], num[1] );
+				int[] num = new int[3], op = new int[2]; // internal buffer
+			
+			    SKIP_SPACE( buf );
+			
+			    int temp = 0;
+			    readNextOp( ref buf, ref temp, false, ref num[0] );
+			
+			    readNextOp( ref buf, ref op[0], true, ref num[1] );
+			    if ( op[0] == OP_INVALID )
+			        return num[0];
+			
+			    while(true){
+			        readNextOp( ref buf, ref op[1], true, ref num[2] );
+			        if ( op[1] == OP_INVALID ) break;
+			
+			        if ( 0==(op[0] & 0x04) && 0!=(op[1] & 0x04) ){ // if priority of op[1] is higher than op[0]
+			            num[1] = calcArithmetic( num[1], op[1], num[2] );
+			        }
+			        else{
+			            num[0] = calcArithmetic( num[0], op[0], num[1] );
+			            op[0] = op[1];
+			            num[1] = num[2];
+			        }
+			    }
+			    return calcArithmetic( num[0], op[0], num[1] );
 			}
 			
 			/*
@@ -2201,152 +2157,150 @@ namespace onscripter_csharp
 			 * Then, the next op and num is read from the script.
 			 * Num is an immediate value, a variable or a bracketed expression.
 			 */
-			public void readNextOp( CharPtr[] buf, IntPtr op, IntPtr num )
+			//FIXME: added is_not_null_op
+			public void readNextOp( ref CharPtr buf, ref int op, bool is_not_null_op, ref int num )
 			{
-//			    bool minus_flag = false;
-//			    SKIP_SPACE(*buf);
-//			    char *buf_start = *buf;
-//			
-//			    if ( op ){
-//			        if      ( (*buf)[0] == '+' ) *op = OP_PLUS;
-//			        else if ( (*buf)[0] == '-' ) *op = OP_MINUS;
-//			        else if ( (*buf)[0] == '*' ) *op = OP_MULT;
-//			        else if ( (*buf)[0] == '/' ) *op = OP_DIV;
-//			        else if ( (*buf)[0] == 'm' &&
-//			                  (*buf)[1] == 'o' &&
-//			                  (*buf)[2] == 'd' &&
-//			                  ( (*buf)[3] == ' '  ||
-//			                    (*buf)[3] == '\t' ||
-//			                    (*buf)[3] == '$' ||
-//			                    (*buf)[3] == '%' ||
-//			                    (*buf)[3] == '?' ||
-//			                    ( (*buf)[3] >= '0' && (*buf)[3] <= '9') ))
-//			            *op = OP_MOD;
-//			        else{
-//			            *op = OP_INVALID;
-//			            return;
-//			        }
-//			        if ( *op == OP_MOD ) *buf += 3;
-//			        else                 (*buf)++;
-//			        SKIP_SPACE(*buf);
-//			    }
-//			    else{
-//			        if ( (*buf)[0] == '-' ){
-//			            minus_flag = true;
-//			            (*buf)++;
-//			            SKIP_SPACE(*buf);
-//			        }
-//			    }
-//			
-//			    if ( (*buf)[0] == '(' ){
-//			        (*buf)++;
-//			        *num = parseIntExpression( buf );
-//			        if (minus_flag) *num = -*num;
-//			        SKIP_SPACE(*buf);
-//			        if ( (*buf)[0] != ')' ) errorAndExit("Missing ')' in expression");
-//			        (*buf)++;
-//			    }
-//			    else{
-//			        *num = parseInt( buf );
-//			        if (minus_flag) *num = -*num;
-//			        if ( current_variable.type == VAR_NONE ){
-//			            if (op) *op = OP_INVALID;
-//			            *buf = buf_start;
-//			        }
-//			    }
+			    bool minus_flag = false;
+			    SKIP_SPACE(buf);
+			    CharPtr buf_start = new CharPtr(buf);
+			
+			    if ( is_not_null_op ){
+			    	if      ( buf[0] == '+' ) op = OP_PLUS;
+			    	else if ( buf[0] == '-' ) op = OP_MINUS;
+			    	else if ( buf[0] == '*' ) op = OP_MULT;
+			    	else if ( buf[0] == '/' ) op = OP_DIV;
+			        else if ( buf[0] == 'm' &&
+			                  buf[1] == 'o' &&
+			                  buf[2] == 'd' &&
+			                  ( buf[3] == ' '  ||
+			                    buf[3] == '\t' ||
+			                    buf[3] == '$' ||
+			                    buf[3] == '%' ||
+			                    buf[3] == '?' ||
+			                    ( buf[3] >= '0' && buf[3] <= '9') ))
+			    		op = OP_MOD;
+			        else{
+			    		op = OP_INVALID;
+			            return;
+			        }
+			    	if ( op == OP_MOD ) buf.inc(3);
+			    	else                 buf.inc();
+			        SKIP_SPACE(buf);
+			    }
+			    else{
+			        if ( buf[0] == '-' ){
+			            minus_flag = true;
+			            buf.inc();
+			            SKIP_SPACE(buf);
+			        }
+			    }
+			
+			    if ( buf[0] == '(' ){
+			    	buf.inc();
+			    	num = parseIntExpression( ref buf );
+			        if (minus_flag) num = -num;
+			        SKIP_SPACE(buf);
+			        if ( buf[0] != ')' ) errorAndExit("Missing ')' in expression");
+			        buf.inc();
+			    }
+			    else{
+			        num = parseInt( ref buf );
+			        if (minus_flag) num = -num;
+			        if ( current_variable.type == VAR_NONE ){
+			            if (is_not_null_op) op = OP_INVALID;
+			            buf = new CharPtr(buf_start);
+			        }
+			    }
 			}
 			
 			public int calcArithmetic( int num1, int op, int num2 )
 			{
-				return 0;
-//			    int ret=0;
-//			
-//			    if      ( op == OP_PLUS )  ret = num1+num2;
-//			    else if ( op == OP_MINUS ) ret = num1-num2;
-//			    else if ( op == OP_MULT )  ret = num1*num2;
-//			    else if ( op == OP_DIV )   ret = num1/num2;
-//			    else if ( op == OP_MOD )   ret = num1%num2;
-//			
-//			    current_variable.type = VAR_INT | VAR_CONST;
-//			
-//			    return ret;
+				int ret=0;
+			
+			    if      ( op == OP_PLUS )  ret = num1+num2;
+			    else if ( op == OP_MINUS ) ret = num1-num2;
+			    else if ( op == OP_MULT )  ret = num1*num2;
+			    else if ( op == OP_DIV )   ret = num1/num2;
+			    else if ( op == OP_MOD )   ret = num1%num2;
+			
+			    current_variable.type = VAR_INT | VAR_CONST;
+			
+			    return ret;
 			}
 			
-			public int parseArray( CharPtr[] buf, ArrayVariable array )
+			public int parseArray( ref CharPtr buf, ArrayVariable array )
 			{
-				return 0;
-//			    SKIP_SPACE( *buf );
-//			
-//			    (*buf)++; // skip '?'
-//			    int no = parseInt( buf );
-//			
-//			    SKIP_SPACE( *buf );
-//			    array.num_dim = 0;
-//			    while ( **buf == '[' ){
-//			        (*buf)++;
-//			        array.dim[array.num_dim] = parseIntExpression(buf);
-//			        array.num_dim++;
-//			        SKIP_SPACE( *buf );
-//			        if ( **buf != ']' ) errorAndExit( "parseArray: missing ']'." );
-//			        (*buf)++;
-//			    }
-//			    for ( int i=array.num_dim ; i<20 ; i++ ) array.dim[i] = 0;
-//			
-//			    return no;
+				SKIP_SPACE( buf );
+			
+				buf.inc(); // skip '?'
+			    int no = parseInt( ref buf );
+			
+			    SKIP_SPACE( buf );
+			    array.num_dim = 0;
+			    while ( buf[0] == '[' ){
+			    	buf.inc();
+			        array.dim[array.num_dim] = parseIntExpression(ref buf);
+			        array.num_dim++;
+			        SKIP_SPACE( buf );
+			        if ( buf[0] != ']' ) errorAndExit( "parseArray: missing ']'." );
+			        buf.inc();
+			    }
+			    for ( int i=array.num_dim ; i<20 ; i++ ) array.dim[i] = 0;
+			
+			    return no;
 			}
 			
 			public IntPtr getArrayPtr( int no, ArrayVariable array, int offset )
 			{
-				return null;
-//			    ArrayVariable *av = root_array_variable;
-//			    while(av){
-//			        if (av->no == no) break;
-//			        av = av->next;
-//			    }
-//			    if (av == NULL) {
-//			        snprintf(errbuf, MAX_ERRBUF_LEN, "Undeclared array number %d", no);
-//			        errorAndExit( errbuf, NULL, "Array access error" );
-//			    }
-//			
-//			    int dim = 0, i;
-//			    for ( i=0 ; i<av->num_dim ; i++ ){
-//			        if ( av->dim[i] <= array.dim[i] )
-//			            errorAndExit( "Array access out of bounds", "dim[i] <= array.dim[i]", "Array access error" );
-//			        dim = dim * av->dim[i] + array.dim[i];
-//			    }
-//			    if ( av->dim[i-1] <= array.dim[i-1] + offset )
-//			        errorAndExit( "Array access out of bounds", "dim[i-1] <= array.dim[i-1] + offset", "Array access error" );
-//			
-//			    return &av->data[dim+offset];
+				ArrayVariable av = root_array_variable;
+			    while(null!=av){
+			        if (av.no == no) break;
+			        av = av.next;
+			    }
+			    if (av == null) {
+			        snprintf(errbuf, MAX_ERRBUF_LEN, "Undeclared array number %d", no);
+			        errorAndExit( errbuf, null, "Array access error" );
+			    }
+			
+			    int dim = 0, i;
+			    for ( i=0 ; i<av.num_dim ; i++ ){
+			        if ( av.dim[i] <= array.dim[i] )
+			            errorAndExit( "Array access out of bounds", "dim[i] <= array.dim[i]", "Array access error" );
+			        dim = dim * av.dim[i] + array.dim[i];
+			    }
+			    if ( av.dim[i-1] <= array.dim[i-1] + offset )
+			        errorAndExit( "Array access out of bounds", "dim[i-1] <= array.dim[i-1] + offset", "Array access error" );
+			
+			    return new IntPtr(av.data, dim+offset);
 			}
 			
 			public void declareDim()
 			{
-//			    current_script = next_script;
-//			    char *buf = current_script;
-//			
-//			    if (current_array_variable){
-//			        current_array_variable->next = new ArrayVariable();
-//			        current_array_variable = current_array_variable->next;
-//			    }
-//			    else{
-//			        root_array_variable = new ArrayVariable();
-//			        current_array_variable = root_array_variable;
-//			    }
-//			
-//			    ArrayVariable array;
-//			    current_array_variable->no = parseArray( &buf, array );
-//			
-//			    int dim = 1;
-//			    current_array_variable->num_dim = array.num_dim;
-//			    for ( int i=0 ; i<array.num_dim ; i++ ){
-//			        current_array_variable->dim[i] = array.dim[i]+1;
-//			        dim *= (array.dim[i]+1);
-//			    }
-//			    current_array_variable->data = new int[dim];
-//			    memset( current_array_variable->data, 0, sizeof(int) * dim );
-//			
-//			    next_script = buf;
+			    current_script = next_script;
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    if (null!=current_array_variable){
+			        current_array_variable.next = new ArrayVariable();
+			        current_array_variable = current_array_variable.next;
+			    }
+			    else{
+			        root_array_variable = new ArrayVariable();
+			        current_array_variable = root_array_variable;
+			    }
+			
+			    ArrayVariable array = new ArrayVariable();
+			    current_array_variable.no = parseArray( ref buf, array );
+			
+			    int dim = 1;
+			    current_array_variable.num_dim = array.num_dim;
+			    for ( int i=0 ; i<array.num_dim ; i++ ){
+			        current_array_variable.dim[i] = array.dim[i]+1;
+			        dim *= (array.dim[i]+1);
+			    }
+			    current_array_variable.data = new IntPtr(new int[dim]);
+			    memset( current_array_variable.data, 0, (uint)(sizeof(int) * dim) );
+			
+			    next_script = new CharPtr(buf);
 			}
 		}
 	}

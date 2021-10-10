@@ -238,9 +238,9 @@ namespace onscripter_csharp
 		    public bool set_tag_page_origin_to_1; // 'gettaglog' will consider the current page as 1, not 0
 		    public bool answer_dialog_with_yes_ok;// give 'yesnobox' and 'okcancelbox' 'yes/ok' results
 		    public CharPtr readColorStr() {
-		        if (allow_color_type_only)
-		            return script_h.readColor();
-		        else
+		    	if (allow_color_type_only) {
+		            bool temp = false; return script_h.readColor(ref temp, false);
+		    	} else
 		            return script_h.readStr();
 		    }
 //		protected:

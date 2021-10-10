@@ -195,5 +195,10 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		
+		public static void memset(IntPtr s, int ch, uint n)
+		{
+			
+		}
 	}
 }

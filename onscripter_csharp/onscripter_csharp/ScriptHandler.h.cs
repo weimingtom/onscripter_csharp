@@ -373,14 +373,14 @@ namespace onscripter_csharp
 //		    };
 //		    
 //		private:
-//		    enum { OP_INVALID = 0, // 000
-//		           OP_PLUS    = 2, // 010
-//		           OP_MINUS   = 3, // 011
-//		           OP_MULT    = 4, // 100
-//		           OP_DIV     = 5, // 101
-//		           OP_MOD     = 6  // 110
-//		    };
-//		    
+		    public const int OP_INVALID = 0; // 000
+		    public const int OP_PLUS    = 2; // 010
+		    public const int OP_MINUS   = 3; // 011
+		    public const int OP_MULT    = 4; // 100
+		    public const int OP_DIV     = 5; // 101
+		    public const int OP_MOD     = 6;  // 110
+		    
+		    
 //		    struct Alias{
 //		        struct Alias *next;
 //		        char *alias;
@@ -447,9 +447,9 @@ namespace onscripter_csharp
 //		
 //		    Alias root_num_alias, *last_num_alias;
 //		    Alias root_str_alias, *last_str_alias;
-//		    
-//		    ArrayVariable *root_array_variable, *current_array_variable;
-//		
+		    
+		    public ArrayVariable root_array_variable = null, current_array_variable = null;
+		
 //		    ONScripterLabel *ons; //Mion: so script_h can call doErrorBox
 //		    void errorAndExit( const char *str, const char *title=NULL, const char *detail=NULL, bool is_warning=false );
 //		    void simpleErrorAndExit( const char *str, const char *title=NULL, const char *detail=NULL, bool is_warning=false );

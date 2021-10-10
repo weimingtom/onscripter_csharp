@@ -47,6 +47,12 @@ namespace onscripter_csharp
 			
 		}
 		
+		public IntPtr(IntPtr ptr, int offset)
+		{
+			
+		}
+		
+		
 		public int this[int offset]
 		{
 			get { return chars[index + offset]; }
