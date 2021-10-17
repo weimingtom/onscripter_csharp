@@ -82,6 +82,13 @@ namespace onscripter_csharp
 			this._index+=offset;
 			return this;
 		}
+		//--
+		public CharPtr dec() 
+		{
+			//FIXME:not correct
+			this._index--;
+			return this;
+		}
 		
 		public static int minus(CharPtr s1, CharPtr s2)
 		{

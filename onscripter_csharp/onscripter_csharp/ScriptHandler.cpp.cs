@@ -66,9 +66,9 @@ namespace onscripter_csharp
 //		#ifdef _MSC_VER
 //		#define snprintf _snprintf
 //		#endif
-//		
-//		#define TMP_SCRIPT_BUF_LEN 4096
-//		#define STRING_BUFFER_LENGTH 2048
+		
+		public const int TMP_SCRIPT_BUF_LEN = 4096;
+		public const int STRING_BUFFER_LENGTH = 2048;
 		
 		public static void SKIP_SPACE(CharPtr p) { while ( p[0] == ' ' || p[0] == '\t' ) p.inc(); }
 		
@@ -1702,7 +1702,7 @@ namespace onscripter_csharp
 			public bool findStrAlias( CharPtr str, CharPtr buffer )
 			{
 				return false;
-//			    Alias *p_str_alias = root_str_alias.next;
+//				Alias *p_str_alias = root_str_alias.next;
 //			    while( p_str_alias ){
 //				if ( !strcmp( p_str_alias->alias, str ) ){
 //				    strcpy( buffer, p_str_alias->str );
@@ -1713,177 +1713,176 @@ namespace onscripter_csharp
 //			    return false;
 			}
 			
-			public void processError( CharPtr str, CharPtr title, CharPtr detail, bool is_warning, bool is_simple )
+			public void processError( CharPtr str, CharPtr title=null, CharPtr detail=null, bool is_warning=false, bool is_simple=false )
 			{
-//			    //if not yet running the script, no line no/cmd - keep it simple
-//			    if (script_buffer == NULL)
-//			        is_simple = true;
-//			
-//			    if (title == NULL)
-//			        title = "Error";
-//			    const char *type = is_warning ? "Warning" : "Fatal";
-//			
-//			    if (is_simple) {
-//			        fprintf(stderr, " ***[%s] %s: %s ***\n", type, title, str);
-//			        if (detail)
-//			            fprintf(stderr, "\t%s\n", detail);
-//			
-//			        if (is_warning && !strict_warnings) return;
-//			
-//			        if (!ons) exit(-1); //nothing left to do without doErrorBox
-//			
-//			        if (! ons->doErrorBox(title, str, true, is_warning))
-//			            return;
-//			
-//			        if (is_warning)
-//			            fprintf(stderr, " ***[Fatal] User terminated at warning ***\n");
-//			
-//			    } else {
-//			
-//			        char errhist[1024], errcmd[128];
-//			
-//			        LabelInfo label = getLabelByAddress(getCurrent());
-//			        int lblinenum = getLineByAddress(getCurrent());
-//			        int linenum = label.start_line + lblinenum + 1;
-//			
-//			        errcmd[0] = '\0';
-//			        if (strlen(current_cmd) > 0) {
-//			            if (current_cmd_type == CMD_BUILTIN)
-//			                snprintf(errcmd, 128, ", cmd \"%s\"", current_cmd);
-//			            else if (current_cmd_type == CMD_USERDEF)
-//			                snprintf(errcmd, 128, ", user-defined cmd \"%s\"", current_cmd);
-//			        }
-//			        fprintf(stderr, " ***[%s] %s at line %d (*%s:%d)%s - %s ***\n",
-//			                type, title, linenum, label.name, lblinenum, errcmd, str);
-//			        if (detail)
-//			            fprintf(stderr, "\t%s\n", detail);
-//			        if (string_buffer && *string_buffer)
-//			            fprintf(stderr, "\t(String buffer: [%s])\n", string_buffer);
-//			
-//			        if (is_warning && !strict_warnings) return;
-//			
-//			        if (!ons) exit(-1); //nothing left to do without doErrorBox
-//			
-//			        if (is_warning) {
-//			            snprintf(errhist, 1024, "%s\nat line %d (*%s:%d)%s\n%s",
-//			                     str, linenum, label.name, lblinenum, errcmd,
-//			                     detail ? detail : "");
-//			
-//			            if(!ons->doErrorBox(title, errhist, false, true))
-//			                return;
-//			
-//			            fprintf(stderr, " ***[Fatal] User terminated at warning ***\n");
-//			        }
-//			
-//			        //Mion: grabbing the current line in the script & up to 2 previous ones,
-//			        // in-place (replaces the newlines with '\0', and then puts the newlines
-//			        // back when finished)
-//			        int i;
-//			        char *line[3], *tmp[4];
-//			        for (i=0; i<4; i++) tmp[i] = NULL;
-//			        char *end = getCurrent();
-//			        while (*end && *end != 0x0a) end++;
-//			        if (*end) tmp[3] = end;
-//			        *end = '\0';
-//			        char *buf = getCurrent();
-//			        for (i=2; i>=0; i--) {
-//			            if (linenum + i - 3 > 0) {
-//			                while (*buf != 0x0a) buf--;
-//			                tmp[i] = buf;
-//			                *buf = '\0';
-//			                line[i] = buf+1;
-//			            } else if (linenum + i - 3 == 0) {
-//			                line[i] = script_buffer;
-//			            } else
-//			                line[i] = end;
-//			        }
-//			
-//			        snprintf(errhist, 1024, "%s\nat line %d (*%s:%d)%s\n\n| %s\n| %s\n> %s",
-//			                 str, linenum, label.name, lblinenum, errcmd,
-//			                 line[0], line[1], line[2]);
-//			
-//			        for (i=0; i<4; i++) {
-//			            if (tmp[i]) *(tmp[i]) = 0x0a;
-//			        }
-//			
-//			        if (! ons->doErrorBox(title, errhist, false, false))
-//			            return;
-//			
-//			    }
-//			
-//			    exit(-1);
+			    //if not yet running the script, no line no/cmd - keep it simple
+			    if (script_buffer == null)
+			        is_simple = true;
+			
+			    if (title == null)
+			        title = "Error";
+			    CharPtr type = is_warning ? "Warning" : "Fatal";
+			
+			    if (is_simple) {
+			        fprintf(stderr, " ***[%s] %s: %s ***\n", type, title, str);
+			        if (null!=detail)
+			            fprintf(stderr, "\t%s\n", detail);
+			
+			        if (is_warning && !strict_warnings) return;
+			
+			        if (null==ons) exit(-1); //nothing left to do without doErrorBox
+			
+			        if (! ons.doErrorBox(title, str, true, is_warning))
+			            return;
+			
+			        if (is_warning)
+			            fprintf(stderr, " ***[Fatal] User terminated at warning ***\n");
+			
+			    } else {
+			
+			    	char[] errhist = new char[1024], errcmd = new char[128];
+			
+			        LabelInfo label = getLabelByAddress(getCurrent());
+			        int lblinenum = getLineByAddress(getCurrent());
+			        int linenum = label.start_line + lblinenum + 1;
+			
+			        errcmd[0] = '\0';
+			        if (strlen(current_cmd) > 0) {
+			            if (current_cmd_type == CMD_BUILTIN)
+			                snprintf(errcmd, 128, ", cmd \"%s\"", current_cmd);
+			            else if (current_cmd_type == CMD_USERDEF)
+			                snprintf(errcmd, 128, ", user-defined cmd \"%s\"", current_cmd);
+			        }
+			        fprintf(stderr, " ***[%s] %s at line %d (*%s:%d)%s - %s ***\n",
+			                type, title, linenum, label.name, lblinenum, errcmd, str);
+			        if (null!=detail)
+			            fprintf(stderr, "\t%s\n", detail);
+			        if (null!=string_buffer && string_buffer[0]!=0)
+			            fprintf(stderr, "\t(String buffer: [%s])\n", string_buffer);
+			
+			        if (is_warning && !strict_warnings) return;
+			
+			        if (null==ons) exit(-1); //nothing left to do without doErrorBox
+			
+			        if (is_warning) {
+			            snprintf(errhist, 1024, "%s\nat line %d (*%s:%d)%s\n%s",
+			                     str, linenum, label.name, lblinenum, errcmd,
+			                     null!=detail ? detail : "");
+			
+			            if(!ons.doErrorBox(title, errhist, false, true))
+			                return;
+			
+			            fprintf(stderr, " ***[Fatal] User terminated at warning ***\n");
+			        }
+			
+			        //Mion: grabbing the current line in the script & up to 2 previous ones,
+			        // in-place (replaces the newlines with '\0', and then puts the newlines
+			        // back when finished)
+			        int i;
+			        CharPtr[] line = new CharPtr[3], tmp = new CharPtr[4];
+			        for (i=0; i<4; i++) tmp[i] = null;
+			        CharPtr end = getCurrent();
+			        while (0!=end[0] && end[0] != 0x0a) end.inc();
+			        if (0!=end[0]) tmp[3] = end;
+			        end[0] = '\0';
+			        CharPtr buf = getCurrent();
+			        for (i=2; i>=0; i--) {
+			            if (linenum + i - 3 > 0) {
+			        		while (buf[0] != 0x0a) buf.dec();
+			                tmp[i] = buf;
+			                buf[0] = '\0';
+			                line[i] = new CharPtr(buf, +1);
+			            } else if (linenum + i - 3 == 0) {
+			                line[i] = script_buffer;
+			            } else
+			                line[i] = end;
+			        }
+			
+			        snprintf(errhist, 1024, "%s\nat line %d (*%s:%d)%s\n\n| %s\n| %s\n> %s",
+			                 str, linenum, label.name, lblinenum, errcmd,
+			                 line[0], line[1], line[2]);
+			
+			        for (i=0; i<4; i++) {
+			        	if (null!=tmp[i]) tmp[i][0] = (char)0x0a;
+			        }
+			
+			        if (! ons.doErrorBox(title, errhist, false, false))
+			            return;
+			
+			    }
+			
+			    exit(-1);
 			}
 			
 			public void errorAndExit( CharPtr str, CharPtr detail = null, CharPtr title = null, bool is_warning = false )
 			{
-//			    if (title == NULL)
-//			        title = "Script Error";
-//			
-//			    processError(str, detail, title, is_warning);
+			    if (title == null)
+			        title = "Script Error";
+			
+			    processError(str, detail, title, is_warning);
 			}
 			
 			public void simpleErrorAndExit( CharPtr str, CharPtr title, CharPtr detail, bool is_warning )
 			{
-//			    if (title == NULL)
-//			        title = "Script Error";
-//			
-//			    processError(str, detail, title, is_warning, true);
+			    if (title == null)
+			        title = "Script Error";
+			
+			    processError(str, detail, title, is_warning, true);
 			}
 			
 			public void addStringBuffer( char ch )
 			{
-//			    if (string_counter+1 == STRING_BUFFER_LENGTH)
-//			        errorAndExit("addStringBuffer: string length exceeds 2048.");
-//			    string_buffer[string_counter++] = ch;
-//			    string_buffer[string_counter] = '\0';
+			    if (string_counter+1 == STRING_BUFFER_LENGTH)
+			        errorAndExit("addStringBuffer: string length exceeds 2048.");
+			    string_buffer[string_counter++] = ch;
+			    string_buffer[string_counter] = '\0';
 			}
 			
 			public void trimStringBuffer( uint n )
 			{
-//			    string_counter -= n;
-//			    if (string_counter < 0)
-//			        string_counter = 0;
-//			    string_buffer[string_counter] = '\0';
+				string_counter = (int)(string_counter - n);
+			    if (string_counter < 0)
+			        string_counter = 0;
+			    string_buffer[string_counter] = '\0';
 			}
 			
 			public void pushStringBuffer(int offset)
 			{
-//			    strcpy(gosub_string_buffer, string_buffer);
-//			    gosub_string_offset = offset;
+			    strcpy(gosub_string_buffer, string_buffer);
+			    gosub_string_offset = offset;
 			}
 			
 			public int popStringBuffer()
 			{
-				return 0;
-//			    strcpy(string_buffer, gosub_string_buffer);
-//			    text_flag = true;
-//			    return gosub_string_offset;
+				strcpy(string_buffer, gosub_string_buffer);
+			    text_flag = true;
+			    return gosub_string_offset;
 			}
 			
 			public VariableData getVariableData(int no)
 			{
-				return null;
-//			    if (no >= 0 && no < VARIABLE_RANGE)
-//			        return variable_data[no];
-//			
-//			    for (int i=0 ; i<num_extended_variable_data ; i++)
-//			        if (extended_variable_data[i].no == no) 
-//			            return extended_variable_data[i].vd;
-//			        
-//			    num_extended_variable_data++;
-//			    if (num_extended_variable_data == max_extended_variable_data){
-//			        ExtendedVariableData *tmp = extended_variable_data;
-//			        extended_variable_data = new ExtendedVariableData[max_extended_variable_data*2];
-//			        if (tmp){
-//			            memcpy(extended_variable_data, tmp, sizeof(ExtendedVariableData)*max_extended_variable_data);
-//			            delete[] tmp;
-//			        }
-//			        max_extended_variable_data *= 2;
-//			    }
-//			
-//			    extended_variable_data[num_extended_variable_data-1].no = no;
-//			
-//			    return extended_variable_data[num_extended_variable_data-1].vd;
+				if (no >= 0 && no < VARIABLE_RANGE)
+			        return variable_data[no];
+			
+			    for (int i=0 ; i<num_extended_variable_data ; i++)
+			        if (extended_variable_data[i].no == no) 
+			            return extended_variable_data[i].vd;
+			        
+			    num_extended_variable_data++;
+			    if (num_extended_variable_data == max_extended_variable_data){
+			    	//FIXME:???
+			    	//ExtendedVariableData tmp = extended_variable_data[0];
+			        extended_variable_data = new ExtendedVariableData[max_extended_variable_data*2];
+			        if (null != extended_variable_data[0]/*tmp*/){
+			        	memcpy(extended_variable_data, extended_variable_data[0]/*tmp*/, /*sizeof(ExtendedVariableData)**/(uint)max_extended_variable_data);
+			            extended_variable_data[0] = null;//delete[] tmp;
+			        }
+			        max_extended_variable_data *= 2;
+			    }
+			
+			    extended_variable_data[num_extended_variable_data-1].no = no;
+			
+			    return extended_variable_data[num_extended_variable_data-1].vd;
 			}
 			
 			// ----------------------------------------
@@ -1891,159 +1890,157 @@ namespace onscripter_csharp
 			
 			public int findLabel( CharPtr label )
 			{
-				return 0;
-//			    int i;
-//			    char capital_label[256];
-//			
-//			    for ( i=0 ; i<(int)strlen( label )+1 ; i++ ){
-//			        capital_label[i] = label[i];
-//			        if ( 'A' <= capital_label[i] && capital_label[i] <= 'Z' ) capital_label[i] += 'a' - 'A';
-//			    }
-//			    for ( i=0 ; i<num_of_labels ; i++ ){
-//			        if ( !strcmp( label_info[i].name, capital_label ) )
-//			            return i;
-//			    }
-//			
-//			    snprintf(errbuf, MAX_ERRBUF_LEN, "Label \"*%s\" not found.", label);
-//			    errorAndExit( errbuf, NULL, "Label Error" );
-//			
-//			    return -1; // dummy
+				int i;
+				char[] capital_label = new char[256];
+			
+			    for ( i=0 ; i<(int)strlen( label )+1 ; i++ ){
+			        capital_label[i] = label[i];
+			        if ( 'A' <= capital_label[i] && capital_label[i] <= 'Z' ) capital_label[i] = (char)(capital_label[i] + ('a' - 'A'));
+			    }
+			    for ( i=0 ; i<num_of_labels ; i++ ){
+			        if ( 0==strcmp( label_info[i].name, capital_label ) )
+			            return i;
+			    }
+			
+			    snprintf(errbuf, MAX_ERRBUF_LEN, "Label \"*%s\" not found.", label);
+			    errorAndExit( errbuf, null, "Label Error" );
+			
+			    return -1; // dummy
 			}
 			
 			public CharPtr checkComma( CharPtr buf )
 			{
-				return null;
-//			    SKIP_SPACE( buf );
-//			    if (*buf == ','){
-//			        end_status |= END_COMMA;
-//			        buf++;
-//			        SKIP_SPACE( buf );
-//			    }
-//			
-//			    return buf;
+				SKIP_SPACE( buf );
+				if (buf[0] == ','){
+			        end_status |= END_COMMA;
+			        buf.inc();
+			        SKIP_SPACE( buf );
+			    }
+			
+			    return buf;
 			}
 			
-			public void parseStr( CharPtr[] buf )
+			public void parseStr( ref CharPtr buf )
 			{
-//			    SKIP_SPACE( *buf );
-//			
-//			    if ( **buf == '(' ){
-//			        // (foo) bar baz : apparently returns bar if foo has been
-//			        // viewed, baz otherwise.
-//			        // (Rather like a trigram implicitly using "fchk")
-//			
-//			        (*buf)++;
-//			        parseStr(buf);
-//			        SKIP_SPACE( *buf );
-//			        if ( (*buf)[0] != ')' ) errorAndExit("parseStr: missing ')'.");
-//			        (*buf)++;
-//			
-//			        if ( findAndAddLog( log_info[FILE_LOG], str_string_buffer, false ) ){
-//			            parseStr(buf);
-//			            char *tmp_buf = new char[ strlen( str_string_buffer ) + 1 ];
-//			            strcpy( tmp_buf, str_string_buffer );
-//			            parseStr(buf);
-//			            strcpy( str_string_buffer, tmp_buf );
-//			            delete[] tmp_buf;
-//			        }
-//			        else{
-//			            parseStr(buf);
-//			            parseStr(buf);
-//			        }
-//			        current_variable.type |= VAR_CONST;
-//			    }
-//			    else if ( **buf == '$' ){
-//			        (*buf)++;
-//			        int no = parseInt(buf);
-//			        VariableData &vd = getVariableData(no);
-//			
-//			        if ( vd.str )
-//			            strcpy( str_string_buffer, vd.str );
-//			        else
-//			            str_string_buffer[0] = '\0';
-//			        current_variable.type = VAR_STR;
-//			        current_variable.var_no = no;
-//			    }
-//			    else if ( **buf == '"' ){
-//			        int c=0;
-//			        (*buf)++;
-//			        while ( **buf != '"' && **buf != 0x0a )
-//			            str_string_buffer[c++] = *(*buf)++;
-//			        str_string_buffer[c] = '\0';
-//			        if ( **buf == '"' ) (*buf)++;
-//			        current_variable.type |= VAR_CONST;
-//			    }
-//			    else if ( **buf == '`' ){
-//			        int c=0;
-//			        str_string_buffer[c++] = *(*buf)++;
-//			        while ( **buf != '`' && **buf != 0x0a )
-//			            str_string_buffer[c++] = *(*buf)++;
-//			        str_string_buffer[c] = '\0';
-//			        if ( **buf == '`' ) (*buf)++;
-//			        current_variable.type |= VAR_CONST;
-//			        end_status |= END_1BYTE_CHAR;
-//			    }
-//			    else if ( **buf == '#' ){ // for color
-//			        for ( int i=0 ; i<7 ; i++ )
-//			            str_string_buffer[i] = *(*buf)++;
-//			        str_string_buffer[7] = '\0';
-//			        current_variable.type = VAR_NONE;
-//			    }
-//			    else if ( **buf == '*' ){ // label
-//			        int c=0;
-//			        str_string_buffer[c++] = *(*buf)++;
-//			        SKIP_SPACE(*buf);
-//			        char ch = **buf;
-//			        while((ch >= 'a' && ch <= 'z') || 
-//			              (ch >= 'A' && ch <= 'Z') ||
-//			              (ch >= '0' && ch <= '9') ||
-//			              ch == '_'){
-//			            if (ch >= 'A' && ch <= 'Z') ch += 'a' - 'A';
-//			            str_string_buffer[c++] = ch;
-//			            ch = *++(*buf);
-//			        }
-//			        str_string_buffer[c] = '\0';
-//			        current_variable.type |= VAR_CONST;
-//			    }
-//			    else{ // str alias
-//			        char ch, alias_buf[512];
-//			        int alias_buf_len = 0;
-//			        bool first_flag = true;
-//			
-//			        while(1){
-//			            if ( alias_buf_len == 511 ) break;
-//			            ch = **buf;
-//			
-//			            if ( (ch >= 'a' && ch <= 'z') ||
-//			                 (ch >= 'A' && ch <= 'Z') ||
-//			                 ch == '_' ){
-//			                if (ch >= 'A' && ch <= 'Z') ch += 'a' - 'A';
-//			                first_flag = false;
-//			                alias_buf[ alias_buf_len++ ] = ch;
-//			            }
-//			            else if ( ch >= '0' && ch <= '9' ){
-//			                if ( first_flag )
-//			                    errorAndExit("parseStr: string alias cannot start with a digit.");
-//			                first_flag = false;
-//			                alias_buf[ alias_buf_len++ ] = ch;
-//			            }
-//			            else break;
-//			            (*buf)++;
-//			        }
-//			        alias_buf[alias_buf_len] = '\0';
-//			
-//			        if ( alias_buf_len == 0 ){
-//			            str_string_buffer[0] = '\0';
-//			            current_variable.type = VAR_NONE;
-//			            return;
-//			        }
-//			
-//			        if (!findStrAlias( (const char*)alias_buf, str_string_buffer )) {
-//			            snprintf(errbuf, MAX_ERRBUF_LEN, "Undefined string alias '%s'", alias_buf);
-//			            errorAndExit(errbuf);
-//			        }
-//			        current_variable.type |= VAR_CONST;
-//			    }
+			    SKIP_SPACE( buf );
+			
+			    if ( buf[0] == '(' ){
+			        // (foo) bar baz : apparently returns bar if foo has been
+			        // viewed, baz otherwise.
+			        // (Rather like a trigram implicitly using "fchk")
+			
+			        buf.inc();
+			        parseStr(ref buf);
+			        SKIP_SPACE( buf );
+			        if ( buf[0] != ')' ) errorAndExit("parseStr: missing ')'.");
+			        buf.inc();
+			
+			        if ( null!=findAndAddLog( log_info[FILE_LOG], str_string_buffer, false ) ){
+			            parseStr(ref buf);
+			            CharPtr tmp_buf = new char[ strlen( str_string_buffer ) + 1 ];
+			            strcpy( tmp_buf, str_string_buffer );
+			            parseStr(ref buf);
+			            strcpy( str_string_buffer, tmp_buf );
+			            tmp_buf = null;//delete[] tmp_buf;
+			        }
+			        else{
+			            parseStr(ref buf);
+			            parseStr(ref buf);
+			        }
+			        current_variable.type |= VAR_CONST;
+			    }
+			    else if ( buf[0] == '$' ){
+			    	buf.inc();
+			        int no = parseInt(ref buf);
+			        VariableData vd = getVariableData(no);
+			
+			        if ( null!=vd.str )
+			            strcpy( str_string_buffer, vd.str );
+			        else
+			            str_string_buffer[0] = '\0';
+			        current_variable.type = VAR_STR;
+			        current_variable.var_no = no;
+			    }
+			    else if ( buf[0] == '"' ){
+			        int c=0;
+			        buf.inc();
+			        while ( buf[0] != '"' && buf[0] != 0x0a ) {
+			        	str_string_buffer[c++] = buf[0]; buf.inc(); }
+			        str_string_buffer[c] = '\0';
+			        if ( buf[0] == '"' ) buf.inc();
+			        current_variable.type |= VAR_CONST;
+			    }
+			    else if ( buf[0] == '`' ){
+			        int c=0;
+			        str_string_buffer[c++] = buf[0]; buf.inc();
+			        while ( buf[0] != '`' && buf[0] != 0x0a ) {
+			        	str_string_buffer[c++] = buf[0]; buf.inc(); }
+			        str_string_buffer[c] = '\0';
+			        if ( buf[0] == '`' ) buf.inc();
+			        current_variable.type |= VAR_CONST;
+			        end_status |= END_1BYTE_CHAR;
+			    }
+			    else if ( buf[0] == '#' ){ // for color
+			    	for ( int i=0 ; i<7 ; i++ ) {
+			    		str_string_buffer[i] = buf[0]; buf.inc(); }
+			        str_string_buffer[7] = '\0';
+			        current_variable.type = VAR_NONE;
+			    }
+			    else if ( buf[0] == '*' ){ // label
+			        int c=0;
+			        str_string_buffer[c++] = buf[0]; buf.inc();
+			        SKIP_SPACE(buf);
+			        char ch = buf[0];
+			        while((ch >= 'a' && ch <= 'z') || 
+			              (ch >= 'A' && ch <= 'Z') ||
+			              (ch >= '0' && ch <= '9') ||
+			              ch == '_'){
+			        	if (ch >= 'A' && ch <= 'Z') ch = (char)(ch + ('a' - 'A'));
+			            str_string_buffer[c++] = ch;
+			            buf.inc(); ch = buf[0];
+			        }
+			        str_string_buffer[c] = '\0';
+			        current_variable.type |= VAR_CONST;
+			    }
+			    else{ // str alias
+			    	char ch; char[] alias_buf = new char[512];
+			        int alias_buf_len = 0;
+			        bool first_flag = true;
+			
+			        while(true){
+			            if ( alias_buf_len == 511 ) break;
+			            ch = buf[0];
+			
+			            if ( (ch >= 'a' && ch <= 'z') ||
+			                 (ch >= 'A' && ch <= 'Z') ||
+			                 ch == '_' ){
+			            	if (ch >= 'A' && ch <= 'Z') ch = (char)(ch + ('a' - 'A'));
+			                first_flag = false;
+			                alias_buf[ alias_buf_len++ ] = ch;
+			            }
+			            else if ( ch >= '0' && ch <= '9' ){
+			                if ( first_flag )
+			                    errorAndExit("parseStr: string alias cannot start with a digit.");
+			                first_flag = false;
+			                alias_buf[ alias_buf_len++ ] = ch;
+			            }
+			            else break;
+			            buf.inc();
+			        }
+			        alias_buf[alias_buf_len] = '\0';
+			
+			        if ( alias_buf_len == 0 ){
+			            str_string_buffer[0] = '\0';
+			            current_variable.type = VAR_NONE;
+			            return;
+			        }
+			
+			        if (!findStrAlias( new CharPtr(alias_buf), str_string_buffer )) {
+			            snprintf(errbuf, MAX_ERRBUF_LEN, "Undefined string alias '%s'", alias_buf);
+			            errorAndExit(errbuf);
+			        }
+			        current_variable.type |= VAR_CONST;
+			    }
 			}
 			
 			public int parseInt( ref CharPtr buf )

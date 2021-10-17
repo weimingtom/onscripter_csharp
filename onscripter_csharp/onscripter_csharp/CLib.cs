@@ -15,6 +15,8 @@ namespace onscripter_csharp
 		public const int SEEK_SET = 1; //FIXME:
 		public const int SEEK_END = 2; //FIXME:
 		public const FILEPtr stdout = null;//FIXME:
+		public const FILEPtr stderr = null;//FIXME:
+		
 		
 		
 		public class time_t {
@@ -99,6 +101,10 @@ namespace onscripter_csharp
 		public static void memcpy(UnsignedCharPtr s1, CharPtr s2, uint length)
 		{
 			
+		}
+		public static void memcpy(ScriptHandler.ExtendedVariableData[] s1, ScriptHandler.ExtendedVariableData s2, uint length)
+		{
+			//FIXME:???
 		}
 		
 		
@@ -197,6 +203,16 @@ namespace onscripter_csharp
 		}
 		
 		public static void memset(IntPtr s, int ch, uint n)
+		{
+			
+		}
+		
+		public static void exit(int a)
+		{
+			
+		}
+		
+		public static void fprintf(FILEPtr fp, string str, params Object[] args) 
 		{
 			
 		}

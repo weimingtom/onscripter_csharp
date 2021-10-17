@@ -421,16 +421,17 @@ namespace onscripter_csharp
 //		    int  calcArithmetic( int num1, int op, int num2 );
 //		    int  parseArray( char **buf, ArrayVariable &array );
 //		    int  *getArrayPtr( int no, ArrayVariable &array, int offset );
-//		
-//		    /* ---------------------------------------- */
-//		    /* Variable */
-//		    struct VariableData *variable_data;
-//		    struct ExtendedVariableData{
-//		        int no;
-//		        VariableData vd;
-//		    } *extended_variable_data;
-//		    int num_extended_variable_data;
-//		    int max_extended_variable_data;
+		
+		    /* ---------------------------------------- */
+		    /* Variable */
+		    public VariableData[] variable_data = null;
+		    public class ExtendedVariableData{
+		        public int no;
+		        public VariableData vd = new VariableData();
+		    }
+		    public ExtendedVariableData[] extended_variable_data = null;
+		    public int num_extended_variable_data;
+		    public int max_extended_variable_data;
 //		    struct TmpVariableDataLink{
 //		        VariableInfo vi;
 //		        int num;
@@ -450,15 +451,15 @@ namespace onscripter_csharp
 		    
 		    public ArrayVariable root_array_variable = null, current_array_variable = null;
 		
-//		    ONScripterLabel *ons; //Mion: so script_h can call doErrorBox
+		    public ONScripterLabel ons = null; //Mion: so script_h can call doErrorBox
 //		    void errorAndExit( const char *str, const char *title=NULL, const char *detail=NULL, bool is_warning=false );
 //		    void simpleErrorAndExit( const char *str, const char *title=NULL, const char *detail=NULL, bool is_warning=false );
 //		
 //		    DirPaths *archive_path; //points to ScriptParser's archive_path
-//		    char *script_path;
-//		    int  script_buffer_length;
-//		    char *script_buffer;
-//		    char *tmp_script_buf;
+		    public CharPtr script_path;
+		    public int  script_buffer_length;
+		    public CharPtr script_buffer;
+		    public CharPtr tmp_script_buf;
 		    
 		    public CharPtr string_buffer; // update only be readToken
 		    public int  string_counter;
@@ -467,12 +468,12 @@ namespace onscripter_csharp
 		    public CharPtr gosub_string_buffer; // used in textgosub and pretextgosub
 		    public int gosub_string_offset; // used in textgosub and pretextgosub
 		
-//		    LabelInfo *label_info;
-//		    int num_of_labels;
-//		
-//		    bool skip_enabled;
-//		    bool kidokuskip_flag;
-//		    char *kidoku_buffer;
+		    public LabelInfo[] label_info = null;
+		    public int num_of_labels;
+		
+		    public bool skip_enabled;
+		    public bool kidokuskip_flag;
+		    public CharPtr kidoku_buffer = null;
 		
 		    public bool text_flag; // true if the current token is text
 		    public int  end_status;
