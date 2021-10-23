@@ -94,5 +94,17 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		
+		//<
+		public bool lessThen(CharPtr ptr)
+		{
+			//FIXME:
+			return false;
+		}
+		
+		//FIXME:todo
+		public static CharPtr fromDoubleByte(string str) {
+			return null;
+		}
 	}
 }

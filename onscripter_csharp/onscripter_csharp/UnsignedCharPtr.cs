@@ -50,6 +50,11 @@ namespace onscripter_csharp
 			
 		}
 		
+		public UnsignedCharPtr(CharPtr bytes)
+		{
+			
+		}
+		
 		public byte this[int offset]
 		{
 			get { return chars[index + offset]; }

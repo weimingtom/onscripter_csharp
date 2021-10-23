@@ -337,11 +337,11 @@ namespace onscripter_csharp
 		
 //		    //Mion: these are used to keep track of clickwait points in the script
 //		    //for rgosub, to use as return script points
-//		    char **rgosub_wait_pos;
-//		    bool *rgosub_wait_1byte;
-//		    int total_rgosub_wait_size;
-//		    int num_rgosub_waits;
-//		    int cur_rgosub_wait;
+		    public CharPtr[] rgosub_wait_pos;
+		    public bool[] rgosub_wait_1byte;
+		    public int total_rgosub_wait_size;
+		    public int num_rgosub_waits;
+		    public int cur_rgosub_wait;
 		    
 		    public bool is_rgosub_click;
 		    public bool rgosub_click_newpage;
@@ -381,37 +381,37 @@ namespace onscripter_csharp
 		    public const int OP_MOD     = 6;  // 110
 		    
 		    
-//		    struct Alias{
-//		        struct Alias *next;
-//		        char *alias;
-//		        int  num;
-//		        char *str;
-//		
-//		        Alias(){
-//		            next = NULL;
-//		            alias = NULL;
-//		            str = NULL;
-//		        };
-//		        Alias( const char *name, int num ){
-//		            next = NULL;
-//		            alias = new char[ strlen(name) + 1];
-//		            strcpy( alias, name );
-//		            str = NULL;
-//		            this->num = num;
-//		        };
-//		        Alias( const char *name, const char *str ){
-//		            next = NULL;
-//		            alias = new char[ strlen(name) + 1];
-//		            strcpy( alias, name );
-//		            this->str = new char[ strlen(str) + 1];
-//		            strcpy( this->str, str );
-//		        };
-//		        ~Alias(){
-//		            if (alias) delete[] alias;
-//		            if (str)   delete[] str;
-//		        };
-//		    };
-//		    
+		    public class Alias{
+		        public Alias next = null;
+		        public CharPtr alias;
+		        public int  num;
+		        public CharPtr str;
+		
+		        public Alias(){
+		            next = null;
+		            alias = null;
+		            str = null;
+		        }
+		        public Alias( CharPtr name, int num ){
+		            next = null;
+		            alias = new char[ strlen(name) + 1];
+		            strcpy( alias, name );
+		            str = null;
+		            this.num = num;
+		        }
+		        public Alias( CharPtr name, CharPtr str ){
+		            next = null;
+		            alias = new char[ strlen(name) + 1];
+		            strcpy( alias, name );
+		            this.str = new char[ strlen(str) + 1];
+		            strcpy( this.str, str );
+		        }
+		        ~Alias(){
+		            if (null!=alias) alias = null;//delete[] alias;
+		            if (null!=str)   str = null;//delete[] str;
+		        }
+		    }
+		    
 //		    int findLabel( const char* label );
 //		
 //		    char *checkComma( char *buf );
@@ -445,17 +445,17 @@ namespace onscripter_csharp
 //		            if (str) delete[] str;
 //		        };
 //		    } tmp_variable_data_link;
-//		
-//		    Alias root_num_alias, *last_num_alias;
-//		    Alias root_str_alias, *last_str_alias;
+		
+		    public Alias root_num_alias = new Alias(), last_num_alias = null;
+		    public Alias root_str_alias = new Alias(), last_str_alias = null;
 		    
 		    public ArrayVariable root_array_variable = null, current_array_variable = null;
 		
 		    public ONScripterLabel ons = null; //Mion: so script_h can call doErrorBox
 //		    void errorAndExit( const char *str, const char *title=NULL, const char *detail=NULL, bool is_warning=false );
 //		    void simpleErrorAndExit( const char *str, const char *title=NULL, const char *detail=NULL, bool is_warning=false );
-//		
-//		    DirPaths *archive_path; //points to ScriptParser's archive_path
+		
+		    public DirPaths archive_path; //points to ScriptParser's archive_path
 		    public CharPtr script_path;
 		    public int  script_buffer_length;
 		    public CharPtr script_buffer;
@@ -493,9 +493,9 @@ namespace onscripter_csharp
 //		    char *internal_next_script;
 //		    int  internal_end_status;
 //		    VariableInfo internal_current_variable, internal_pushed_variable;
-//		
-//		    unsigned char key_table[256];
-//		    bool key_table_flag;
+		
+		    public byte[] key_table = new byte[256];
+		    public bool key_table_flag;
 		};
 		
 		

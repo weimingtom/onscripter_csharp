@@ -40,6 +40,10 @@ namespace onscripter_csharp
 		{
 			return null;
 		}
+		public static CharPtr strncpy(CharPtr dst, CharPtr src, uint n)
+		{
+			return null;
+		}
 		
 		public static uint strlen(CharPtr str)
 		{
@@ -77,7 +81,7 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
-		public static void sprintf(CharPtr dst, string str, params Object[] args)
+		public static void sprintf(CharPtr dst, CharPtr str, params Object[] args)
 		{
 			
 		}
@@ -215,6 +219,11 @@ namespace onscripter_csharp
 		public static void fprintf(FILEPtr fp, string str, params Object[] args) 
 		{
 			
+		}
+		
+		public static CharPtr fgets(CharPtr str, int n, FILEPtr stream)
+		{
+			return null;
 		}
 	}
 }

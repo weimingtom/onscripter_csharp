@@ -1092,625 +1092,615 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public void addIntVariable(CharPtr[] buf, bool no_zenkaku)
+			public void addIntVariable(ref CharPtr buf, bool no_zenkaku)
 			{
-//			    char num_buf[20];
-//			    int no = parseInt(buf);
-//			
-//			    int len = getStringFromInteger( num_buf, no, -1, false, !no_zenkaku );
-//			    for (int i=0 ; i<len ; i++)
-//			        addStringBuffer( num_buf[i] );
+				char[] num_buf = new char[20];
+			    int no = parseInt(ref buf);
+			
+			    int len = getStringFromInteger( num_buf, no, -1, false, !no_zenkaku );
+			    for (int i=0 ; i<len ; i++)
+			        addStringBuffer( num_buf[i] );
 			}
 			
-			public void addStrVariable(CharPtr[] buf)
+			public void addStrVariable(ref CharPtr buf)
 			{
-//			    (*buf)++;
-//			    int no = parseInt(buf);
-//			    VariableData &vd = getVariableData(no);
-//			    if ( vd.str ){
-//			        for (unsigned int i=0 ; i<strlen( vd.str ) ; i++){
-//			            addStringBuffer( vd.str[i] );
-//			        }
-//			    }
+				buf.inc();
+			    int no = parseInt(ref buf);
+			    VariableData vd = getVariableData(no);
+			    if ( null!=vd.str ){
+			        for (uint i=0 ; i<strlen( vd.str ) ; i++){
+			            addStringBuffer( vd.str[i] );
+			        }
+			    }
 			}
 			
 			public void enableTextgosub(bool val)
 			{
-//			    textgosub_flag = val;
+			    textgosub_flag = val;
 			}
 			
 			public void enableRgosub(bool val)
 			{
-//			    rgosub_flag = val;
-//			
-//			    if (rgosub_flag && !rgosub_wait_pos){
-//			        total_rgosub_wait_size = 4;
-//			        rgosub_wait_pos = new char*[total_rgosub_wait_size];
-//			        rgosub_wait_1byte = new bool[total_rgosub_wait_size];
-//			    }
+			    rgosub_flag = val;
+			
+			    if (rgosub_flag && null==rgosub_wait_pos){
+			        total_rgosub_wait_size = 4;
+			        rgosub_wait_pos = new CharPtr[total_rgosub_wait_size];
+			        rgosub_wait_1byte = new bool[total_rgosub_wait_size];
+			    }
 			}
 			
 			public void setClickstr(CharPtr list)
 			{
-//			    if (clickstr_list) delete[] clickstr_list;
-//			    clickstr_list = new char[strlen(list)+2];
-//			    memcpy( clickstr_list, list, strlen(list)+1 );
-//			    clickstr_list[strlen(list)+1] = '\0';
+			    if (null!=clickstr_list) clickstr_list=null;//delete[] clickstr_list;
+			    clickstr_list = new char[strlen(list)+2];
+			    memcpy( clickstr_list, list, strlen(list)+1 );
+			    clickstr_list[strlen(list)+1] = '\0';
 			}
 			
 			public int checkClickstr(CharPtr buf, bool recursive_flag)
 			{
-				return 0;
-//			    if ((buf[0] == '\\') && (buf[1] == '@')) return -2;  //clickwait-or-page
-//			    if ((buf[0] == '@') || (buf[0] == '\\')) return -1;
-//			
-//			    if (clickstr_list == NULL) return 0;
-//			    bool only_double_byte_check = true;
-//			    char *click_buf = clickstr_list;
-//			    while(click_buf[0]){
-//			        if (click_buf[0] == '`'){
-//			            click_buf++;
-//			            only_double_byte_check = false;
-//			            continue;
-//			        }
-//			        if (! only_double_byte_check){
-//			            if (!IS_TWO_BYTE(click_buf[0]) && !IS_TWO_BYTE(buf[0]) 
-//			                && (click_buf[0] == buf[0])){
-//			                if (!recursive_flag && checkClickstr(buf+1, true) != 0) return 0;
-//			                return 1;
-//			            }
-//			        }
-//			        if (IS_TWO_BYTE(click_buf[0]) && IS_TWO_BYTE(buf[0]) &&
-//			            (click_buf[0] == buf[0]) && (click_buf[1] == buf[1])){
-//			            if (!recursive_flag && checkClickstr(buf+2, true) != 0) return 0;
-//			            return 2;
-//			        }
-//			        if (IS_TWO_BYTE(click_buf[0])) click_buf++;
-//			        click_buf++;
-//			    }
-//			
-//			    return 0;
+				if ((buf[0] == '\\') && (buf[1] == '@')) return -2;  //clickwait-or-page
+			    if ((buf[0] == '@') || (buf[0] == '\\')) return -1;
+			
+			    if (clickstr_list == null) return 0;
+			    bool only_double_byte_check = true;
+			    CharPtr click_buf = new CharPtr(clickstr_list);
+			    while(0!=click_buf[0]){
+			        if (click_buf[0] == '`'){
+			    		click_buf.inc();
+			            only_double_byte_check = false;
+			            continue;
+			        }
+			        if (! only_double_byte_check){
+			            if (!IS_TWO_BYTE(click_buf[0]) && !IS_TWO_BYTE(buf[0]) 
+			                && (click_buf[0] == buf[0])){
+			    			if (!recursive_flag && checkClickstr(new CharPtr(buf,+1), true) != 0) return 0;
+			                return 1;
+			            }
+			        }
+			        if (IS_TWO_BYTE(click_buf[0]) && IS_TWO_BYTE(buf[0]) &&
+			            (click_buf[0] == buf[0]) && (click_buf[1] == buf[1])){
+			    		if (!recursive_flag && checkClickstr(new CharPtr(buf,+2), true) != 0) return 0;
+			            return 2;
+			        }
+			    	if (IS_TWO_BYTE(click_buf[0])) click_buf.inc();
+			        click_buf.inc();
+			    }
+			
+			    return 0;
 			}
 			
 			public int getIntVariable( VariableInfo var_info )
 			{
-				return 0;
-//			    if ( var_info == NULL ) var_info = &current_variable;
-//			
-//			    if ( var_info->type == VAR_INT )
-//			        return getVariableData(var_info->var_no).num;
-//			    else if ( var_info->type == VAR_ARRAY )
-//			        return *getArrayPtr( var_info->var_no, var_info->array, 0 );
-//			    return 0;
+				if ( var_info == null ) var_info = current_variable;
+			
+			    if ( var_info.type == VAR_INT )
+			        return getVariableData(var_info.var_no).num;
+			    else if ( var_info.type == VAR_ARRAY )
+			    	return getArrayPtr( var_info.var_no, var_info.array, 0 )[0];
+			    return 0;
 			}
 			
 			public void readVariable( bool reread_flag = false)
 			{
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			    if ( reread_flag ) next_script = current_script;
-//			    current_script = next_script;
-//			    char *buf = current_script;
-//			
-//			    SKIP_SPACE(buf);
-//			
-//			    bool ptr_flag = false;
-//			    if ( *buf == 'i' || *buf == 's' ){
-//			        ptr_flag = true;
-//			        buf++;
-//			    }
-//			
-//			    if ( *buf == '%' ){
-//			        buf++;
-//			        current_variable.var_no = parseInt(&buf);
-//			        current_variable.type = VAR_INT;
-//			    }
-//			    else if ( *buf == '?' ){
-//			        ArrayVariable av;
-//			        current_variable.var_no = parseArray( &buf, av );
-//			        current_variable.type = VAR_ARRAY;
-//			        current_variable.array = av;
-//			    }
-//			    else if ( *buf == '$' ){
-//			        buf++;
-//			        current_variable.var_no = parseInt(&buf);
-//			        current_variable.type = VAR_STR;
-//			    }
-//			
-//			    if (ptr_flag) current_variable.type |= VAR_PTR;
-//			
-//			    next_script = checkComma(buf);
+			    end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			    if ( reread_flag ) next_script = new CharPtr(current_script);
+			    current_script = next_script;
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    SKIP_SPACE(buf);
+			
+			    bool ptr_flag = false;
+			    if ( buf[0] == 'i' || buf[0] == 's' ){
+			        ptr_flag = true;
+			        buf.inc();
+			    }
+			
+			    if ( buf[0] == '%' ){
+			    	buf.inc();
+			        current_variable.var_no = parseInt(ref buf);
+			        current_variable.type = VAR_INT;
+			    }
+			    else if ( buf[0] == '?' ){
+			    	ArrayVariable av = new ArrayVariable();
+			        current_variable.var_no = parseArray( ref buf, av );
+			        current_variable.type = VAR_ARRAY;
+			        current_variable.array = av;
+			    }
+			    else if ( buf[0] == '$' ){
+			    	buf.inc();
+			        current_variable.var_no = parseInt(ref buf);
+			        current_variable.type = VAR_STR;
+			    }
+			
+			    if (ptr_flag) current_variable.type |= VAR_PTR;
+			
+			    next_script = checkComma(buf);
 			}
 			
 			public void setInt( VariableInfo var_info, int val, int offset = 0 )
 			{
-//			    if ( var_info->type & VAR_INT ){
-//			        setNumVariable( var_info->var_no + offset, val );
-//			    }
-//			    else if ( var_info->type & VAR_ARRAY ){
-//			        *getArrayPtr( var_info->var_no, var_info->array, offset ) = val;
-//			    }
-//			    else{
-//			        errorAndExit( "setInt: no integer variable." );
-//			    }
+				if ( 0!=(var_info.type & VAR_INT) ){
+			        setNumVariable( var_info.var_no + offset, val );
+			    }
+				else if ( 0!=(var_info.type & VAR_ARRAY) ){
+					getArrayPtr( var_info.var_no, var_info.array, offset )[0] = val;
+			    }
+			    else{
+			        errorAndExit( "setInt: no integer variable." );
+			    }
 			}
 			
-			public void setStr( CharPtr[] dst, CharPtr src, int num )
+			public void setStr( ref CharPtr dst, CharPtr src, int num=-1 )
 			{
-//			    if ( *dst ) delete[] *dst;
-//			    *dst = NULL;
-//			    
-//			    if ( src ){
-//			        if (num >= 0){
-//			            *dst = new char[ num + 1 ];
-//			            memcpy( *dst, src, num );
-//			            (*dst)[num] = '\0';
-//			        }
-//			        else{
-//			            *dst = new char[ strlen( src ) + 1];
-//			            strcpy( *dst, src );
-//			        }
-//			    }
+			    //if ( *dst ) delete[] *dst;
+			    dst = null;
+			    
+			    if ( null!=src ){
+			        if (num >= 0){
+			            dst = new char[ num + 1 ];
+			            memcpy( dst, src, (uint)num );
+			            dst[num] = '\0';
+			        }
+			        else{
+			            dst = new char[ strlen( src ) + 1];
+			            strcpy( dst, src );
+			        }
+			    }
 			}
 			
 			public void pushVariable()
 			{
-//			    pushed_variable = current_variable;
+			    pushed_variable = current_variable;
 			}
 			
 			public void setNumVariable( int no, int val )
 			{
-//			    VariableData &vd = getVariableData(no);
-//			    if ( vd.num_limit_flag ){
-//			        if ( val < vd.num_limit_lower )
-//			            val = vd.num_limit_lower;
-//			        else if ( val > vd.num_limit_upper )
-//			            val = vd.num_limit_upper;
-//			    }
-//			    vd.num = val;
+			    VariableData vd = getVariableData(no);
+			    if ( vd.num_limit_flag ){
+			        if ( val < vd.num_limit_lower )
+			            val = vd.num_limit_lower;
+			        else if ( val > vd.num_limit_upper )
+			            val = vd.num_limit_upper;
+			    }
+			    vd.num = val;
 			}
 			
 			public int getStringFromInteger( CharPtr buffer, int no, int num_column,
 			                                         bool is_zero_inserted,
 			                                         bool use_zenkaku )
 			{
-				return 0;
-//			    int i, num_space=0, num_minus = 0;
-//			    if (no < 0){
-//			        num_minus = 1;
-//			        no = -no;
-//			    }
-//			    int num_digit=1, no2 = no;
-//			    while(no2 >= 10){
-//			        no2 /= 10;
-//			        num_digit++;
-//			    }
-//			
-//			    if (num_column < 0) num_column = num_digit+num_minus;
-//			    if (num_digit+num_minus <= num_column)
-//			        num_space = num_column - (num_digit+num_minus);
-//			    else{
-//			        for (i=0 ; i<num_digit+num_minus-num_column ; i++)
-//			            no /= 10;
-//			        num_digit -= num_digit+num_minus-num_column;
-//			    }
-//			
-//			    if (!use_zenkaku) {
-//			        if (num_minus == 1) no = -no;
-//			        char format[6];
-//			        if (is_zero_inserted)
-//			            sprintf(format, "%%0%dd", num_column);
-//			        else
-//			            sprintf(format, "%%%dd", num_column);
-//			        
-//			        sprintf(buffer, format, no);
-//			        return num_column;
-//			    }
-//			
-//			    int c = 0;
-//			    if (is_zero_inserted){
-//			        for (i=0 ; i<num_space ; i++){
-//			            buffer[c++] = ((char*)"侽")[0];
-//			            buffer[c++] = ((char*)"侽")[1];
-//			        }
-//			    }
-//			    else{
-//			        for (i=0 ; i<num_space ; i++){
-//			            buffer[c++] = ((char*)"丂")[0];
-//			            buffer[c++] = ((char*)"丂")[1];
-//			        }
-//			    }
-//			    if (num_minus == 1){
-//			        buffer[c++] = "亅"[0];
-//			        buffer[c++] = "亅"[1];
-//			    }
-//			    c = (num_column-1)*2;
-//			    char num_str[] = "侽侾俀俁係俆俇俈俉俋";
-//			    for (i=0 ; i<num_digit ; i++){
-//			        buffer[c]   = num_str[ no % 10 * 2];
-//			        buffer[c+1] = num_str[ no % 10 * 2 + 1];
-//			        no /= 10;
-//			        c -= 2;
-//			    }
-//			    buffer[num_column*2] = '\0';
-//			
-//			    return num_column*2;
+				int i, num_space=0, num_minus = 0;
+			    if (no < 0){
+			        num_minus = 1;
+			        no = -no;
+			    }
+			    int num_digit=1, no2 = no;
+			    while(no2 >= 10){
+			        no2 /= 10;
+			        num_digit++;
+			    }
+			
+			    if (num_column < 0) num_column = num_digit+num_minus;
+			    if (num_digit+num_minus <= num_column)
+			        num_space = num_column - (num_digit+num_minus);
+			    else{
+			        for (i=0 ; i<num_digit+num_minus-num_column ; i++)
+			            no /= 10;
+			        num_digit -= num_digit+num_minus-num_column;
+			    }
+			
+			    if (!use_zenkaku) {
+			        if (num_minus == 1) no = -no;
+			        char[] format = new char[6];
+			        if (is_zero_inserted)
+			            sprintf(format, "%%0%dd", num_column);
+			        else
+			            sprintf(format, "%%%dd", num_column);
+			        
+			        sprintf(buffer, format, no);
+			        return num_column;
+			    }
+			
+			    int c = 0;
+			    if (is_zero_inserted){
+			        for (i=0 ; i<num_space ; i++){
+			    		buffer[c++] = (CharPtr.fromDoubleByte("侽"))[0];
+			    		buffer[c++] = (CharPtr.fromDoubleByte("侽"))[1];
+			        }
+			    }
+			    else{
+			        for (i=0 ; i<num_space ; i++){
+			    		buffer[c++] = (CharPtr.fromDoubleByte("丂"))[0];
+			    		buffer[c++] = (CharPtr.fromDoubleByte("丂"))[1];
+			        }
+			    }
+			    if (num_minus == 1){
+			        buffer[c++] = "亅"[0];
+			        buffer[c++] = "亅"[1];
+			    }
+			    c = (num_column-1)*2;
+			    CharPtr num_str = CharPtr.fromDoubleByte("侽侾俀俁係俆俇俈俉俋");
+			    for (i=0 ; i<num_digit ; i++){
+			        buffer[c]   = num_str[ no % 10 * 2];
+			        buffer[c+1] = num_str[ no % 10 * 2 + 1];
+			        no /= 10;
+			        c -= 2;
+			    }
+			    buffer[num_column*2] = '\0';
+			
+			    return num_column*2;
 			}
 			
-			public int readScriptSub( FILEPtr fp, CharPtr[] buf, int encrypt_mode )
+			public int readScriptSub( FILEPtr fp, ref CharPtr buf, int encrypt_mode )
 			{
-				return 0;
-//			    unsigned char magic[5] = {0x79, 0x57, 0x0d, 0x80, 0x04 };
-//			    int  magic_counter = 0;
-//			    bool newline_flag = true;
-//			    bool cr_flag = false;
-//			
-//			    if (encrypt_mode == 3 && !key_table_flag)
-//			        simpleErrorAndExit("readScriptSub: the EXE file must be specified with --key-exe option.");
-//			
-//			    size_t len=0, count=0;
-//			    while(1){
-//			        if (len == count){
-//			            len = fread(tmp_script_buf, 1, TMP_SCRIPT_BUF_LEN, fp);
-//			            if (len == 0){
-//			                if (cr_flag) *(*buf)++ = 0x0a;
-//			                break;
-//			            }
-//			            count = 0;
-//			        }
-//			        unsigned char ch = tmp_script_buf[count++];
-//			        if      ( encrypt_mode == 1 ) ch ^= 0x84;
-//			        else if ( encrypt_mode == 2 ){
-//			            ch = (ch ^ magic[magic_counter++]) & 0xff;
-//			            if ( magic_counter == 5 ) magic_counter = 0;
-//			        }
-//			        else if ( encrypt_mode == 3){
-//			            ch = key_table[(unsigned char)ch] ^ 0x84;
-//			        }
-//			
-//			        if ( cr_flag && ch != 0x0a ){
-//			            *(*buf)++ = 0x0a;
-//			            newline_flag = true;
-//			            cr_flag = false;
-//			        }
-//			
-//			        if ( ch == '*' && newline_flag ) num_of_labels++;
-//			        if ( ch == 0x0d ){
-//			            cr_flag = true;
-//			            continue;
-//			        }
-//			        if ( ch == 0x0a ){
-//			            *(*buf)++ = 0x0a;
-//			            newline_flag = true;
-//			            cr_flag = false;
-//			        }
-//			        else{
-//			            *(*buf)++ = ch;
-//			            if ( ch != ' ' && ch != '\t' )
-//			                newline_flag = false;
-//			        }
-//			    }
-//			
-//			    *(*buf)++ = 0x0a;
-//			    return 0;
+				byte[] magic = new byte[5] {0x79, 0x57, 0x0d, 0x80, 0x04 };
+			    int  magic_counter = 0;
+			    bool newline_flag = true;
+			    bool cr_flag = false;
+			
+			    if (encrypt_mode == 3 && !key_table_flag)
+			        simpleErrorAndExit("readScriptSub: the EXE file must be specified with --key-exe option.");
+			
+			    uint len=0, count=0;
+			    while(true){
+			        if (len == count){
+			    		len = fread(new UnsignedCharPtr(tmp_script_buf), 1, TMP_SCRIPT_BUF_LEN, fp);
+			            if (len == 0){
+			            	if (cr_flag) { buf[0] = (char)0x0a; buf.inc(); }
+			                break;
+			            }
+			            count = 0;
+			        }
+			    	byte ch = (byte)(tmp_script_buf[count++]);
+			        if      ( encrypt_mode == 1 ) ch ^= 0x84;
+			        else if ( encrypt_mode == 2 ){
+			        	ch = (byte)((ch ^ magic[magic_counter++]) & 0xff);
+			            if ( magic_counter == 5 ) magic_counter = 0;
+			        }
+			        else if ( encrypt_mode == 3){
+			        	ch = (byte)(key_table[(byte)ch] ^ 0x84);
+			        }
+			
+			        if ( cr_flag && ch != 0x0a ){
+			        	buf[0] = (char)0x0a; buf.inc();
+			            newline_flag = true;
+			            cr_flag = false;
+			        }
+			
+			        if ( ch == '*' && newline_flag ) num_of_labels++;
+			        if ( ch == 0x0d ){
+			            cr_flag = true;
+			            continue;
+			        }
+			        if ( ch == 0x0a ){
+			        	buf[0] = (char)0x0a; buf.inc();
+			            newline_flag = true;
+			            cr_flag = false;
+			        }
+			        else{
+			        	buf[0] = (char)ch; buf.inc();
+			            if ( ch != ' ' && ch != '\t' )
+			                newline_flag = false;
+			        }
+			    }
+			
+			    buf[0] = (char)0x0a; buf.inc();
+			    return 0;
 			}
 			
 			public int readScript( DirPaths path )
 			{
-				return 0;
-//			    archive_path = &path;
-//			
-//			    FILE *fp = NULL;
-//			    char filename[10];
-//			    int i, n=0, encrypt_mode = 0;
-//			    while ((fp == NULL) && (n<archive_path->get_num_paths())) {
-//			        const char *curpath = archive_path->get_path(n);
-//			        const char *filename = "";
-//			        
-//			        if ((fp = fopen(curpath, "0.txt", "rb")) != NULL){
-//			            encrypt_mode = 0;
-//			            filename = "0.txt";
-//			        }
-//			        else if ((fp = fopen(curpath, "00.txt", "rb")) != NULL){
-//			            encrypt_mode = 0;
-//			            filename = "00.txt";
-//			        }
-//			        else if ((fp = fopen(curpath, "nscr_sec.dat", "rb")) != NULL){
-//			            encrypt_mode = 2;
-//			            filename = "nscr_sec.dat";
-//			        }
-//			        else if ((fp = fopen(curpath, "nscript.___", "rb")) != NULL){
-//			            encrypt_mode = 3;
-//			            filename = "nscript.___";
-//			        }
-//			        else if ((fp = fopen(curpath, "nscript.dat", "rb")) != NULL){
-//			            encrypt_mode = 1;
-//			            filename = "nscript.dat";
-//			        }
-//			
-//			        if (fp != NULL) {
-//			            fprintf(stderr, "Script found: %s%s\n", curpath, filename);
-//			            setStr(&script_path, curpath);
-//			        }
-//			        n++;
-//			    }
-//			    if (fp == NULL){
-//			#if defined(MACOSX) 
-//			        simpleErrorAndExit("No game data found.\nThis application must be run "
-//			                           "from a directory containing ONScripter game data.",
-//			                           "can't open any of 0.txt, 00.txt, or nscript.dat",
-//			                           "Missing game data");
-//			#else
-//			        simpleErrorAndExit("No game script found.",
-//			                           "can't open any of 0.txt, 00.txt, or nscript.dat",
-//			                           "Missing game data");
-//			#endif
-//			        return -1;
-//			    }
-//			
-//			    fseek( fp, 0, SEEK_END );
-//			    int estimated_buffer_length = ftell( fp ) + 1;
-//			
-//			    if (encrypt_mode == 0){
-//			        fclose(fp);
-//			        for (i=1 ; i<100 ; i++){
-//			            sprintf(filename, "%d.txt", i);
-//			            if ((fp = fopen(script_path, filename, "rb")) == NULL){
-//			                sprintf(filename, "%02d.txt", i);
-//			                fp = fopen(script_path, filename, "rb");
-//			            }
-//			            if (fp){
-//			                fseek( fp, 0, SEEK_END );
-//			                estimated_buffer_length += ftell(fp)+1;
-//			                fclose(fp);
-//			            }
-//			        }
-//			    }
-//			
-//			    if ( script_buffer ) delete[] script_buffer;
-//			    script_buffer = new char[ estimated_buffer_length ];
-//			
-//			    char *p_script_buffer;
-//			    current_script = p_script_buffer = script_buffer;
-//			
-//			    tmp_script_buf = new char[TMP_SCRIPT_BUF_LEN];
-//			    if (encrypt_mode > 0){
-//			        fseek( fp, 0, SEEK_SET );
-//			        readScriptSub( fp, &p_script_buffer, encrypt_mode );
-//			        fclose( fp );
-//			    }
-//			    else{
-//			        for (i=0 ; i<100 ; i++){
-//			            sprintf(filename, "%d.txt", i);
-//			            if ((fp = fopen(script_path, filename, "rb")) == NULL){
-//			                sprintf(filename, "%02d.txt", i);
-//			                fp = fopen(script_path, filename, "rb");
-//			            }
-//			            if (fp){
-//			                readScriptSub( fp, &p_script_buffer, 0 );
-//			                fclose(fp);
-//			            }
-//			        }
-//			    }
-//			    delete[] tmp_script_buf;
-//			
-//			    // Haeleth: Search for gameid file (this overrides any builtin
-//			    // ;gameid directive, or serves its purpose if none is available)
-//			    if (!game_identifier) { //Mion: only if gameid not already set
-//			        fp = fopen(script_path, "game.id", "rb"); //Mion: search only the script path
-//			        if (fp) {
-//			            size_t line_size = 0;
-//			            char c;
-//			            do {
-//			                c = fgetc(fp);
-//			                ++line_size;
-//			            } while (c != '\r' && c != '\n' && c != EOF);
-//			            fseek(fp, 0, SEEK_SET);
-//			            game_identifier = new char[line_size];
-//			            if (fgets(game_identifier, line_size, fp) == NULL)
-//			                fputs("Warning: couldn't read game ID from game.id\n", stderr);
-//			            fclose(fp);
-//			        }
-//			    }
-//			
-//			    script_buffer_length = p_script_buffer - script_buffer;
-//			    game_hash = script_buffer_length;  // Reasonable "hash" value
-//			
-//			    /* ---------------------------------------- */
-//			    /* screen size and value check */
-//			    char *buf = script_buffer+1;
-//			    while( script_buffer[0] == ';' ){
-//			        if ( !strncmp( buf, "mode", 4 ) ){
-//			            buf += 4;
-//			            if      ( !strncmp( buf, "800", 3 ) )
-//			                screen_size = SCREEN_SIZE_800x600;
-//			            else if ( !strncmp( buf, "400", 3 ) )
-//			                screen_size = SCREEN_SIZE_400x300;
-//			            else if ( !strncmp( buf, "320", 3 ) )
-//			                screen_size = SCREEN_SIZE_320x240;
-//			            else
-//			                screen_size = SCREEN_SIZE_640x480;
-//			            buf += 3;
-//			        }
-//			        else if ( !strncmp( buf, "value", 5 ) ){
-//			            buf += 5;
-//			            SKIP_SPACE(buf);
-//			            global_variable_border = 0;
-//			            while ( *buf >= '0' && *buf <= '9' )
-//			                global_variable_border = global_variable_border * 10 + *buf++ - '0';
-//			            //printf("set global_variable_border: %d\n", global_variable_border);
-//			        }
-//			        else{
-//			            break;
-//			        }
-//			        if ( *buf != ',' ){
-//			        	while ( *buf++ != '\n' );
-//			        	break;
-//			        }
-//			        buf++;
-//			    }
-//			    if ( *buf++ == ';' && !game_identifier ){
-//			    	while (*buf == ' ' || *buf == '\t') ++buf;
-//			    	if ( !strncmp( buf, "gameid ", 7 ) ){
-//			    		buf += 7;
-//			    		int i = 0;
-//			    		while ( buf[i++] != '\n' );
-//			    		game_identifier = new char[i];
-//			    		strncpy( game_identifier, buf, i - 1 );
-//			    		game_identifier[i - 1] = 0;
-//			    	}
-//			    }
-//			
-//			    return labelScript();
+			    archive_path = path;
+			
+			    FILEPtr fp = null;
+			    char[] filename = new char[10];
+			    int i, n=0, encrypt_mode = 0;
+			    while ((fp == null) && (n<archive_path.get_num_paths())) {
+			        CharPtr curpath = archive_path.get_path(n);
+			        CharPtr filename_ = "";
+			        
+			        if ((fp = fopen(curpath, "0.txt", "rb")) != null){
+			            encrypt_mode = 0;
+			            filename_ = "0.txt";
+			        }
+			        else if ((fp = fopen(curpath, "00.txt", "rb")) != null){
+			            encrypt_mode = 0;
+			            filename_ = "00.txt";
+			        }
+			        else if ((fp = fopen(curpath, "nscr_sec.dat", "rb")) != null){
+			            encrypt_mode = 2;
+			            filename_ = "nscr_sec.dat";
+			        }
+			        else if ((fp = fopen(curpath, "nscript.___", "rb")) != null){
+			            encrypt_mode = 3;
+			            filename_ = "nscript.___";
+			        }
+			        else if ((fp = fopen(curpath, "nscript.dat", "rb")) != null){
+			            encrypt_mode = 1;
+			            filename_ = "nscript.dat";
+			        }
+			
+			        if (fp != null) {
+			            fprintf(stderr, "Script found: %s%s\n", curpath, filename_);
+			            setStr(ref script_path, curpath);
+			        }
+			        n++;
+			    }
+			    if (fp == null){
+			#if MACOSX 
+			        simpleErrorAndExit("No game data found.\nThis application must be run "
+			                           "from a directory containing ONScripter game data.",
+			                           "can't open any of 0.txt, 00.txt, or nscript.dat",
+			                           "Missing game data");
+			#else
+			        simpleErrorAndExit("No game script found.",
+			                           "can't open any of 0.txt, 00.txt, or nscript.dat",
+			                           "Missing game data");
+			#endif
+			        return -1;
+			    }
+			
+			    fseek( fp, 0, SEEK_END );
+			    int estimated_buffer_length = (int)(ftell( fp ) + 1);
+			
+			    if (encrypt_mode == 0){
+			        fclose(fp);
+			        for (i=1 ; i<100 ; i++){
+			            sprintf(filename, "%d.txt", i);
+			            if ((fp = fopen(script_path, filename, "rb")) == null){
+			                sprintf(filename, "%02d.txt", i);
+			                fp = fopen(script_path, filename, "rb");
+			            }
+			            if (null!=fp){
+			                fseek( fp, 0, SEEK_END );
+			                estimated_buffer_length = (int)(estimated_buffer_length + (ftell(fp)+1));
+			                fclose(fp);
+			            }
+			        }
+			    }
+			
+			    if ( null!=script_buffer ) script_buffer = null;//delete[] script_buffer;
+			    script_buffer = new char[ estimated_buffer_length ];
+			
+			    CharPtr p_script_buffer;
+			    current_script = p_script_buffer = script_buffer;
+			
+			    tmp_script_buf = new char[TMP_SCRIPT_BUF_LEN];
+			    if (encrypt_mode > 0){
+			        fseek( fp, 0, SEEK_SET );
+			        readScriptSub( fp, ref p_script_buffer, encrypt_mode );
+			        fclose( fp );
+			    }
+			    else{
+			        for (i=0 ; i<100 ; i++){
+			            sprintf(filename, "%d.txt", i);
+			            if ((fp = fopen(script_path, filename, "rb")) == null){
+			                sprintf(filename, "%02d.txt", i);
+			                fp = fopen(script_path, filename, "rb");
+			            }
+			            if (null!=fp){
+			                readScriptSub( fp, ref p_script_buffer, 0 );
+			                fclose(fp);
+			            }
+			        }
+			    }
+			    tmp_script_buf = null;//delete[] tmp_script_buf;
+			
+			    // Haeleth: Search for gameid file (this overrides any builtin
+			    // ;gameid directive, or serves its purpose if none is available)
+			    if (null==game_identifier) { //Mion: only if gameid not already set
+			        fp = fopen(script_path, "game.id", "rb"); //Mion: search only the script path
+			        if (null!=fp) {
+			            uint line_size = 0;
+			            sbyte c;
+			            do {
+			            	c = (sbyte)fgetc(fp);
+			                ++line_size;
+			            } while (c != '\r' && c != '\n' && c != EOF);
+			            fseek(fp, 0, SEEK_SET);
+			            game_identifier = new char[line_size];
+			            if (fgets(game_identifier, (int)line_size, fp) == null)
+			                fputs("Warning: couldn't read game ID from game.id\n", stderr);
+			            fclose(fp);
+			        }
+			    }
+			
+			    script_buffer_length = CharPtr.minus(p_script_buffer, script_buffer);
+			    game_hash = script_buffer_length;  // Reasonable "hash" value
+			
+			    /* ---------------------------------------- */
+			    /* screen size and value check */
+			    CharPtr buf = new CharPtr(script_buffer, +1);
+			    while( script_buffer[0] == ';' ){
+			        if ( 0==strncmp( buf, "mode", 4 ) ){
+			    		buf.inc(4);
+			            if      ( 0==strncmp( buf, "800", 3 ) )
+			                screen_size = SCREEN_SIZE_800x600;
+			            else if ( 0==strncmp( buf, "400", 3 ) )
+			                screen_size = SCREEN_SIZE_400x300;
+			            else if ( 0==strncmp( buf, "320", 3 ) )
+			                screen_size = SCREEN_SIZE_320x240;
+			            else
+			                screen_size = SCREEN_SIZE_640x480;
+			            buf.inc(3);
+			        }
+			        else if ( 0==strncmp( buf, "value", 5 ) ){
+			    		buf.inc(5);
+			            SKIP_SPACE(buf);
+			            global_variable_border = 0;
+			            while ( buf[0] >= '0' && buf[0] <= '9' ) {
+			            	global_variable_border = global_variable_border * 10 + (int)(buf[0] - '0'); buf.inc();
+			            }
+			            //printf("set global_variable_border: %d\n", global_variable_border);
+			        }
+			        else{
+			            break;
+			        }
+			        if ( buf[0] != ',' ){
+			    		while ( true ) {char temp = buf[0]; buf.inc(); if (temp != '\n'){;}else{break;} }
+			        	break;
+			        }
+			    	buf.inc();
+			    }
+			    char temp2 = buf[0]; buf.inc();
+			    if ( temp2 == ';' && null==game_identifier ){
+			    	while (buf[0] == ' ' || buf[0] == '\t') buf.inc();
+			    	if ( 0==strncmp( buf, "gameid ", 7 ) ){
+			    		buf.inc(7);
+			    		int i_ = 0;
+			    		while ( buf[i_++] != '\n' );
+			    		game_identifier = new char[i_];
+			    		strncpy( game_identifier, buf, (uint)(i_ - 1) );
+			    		game_identifier[i_ - 1] = (char)0;
+			    	}
+			    }
+			
+			    return labelScript();
 			}
 			
 			public int labelScript()
 			{
-				return 0;
-//			    int label_counter = -1;
-//			    int current_line = 0;
-//			    char *buf = script_buffer;
-//			    label_info = new LabelInfo[ num_of_labels+1 ];
-//			
-//			    while ( buf < script_buffer + script_buffer_length ){
-//			        SKIP_SPACE( buf );
-//			        if ( *buf == '*' ){
-//			            setCurrent( buf );
-//			            readLabel();
-//			            label_info[ ++label_counter ].name = new char[ strlen(string_buffer) ];
-//			            strcpy( label_info[ label_counter ].name, string_buffer+1 );
-//			            label_info[ label_counter ].label_header = buf;
-//			            label_info[ label_counter ].num_of_lines = 1;
-//			            label_info[ label_counter ].start_line   = current_line;
-//			            buf = getNext();
-//			            if ( *buf == 0x0a ){
-//			                buf++;
-//			                SKIP_SPACE(buf);
-//			                current_line++;
-//			            }
-//			            label_info[ label_counter ].start_address = buf;
-//			        }
-//			        else{
-//			            if ( label_counter >= 0 )
-//			                label_info[ label_counter ].num_of_lines++;
-//			            while( *buf != 0x0a ) buf++;
-//			            buf++;
-//			            current_line++;
-//			        }
-//			    }
-//			
-//			    label_info[num_of_labels].start_address = NULL;
-//			
-//			    return 0;
+				int label_counter = -1;
+			    int current_line = 0;
+			    CharPtr buf = new CharPtr(script_buffer);
+			    label_info = new LabelInfo[ num_of_labels+1 ];
+			
+			    while ( buf.lessThen(new CharPtr(script_buffer, + script_buffer_length)) ){
+			        SKIP_SPACE( buf );
+			        if ( buf[0] == '*' ){
+			            setCurrent( buf );
+			            readLabel();
+			            label_info[ ++label_counter ].name = new char[ strlen(string_buffer) ];
+			            strcpy( label_info[ label_counter ].name, new CharPtr(string_buffer, +1) );
+			            label_info[ label_counter ].label_header = buf;
+			            label_info[ label_counter ].num_of_lines = 1;
+			            label_info[ label_counter ].start_line   = current_line;
+			            buf = getNext();
+			            if ( buf[0] == 0x0a ){
+			            	buf.inc();
+			                SKIP_SPACE(buf);
+			                current_line++;
+			            }
+			            label_info[ label_counter ].start_address = buf;
+			        }
+			        else{
+			            if ( label_counter >= 0 )
+			                label_info[ label_counter ].num_of_lines++;
+			            while( buf[0] != 0x0a ) buf.inc();
+			            buf.inc();
+			            current_line++;
+			        }
+			    }
+			
+			    label_info[num_of_labels].start_address = null;
+			
+			    return 0;
 			}
 			
 			public LabelInfo lookupLabel( CharPtr label )
 			{
-				return null;
-//			    int i = findLabel( label );
-//			
-//			    findAndAddLog( log_info[LABEL_LOG], label_info[i].name, true );
-//			    return label_info[i];
+				int i = findLabel( label );
+			
+			    findAndAddLog( log_info[LABEL_LOG], label_info[i].name, true );
+			    return label_info[i];
 			}
 			
 			public LabelInfo lookupLabelNext( CharPtr label )
 			{
-				return null;
-//			    int i = findLabel( label );
-//			    if ( i+1 < num_of_labels ){
-//			        findAndAddLog( log_info[LABEL_LOG], label_info[i+1].name, true );
-//			        return label_info[i+1];
-//			    }
-//			
-//			    return label_info[num_of_labels];
+				int i = findLabel( label );
+			    if ( i+1 < num_of_labels ){
+			        findAndAddLog( log_info[LABEL_LOG], label_info[i+1].name, true );
+			        return label_info[i+1];
+			    }
+			
+			    return label_info[num_of_labels];
 			}
 			
 			public LogLink findAndAddLog( LogInfo info, CharPtr name, bool add_flag )
 			{
-				return null;
-//			    char capital_name[256];
-//			    for ( unsigned int i=0 ; i<strlen(name)+1 ; i++ ){
-//			        capital_name[i] = name[i];
-//			        if ( 'a' <= capital_name[i] && capital_name[i] <= 'z' ) capital_name[i] += 'A' - 'a';
-//			        else if ( capital_name[i] == '/' ) capital_name[i] = '\\';
-//			    }
-//			
-//			    LogLink *cur = info.root_log.next;
-//			    while( cur ){
-//			        if ( !strcmp( cur->name, capital_name ) ) break;
-//			        cur = cur->next;
-//			    }
-//			    if ( !add_flag || cur ) return cur;
-//			
-//			    LogLink *link = new LogLink();
-//			    link->name = new char[strlen(capital_name)+1];
-//			    strcpy( link->name, capital_name );
-//			    info.current_log->next = link;
-//			    info.current_log = info.current_log->next;
-//			    info.num_logs++;
-//			
-//			    return link;
+				char[] capital_name = new char[256];
+			    for ( uint i=0 ; i<strlen(name)+1 ; i++ ){
+			        capital_name[i] = name[i];
+			        if ( 'a' <= capital_name[i] && capital_name[i] <= 'z' ) capital_name[i] = (char)(capital_name[i] + ('A' - 'a'));
+			        else if ( capital_name[i] == '/' ) capital_name[i] = '\\';
+			    }
+			
+			    LogLink cur = info.root_log.next;
+			    while( null!=cur ){
+			        if ( 0==strcmp( cur.name, capital_name ) ) break;
+			        cur = cur.next;
+			    }
+			    if ( !add_flag || null!=cur ) return cur;
+			
+			    LogLink link = new LogLink();
+			    link.name = new char[strlen(capital_name)+1];
+			    strcpy( link.name, capital_name );
+			    info.current_log.next = link;
+			    info.current_log = info.current_log.next;
+			    info.num_logs++;
+			
+			    return link;
 			}
 			
 			public void resetLog( LogInfo info )
 			{
-//			    LogLink *link = info.root_log.next;
-//			    while( link ){
-//			        LogLink *tmp = link;
-//			        link = link->next;
-//			        delete tmp;
-//			    }
-//			
-//			    info.root_log.next = NULL;
-//			    info.current_log = &info.root_log;
-//			    info.num_logs = 0;
+			    LogLink link = info.root_log.next;
+			    while( null!=link ){
+			        LogLink tmp = link;
+			        link = link.next;
+			        tmp=null;//delete tmp;
+			    }
+			
+			    info.root_log.next = null;
+			    info.current_log = info.root_log;
+			    info.num_logs = 0;
 			}
 			
 			public ArrayVariable getRootArrayVariable(){
-				return null;
-//			    return root_array_variable;
+				return root_array_variable;
 			}
 			
 			public void addNumAlias( CharPtr str, int no )
 			{
-//			    Alias *p_num_alias = new Alias( str, no );
-//			    last_num_alias->next = p_num_alias;
-//			    last_num_alias = last_num_alias->next;
+			    Alias p_num_alias = new Alias( str, no );
+			    last_num_alias.next = p_num_alias;
+			    last_num_alias = last_num_alias.next;
 			}
 			
 			public void addStrAlias( CharPtr str1, CharPtr str2 )
 			{
-//			    Alias *p_str_alias = new Alias( str1, str2 );
-//			    last_str_alias->next = p_str_alias;
-//			    last_str_alias = last_str_alias->next;
+			    Alias p_str_alias = new Alias( str1, str2 );
+			    last_str_alias.next = p_str_alias;
+			    last_str_alias = last_str_alias.next;
 			}
 			
 			public bool findNumAlias( CharPtr str, ref int value )
 			{
-				return false;
-//			    Alias *p_num_alias = root_num_alias.next;
-//			    while( p_num_alias ){
-//				if ( !strcmp( p_num_alias->alias, str ) ){
-//				    *value = p_num_alias->num;
-//				    return true;
-//				}
-//				p_num_alias = p_num_alias->next;
-//			    }
-//			    return false;
+				Alias p_num_alias = root_num_alias.next;
+			    while( null!=p_num_alias ){
+					if ( 0==strcmp( p_num_alias.alias, str ) ){
+					    value = p_num_alias.num;
+					    return true;
+					}
+					p_num_alias = p_num_alias.next;
+			    }
+			    return false;
 			}
 			
 			public bool findStrAlias( CharPtr str, CharPtr buffer )
 			{
-				return false;
-//				Alias *p_str_alias = root_str_alias.next;
-//			    while( p_str_alias ){
-//				if ( !strcmp( p_str_alias->alias, str ) ){
-//				    strcpy( buffer, p_str_alias->str );
-//				    return true;
-//				}
-//				p_str_alias = p_str_alias->next;
-//			    }
-//			    return false;
+				Alias p_str_alias = root_str_alias.next;
+			    while( null!=p_str_alias ){
+					if ( 0==strcmp( p_str_alias.alias, str ) ){
+					    strcpy( buffer, p_str_alias.str );
+					    return true;
+					}
+					p_str_alias = p_str_alias.next;
+			    }
+			    return false;
 			}
 			
 			public void processError( CharPtr str, CharPtr title=null, CharPtr detail=null, bool is_warning=false, bool is_simple=false )
@@ -1822,7 +1812,7 @@ namespace onscripter_csharp
 			    processError(str, detail, title, is_warning);
 			}
 			
-			public void simpleErrorAndExit( CharPtr str, CharPtr title, CharPtr detail, bool is_warning )
+			public void simpleErrorAndExit( CharPtr str, CharPtr title=null, CharPtr detail=null, bool is_warning=false )
 			{
 			    if (title == null)
 			        title = "Script Error";
