@@ -96,9 +96,15 @@ namespace onscripter_csharp
 		}
 		
 		//<
-		public bool lessThen(CharPtr ptr)
+		public static bool isLessThen(CharPtr ptr1, CharPtr ptr2)
 		{
 			//FIXME:
+			return false;
+		}
+		
+		//>
+		public static bool isLargerThen(CharPtr ptr1, CharPtr ptr2)
+		{
 			return false;
 		}
 		

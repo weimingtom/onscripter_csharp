@@ -246,42 +246,41 @@ namespace onscripter_csharp
 			
 			public FILEPtr fopen( CharPtr root, CharPtr path, CharPtr mode )
 			{
-				return null;
-//			    char *file_name;
-//			    FILE *fp = NULL;
-//			
-//			    file_name = new char[strlen(root)+strlen(path)+1];
-//			    sprintf( file_name, "%s%s", root, path );
-//			    //printf("handler:fopen(\"%s\")\n", file_name);
-//			
-//			    fp = ::fopen( file_name, mode );
-//			
-//			    delete[] file_name;
-//			    return fp;
+				CharPtr file_name;
+			    FILEPtr fp = null;
+			
+			    file_name = new char[strlen(root)+strlen(path)+1];
+			    sprintf( file_name, "%s%s", root, path );
+			    //printf("handler:fopen(\"%s\")\n", file_name);
+			
+			    fp = ONScripter.fopen( file_name, mode );
+			
+			    file_name = null;//delete[] file_name;
+			    return fp;
 			}
 			
 			public void setKeyTable( UnsignedCharPtr key_table )
 			{
-//			    int i;
-//			    if (key_table){
-//			        key_table_flag = true;
-//			        for (i=0 ; i<256 ; i++) this->key_table[i] = key_table[i];
-//			    }
-//			    else{
-//			        key_table_flag = false;
-//			        for (i=0 ; i<256 ; i++) this->key_table[i] = i;
-//			    }
+			    int i;
+			    if (null!=key_table){
+			        key_table_flag = true;
+			        for (i=0 ; i<256 ; i++) this.key_table[i] = key_table[i];
+			    }
+			    else{
+			        key_table_flag = false;
+			        for (i=0 ; i<256 ; i++) this.key_table[i] = (byte)i;
+			    }
 			}
 			
 			public void setSavedir( CharPtr dir )
 			{
-//			    savedir = new char[ strlen(dir) + strlen(save_path) + 2];
-//			    sprintf( savedir, "%s%s%c", save_path, dir, DELIMITER );
-//			    mkdir(savedir
-//			#ifndef WIN32
-//			          , 0755
-//			#endif
-//			         );
+			    savedir = new char[ strlen(dir) + strlen(save_path) + 2];
+			    sprintf( savedir, "%s%s%c", save_path, dir, DELIMITER );
+			    mkdir(savedir
+			#if false && !WIN32
+			          , 0755
+			#endif
+			         );
 			}
 			
 			// basic parser function
@@ -656,440 +655,423 @@ namespace onscripter_csharp
 			
 			public CharPtr readName()
 			{
-				return null;
-//			    // bare word - not a string variable
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			
-//			    current_script = next_script;
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			
-//			    string_counter = 0;
-//			    char ch = *buf;
-//			    if ( ((ch >= 'a') && (ch <= 'z')) ||
-//			         ((ch >= 'A') && (ch <= 'Z')) ||
-//			         (ch == '_') ){
-//			        if ( (ch >= 'A') && (ch <= 'Z') )
-//			            ch += 'a' - 'A';
-//			        addStringBuffer( ch );
-//			        ch = *(++buf);
-//			        while( ((ch >= 'a') && (ch <= 'z')) ||
-//			               ((ch >= 'A') && (ch <= 'Z')) ||
-//			               ((ch >= '0') && (ch <= '9')) ||
-//			               (ch == '_') ){
-//			            if ( (ch >= 'A') && (ch <= 'Z') )
-//			                ch += 'a' - 'A';
-//			            addStringBuffer( ch );
-//			            ch = *(++buf);
-//			        }
-//			    }
-//			    addStringBuffer( '\0' );
-//			
-//			    next_script = checkComma(buf);
-//			
-//			    return string_buffer;
+				// bare word - not a string variable
+			    end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			
+			    current_script = new CharPtr(next_script);
+			    SKIP_SPACE( current_script );
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    string_counter = 0;
+			    char ch = buf[0];
+			    if ( ((ch >= 'a') && (ch <= 'z')) ||
+			         ((ch >= 'A') && (ch <= 'Z')) ||
+			         (ch == '_') ){
+			        if ( (ch >= 'A') && (ch <= 'Z') )
+			        	ch = (char)(ch + ('a' - 'A'));
+			        addStringBuffer( ch );
+			        buf.inc(); ch = buf[0];
+			        while( ((ch >= 'a') && (ch <= 'z')) ||
+			               ((ch >= 'A') && (ch <= 'Z')) ||
+			               ((ch >= '0') && (ch <= '9')) ||
+			               (ch == '_') ){
+			            if ( (ch >= 'A') && (ch <= 'Z') )
+			            	ch = (char)(ch + ('a' - 'A'));
+			            addStringBuffer( ch );
+			            buf.inc(); ch = buf[0];
+			        }
+			    }
+			    addStringBuffer( '\0' );
+			
+			    next_script = checkComma(buf);
+			
+			    return new CharPtr(string_buffer);
 			}
 			
 			//FIXME:added is_not_null_is_color
 			public CharPtr readColor(ref bool is_color, bool is_not_null_is_color)
 			{
-				return null;
-//			    // bare color type - not a string variable
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			
-//			    current_script = next_script;
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			
-//			    string_counter = 0;
-//			    addStringBuffer( '#' );
-//			    char ch = *(++buf);
-//			    int i;
-//			    for (i=0; i<7; i++) {
-//			        if ( ((ch >= '0') && (ch <= '9')) ||
-//			             ((ch >= 'a') && (ch <= 'f')) ||
-//			             ((ch >= 'A') && (ch <= 'F')) ) {
-//			            addStringBuffer( ch );
-//			            ch = *(++buf);
-//			        } else
-//			            break;
-//			    }
-//			    if (i!=6) {
-//			        if (is_color != NULL) {
-//			            *is_color = false;
-//			            string_counter = 0;
-//			            addStringBuffer( '\0' );
-//			            return string_buffer;
-//			        } else {
-//			            strncpy(string_buffer, current_script, 16);
-//			            string_buffer[16] = '\0';
-//			            errorAndExit( "readColor: not a valid color type." );
-//			        }
-//			    }
-//			    addStringBuffer( '\0' );
-//			    next_script = checkComma(buf);
-//			    if (is_color != NULL)
-//			        *is_color = true;
-//			
-//			    return string_buffer;
+				// bare color type - not a string variable
+			    end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			
+			    current_script = new CharPtr(next_script);
+			    SKIP_SPACE( current_script );
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    string_counter = 0;
+			    addStringBuffer( '#' );
+			    buf.inc(); char ch = buf[0];
+			    int i;
+			    for (i=0; i<7; i++) {
+			        if ( ((ch >= '0') && (ch <= '9')) ||
+			             ((ch >= 'a') && (ch <= 'f')) ||
+			             ((ch >= 'A') && (ch <= 'F')) ) {
+			            addStringBuffer( ch );
+			            buf.inc(); ch = buf[0];
+			        } else
+			            break;
+			    }
+			    if (i!=6) {
+			        if (is_not_null_is_color) {
+			            is_color = false;
+			            string_counter = 0;
+			            addStringBuffer( '\0' );
+			            return new CharPtr(string_buffer);
+			        } else {
+			            strncpy(string_buffer, current_script, 16);
+			            string_buffer[16] = '\0';
+			            errorAndExit( "readColor: not a valid color type." );
+			        }
+			    }
+			    addStringBuffer( '\0' );
+			    next_script = checkComma(buf);
+			    if (is_not_null_is_color)
+			        is_color = true;
+			
+			    return string_buffer;
 			}
 			
 			public CharPtr readLabel()
 			{
-				return null;
-//			    // *NAME, "*NAME", or $VAR that equals "*NAME"
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			
-//			    current_script = next_script;
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			    char *tmp = NULL;
-//			
-//			    string_counter = 0;
-//			    char ch = *buf;
-//			    if ((ch == '$') || (ch == '"') || (ch == '`')){
-//			        parseStr(&buf);
-//			        tmp = buf;
-//			        string_counter = 0;
-//			        buf = str_string_buffer;
-//			        SKIP_SPACE(buf);
-//			        ch = *buf;
-//			    }
-//			    if (ch == '*') {
-//			        while (ch == '*'){
-//			            addStringBuffer( ch );
-//			            ch = *(++buf);
-//			        }
-//			        SKIP_SPACE(buf);
-//			
-//			        ch = *buf;
-//			        while( ((ch >= 'a') && (ch <= 'z')) ||
-//			               ((ch >= 'A') && (ch <= 'Z')) ||
-//			               ((ch >= '0') && (ch <= '9')) ||
-//			               (ch == '_') ){
-//			            if ( (ch >= 'A') && (ch <= 'Z') )
-//			                ch += 'a' - 'A';
-//			            addStringBuffer( ch );
-//			            ch = *(++buf);
-//			        }
-//			    }
-//			    addStringBuffer( '\0' );
-//			    if ( (string_buffer[0] == '\0') || (string_buffer[1] == '\0') ){
-//			        buf = current_script;
-//			        while (*buf && (*buf != 0x0a))
-//			            ++buf;
-//			        ch = *buf;
-//			        *buf = '\0';
-//			        if (tmp != NULL) {
-//			            snprintf(errbuf, MAX_ERRBUF_LEN, 
-//			                     "Invalid label specification '%s' ('%s')",
-//			                     current_script, str_string_buffer);
-//			            *buf = ch;
-//			            errorAndExit(errbuf);
-//			        } else {
-//			            snprintf(errbuf, MAX_ERRBUF_LEN,
-//			                     "Invalid label specification '%s'", current_script);
-//			            *buf = ch;
-//			            errorAndExit(errbuf);
-//			        }
-//			    }
-//			    if (tmp != NULL)
-//			        buf = tmp;
-//			
-//			    next_script = checkComma(buf);
-//			
-//			    return string_buffer;
+				// *NAME, "*NAME", or $VAR that equals "*NAME"
+			    end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			
+			    current_script = new CharPtr(next_script);
+			    SKIP_SPACE( current_script );
+			    CharPtr buf = new CharPtr(current_script);
+			    CharPtr tmp = null;
+			
+			    string_counter = 0;
+			    char ch = buf[0];
+			    if ((ch == '$') || (ch == '"') || (ch == '`')){
+			        parseStr(ref buf);
+			        tmp = new CharPtr(buf);
+			        string_counter = 0;
+			        buf = new CharPtr(str_string_buffer);
+			        SKIP_SPACE(buf);
+			        ch = buf[0];
+			    }
+			    if (ch == '*') {
+			        while (ch == '*'){
+			            addStringBuffer( ch );
+			            buf.inc(); ch = buf[0];
+			        }
+			        SKIP_SPACE(buf);
+			
+			        ch = buf[0];
+			        while( ((ch >= 'a') && (ch <= 'z')) ||
+			               ((ch >= 'A') && (ch <= 'Z')) ||
+			               ((ch >= '0') && (ch <= '9')) ||
+			               (ch == '_') ){
+			            if ( (ch >= 'A') && (ch <= 'Z') )
+			            	ch = (char)(ch + ('a' - 'A'));
+			            addStringBuffer( ch );
+			            buf.inc(); ch = buf[0];
+			        }
+			    }
+			    addStringBuffer( '\0' );
+			    if ( (string_buffer[0] == '\0') || (string_buffer[1] == '\0') ){
+			        buf = current_script;
+			        while (0!=buf[0] && (buf[0] != 0x0a))
+			        	buf.inc();
+			        ch = buf[0];
+			        buf[0] = '\0';
+			        if (tmp != null) {
+			            snprintf(errbuf, MAX_ERRBUF_LEN, 
+			                     "Invalid label specification '%s' ('%s')",
+			                     current_script, str_string_buffer);
+			        	buf[0] = ch;
+			            errorAndExit(errbuf);
+			        } else {
+			            snprintf(errbuf, MAX_ERRBUF_LEN,
+			                     "Invalid label specification '%s'", current_script);
+			        	buf[0] = ch;
+			            errorAndExit(errbuf);
+			        }
+			    }
+			    if (tmp != null)
+			    	buf = new CharPtr(tmp);
+			
+			    next_script = checkComma(buf);
+			
+			    return new CharPtr(string_buffer);
 			}
 			
 			public CharPtr readStr()
 			{
-				return null;
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			
-//			    current_script = next_script;
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			
-//			    string_buffer[0] = '\0';
-//			    string_counter = 0;
-//			
-//			    while(1){
-//			        parseStr(&buf);
-//			        buf = checkComma(buf);
-//			        string_counter += strlen(str_string_buffer);
-//			        if (string_counter+1 >= STRING_BUFFER_LENGTH)
-//			            errorAndExit("readStr: string length exceeds 2048 bytes.");
-//			        strcat(string_buffer, str_string_buffer);
-//			        if (buf[0] != '+') break;
-//			        buf++;
-//			    }
-//			    next_script = buf;
-//			
-//			    return string_buffer;
+				end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			
+			    current_script = new CharPtr(next_script);
+			    SKIP_SPACE( current_script );
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    string_buffer[0] = '\0';
+			    string_counter = 0;
+			
+			    while(true){
+			        parseStr(ref buf);
+			        buf = checkComma(buf);
+			        string_counter = (int)(string_counter + strlen(str_string_buffer));
+			        if (string_counter+1 >= STRING_BUFFER_LENGTH)
+			            errorAndExit("readStr: string length exceeds 2048 bytes.");
+			        strcat(string_buffer, str_string_buffer);
+			        if (buf[0] != '+') break;
+			        buf.inc();
+			    }
+			    next_script = new CharPtr(buf);
+			
+			    return new CharPtr(string_buffer);
 			}
 			
 			public int readInt()
 			{
-				return 0;
-//			    string_counter = 0;
-//			    string_buffer[string_counter] = '\0';
-//			
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			
-//			    current_script = next_script;
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			
-//			    int ret = parseIntExpression(&buf);
-//			
-//			    next_script = checkComma(buf);
-//			
-//			    return ret;
+			    string_counter = 0;
+			    string_buffer[string_counter] = '\0';
+			
+			    end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			
+			    current_script = new CharPtr(next_script);
+			    SKIP_SPACE( current_script );
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    int ret = parseIntExpression(ref buf);
+			
+			    next_script = checkComma(buf);
+			
+			    return ret;
 			}
 			
 			public void skipToken()
 			{
-//			    SKIP_SPACE( current_script );
-//			    char *buf = current_script;
-//			
-//			    bool quat_flag = false;
-//			    bool text_flag = false;
-//			    while(1){
-//			        if ( *buf == 0x0a ||
-//			             (!quat_flag && !text_flag && (*buf == ':' || *buf == ';') ) ) break;
-//			        if ( *buf == '"' ) quat_flag = !quat_flag;
-//			        if ( IS_TWO_BYTE(*buf) ){
-//			            buf += 2;
-//			            if ( !quat_flag ) text_flag = true;
-//			        }
-//			        else
-//			            buf++;
-//			    }
-//			    if (text_flag && *buf == 0x0a) buf++;
-//			    
-//			    next_script = buf;
+			    SKIP_SPACE( current_script );
+			    CharPtr buf = new CharPtr(current_script);
+			
+			    bool quat_flag = false;
+			    bool text_flag = false;
+			    while(true){
+			    	if ( buf[0] == 0x0a ||
+			    	    (!quat_flag && !text_flag && (buf[0] == ':' || buf[0] == ';') ) ) break;
+			    	if ( buf[0] == '"' ) quat_flag = !quat_flag;
+			    	if ( IS_TWO_BYTE(buf[0]) ){
+			    		buf.inc(2);
+			            if ( !quat_flag ) text_flag = true;
+			        }
+			        else
+			        	buf.inc();
+			    }
+			    if (text_flag && buf[0] == 0x0a) buf.inc();
+			    
+			    next_script = new CharPtr(buf);
 			}
 			
 			// string access function
 			public CharPtr saveStringBuffer()
 			{
-				return null;
-//			    strcpy( saved_string_buffer, string_buffer );
-//			    return saved_string_buffer;
+				strcpy( saved_string_buffer, string_buffer );
+				return new CharPtr(saved_string_buffer);
 			}
 			
 			// script address direct manipulation function
 			public void setCurrent(CharPtr pos)
 			{
-//			    current_script = next_script = pos;
+				current_script = new CharPtr(pos); next_script = new CharPtr(pos);
 			}
 			
 			public void pushCurrent( CharPtr pos )
 			{
-//			    pushed_current_script = current_script;
-//			    pushed_next_script = next_script;
-//			
-//			    current_script = pos;
-//			    next_script = pos;
+				pushed_current_script = new CharPtr(current_script);
+				pushed_next_script = new CharPtr(next_script);
+			
+				current_script = new CharPtr(pos);
+				next_script = new CharPtr(pos);
 			}
 			
 			public void popCurrent()
 			{
-//			    current_script = pushed_current_script;
-//			    next_script = pushed_next_script;
+				current_script = new CharPtr(pushed_current_script);
+				next_script = new CharPtr(pushed_next_script);
 			}
 			
 			public void enterExternalScript(CharPtr pos)
 			{
-//			    internal_current_script = current_script;
-//			    current_script = pos;
-//			    internal_next_script = next_script;
-//			    next_script = pos;
-//			    internal_end_status = end_status;
-//			    internal_current_variable = current_variable;
-//			    internal_pushed_variable = pushed_variable;
+				internal_current_script = new CharPtr(current_script);
+				current_script = new CharPtr(pos);
+				internal_next_script = new CharPtr(next_script);
+				next_script = new CharPtr(pos);
+			    internal_end_status = end_status;
+			    internal_current_variable = current_variable;
+			    internal_pushed_variable = pushed_variable;
 			}
 			
 			public void leaveExternalScript()
 			{
-//			    current_script = internal_current_script;
-//			    internal_current_script = NULL;
-//			    next_script = internal_next_script;
-//			    end_status = internal_end_status;
-//			    current_variable = internal_current_variable;
-//			    pushed_variable = internal_pushed_variable;
+				current_script = new CharPtr(internal_current_script);
+			    internal_current_script = null;
+			    next_script = new CharPtr(internal_next_script);
+			    end_status = internal_end_status;
+			    current_variable = internal_current_variable;
+			    pushed_variable = internal_pushed_variable;
 			}
 			
 			public bool isExternalScript()
 			{
-				return false;
-//			    return (internal_current_script != NULL);
+				return (internal_current_script != null);
 			}
 			
 			public int getOffset( CharPtr pos )
 			{
-				return 0;
-//			    return pos - script_buffer;
+				return CharPtr.minus(pos, script_buffer);
 			}
 			
 			public CharPtr getAddress( int offset )
 			{
-				return null;
-//			    return script_buffer + offset;
+				return new CharPtr(script_buffer, + offset);
 			}
 			
 			public int getLineByAddress( CharPtr address )
 			{
-				return 0;
-//			    LabelInfo label = getLabelByAddress( address );
-//			
-//			    char *addr = label.label_header;
-//			    int line = 0;
-//			    while ( address > addr ){
-//			        if ( *addr == 0x0a ) line++;
-//			        addr++;
-//			    }
-//			    return line;
+				LabelInfo label = getLabelByAddress( address );
+			
+			    CharPtr addr = label.label_header;
+			    int line = 0;
+			    while ( CharPtr.isLargerThen(address, addr) ){
+			    	if ( addr[0] == 0x0a ) line++;
+			    	addr.inc();
+			    }
+			    return line;
 			}
 			
 			public CharPtr getAddressByLine( int line )
 			{
-				return null;
-//			    LabelInfo label = getLabelByLine( line );
-//			
-//			    int l = line - label.start_line;
-//			    char *addr = label.label_header;
-//			    while ( l > 0 ){
-//			        while( *addr != 0x0a ) addr++;
-//			        addr++;
-//			        l--;
-//			    }
-//			    return addr;
+				LabelInfo label = getLabelByLine( line );
+			
+			    int l = line - label.start_line;
+			    CharPtr addr = new CharPtr(label.label_header);
+			    while ( l > 0 ){
+			    	while( addr[0] != 0x0a ) addr.inc();
+			        addr.inc();
+			        l--;
+			    }
+			    return addr;
 			}
 			
 			public LabelInfo getLabelByAddress( CharPtr address )
 			{
-				return null;
-//			    int i;
-//			    for ( i=0 ; i<num_of_labels-1 ; i++ ){
-//			        if ( label_info[i+1].start_address > address )
-//			            return label_info[i];
-//			    }
-//			    return label_info[i];
+				int i;
+			    for ( i=0 ; i<num_of_labels-1 ; i++ ){
+					if ( CharPtr.isLargerThen(label_info[i+1].start_address, address) )
+			            return label_info[i];
+			    }
+			    return label_info[i];
 			}
 			
 			public LabelInfo getLabelByLine( int line )
 			{
-				return null;
-//			    int i;
-//			    for ( i=0 ; i<num_of_labels-1 ; i++ ){
-//			        if ( label_info[i+1].start_line > line )
-//			            return label_info[i];
-//			    }
-//			    return label_info[i];
+				int i;
+			    for ( i=0 ; i<num_of_labels-1 ; i++ ){
+			        if ( label_info[i+1].start_line > line )
+			            return label_info[i];
+			    }
+			    return label_info[i];
 			}
 			
 			public bool isName( CharPtr name )
 			{
-				return false;
-//			    return (strncmp( name, string_buffer, strlen(name) )==0)?true:false;
+				return (strncmp( name, string_buffer, (int)strlen(name) )==0)?true:false;
 			}
 			
 			public bool isText()
 			{
-				return false;
-//			    return text_flag;
+				return text_flag;
 			}
 			
 			public bool compareString(CharPtr buf)
 			{
-				return false;
-//			    SKIP_SPACE(next_script);
-//			    unsigned int i, num = strlen(buf);
-//			    for (i=0 ; i<num ; i++){
-//			        char ch = next_script[i];
-//			        if ('A' <= ch && 'Z' >= ch) ch += 'a' - 'A';
-//			        if (ch != buf[i]) break;
-//			    }
-//			    return (i==num)?true:false;
+				SKIP_SPACE(next_script);
+			    uint i, num = strlen(buf);
+			    for (i=0 ; i<num ; i++){
+			        char ch = next_script[i];
+			        if ('A' <= ch && 'Z' >= ch) ch = (char)(ch + ('a' - 'A'));
+			        if (ch != buf[i]) break;
+			    }
+			    return (i==num)?true:false;
 			}
 			
 			public void skipLine( int no )
 			{
-//			    for ( int i=0 ; i<no ; i++ ){
-//			        while ( *current_script != 0x0a ) current_script++;
-//			        current_script++;
-//			    }
-//			    next_script = current_script;
+			    for ( int i=0 ; i<no ; i++ ){
+					while ( current_script[0] != 0x0a ) current_script.inc();
+					current_script.inc();
+			    }
+			    next_script = current_script;
 			}
 			
 			public void setLinepage( bool val )
 			{
-//			    linepage_flag = val;
+			    linepage_flag = val;
 			}
 			
 			// function for kidoku history
 			public bool isKidoku()
 			{
-				return false;
-//			    return skip_enabled;
+				return skip_enabled;
 			}
 			
 			public void markAsKidoku( CharPtr address )
 			{
-//			    if (!kidokuskip_flag || internal_current_script != NULL) return;
-//			
-//			    int offset = current_script - script_buffer;
-//			    if ( address ) offset = address - script_buffer;
-//			    //printf("mark (%c)%x:%x = %d\n", *current_script, offset /8, offset%8, kidoku_buffer[ offset/8 ] & ((char)1 << (offset % 8)));
-//			    if ( kidoku_buffer[ offset/8 ] & ((char)1 << (offset % 8)) )
-//			        skip_enabled = true;
-//			    else
-//			        skip_enabled = false;
-//			    kidoku_buffer[ offset/8 ] |= ((char)1 << (offset % 8));
+			    if (!kidokuskip_flag || internal_current_script != null) return;
+			
+			    int offset = CharPtr.minus(current_script, script_buffer);
+			    if ( null!=address ) offset = CharPtr.minus(address, script_buffer);
+			    //printf("mark (%c)%x:%x = %d\n", *current_script, offset /8, offset%8, kidoku_buffer[ offset/8 ] & ((char)1 << (offset % 8)));
+			    if ( 0!=(kidoku_buffer[ offset/8 ] & ((sbyte)1 << (offset % 8))) )
+			        skip_enabled = true;
+			    else
+			        skip_enabled = false;
+			    kidoku_buffer[ offset/8 ] = (char)(kidoku_buffer[ offset/8 ] | ((sbyte)1 << (offset % 8)));
 			}
 			
 			public void setKidokuskip( bool kidokuskip_flag )
 			{
-//			    this->kidokuskip_flag = kidokuskip_flag;
+			    this.kidokuskip_flag = kidokuskip_flag;
 			}
 			
 			public void saveKidokuData()
 			{
-//			    FILE *fp;
-//			
-//			    if ( ( fp = fopen( "kidoku.dat", "wb", true, true ) ) == NULL ){
-//			        fprintf( stderr, "can't write kidoku.dat\n" );
-//			        return;
-//			    }
-//			
-//			    if ( fwrite( kidoku_buffer, 1, script_buffer_length/8, fp ) !=
-//			         size_t(script_buffer_length/8) )
-//			        fprintf( stderr, "Warning: failed to write to kidoku.dat\n" );
-//			    fclose( fp );
+			    FILEPtr fp;
+			
+			    if ( ( fp = fopen( "kidoku.dat", "wb", true, true ) ) == null ){
+			        fprintf( stderr, "can't write kidoku.dat\n" );
+			        return;
+			    }
+			
+			    if ( fwrite( kidoku_buffer, 1, (uint)(script_buffer_length/8), fp ) !=
+			        (uint)(script_buffer_length/8) )
+			        fprintf( stderr, "Warning: failed to write to kidoku.dat\n" );
+			    fclose( fp );
 			}
 			
 			public void loadKidokuData()
 			{
-//			    FILE *fp;
-//			
-//			    setKidokuskip( true );
-//			    kidoku_buffer = new char[ script_buffer_length/8 + 1 ];
-//			    memset( kidoku_buffer, 0, script_buffer_length/8 + 1 );
-//			
-//			    if ( ( fp = fopen( "kidoku.dat", "rb", true, true ) ) != NULL ){
-//			        if (fread( kidoku_buffer, 1, script_buffer_length/8, fp ) !=
-//			            size_t(script_buffer_length/8)) {
-//			            if (ferror(fp))
-//			                fputs("Warning: failed to read kidoku.dat\n", stderr);
-//			        }
-//			        fclose( fp );
-//			    }
+			    FILEPtr fp;
+			
+			    setKidokuskip( true );
+			    kidoku_buffer = new char[ script_buffer_length/8 + 1 ];
+			    memset( kidoku_buffer, 0, (uint)(script_buffer_length/8 + 1) );
+			
+			    if ( ( fp = fopen( "kidoku.dat", "rb", true, true ) ) != null ){
+			    	if (fread( kidoku_buffer, 1, (uint)(script_buffer_length/8), fp ) !=
+			    	    (uint)(script_buffer_length/8)) {
+			            if (0!=ferror(fp))
+			                fputs("Warning: failed to read kidoku.dat\n", stderr);
+			        }
+			        fclose( fp );
+			    }
 			}
 			
 			public void addIntVariable(ref CharPtr buf, bool no_zenkaku)
@@ -1568,7 +1550,7 @@ namespace onscripter_csharp
 			    CharPtr buf = new CharPtr(script_buffer);
 			    label_info = new LabelInfo[ num_of_labels+1 ];
 			
-			    while ( buf.lessThen(new CharPtr(script_buffer, + script_buffer_length)) ){
+			    while ( CharPtr.isLessThen(buf, new CharPtr(script_buffer, + script_buffer_length)) ){
 			        SKIP_SPACE( buf );
 			        if ( buf[0] == '*' ){
 			            setCurrent( buf );
@@ -1907,7 +1889,7 @@ namespace onscripter_csharp
 			        SKIP_SPACE( buf );
 			    }
 			
-			    return buf;
+				return new CharPtr(buf);
 			}
 			
 			public void parseStr( ref CharPtr buf )

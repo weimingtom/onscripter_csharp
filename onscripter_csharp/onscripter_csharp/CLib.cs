@@ -161,6 +161,10 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		public static uint fread(CharPtr buffer, uint size, uint count, FILEPtr fp)
+		{
+			return 0;
+		}
 		public static uint fwrite(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
 		{
 			return 0;
@@ -210,6 +214,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static void memset(CharPtr s, int ch, uint n)
+		{
+			
+		}
 		
 		public static void exit(int a)
 		{
@@ -224,6 +232,16 @@ namespace onscripter_csharp
 		public static CharPtr fgets(CharPtr str, int n, FILEPtr stream)
 		{
 			return null;
+		}
+		
+		public static int ferror(FILEPtr stream)
+		{
+			return 0;
+		}
+		
+		public static void mkdir(CharPtr str)
+		{
+			
 		}
 	}
 }

@@ -486,13 +486,13 @@ namespace onscripter_csharp
 		    public CharPtr current_script;
 		    public CharPtr next_script;
 		
-//		    char *pushed_current_script;
-//		    char *pushed_next_script;
-//		
-//		    char *internal_current_script;
-//		    char *internal_next_script;
-//		    int  internal_end_status;
-//		    VariableInfo internal_current_variable, internal_pushed_variable;
+		    public CharPtr pushed_current_script;
+		    public CharPtr pushed_next_script;
+		
+		    public CharPtr internal_current_script;
+		    public CharPtr internal_next_script;
+		    public int  internal_end_status;
+		    public VariableInfo internal_current_variable = new VariableInfo(), internal_pushed_variable = new VariableInfo();
 		
 		    public byte[] key_table = new byte[256];
 		    public bool key_table_flag;
