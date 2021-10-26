@@ -60,8 +60,8 @@ namespace onscripter_csharp
 		
 		public const int VARIABLE_RANGE = 4096;
 		
-//		//#define IS_TWO_BYTE(x) \
-//		//        ( ((x) & 0xe0) == 0xe0 || ((x) & 0xe0) == 0x80 )
+		//#define IS_TWO_BYTE(x) \
+		//        ( ((x) & 0xe0) == 0xe0 || ((x) & 0xe0) == 0x80 )
 		public static bool IS_TWO_BYTE(int x) {
 		    return ( ((x) & 0xe0) == 0xe0 || ((x) & 0xe0) == 0x80 ||
 			 (((x) & 0xff) >=0xA1 && ((x) & 0xff) <=0xFE) ); }
@@ -123,18 +123,18 @@ namespace onscripter_csharp
 		        }
 		    }
 		
-		    public const int VAR_NONE  = 0,
-		           VAR_INT   = 1,  // integer
-		           VAR_ARRAY = 2,  // array
-		           VAR_STR   = 4,  // string
-		           VAR_CONST = 8,  // direct value or alias, not variable
-		           VAR_PTR   = 16  // pointer to a variable, e.g. i%0, s%0
-		    ;
+		    public const int VAR_NONE  = 0;
+		    public const int VAR_INT   = 1;  // integer
+		    public const int VAR_ARRAY = 2;  // array
+		    public const int VAR_STR   = 4;  // string
+		    public const int VAR_CONST = 8;  // direct value or alias, not variable
+		    public const int VAR_PTR   = 16;  // pointer to a variable, e.g. i%0, s%0
+		    
 		    public class VariableInfo{
 		        public int type;
 		        public int var_no;   // for integer(%), array(?), string($) variable
 		        public ArrayVariable array = new ArrayVariable(); // for array(?)
-		    };
+		    }
 		
 //		    ScriptHandler();
 //		    ~ScriptHandler();
@@ -267,7 +267,7 @@ namespace onscripter_csharp
 		    public LogInfo[] log_info = new LogInfo[2];
 //		    LogLink *findAndAddLog( LogInfo &info, const char *name, bool add_flag );
 //		    void resetLog( LogInfo &info );
-//		    
+		    
 		    /* ---------------------------------------- */
 		    /* Variable */
 		    public class VariableData{
@@ -335,8 +335,8 @@ namespace onscripter_csharp
 		    }
 		    public LanguageScript preferred_script, default_script, system_menu_script;
 		
-//		    //Mion: these are used to keep track of clickwait points in the script
-//		    //for rgosub, to use as return script points
+		    //Mion: these are used to keep track of clickwait points in the script
+		    //for rgosub, to use as return script points
 		    public CharPtr[] rgosub_wait_pos;
 		    public bool[] rgosub_wait_1byte;
 		    public int total_rgosub_wait_size;
@@ -349,29 +349,29 @@ namespace onscripter_csharp
 		
 		    public bool ignore_textgosub_newline;
 		
-//		    //Mion: onscripter-en special text escape characters
-//		    enum {
-//		        TXTBTN_START = 0x01, // for '<' in unmarked text as a textbtn delimiter
-//		        LEFT_PAREN   = 0x02, // for '(' in text and backlog, to avoid ruby
-//		        RIGHT_PAREN  = 0x03, // for ')' in text and backlog, to avoid ruby
-//		        TXTBTN_END   = 0x04, // for '>' in unmarked text as a textbtn delimiter
-//		        BACKSLASH    = 0x1F  // for '\' in {}-varlist strings _within script_ (indicates str newline)
-//		    };
-//		
-//		    //Mion: for lookback text relocating
-//		    //  Watch onscripter play teletype :)
-//		    enum {
-//		        TEXT_TAB   = 0x09,  //horizontal tab, like indenting 1 fullwidth space
-//		        TEXT_LF    = 0x0A,  //newline!
-//		        TEXT_VTAB  = 0x0B,  //like newline, but doesn't change position in line
-//		        TEXT_FF    = 0x0C,  //implicit "locate -1,0"; form feed
-//		        TEXT_CR    = 0x0D,  //implicit "locate 0,-1"; carriage return
-//		        TEXT_UP    = 0x11,  //move up 1 character on screen (deprecated)
-//		        TEXT_RIGHT = 0x12,  //move right 1 fullwidth character on screen (deprecated)
-//		        TEXT_DOWN  = 0x13,  //move down 1 character on screen (deprecated)
-//		        TEXT_LEFT  = 0x14   //move left 1 fullwidth character on screen (deprecated)
-//		    };
-//		    
+		    //Mion: onscripter-en special text escape characters
+		    
+		    public const int TXTBTN_START = 0x01; // for '<' in unmarked text as a textbtn delimiter
+		    public const int LEFT_PAREN   = 0x02; // for '(' in text and backlog, to avoid ruby
+		    public const int RIGHT_PAREN  = 0x03; // for ')' in text and backlog, to avoid ruby
+		    public const int TXTBTN_END   = 0x04; // for '>' in unmarked text as a textbtn delimiter
+		    public const int BACKSLASH    = 0x1F;  // for '\' in {}-varlist strings _within script_ (indicates str newline)
+		    
+		
+		    //Mion: for lookback text relocating
+		    //  Watch onscripter play teletype :)
+		    
+		    public const int TEXT_TAB   = 0x09;  //horizontal tab, like indenting 1 fullwidth space
+		    public const int TEXT_LF    = 0x0A;  //newline!
+		    public const int TEXT_VTAB  = 0x0B;  //like newline, but doesn't change position in line
+		    public const int TEXT_FF    = 0x0C;  //implicit "locate -1,0"; form feed
+		    public const int TEXT_CR    = 0x0D;  //implicit "locate 0,-1"; carriage return
+		    public const int TEXT_UP    = 0x11;  //move up 1 character on screen (deprecated)
+		    public const int TEXT_RIGHT = 0x12;  //move right 1 fullwidth character on screen (deprecated)
+		    public const int TEXT_DOWN  = 0x13;  //move down 1 character on screen (deprecated)
+		    public const int TEXT_LEFT  = 0x14;   //move left 1 fullwidth character on screen (deprecated)
+		    
+		    
 //		private:
 		    public const int OP_INVALID = 0; // 000
 		    public const int OP_PLUS    = 2; // 010
@@ -432,19 +432,20 @@ namespace onscripter_csharp
 		    public ExtendedVariableData[] extended_variable_data = null;
 		    public int num_extended_variable_data;
 		    public int max_extended_variable_data;
-//		    struct TmpVariableDataLink{
-//		        VariableInfo vi;
-//		        int num;
-//		        char *str;
-//		        TmpVariableDataLink *next;
-//		        TmpVariableDataLink(){
-//		            str = NULL;
-//		            next = NULL;
-//		        };
-//		        ~TmpVariableDataLink(){
-//		            if (str) delete[] str;
-//		        };
-//		    } tmp_variable_data_link;
+		    public class TmpVariableDataLink{
+		    	public VariableInfo vi = new VariableInfo();
+		        public int num;
+		        public CharPtr str = null;
+		        public TmpVariableDataLink next = null;
+		        public TmpVariableDataLink(){
+		            str = null;
+		            next = null;
+		        }
+		        ~TmpVariableDataLink(){
+		            if (null!=str) str = null;//delete[] str;
+		        }
+		    }
+		    TmpVariableDataLink tmp_variable_data_link = new TmpVariableDataLink();
 		
 		    public Alias root_num_alias = new Alias(), last_num_alias = null;
 		    public Alias root_str_alias = new Alias(), last_str_alias = null;

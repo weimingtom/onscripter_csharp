@@ -75,173 +75,172 @@ namespace onscripter_csharp
 		public partial class ScriptHandler {
 			public ScriptHandler()
 			{
-//			    num_of_labels = 0;
-//			    script_buffer = NULL;
-//			    kidoku_buffer = NULL;
-//			    log_info[LABEL_LOG].filename = "NScrllog.dat";
-//			    log_info[FILE_LOG].filename  = "NScrflog.dat";
-//			    clickstr_list = NULL;
-//			
-//			    string_buffer       = new char[STRING_BUFFER_LENGTH];
-//			    str_string_buffer   = new char[STRING_BUFFER_LENGTH];
-//			    saved_string_buffer = new char[STRING_BUFFER_LENGTH];
-//			    gosub_string_buffer = new char[STRING_BUFFER_LENGTH];
-//			
-//			    variable_data = new VariableData[VARIABLE_RANGE];
-//			    extended_variable_data = NULL;
-//			    num_extended_variable_data = 0;
-//			    max_extended_variable_data = 1;
-//			    root_array_variable = NULL;
-//			
-//			    screen_size = SCREEN_SIZE_640x480;
-//			    global_variable_border = 200;
-//			    
-//			    ons = NULL;
-//			    
-//			    archive_path = NULL;
-//			    save_path = NULL;
-//			    savedir = NULL;
-//			    script_path = NULL;
-//			    game_identifier = NULL;
-//			    game_hash = 0;
-//			    current_cmd[0] = '\0';
-//			    current_cmd_type = CMD_NONE;
-//			    strict_warnings = false;
-//			
-//			    default_script = NO_SCRIPT_PREF;
-//			    preferred_script = NO_SCRIPT_PREF;
-//			    system_menu_script = NO_SCRIPT_PREF;
-//			
-//			    rgosub_wait_pos = NULL;
-//			    rgosub_wait_1byte = NULL;
-//			    total_rgosub_wait_size = num_rgosub_waits = cur_rgosub_wait = 0;
-//			    is_rgosub_click = rgosub_click_newpage = rgosub_1byte_mode = false;
-//			    rgosub_flag = false; // roto 20100205
-//			
-//			    ignore_textgosub_newline = false;
+			    num_of_labels = 0;
+			    script_buffer = null;
+			    kidoku_buffer = null;
+			    log_info[LABEL_LOG].filename = "NScrllog.dat";
+			    log_info[FILE_LOG].filename  = "NScrflog.dat";
+			    clickstr_list = null;
+			
+			    string_buffer       = new char[STRING_BUFFER_LENGTH];
+			    str_string_buffer   = new char[STRING_BUFFER_LENGTH];
+			    saved_string_buffer = new char[STRING_BUFFER_LENGTH];
+			    gosub_string_buffer = new char[STRING_BUFFER_LENGTH];
+			
+			    variable_data = new VariableData[VARIABLE_RANGE];
+			    extended_variable_data = null;
+			    num_extended_variable_data = 0;
+			    max_extended_variable_data = 1;
+			    root_array_variable = null;
+			
+			    screen_size = SCREEN_SIZE_640x480;
+			    global_variable_border = 200;
+			    
+			    ons = null;
+			    
+			    archive_path = null;
+			    save_path = null;
+			    savedir = null;
+			    script_path = null;
+			    game_identifier = null;
+			    game_hash = 0;
+			    current_cmd[0] = '\0';
+			    current_cmd_type = CMD_NONE;
+			    strict_warnings = false;
+			
+			    default_script = LanguageScript.NO_SCRIPT_PREF;
+			    preferred_script = LanguageScript.NO_SCRIPT_PREF;
+			    system_menu_script = LanguageScript.NO_SCRIPT_PREF;
+			
+			    rgosub_wait_pos = null;
+			    rgosub_wait_1byte = null;
+			    total_rgosub_wait_size = num_rgosub_waits = cur_rgosub_wait = 0;
+			    is_rgosub_click = rgosub_click_newpage = rgosub_1byte_mode = false;
+			    rgosub_flag = false; // roto 20100205
+			
+			    ignore_textgosub_newline = false;
 			}
 			
-//			ScriptHandler::~ScriptHandler()
-//			{
-//			    reset();
-//			
-//			    if ( script_buffer ) delete[] script_buffer;
-//			    if ( kidoku_buffer ) delete[] kidoku_buffer;
-//			
-//			    delete[] string_buffer;
-//			    delete[] str_string_buffer;
-//			    delete[] saved_string_buffer;
-//			    delete[] gosub_string_buffer;
-//			    delete[] variable_data;
-//			    
-//			    if (script_path) delete[] script_path;
-//			    if (save_path) delete[] save_path;
-//			    if (savedir) delete[] savedir;
-//			
-//			    if (game_identifier) delete[] game_identifier;
-//			}
+			~ScriptHandler()
+			{
+			    reset();
+			
+			    if ( null!=script_buffer ) script_buffer = null;//delete[] script_buffer;
+			    if ( null!=kidoku_buffer ) kidoku_buffer = null;//delete[] kidoku_buffer;
+			
+			    string_buffer=null;//delete[] string_buffer;
+			    str_string_buffer = null;// delete[] str_string_buffer;
+			    saved_string_buffer = null;//delete[] saved_string_buffer;
+			    gosub_string_buffer = null;//delete[] gosub_string_buffer;
+			    variable_data = null;//delete[] variable_data;
+			    
+			    if (null!=script_path) script_path=null;//delete[] script_path;
+			    if (null!=save_path) save_path=null;//delete[] save_path;
+			    if (null!=savedir) savedir=null;//delete[] savedir;
+			
+			    if (null!=game_identifier) game_identifier=null;//delete[] game_identifier;
+			}
 			
 			public void reset()
 			{
-//			    for (int i=0 ; i<VARIABLE_RANGE ; i++)
-//			        variable_data[i].reset(true);
-//			
-//			    if (extended_variable_data) delete[] extended_variable_data;
-//			    extended_variable_data = NULL;
-//			    num_extended_variable_data = 0;
-//			    max_extended_variable_data = 1;
-//			
-//			    ArrayVariable *av = root_array_variable;
-//			    while(av){
-//			        ArrayVariable *tmp = av;
-//			        av = av->next;
-//			        delete tmp;
-//			    }
-//			    root_array_variable = current_array_variable = NULL;
-//			
-//			    // reset log info
-//			    resetLog( log_info[LABEL_LOG] );
-//			    resetLog( log_info[FILE_LOG] );
-//			
-//			    // reset number alias
-//			    Alias *alias;
-//			    alias = root_num_alias.next;
-//			    while (alias){
-//			        Alias *tmp = alias;
-//			        alias = alias->next;
-//			        delete tmp;
-//			    };
-//			    last_num_alias = &root_num_alias;
-//			    last_num_alias->next = NULL;
-//			
-//			    // reset string alias
-//			    alias = root_str_alias.next;
-//			    while (alias){
-//			        Alias *tmp = alias;
-//			        alias = alias->next;
-//			        delete tmp;
-//			    };
-//			    last_str_alias = &root_str_alias;
-//			    last_str_alias->next = NULL;
-//			
-//			    // reset misc. variables
-//			    end_status = END_NONE;
-//			    kidokuskip_flag = false;
-//			    text_flag = true;
-//			    linepage_flag = false;
-//			    english_mode = false;
-//			    textgosub_flag = false;
-//			    skip_enabled = false;
-//			    if (clickstr_list){
-//			        delete[] clickstr_list;
-//			        clickstr_list = NULL;
-//			    }
-//			    internal_current_script = NULL;
-//			    preferred_script = default_script;
-//			
-//			    if (rgosub_wait_pos) delete[] rgosub_wait_pos;
-//			    rgosub_wait_pos = NULL;
-//			    if (rgosub_wait_1byte) delete[] rgosub_wait_1byte;
-//			    rgosub_wait_1byte = NULL;
-//			    total_rgosub_wait_size = num_rgosub_waits = cur_rgosub_wait = 0;
-//			    is_rgosub_click = rgosub_click_newpage = rgosub_1byte_mode = false;
+			    for (int i=0 ; i<VARIABLE_RANGE ; i++)
+			        variable_data[i].reset(true);
+			
+			    if (null!=extended_variable_data) extended_variable_data = null;//delete[] extended_variable_data;
+			    extended_variable_data = null;
+			    num_extended_variable_data = 0;
+			    max_extended_variable_data = 1;
+			
+			    ArrayVariable av = root_array_variable;
+			    while(null!=av){
+			        ArrayVariable tmp = av;
+			        av = av.next;
+			        tmp = null;//delete tmp;
+			    }
+			    root_array_variable = current_array_variable = null;
+			
+			    // reset log info
+			    resetLog( log_info[LABEL_LOG] );
+			    resetLog( log_info[FILE_LOG] );
+			
+			    // reset number alias
+			    Alias alias;
+			    alias = root_num_alias.next;
+			    while (null!=alias){
+			        Alias tmp_ = alias;
+			        alias = alias.next;
+			        tmp_ = null;//delete tmp;
+			    };
+			    last_num_alias = root_num_alias;
+			    last_num_alias.next = null;
+			
+			    // reset string alias
+			    alias = root_str_alias.next;
+			    while (null!=alias){
+			        Alias tmp = alias;
+			        alias = alias.next;
+			        tmp = null;//delete tmp;
+			    };
+			    last_str_alias = root_str_alias;
+			    last_str_alias.next = null;
+			
+			    // reset misc. variables
+			    end_status = END_NONE;
+			    kidokuskip_flag = false;
+			    text_flag = true;
+			    linepage_flag = false;
+			    english_mode = false;
+			    textgosub_flag = false;
+			    skip_enabled = false;
+			    if (null!=clickstr_list){
+			        //delete[] clickstr_list;
+			        clickstr_list = null;
+			    }
+			    internal_current_script = null;
+			    preferred_script = default_script;
+			
+			    if (null!=rgosub_wait_pos) rgosub_wait_pos = null;//delete[] rgosub_wait_pos;
+			    rgosub_wait_pos = null;
+			    if (null!=rgosub_wait_1byte) rgosub_wait_1byte = null;//delete[] rgosub_wait_1byte;
+			    rgosub_wait_1byte = null;
+			    total_rgosub_wait_size = num_rgosub_waits = cur_rgosub_wait = 0;
+			    is_rgosub_click = rgosub_click_newpage = rgosub_1byte_mode = false;
 			}
 			
-			public FILEPtr fopen( CharPtr path, CharPtr mode, bool save, bool usesavedir )
+			public FILEPtr fopen( CharPtr path, CharPtr mode, bool save=false, bool usesavedir=false )
 			{
-				return null;
-//			    const char* root;
-//			    char *file_name;
-//			    FILE *fp = NULL;
-//			
-//			    if (usesavedir && savedir) {
-//			        root = savedir;
-//			        file_name = new char[strlen(root)+strlen(path)+1];
-//			        sprintf( file_name, "%s%s", root, path );
-//			        //printf("handler:fopen(\"%s\")\n", file_name);
-//			
-//			        fp = ::fopen( file_name, mode );
-//			    } else if (save) {
-//			        root = save_path;
-//			        file_name = new char[strlen(root)+strlen(path)+1];
-//			        sprintf( file_name, "%s%s", root, path );
-//			        //printf("handler:fopen(\"%s\")\n", file_name);
-//			
-//			        fp = ::fopen( file_name, mode );
-//			    } else {
-//			        // search within archive_path(s)
-//			        file_name = new char[archive_path->max_path_len()+strlen(path)+1];
-//			        for (int n=0; n<archive_path->get_num_paths(); n++) {
-//			            root = archive_path->get_path(n);
-//			            //printf("root: %s\n", root);
-//			            sprintf( file_name, "%s%s", root, path );
-//			            //printf("handler:fopen(\"%s\")\n", file_name);
-//			            fp = ::fopen( file_name, mode );
-//			            if (fp != NULL) break;
-//			        }
-//			    }
-//			    delete[] file_name;
-//			    return fp;
+				CharPtr root;
+			    CharPtr file_name;
+			    FILEPtr fp = null;
+			
+			    if (usesavedir && null!=savedir) {
+			        root = savedir;
+			        file_name = new char[strlen(root)+strlen(path)+1];
+			        sprintf( file_name, "%s%s", root, path );
+			        //printf("handler:fopen(\"%s\")\n", file_name);
+			
+			        fp = ONScripter.fopen( file_name, mode );
+			    } else if (save) {
+			        root = save_path;
+			        file_name = new char[strlen(root)+strlen(path)+1];
+			        sprintf( file_name, "%s%s", root, path );
+			        //printf("handler:fopen(\"%s\")\n", file_name);
+			
+			        fp = ONScripter.fopen( file_name, mode );
+			    } else {
+			        // search within archive_path(s)
+			        file_name = new char[archive_path.max_path_len()+strlen(path)+1];
+			        for (int n=0; n<archive_path.get_num_paths(); n++) {
+			            root = archive_path.get_path(n);
+			            //printf("root: %s\n", root);
+			            sprintf( file_name, "%s%s", root, path );
+			            //printf("handler:fopen(\"%s\")\n", file_name);
+			            fp = ONScripter.fopen( file_name, mode );
+			            if (fp != null) break;
+			        }
+			    }
+			    file_name = null;//delete[] file_name;
+			    return fp;
 			}
 			
 			public FILEPtr fopen( CharPtr root, CharPtr path, CharPtr mode )
@@ -286,371 +285,372 @@ namespace onscripter_csharp
 			// basic parser function
 			public CharPtr readToken()
 			{
-				return null;
-//			    current_script = next_script;
-//			    char *buf = current_script;
-//			    end_status = END_NONE;
-//			    current_variable.type = VAR_NONE;
-//			    num_rgosub_waits = cur_rgosub_wait = 0;
-//			
-//			    text_flag = false;
-//			
-//			    if (rgosub_flag && is_rgosub_click){
-//			        string_counter = 0;
-//			        char ch = rgosub_click_newpage ? '\\' : '@';
-//			        addStringBuffer( ch );
-//			        if (rgosub_1byte_mode)
-//			            addStringBuffer( '`' );
-//			        rgosub_wait_1byte[num_rgosub_waits] = rgosub_1byte_mode;
-//			        rgosub_wait_pos[num_rgosub_waits++] = buf;
-//			        text_flag = true;
-//			        if (!rgosub_1byte_mode){
-//			            SKIP_SPACE( buf );
-//			        }
-//			    } else {
-//			        SKIP_SPACE( buf );
-//			    }
-//			
-//			    markAsKidoku( buf );
-//			
-//			  readTokenTop:
-//			    if (!is_rgosub_click)
-//			        string_counter = 0;
-//			    char ch = *buf;
-//			    if ((ch == ';') && !is_rgosub_click){ // comment
-//			        while ( ch != 0x0a && ch != '\0' ){
-//			            addStringBuffer( ch );
-//			            ch = *++buf;
-//			        }
-//			    }
-//			    else if (is_rgosub_click || ch & 0x80 ||
-//			             (ch >= '0' && ch <= '9') ||
-//			             ch == '@' || ch == '\\' || ch == '/' ||
-//			             ch == '%' || ch == '?' || ch == '$' ||
-//			             ch == '[' || ch == '(' || ch == '`' ||
-//			             ch == '!' || ch == '#' || ch == ',' ||
-//			             ch == '{' || ch == '<' || ch == '>' ||
-//			             ch == '"'){ // text
-//			
-//			        bool ignore_click_flag = false;
-//			        bool clickstr_flag = false;
-//			        bool in_pretext_tag = (ch == '[');
-//			        bool is_nscr_english = (english_mode && (ch == '>'));
-//			        if (is_nscr_english)
-//			            ch = *++buf;
-//			        bool in_1byte_mode = is_nscr_english;
-//			        if (is_rgosub_click)
-//			            in_1byte_mode = rgosub_1byte_mode;
-//			        while (1){
-//			            if (rgosub_flag && (num_rgosub_waits == total_rgosub_wait_size)){
-//			                //double the rgosub wait buffer size
-//			                char **tmp = rgosub_wait_pos;
-//			                bool *tmp2 = rgosub_wait_1byte;
-//			                total_rgosub_wait_size *= 2;
-//			                rgosub_wait_pos = new char*[total_rgosub_wait_size];
-//			                rgosub_wait_1byte = new bool[total_rgosub_wait_size];
-//			                for (int i=0; i<num_rgosub_waits; i++){
-//			                    rgosub_wait_pos[i] = tmp[i];
-//			                    rgosub_wait_1byte[i] = tmp2[i];
-//			                }
-//			                delete[] tmp;
-//			                delete[] tmp2;
-//			            }
-//			            char *tmp = buf;
-//			            SKIP_SPACE(tmp);
-//			            if (!(is_nscr_english || in_1byte_mode) ||
-//			                (*tmp == 0x0a) || (*tmp == 0x00)) {
-//			                // always skip trailing spaces
-//			                buf = tmp;
-//			                ch = *buf;
-//			            }
-//			            if ((ch == 0x0a) || (ch == 0x00)) break;
-//			            if ( IS_TWO_BYTE(ch) ){
-//			                if (!in_pretext_tag && !ignore_click_flag &&
-//			                    (checkClickstr(buf) > 0))
-//			                    clickstr_flag = true;
-//			                else
-//			                    clickstr_flag = false;
-//			                addStringBuffer( ch );
-//			                ch = *++buf;
-//			                if (ch == 0x0a || ch == '\0') break; //invalid 2-byte char
-//			                addStringBuffer( ch );
-//			                ch = *++buf;
-//			                //Mion: ons-en processes clickstr chars here in readToken,
-//			                // not in ONScripterLabel_text - adds a special
-//			                // sequence '\@' after the clickstr char
-//			                if (clickstr_flag) {
-//			                    // insert a clickwait-or-newpage
-//			                    addStringBuffer('\\');
-//			                    addStringBuffer('@');
-//			                    if (textgosub_flag) {
-//			                        char *tmp = buf;
-//			                        SKIP_SPACE(tmp);
-//			                        // if "ignore-textgosub-newline" cmd-line option,
-//			                        // ignore newline after clickwait if textgosub used
-//			                        // (fixes some older onscripter-en games)
-//			                        if (ignore_textgosub_newline && (*tmp == 0x0a))
-//			                            buf = tmp+1;
-//			                        break;
-//			                    }
-//			                    if (rgosub_flag){
-//			                        rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
-//			                        rgosub_wait_pos[num_rgosub_waits++] = buf+1;
-//			                    }
-//			                }
-//			                ignore_click_flag = clickstr_flag = false;
-//			            }
-//			            else {
-//			                if (ch == '`'){
-//			                    addStringBuffer( ch );
-//			                    ch = *++buf;
-//			                    if (!is_nscr_english)
-//			                        in_1byte_mode = !in_1byte_mode;
-//			                }
-//			                else if (in_pretext_tag && (ch == ']')){
-//			                    addStringBuffer( ch );
-//			                    ch = *++buf;
-//			                    in_pretext_tag = false;
-//			                    in_1byte_mode = false;
-//			                }
-//			                else if (in_1byte_mode) {
-//			                    if (in_pretext_tag){
-//			                        addStringBuffer( ch );
-//			                        ch = *++buf;
-//			                        continue;
-//			                    }
-//			                    if (ch == '$'){
-//			                        if (buf[1] == '$') ++buf; else{
-//			                            addStrVariable(&buf);
-//			                            while (*--buf == ' ');
-//			                            ch = *++buf;
-//			                            ignore_click_flag = false;
-//			                            continue;
-//			                        }
-//			                    }
-//			                    if ((ch == '_') && (checkClickstr(buf+1) > 0)) {
-//			                        ignore_click_flag = true;
-//			                        ch = *++buf;
-//			                        continue;
-//			                    }
-//			                    if ((ch == '@') || (ch == '\\')) {
-//			                        if (!ignore_click_flag){
-//			                            addStringBuffer( ch );
-//			                            if (rgosub_flag){
-//			                                rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
-//			                                rgosub_wait_pos[num_rgosub_waits++] = buf+1;
-//			                            }
-//			                        }
-//			                        if (textgosub_flag){
-//			                            ++buf;
-//			                            // if "ignore-textgosub-newline", ignore
-//			                            // newline after clickwait if textgosub
-//			                            // (fixes older onscripter-en games)
-//			                            char *tmp = buf;
-//			                            SKIP_SPACE(tmp);
-//			                            if (ignore_textgosub_newline &&(*tmp == 0x0a))
-//			                                buf = tmp+1;
-//			                            break;
-//			                        }
-//			                        ch = *++buf;
-//			                        continue;
-//			                    }
-//			                    if (!ignore_click_flag && (checkClickstr(buf) > 0))
-//			                        clickstr_flag = true;
-//			                    else
-//			                        clickstr_flag = false;
-//			                    // no ruby in 1byte mode; escape parens
-//			                    if (ch == '(') {
-//			                        addStringBuffer( LEFT_PAREN );
-//			                    } else if (ch == ')') {
-//			                        addStringBuffer( RIGHT_PAREN );
-//			                    } else if (ch == 0x0a || ch == '\0') break;
-//			                    else
-//			                        addStringBuffer( ch );
-//			                    ch = *++buf;
-//			                    //Mion: ons-en processes clickstr chars here in readToken,
-//			                    // not in ONScripterLabel_text - adds a special
-//			                    // sequence '\@' after the clickstr char
-//			                    if (clickstr_flag) {
-//			                        // insert a clickwait-or-newpage
-//			                        addStringBuffer('\\');
-//			                        addStringBuffer('@');
-//			                        if (textgosub_flag) break;
-//			                        if (rgosub_flag){
-//			                            rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
-//			                            rgosub_wait_pos[num_rgosub_waits++] = buf;
-//			                        }
-//			                    }
-//			                    ignore_click_flag = clickstr_flag = false;
-//			                }
-//			                else{ //!in_1byte_mode
-//			                    if (in_pretext_tag){
-//			                        addStringBuffer( ch );
-//			                        ch = *++buf;
-//			                        continue;
-//			                    }
-//			                    else if ((ch == '@') || (ch == '\\')) {
-//			                        if (!ignore_click_flag){
-//			                            addStringBuffer( ch );
-//			                            if (rgosub_flag){
-//			                                rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
-//			                                rgosub_wait_pos[num_rgosub_waits++] = buf+1;
-//			                            }
-//			                        }
-//			                        if (textgosub_flag){
-//			                            ++buf;
-//			                            // if "ignore-textgosub-newline", ignore
-//			                            // newline after clickwait if textgosub
-//			                            // (fixes older onscripter-en games)
-//			                            char *tmp = buf;
-//			                            SKIP_SPACE(tmp);
-//			                            if (ignore_textgosub_newline &&(*tmp == 0x0a))
-//			                                buf = tmp+1;
-//			                            break;
-//			                        }
-//			                        ch = *++buf;
-//			                        continue;
-//			                    }
-//			                    if (ch == '%' || ch == '?'){
-//			                        addIntVariable(&buf);
-//			                    }
-//			                    else if (ch == '$'){
-//			                        addStrVariable(&buf);
-//			                    }
-//			                    else if (ch == '<'){
-//			                        addStringBuffer(TXTBTN_START);
-//			                        ch = *++buf;
-//			                    }
-//			                    else if (ch == '>'){
-//			                        addStringBuffer(TXTBTN_END);
-//			                        ch = *++buf;
-//			                    }
-//			                    else if (ch == '{') {
-//			                        // comma list of var/val pairs
-//			                        buf++;
-//			                        pushCurrent(buf);
-//			                        next_script = buf;
-//			                        TmpVariableDataLink *tmp = &tmp_variable_data_link;
-//			                        while (tmp->next != NULL)
-//			                            tmp = tmp->next;
-//			                        while( *buf != '}' ) {
-//			                        
-//			                            readVariable();
-//			                            pushVariable();
-//			                            tmp->next = new TmpVariableDataLink;
-//			                            tmp = tmp->next;
-//			                            tmp->vi.var_no = pushed_variable.var_no;
-//			                            tmp->vi.type = pushed_variable.type;
-//			                            VariableData &vd = getVariableData(tmp->vi.var_no);
-//			                            tmp->num = vd.num;
-//			                            //printf("variable: $%d\n", pushed_variable.var_no);
-//			                            buf = next_script;
-//			
-//			                            if ( tmp->vi.type & VAR_INT ) {
-//			                                tmp->num = parseIntExpression(&buf);
-//			                                //printf("int: %d\n", x);
-//			                            } else if ( tmp->vi.type & VAR_STR ) {
-//			                                bool invar_1byte_mode = false;
-//			                                int tmp_count = 0;
-//			                                strcpy(saved_string_buffer, "");
-//			                                while (*buf != 0x0a && *buf != '\0' &&
-//			                                       (invar_1byte_mode || ((*buf != ',') && (*buf != '}')))) {
-//			                                    if (*buf == '`')
-//			                                        invar_1byte_mode = !invar_1byte_mode;
-//			                                    if ((tmp_count+1 >= STRING_BUFFER_LENGTH) ||
-//			                                        (IS_TWO_BYTE(*buf) && (tmp_count+2 >= STRING_BUFFER_LENGTH)))
-//			                                        errorAndExit("readToken: var string length exceeds 2048 bytes.");
-//			                                    else if (IS_TWO_BYTE(*buf)) {
-//			                                        saved_string_buffer[tmp_count++] = *buf++;
-//			                                        saved_string_buffer[tmp_count++] = *buf++;
-//			                                    } else if ((*buf == '\\') || (*buf == BACKSLASH)) {
-//			                                        //Mion: I really shouldn't be modifying
-//			                                        //  the script buffer FIXME
-//			                                        saved_string_buffer[tmp_count++] = '\\';
-//			                                        *buf++ = BACKSLASH;
-//			                                    } else
-//			                                        saved_string_buffer[tmp_count++] = *buf++;
-//			                                    saved_string_buffer[tmp_count] = '\0';
-//			                                }
-//			                                setStr( &tmp->str, saved_string_buffer );
-//			                                //printf("string: %s\n", saved_string_buffer);
-//			                            }
-//			                            next_script = checkComma(buf);
-//			                            buf = next_script;
-//			                            if (!(getEndStatus() & END_COMMA)) break;
-//			                        }
-//			                        end_status = END_NONE;
-//			                        current_variable.type = VAR_NONE;
-//			                        popCurrent();
-//			                        if (*buf == '}')
-//			                            buf++;
-//			                    }
-//			                    else{
-//			                        if (ch == '_')
-//			                            ignore_click_flag = true;
-//			                        else
-//			                            ignore_click_flag = false;
-//			                        addStringBuffer( ch );
-//			                        buf++;
-//			                        if (*buf == ' ') {
-//			                            addStringBuffer( *buf );
-//			                            buf++;
-//			                        }
-//			                    }
-//			                    ch = *buf;
-//			                    if (ch == 0x0a || ch == '\0') break;
-//			                }
-//			            }
-//			        }
-//			        //now process any {} tmp variables
-//			        TmpVariableDataLink *tmp = tmp_variable_data_link.next;
-//			        while (tmp != NULL) {
-//			            if ( tmp->vi.type & VAR_INT )
-//			                setInt( &tmp->vi, tmp->num);
-//			            else if ( tmp->vi.type & VAR_STR )
-//			                setStr( &variable_data[ tmp->vi.var_no ].str, tmp->str );
-//			            TmpVariableDataLink *last = tmp;
-//			            tmp = tmp->next;
-//			            delete last;
-//			        }
-//			        tmp_variable_data_link.next = NULL;
-//			        text_flag = true;
-//			    }
-//			    else if ((ch >= 'a' && ch <= 'z') ||
-//			             (ch >= 'A' && ch <= 'Z') ||
-//			             ch == '_'){ // command
-//			        do{
-//			            if (ch >= 'A' && ch <= 'Z') ch += 'a' - 'A';
-//			            addStringBuffer( ch );
-//			            ch = *++buf;
-//			        }
-//			        while((ch >= 'a' && ch <= 'z') ||
-//			              (ch >= 'A' && ch <= 'Z') ||
-//			              (ch >= '0' && ch <= '9') ||
-//			              ch == '_');
-//			    }
-//			    else if (ch == '*'){ // label
-//			        return readLabel();
-//			    }
-//			    else if ((ch == 0x0a) && !is_rgosub_click){
-//			        addStringBuffer( ch );
-//			        markAsKidoku( buf++ );
-//			    }
-//			    else if (ch == '~' || ch == ':'){
-//			        addStringBuffer( ch );
-//			        markAsKidoku( buf++ );
-//			    }
-//			    else if (ch != '\0'){
-//			        fprintf(stderr, "readToken: skip unknown heading character %c (%x)\n", ch, ch);
-//			        buf++;
-//			        goto readTokenTop;
-//			    }
-//			    is_rgosub_click = false;
-//			    next_script = checkComma(buf);
-//			
-//			    //printf("readToken [%s] len=%d [%c(%x)] %p\n", string_buffer, strlen(string_buffer), ch, ch, next_script);
-//			
-//			    return string_buffer;
+				current_script = new CharPtr(next_script);
+				CharPtr buf = new CharPtr(current_script);
+			    end_status = END_NONE;
+			    current_variable.type = VAR_NONE;
+			    num_rgosub_waits = cur_rgosub_wait = 0;
+			
+			    text_flag = false;
+			
+			    if (rgosub_flag && is_rgosub_click){
+			        string_counter = 0;
+			        char ch_ = rgosub_click_newpage ? '\\' : '@';
+			        addStringBuffer( ch_ );
+			        if (rgosub_1byte_mode)
+			            addStringBuffer( '`' );
+			        rgosub_wait_1byte[num_rgosub_waits] = rgosub_1byte_mode;
+			        rgosub_wait_pos[num_rgosub_waits++] = buf;
+			        text_flag = true;
+			        if (!rgosub_1byte_mode){
+			            SKIP_SPACE( buf );
+			        }
+			    } else {
+			        SKIP_SPACE( buf );
+			    }
+			
+			    markAsKidoku( buf );
+			
+			  readTokenTop:
+			    if (!is_rgosub_click)
+			        string_counter = 0;
+			    char ch = buf[0];
+			    if ((ch == ';') && !is_rgosub_click){ // comment
+			        while ( ch != 0x0a && ch != '\0' ){
+			            addStringBuffer( ch );
+			            buf.inc(); ch = buf[0];
+			        }
+			    }
+			    else if (is_rgosub_click || 0!=(ch & 0x80) ||
+			             (ch >= '0' && ch <= '9') ||
+			             ch == '@' || ch == '\\' || ch == '/' ||
+			             ch == '%' || ch == '?' || ch == '$' ||
+			             ch == '[' || ch == '(' || ch == '`' ||
+			             ch == '!' || ch == '#' || ch == ',' ||
+			             ch == '{' || ch == '<' || ch == '>' ||
+			             ch == '"'){ // text
+			
+			        bool ignore_click_flag = false;
+			        bool clickstr_flag = false;
+			        bool in_pretext_tag = (ch == '[');
+			        bool is_nscr_english = (english_mode && (ch == '>'));
+			        if (is_nscr_english) {
+			        	buf.inc(); ch = buf[0];
+			        }
+			        bool in_1byte_mode = is_nscr_english;
+			        if (is_rgosub_click)
+			            in_1byte_mode = rgosub_1byte_mode;
+			        while (true){
+			            if (rgosub_flag && (num_rgosub_waits == total_rgosub_wait_size)){
+			                //double the rgosub wait buffer size
+			                CharPtr[] tmp_ = rgosub_wait_pos;
+			                bool[] tmp2 = rgosub_wait_1byte;
+			                total_rgosub_wait_size *= 2;
+			                rgosub_wait_pos = new CharPtr[total_rgosub_wait_size];
+			                rgosub_wait_1byte = new bool[total_rgosub_wait_size];
+			                for (int i=0; i<num_rgosub_waits; i++){
+			                	rgosub_wait_pos[i] = new CharPtr(tmp_[i]);
+			                    rgosub_wait_1byte[i] = tmp2[i];
+			                }
+			                tmp_ = null;//delete[] tmp;
+			                tmp2 = null;//delete[] tmp2;
+			            }
+			        	CharPtr tmp = new CharPtr(buf);
+			            SKIP_SPACE(tmp);
+			            if (!(is_nscr_english || in_1byte_mode) ||
+			                (tmp[0] == 0x0a) || (tmp[0] == 0x00)) {
+			                // always skip trailing spaces
+			                buf = new CharPtr(tmp);
+			                ch = buf[0];
+			            }
+			            if ((ch == 0x0a) || (ch == 0x00)) break;
+			            if ( IS_TWO_BYTE(ch) ){
+			                if (!in_pretext_tag && !ignore_click_flag &&
+			                    (checkClickstr(buf) > 0))
+			                    clickstr_flag = true;
+			                else
+			                    clickstr_flag = false;
+			                addStringBuffer( ch );
+			                buf.inc(); ch = buf[0];
+			                if (ch == 0x0a || ch == '\0') break; //invalid 2-byte char
+			                addStringBuffer( ch );
+			                buf.inc(); ch = buf[0];
+			                //Mion: ons-en processes clickstr chars here in readToken,
+			                // not in ONScripterLabel_text - adds a special
+			                // sequence '\@' after the clickstr char
+			                if (clickstr_flag) {
+			                    // insert a clickwait-or-newpage
+			                    addStringBuffer('\\');
+			                    addStringBuffer('@');
+			                    if (textgosub_flag) {
+			                    	CharPtr tmp__ = new CharPtr(buf);
+			                        SKIP_SPACE(tmp__);
+			                        // if "ignore-textgosub-newline" cmd-line option,
+			                        // ignore newline after clickwait if textgosub used
+			                        // (fixes some older onscripter-en games)
+			                        if (ignore_textgosub_newline && (tmp__[0] == 0x0a))
+			                        	buf = new CharPtr(tmp__, +1);
+			                        break;
+			                    }
+			                    if (rgosub_flag){
+			                        rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
+			                        rgosub_wait_pos[num_rgosub_waits++] = new CharPtr(buf,+1);
+			                    }
+			                }
+			                ignore_click_flag = clickstr_flag = false;
+			            }
+			            else {
+			                if (ch == '`'){
+			                    addStringBuffer( ch );
+			                    buf.inc(); ch = buf[0];
+			                    if (!is_nscr_english)
+			                        in_1byte_mode = !in_1byte_mode;
+			                }
+			                else if (in_pretext_tag && (ch == ']')){
+			                    addStringBuffer( ch );
+			                    buf.inc(); ch = buf[0];
+			                    in_pretext_tag = false;
+			                    in_1byte_mode = false;
+			                }
+			                else if (in_1byte_mode) {
+			                    if (in_pretext_tag){
+			                        addStringBuffer( ch );
+			                        buf.inc(); ch = buf[0];
+			                        continue;
+			                    }
+			                    if (ch == '$'){
+			            			if (buf[1] == '$') buf.inc(); else{
+			                            addStrVariable(ref buf);
+			                            while (true) {buf.dec(); if (buf[0] == ' ') {;}else {break;}}
+			                            buf.inc(); ch = buf[0];
+			                            ignore_click_flag = false;
+			                            continue;
+			                        }
+			                    }
+			            		if ((ch == '_') && (checkClickstr(new CharPtr(buf,+1)) > 0)) {
+			                        ignore_click_flag = true;
+			                        buf.inc();ch = buf[0];
+			                        continue;
+			                    }
+			                    if ((ch == '@') || (ch == '\\')) {
+			                        if (!ignore_click_flag){
+			                            addStringBuffer( ch );
+			                            if (rgosub_flag){
+			                                rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
+			                                rgosub_wait_pos[num_rgosub_waits++] = new CharPtr(buf,+1);
+			                            }
+			                        }
+			                        if (textgosub_flag){
+			            				buf.inc();
+			                            // if "ignore-textgosub-newline", ignore
+			                            // newline after clickwait if textgosub
+			                            // (fixes older onscripter-en games)
+			                            CharPtr tmp_2 = new CharPtr(buf);
+			                            SKIP_SPACE(tmp_2);
+			                            if (ignore_textgosub_newline &&(tmp_2[0] == 0x0a))
+			                            	buf = new CharPtr(tmp_2,+1);
+			                            break;
+			                        }
+			            			buf.inc(); ch = buf[0];
+			                        continue;
+			                    }
+			                    if (!ignore_click_flag && (checkClickstr(buf) > 0))
+			                        clickstr_flag = true;
+			                    else
+			                        clickstr_flag = false;
+			                    // no ruby in 1byte mode; escape parens
+			                    if (ch == '(') {
+			                    	addStringBuffer( (char)LEFT_PAREN );
+			                    } else if (ch == ')') {
+			                        addStringBuffer( (char)RIGHT_PAREN );
+			                    } else if (ch == 0x0a || ch == '\0') break;
+			                    else
+			                        addStringBuffer( ch );
+			                    buf.inc(); ch = buf[0];
+			                    //Mion: ons-en processes clickstr chars here in readToken,
+			                    // not in ONScripterLabel_text - adds a special
+			                    // sequence '\@' after the clickstr char
+			                    if (clickstr_flag) {
+			                        // insert a clickwait-or-newpage
+			                        addStringBuffer('\\');
+			                        addStringBuffer('@');
+			                        if (textgosub_flag) break;
+			                        if (rgosub_flag){
+			                            rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
+			                            rgosub_wait_pos[num_rgosub_waits++] = buf;
+			                        }
+			                    }
+			                    ignore_click_flag = clickstr_flag = false;
+			                }
+			                else{ //!in_1byte_mode
+			                    if (in_pretext_tag){
+			                        addStringBuffer( ch );
+			                        buf.inc(); ch = buf[0];
+			                        continue;
+			                    }
+			                    else if ((ch == '@') || (ch == '\\')) {
+			                        if (!ignore_click_flag){
+			                            addStringBuffer( ch );
+			                            if (rgosub_flag){
+			                                rgosub_wait_1byte[num_rgosub_waits] = in_1byte_mode;
+			                                rgosub_wait_pos[num_rgosub_waits++] = new CharPtr(buf,+1);
+			                            }
+			                        }
+			                        if (textgosub_flag){
+			            				buf.inc();
+			                            // if "ignore-textgosub-newline", ignore
+			                            // newline after clickwait if textgosub
+			                            // (fixes older onscripter-en games)
+			                            CharPtr tmp_2 = new CharPtr(buf);
+			                            SKIP_SPACE(tmp_2);
+			                            if (ignore_textgosub_newline &&(tmp_2[0] == 0x0a))
+			                            	buf = new CharPtr(tmp_2,+1);
+			                            break;
+			                        }
+			            			buf.inc(); ch = buf[0];
+			                        continue;
+			                    }
+			                    if (ch == '%' || ch == '?'){
+			                        addIntVariable(ref buf);
+			                    }
+			                    else if (ch == '$'){
+			                        addStrVariable(ref buf);
+			                    }
+			                    else if (ch == '<'){
+			            			addStringBuffer((char)TXTBTN_START);
+			            			buf.inc(); ch = buf[0];
+			                    }
+			                    else if (ch == '>'){
+			                        addStringBuffer((char)TXTBTN_END);
+			                        buf.inc(); ch = buf[0];
+			                    }
+			                    else if (ch == '{') {
+			                        // comma list of var/val pairs
+			                        buf.inc();
+			                        pushCurrent(buf);
+			                        next_script = new CharPtr(buf);
+			                        TmpVariableDataLink tmp_3 = tmp_variable_data_link;
+			                        while (tmp_3.next != null)
+			                            tmp_3 = tmp_3.next;
+			                        while( buf[0] != '}' ) {
+			                        
+			                            readVariable();
+			                            pushVariable();
+			                            tmp_3.next = new TmpVariableDataLink();
+			                            tmp_3 = tmp_3.next;
+			                            tmp_3.vi.var_no = pushed_variable.var_no;
+			                            tmp_3.vi.type = pushed_variable.type;
+			                            VariableData vd = getVariableData(tmp_3.vi.var_no);
+			                            tmp_3.num = vd.num;
+			                            //printf("variable: $%d\n", pushed_variable.var_no);
+			                            buf = next_script;
+			
+			                            if ( 0!=(tmp_3.vi.type & VAR_INT) ) {
+			                                tmp_3.num = parseIntExpression(ref buf);
+			                                //printf("int: %d\n", x);
+			                            } else if ( 0!=(tmp_3.vi.type & VAR_STR) ) {
+			                                bool invar_1byte_mode = false;
+			                                int tmp_count = 0;
+			                                strcpy(saved_string_buffer, "");
+			                                while (buf[0] != 0x0a && buf[0] != '\0' &&
+			                                       (invar_1byte_mode || ((buf[0] != ',') && (buf[0] != '}')))) {
+			                                	if (buf[0] == '`')
+			                                        invar_1byte_mode = !invar_1byte_mode;
+			                                    if ((tmp_count+1 >= STRING_BUFFER_LENGTH) ||
+			                                        (IS_TWO_BYTE(buf[0]) && (tmp_count+2 >= STRING_BUFFER_LENGTH)))
+			                                        errorAndExit("readToken: var string length exceeds 2048 bytes.");
+			                                    else if (IS_TWO_BYTE(buf[0])) {
+			                                    	saved_string_buffer[tmp_count++] = buf[0]; buf.inc();
+			                                    	saved_string_buffer[tmp_count++] = buf[0]; buf.inc();
+			                                    } else if ((buf[0] == '\\') || (buf[0] == BACKSLASH)) {
+			                                        //Mion: I really shouldn't be modifying
+			                                        //  the script buffer FIXME
+			                                        saved_string_buffer[tmp_count++] = '\\';
+			                                        buf[0] = (char)BACKSLASH; buf.inc();
+			                                    } else {
+			                                    	saved_string_buffer[tmp_count++] = buf[0]; buf.inc();
+			                                    }
+			                                    saved_string_buffer[tmp_count] = '\0';
+			                                }
+			                                setStr( ref tmp_3.str, saved_string_buffer );
+			                                //printf("string: %s\n", saved_string_buffer);
+			                            }
+			                            next_script = checkComma(buf);
+			                            buf = new CharPtr(next_script);
+			                            if (0==(getEndStatus() & END_COMMA)) break;
+			                        }
+			                        end_status = END_NONE;
+			                        current_variable.type = VAR_NONE;
+			                        popCurrent();
+			                        if (buf[0] == '}')
+			                        	buf.inc();
+			                    }
+			                    else{
+			                        if (ch == '_')
+			                            ignore_click_flag = true;
+			                        else
+			                            ignore_click_flag = false;
+			                        addStringBuffer( ch );
+			                        buf.inc();
+			                        if (buf[0] == ' ') {
+			                        	addStringBuffer( buf[0] );
+			                            buf.inc();
+			                        }
+			                    }
+			            		ch = buf[0];
+			                    if (ch == 0x0a || ch == '\0') break;
+			                }
+			            }
+			        }
+			        //now process any {} tmp variables
+			        TmpVariableDataLink tmp_4 = tmp_variable_data_link.next;
+			        while (tmp_4 != null) {
+			        	if ( 0!=(tmp_4.vi.type & VAR_INT) )
+			                setInt( tmp_4.vi, tmp_4.num);
+			            else if ( 0!=(tmp_4.vi.type & VAR_STR) )
+			                setStr( ref variable_data[ tmp_4.vi.var_no ].str, tmp_4.str );
+			            TmpVariableDataLink last = tmp_4;
+			            tmp_4 = tmp_4.next;
+			            last = null;//delete last;
+			        }
+			        tmp_variable_data_link.next = null;
+			        text_flag = true;
+			    }
+			    else if ((ch >= 'a' && ch <= 'z') ||
+			             (ch >= 'A' && ch <= 'Z') ||
+			             ch == '_'){ // command
+			        do{
+			    		if (ch >= 'A' && ch <= 'Z') ch = (char)(ch + ('a' - 'A'));
+			            addStringBuffer( ch );
+			            buf.inc(); ch = buf[0];
+			        }
+			        while((ch >= 'a' && ch <= 'z') ||
+			              (ch >= 'A' && ch <= 'Z') ||
+			              (ch >= '0' && ch <= '9') ||
+			              ch == '_');
+			    }
+			    else if (ch == '*'){ // label
+			        return readLabel();
+			    }
+			    else if ((ch == 0x0a) && !is_rgosub_click){
+			        addStringBuffer( ch );
+			        markAsKidoku( buf ); buf.inc();
+			    }
+			    else if (ch == '~' || ch == ':'){
+			        addStringBuffer( ch );
+			        markAsKidoku( buf ); buf.inc();
+			    }
+			    else if (ch != '\0'){
+			        fprintf(stderr, "readToken: skip unknown heading character %c (%x)\n", ch, ch);
+			        buf.inc();
+			        goto readTokenTop;
+			    }
+			    is_rgosub_click = false;
+			    next_script = checkComma(buf);
+			
+			    //printf("readToken [%s] len=%d [%c(%x)] %p\n", string_buffer, strlen(string_buffer), ch, ch, next_script);
+			
+			    return new CharPtr(string_buffer);
 			}
 			
 			public CharPtr readName()
@@ -1074,7 +1074,7 @@ namespace onscripter_csharp
 			    }
 			}
 			
-			public void addIntVariable(ref CharPtr buf, bool no_zenkaku)
+			public void addIntVariable(ref CharPtr buf, bool no_zenkaku=false)
 			{
 				char[] num_buf = new char[20];
 			    int no = parseInt(ref buf);
@@ -1120,7 +1120,7 @@ namespace onscripter_csharp
 			    clickstr_list[strlen(list)+1] = '\0';
 			}
 			
-			public int checkClickstr(CharPtr buf, bool recursive_flag)
+			public int checkClickstr(CharPtr buf, bool recursive_flag=false)
 			{
 				if ((buf[0] == '\\') && (buf[1] == '@')) return -2;  //clickwait-or-page
 			    if ((buf[0] == '@') || (buf[0] == '\\')) return -1;
