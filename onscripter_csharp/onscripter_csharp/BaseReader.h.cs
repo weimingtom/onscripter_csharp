@@ -59,54 +59,54 @@ namespace onscripter_csharp
 		
 		public abstract class BaseReader
 		{
-//		    enum {
-//		        NO_COMPRESSION   = 0,
-//		        SPB_COMPRESSION  = 1,
-//		        LZSS_COMPRESSION = 2
-//		    };
-//		    
-//		    enum {
-//		        ARCHIVE_TYPE_NONE  = 0,
-//		        ARCHIVE_TYPE_SAR   = 1,
-//		        ARCHIVE_TYPE_NSA   = 2,
-//		        ARCHIVE_TYPE_NS2   = 3   //new format since NScr2.91, uses ext ".ns2"
-//		    };
-//		
-//		    struct FileInfo{
-//		        char name[256];
-//		        int  compression_type;
-//		        size_t offset;
-//		        size_t length;
-//		        size_t original_length;
-//		        FileInfo()
-//		        : compression_type(NO_COMPRESSION),
-//		          offset(0), length(0), original_length(0)
-//		        {}
-//		    };
-//		
-//		    struct ArchiveInfo{
-//		        struct ArchiveInfo *next;
-//		        FILE *file_handle;
-//		        int power_resume_number; // currently only for PSP
-//		        char *file_name; //assumed to use SJIS encoding
-//		        struct FileInfo *fi_list;
-//		        unsigned int num_of_files;
-//		        unsigned long base_offset;
-//		
-//		        ArchiveInfo()
-//		        : next(NULL), file_handle(NULL), file_name(NULL),
-//		          fi_list(NULL), num_of_files(0), base_offset(0)
-//		        {}
-//		        ~ArchiveInfo(){
-//		            if (file_handle) fclose( file_handle );
-//		            if (file_name) delete[] file_name;
-//		            if (fi_list) delete[] fi_list;
-//		        }
-//		    };
+		    
+		    public const int NO_COMPRESSION   = 0;
+		    public const int SPB_COMPRESSION  = 1;
+		    public const int LZSS_COMPRESSION = 2;
+		    
+		    
+		    
+		    public const int ARCHIVE_TYPE_NONE  = 0;
+		    public const int ARCHIVE_TYPE_SAR   = 1;
+		    public const int ARCHIVE_TYPE_NSA   = 2;
+		    public const int ARCHIVE_TYPE_NS2   = 3;   //new format since NScr2.91, uses ext ".ns2"
+		    
+		
+		    public class FileInfo{
+		    	public CharPtr name = new CharPtr(new char[256]);
+		        public int  compression_type;
+		        public uint offset;
+		        public uint length;
+		        public uint original_length;
+		        public FileInfo()
+		        { compression_type = (NO_COMPRESSION);
+		          offset = (0); length = (0); original_length = (0);
+		        }
+		    }
+		
+		    public class ArchiveInfo{
+		        public ArchiveInfo next = null;
+		        public FILEPtr file_handle;
+		        public int power_resume_number; // currently only for PSP
+		        public CharPtr file_name; //assumed to use SJIS encoding
+		        public FileInfo[] fi_list = null;
+		        public uint num_of_files;
+		        public ulong base_offset;
+		
+		        public ArchiveInfo()
+		        { next = (null); file_handle = (null); file_name = (null);
+		          fi_list = (null); num_of_files = (0); base_offset = (0);
+		       	}
+		        ~ArchiveInfo(){
+		            if (null!=file_handle) fclose( file_handle );
+		            if (null!=file_name) file_name = null;//delete[] file_name;
+		            if (null!=fi_list) fi_list = null;//delete[] fi_list;
+		        }
+		    }
 		
 			public static char[] errbuf = new char[MAX_ERRBUF_LEN]; // for passing back error details
 		
-//		    virtual ~BaseReader(){}
+		    ~BaseReader(){}
 		    
 		    public abstract int open( CharPtr name=null );
 		    public abstract int close();
@@ -118,7 +118,7 @@ namespace onscripter_csharp
 		    public abstract FileInfo getFileByIndex( uint index );
 		    //file_name parameter is assumed to use SJIS encoding
 		    public abstract uint getFileLength( CharPtr file_name );
-		    public abstract uint getFile( CharPtr file_name, UnsignedCharPtr buffer, IntPtr location=null );
+		    public abstract uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location/*=null*/ );
 		}
 		
 //		#endif // __BASE_READER_H__

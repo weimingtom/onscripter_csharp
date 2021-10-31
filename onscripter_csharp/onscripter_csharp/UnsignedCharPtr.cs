@@ -66,5 +66,9 @@ namespace onscripter_csharp
 			set { chars[index + offset] = value; }
 		}
 			
+		//FIXME:
+		public void inc(int size) {
+			
+		}
 	}
 }

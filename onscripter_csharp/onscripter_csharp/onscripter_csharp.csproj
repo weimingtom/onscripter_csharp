@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="AnimationInfo.c.cs" />
     <Compile Include="AnimationInfo.h.cs" />
-    <Compile Include="ArchiveInfo.cs" />
     <Compile Include="ArrayVariable.cs" />
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="ButtonLink.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="DirPaths.h.cs" />
     <Compile Include="DirtyRect.cpp.cs" />
     <Compile Include="DirtyRect.h.cs" />
-    <Compile Include="FileInfo.cs" />
     <Compile Include="FILEPtr.cs" />
     <Compile Include="Fontinfo.cpp.cs" />
     <Compile Include="Fontinfo.h.cs" />

@@ -494,7 +494,7 @@ namespace onscripter_csharp
 			}
 			
 			public override uint getFile( CharPtr file_name, UnsignedCharPtr buffer,
-			                              IntPtr location )
+			                              ref int location )
 			{
 				return 0;
 //			    int compression_type;

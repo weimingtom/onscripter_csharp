@@ -50,8 +50,8 @@ namespace onscripter_csharp
 		
 		private const int MAX_FILE_NAME_LENGTH = 256;
 		
-//		class DirectReader : public BaseReader
-//		{
+		public partial class DirectReader : BaseReader
+		{
 //		public:
 //		    DirectReader( DirPaths &path, const unsigned char *key_table=NULL );
 //		    ~DirectReader();
@@ -75,12 +75,12 @@ namespace onscripter_csharp
 //		    char *file_full_path;
 //		    char *file_sub_path;
 //		    size_t file_path_len;
-//		    char *capital_name;
-//		    char *capital_name_tmp;
-//		
+		    public CharPtr capital_name;
+		    public CharPtr capital_name_tmp;
+		
 //		    DirPaths *archive_path;
-//		    unsigned char key_table[256];
-//		    bool key_table_flag;
+			public UnsignedCharPtr key_table = new UnsignedCharPtr(new byte[256]);
+		    public bool key_table_flag;
 //		    int  getbit_mask;
 //		    size_t getbit_len, getbit_count;
 //		    unsigned char *read_buf;
@@ -128,8 +128,8 @@ namespace onscripter_csharp
 //		private:
 //		    //file_name parameter is assumed to use SJIS encoding
 //		    FILE *getFileHandle( const char *file_name, int &compression_type, size_t *length );
-//		};
-//		
+		}
+		
 //		#endif // __DIRECT_READER_H__
 
 	}
