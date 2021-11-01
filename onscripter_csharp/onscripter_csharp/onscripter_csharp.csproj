@@ -113,6 +113,7 @@
     <Compile Include="Uint32Ptr.cs" />
     <Compile Include="Uint8Ptr.cs" />
     <Compile Include="UnsignedCharPtr.cs" />
+    <Compile Include="UnsignedLongPtr.cs" />
     <Compile Include="version.h.cs" />
     <Compile Include="winres.h.cs" />
   </ItemGroup>

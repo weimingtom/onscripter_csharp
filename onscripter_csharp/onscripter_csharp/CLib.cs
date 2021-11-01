@@ -218,6 +218,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static void memset(UnsignedLongPtr s, int ch, uint n)
+		{
+			
+		}
 		
 		public static void exit(int a)
 		{
