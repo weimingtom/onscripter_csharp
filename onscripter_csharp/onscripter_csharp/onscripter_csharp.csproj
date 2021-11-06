@@ -67,7 +67,6 @@
     <Compile Include="IntPtr.cs" />
     <Compile Include="Layer.cpp.cs" />
     <Compile Include="Layer.h.cs" />
-    <Compile Include="LineBreakType.cs" />
     <Compile Include="MainForm.cs" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>

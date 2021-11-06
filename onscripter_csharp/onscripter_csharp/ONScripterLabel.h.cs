@@ -91,9 +91,9 @@ namespace onscripter_csharp
 //		#define NUM_GLYPH_CACHE 30
 //		
 //		#define KEYPRESS_NULL ((SDLKey)(SDLK_LAST+1)) // "null" for keypress variables
-//		
-//		class ONScripterLabel : public ScriptParser
-//		{
+		
+		public partial class ONScripterLabel : ScriptParser
+		{			
 //		public:
 //		    typedef AnimationInfo::ONSBuf ONSBuf;
 //		
@@ -376,28 +376,28 @@ namespace onscripter_csharp
 //		        EDIT_VOICE_VOLUME_MODE   = 6,
 //		        EDIT_SE_VOLUME_MODE      = 7
 //		    };
-//		
-//		    int variable_edit_mode;
-//		    //Mion: These 3 variables are only used in _event;
-//		    //  could they be static variables there instead of
-//		    //  instance variables here?
-//		    int variable_edit_index;
-//		    int variable_edit_num;
-//		    int variable_edit_sign;
-//		
-//		    bool key_pressed_flag;
-//		    int  shift_pressed_status;
-//		    int  ctrl_pressed_status;
+		
+		    public int variable_edit_mode;
+		    //Mion: These 3 variables are only used in _event;
+		    //  could they be static variables there instead of
+		    //  instance variables here?
+		    public int variable_edit_index;
+		    public int variable_edit_num;
+		    public int variable_edit_sign;
+		
+		    public bool key_pressed_flag;
+		    public int  shift_pressed_status;
+		    public int  ctrl_pressed_status;
 //		#ifdef MACOSX
 //		    int apple_pressed_status;
 //		#endif
-//		    bool bgmdownmode_flag;
-//		    // the default behavior when in "click to skip" mode is to stop
-//		    // the skip at the next clickwait or newline, whichever comes first.
-//		    //Since some very old onscripters didn't stop at newlines,
-//		    // setting skip_past_newline will help when playing older onscripter games.
-//		    bool skip_past_newline; // don't leave 'click to skip' mode at a newline in text cmds
-//		
+		    public bool bgmdownmode_flag;
+		    // the default behavior when in "click to skip" mode is to stop
+		    // the skip at the next clickwait or newline, whichever comes first.
+		    //Since some very old onscripters didn't stop at newlines,
+		    // setting skip_past_newline will help when playing older onscripter games.
+		    public bool skip_past_newline; // don't leave 'click to skip' mode at a newline in text cmds
+		
 //		    SDL_keysym transKey(SDL_keysym key, bool isdown);
 //		    void variableEditMode( SDL_KeyboardEvent *event );
 //		    bool keyDownEvent( SDL_KeyboardEvent *event );
@@ -422,19 +422,19 @@ namespace onscripter_csharp
 //		        DISPLAY_MODE_TEXT    = 1,
 //		        DISPLAY_MODE_UPDATED = 2
 //		    };
-//		    enum {
-//		        IDLE_EVENT_MODE      = 0,
-//		        WAIT_RCLICK_MODE     = 1,   // for lrclick
-//		        WAIT_BUTTON_MODE     = 2,   // For select, btnwait and rmenu.
-//		        WAIT_INPUT_MODE      = 4,   // can be skipped by a click
-//		        WAIT_TEXTOUT_MODE    = 8,   // can be skipped by a click
-//		        WAIT_SLEEP_MODE      = 16,  // cannot be skipped by ctrl but not click
-//		        WAIT_TIMER_MODE      = 32,
-//		        WAIT_TEXTBTN_MODE    = 64,
-//		        WAIT_VOICE_MODE      = 128,
-//		        WAIT_TEXT_MODE       = 256, // clickwait, newpage, select
-//		        WAIT_NO_ANIM_MODE    = 512
-//		    };
+		    
+		    public const int IDLE_EVENT_MODE      = 0;
+		    public const int WAIT_RCLICK_MODE     = 1;   // for lrclick
+		    public const int WAIT_BUTTON_MODE     = 2;   // For select, btnwait and rmenu.
+		    public const int WAIT_INPUT_MODE      = 4;   // can be skipped by a click
+		    public const int WAIT_TEXTOUT_MODE    = 8;   // can be skipped by a click
+		    public const int WAIT_SLEEP_MODE      = 16;  // cannot be skipped by ctrl but not click
+		    public const int WAIT_TIMER_MODE      = 32;
+		    public const int WAIT_TEXTBTN_MODE    = 64;
+		    public const int WAIT_VOICE_MODE      = 128;
+		    public const int WAIT_TEXT_MODE       = 256; // clickwait, newpage, select
+		    public const int WAIT_NO_ANIM_MODE    = 512;
+		    
 //		    enum {
 //		        EFFECT_DST_GIVEN     = 0,
 //		        EFFECT_DST_GENERATE  = 1
@@ -545,20 +545,20 @@ namespace onscripter_csharp
 //		        REFRESH_TEXT_MODE   = 8,  //show textwindow text
 //		        REFRESH_CURSOR_MODE = 16  //show textwindow cursor
 //		    };
-//		
-//		    int refresh_window_text_mode;
-//		    int display_mode;
-//		    bool did_leavetext;
-//		    int event_mode;
-//		    SDL_Surface *accumulation_surface; // Final image, i.e. picture_surface (+ text_window + text_surface)
-//		    SDL_Surface *backup_surface; // Final image w/o (text_window + text_surface) used in leaveTextDisplayMode()
-//		    SDL_Surface *screen_surface; // Text + Select_image + Tachi image + background
-//		    SDL_Surface *effect_dst_surface; // Intermediate source buffer for effect
-//		    SDL_Surface *effect_src_surface; // Intermediate destination buffer for effect
-//		    SDL_Surface *effect_tmp_surface; // Intermediate buffer for effect
-//		    SDL_Surface *screenshot_surface; // Screenshot
-//		    SDL_Surface *image_surface; // Reference for loadImage() - 32bpp
-//		
+		
+		    public int refresh_window_text_mode;
+		    public int display_mode;
+		    public bool did_leavetext;
+		    public int event_mode;
+		    public SDL_Surface accumulation_surface; // Final image, i.e. picture_surface (+ text_window + text_surface)
+		    public SDL_Surface backup_surface; // Final image w/o (text_window + text_surface) used in leaveTextDisplayMode()
+		    public SDL_Surface screen_surface; // Text + Select_image + Tachi image + background
+		    public SDL_Surface effect_dst_surface; // Intermediate source buffer for effect
+		    public SDL_Surface effect_src_surface; // Intermediate destination buffer for effect
+		    public SDL_Surface effect_tmp_surface; // Intermediate buffer for effect
+		    public SDL_Surface screenshot_surface; // Screenshot
+		    public SDL_Surface image_surface; // Reference for loadImage() - 32bpp
+		
 //		    unsigned char *tmp_image_buf;
 //		    unsigned long tmp_image_buf_length;
 //		    unsigned long mean_size_of_loaded_images;
@@ -649,37 +649,47 @@ namespace onscripter_csharp
 //		
 //		    bool current_button_valid;
 //		    int current_over_button;
-//		
-//		    /* ---------------------------------------- */
-//		    /* Mion: textbtn related variables */
-//		    struct TextButtonInfoLink{
-//		        struct TextButtonInfoLink *next;
-//		        char *text; //actual "text" of the button
-//		        char *prtext; // button text as printed (w/linebreaks)
-//		        ButtonLink *button;
-//		        int xy[2];
-//		        int no;
-//		        TextButtonInfoLink()
-//		        : next(NULL), text(NULL), prtext(NULL), button(NULL){
-//		            xy[0] = xy[1] = -1;
-//		            no = -1;
-//		        };
-//		        ~TextButtonInfoLink(){
-//		            if (text) delete[] text;
-//		            if (prtext) delete[] prtext;
-//		        };
-//		        void insert( TextButtonInfoLink *info ){
-//		            info->next = this->next;
-//		            this->next = info;
-//		        };
-//		    } text_button_info;
-//		    int txtbtn_start_num;
-//		    int next_txtbtn_num;
-//		    bool in_txtbtn;
-//		    bool txtbtn_show;
-//		    bool txtbtn_visible;
-//		    uchar3 linkcolor[2];
-//		
+		
+		    /* ---------------------------------------- */
+		    /* Mion: textbtn related variables */
+		    public class TextButtonInfoLink{
+		        public TextButtonInfoLink next = null;
+		        public CharPtr text; //actual "text" of the button
+		        public CharPtr prtext; // button text as printed (w/linebreaks)
+		        public ButtonLink button = null;
+		        public int[] xy = new int[2];
+		        public int no;
+		        public TextButtonInfoLink()
+		        { next = (null); text = (null); prtext = (null); button = (null);
+		            xy[0] = xy[1] = -1;
+		            no = -1;
+		        }
+		        ~TextButtonInfoLink(){
+		            if (null!=text) text = null;//delete[] text;
+		            if (null!=prtext) prtext = null;//delete[] prtext;
+		        }
+		        public void insert( TextButtonInfoLink info ){
+		            info.next = this.next;
+		            this.next = info;
+		        }
+		    } 
+		    public TextButtonInfoLink text_button_info = new TextButtonInfoLink();
+		    public int txtbtn_start_num;
+		    public int next_txtbtn_num;
+		    public bool in_txtbtn;
+		    public bool txtbtn_show;
+		    public bool txtbtn_visible;
+			public byte[][] linkcolor = linkcolor_init();
+			private static byte[][] linkcolor_init() 
+			{
+				byte[][] linkcolor_ = new byte[2][];
+				for (int i = 0; i < linkcolor_.Length; ++i)
+				{
+					linkcolor_[i] = new byte[3];
+				}	
+				return linkcolor_;
+			}
+			
 //		    bool getzxc_flag;
 //		    bool gettab_flag;
 //		    bool getpageup_flag;
@@ -754,23 +764,23 @@ namespace onscripter_csharp
 //		    void saveAll();
 //		    void loadEnvData();
 //		    void saveEnvData();
-//		
-//		    /* ---------------------------------------- */
-//		    /* Lookback related variables */
-//		    AnimationInfo lookback_info[4];
-//		
-//		    /* ---------------------------------------- */
-//		    /* Text related variables */
-//		    AnimationInfo text_info, shelter_text_info;
-//		    AnimationInfo sentence_font_info;
-//		    char *font_file;
-//		    int erase_text_window_mode;
-//		    bool text_on_flag; // suppress the effect of erase_text_window_mode
-//		    bool draw_cursor_flag;
-//		    int  textgosub_clickstr_state;
-//		    int  indent_offset;
-//		    int  line_enter_status; // 0 - no enter, 1 - pretext, 2 - body start, 3 - within body
-//		    int  page_enter_status; // 0 ... no enter, 1 ... body
+		
+		    /* ---------------------------------------- */
+		    /* Lookback related variables */
+		    public AnimationInfo[] lookback_info = new AnimationInfo[4];
+		
+		    /* ---------------------------------------- */
+		    /* Text related variables */
+			public AnimationInfo text_info = new AnimationInfo(), shelter_text_info = new AnimationInfo();
+			public AnimationInfo sentence_font_info = new AnimationInfo();
+		    public CharPtr font_file;
+		    public int erase_text_window_mode;
+		    public bool text_on_flag; // suppress the effect of erase_text_window_mode
+		    public bool draw_cursor_flag;
+		    public int  textgosub_clickstr_state;
+		    public int  indent_offset;
+		    public int  line_enter_status; // 0 - no enter, 1 - pretext, 2 - body start, 3 - within body
+		    public int  page_enter_status; // 0 ... no enter, 1 ... body
 //		    struct GlyphCache{
 //		        GlyphCache *next;
 //		        Uint16 text;
@@ -780,8 +790,8 @@ namespace onscripter_csharp
 //		        : next(NULL), text(0), font(NULL), surface(NULL) {}
 //		        ~GlyphCache() { SDL_FreeSurface(surface); }
 //		    } *root_glyph_cache, glyph_cache[NUM_GLYPH_CACHE];
-//		    int last_textpos_xy[2];
-//		
+		    public int[] last_textpos_xy = new int[2];
+		
 //		    int  refreshMode();
 //		    void setwindowCore();
 //		
@@ -800,32 +810,33 @@ namespace onscripter_csharp
 //		    int  textCommand();
 //		    void processEOT();
 //		    bool processText();
-//		
-//		    //Mion: variables & functions for special text processing
-//		    bool *string_buffer_breaks;  // can it break before a particular offset?
-//		    char *string_buffer_margins; // where are the ruby margins, how long (in pixels)
-//		    bool line_has_nonspace;
-//		    enum LineBreakType {
-//		        SPACEBREAK = 1, // Western-style, break before spaces
-//		        KINSOKU    = 2  // Eastern-style, break anywhere except before/after forbidden chars
-//		    } last_line_break_type;
+		
+		    //Mion: variables & functions for special text processing
+		    public bool[] string_buffer_breaks;  // can it break before a particular offset?
+		    public CharPtr string_buffer_margins; // where are the ruby margins, how long (in pixels)
+		    public bool line_has_nonspace;
+		    public enum LineBreakType {
+		        SPACEBREAK = 1, // Western-style, break before spaces
+		        KINSOKU    = 2  // Eastern-style, break anywhere except before/after forbidden chars
+		    } 
+		    public LineBreakType last_line_break_type;
 //		    char doLineBreak(bool isHardBreak=false);
 //		    int isTextCommand(const char *buf);
 //		    void processRuby(unsigned int i, int cmd);
 //		    bool processBreaks(bool cont_line, LineBreakType style);
 //		    int findNextBreak(int offset, int &len);
-//		
-//		    /* ---------------------------------------- */
-//		    /* Skip mode */
-//		    enum {
-//		        SKIP_NONE    = 0,
-//		        SKIP_NORMAL  = 1, // skip endlessly/to unread text (press 's' button)
-//		        SKIP_TO_EOP  = 2, // skip to end of page (press 'o' button)
-//		        SKIP_TO_WAIT = 4, // skip to next clickwait
-//		        SKIP_TO_EOL  = 8  // skip to end of line
-//		    };
-//		    int skip_mode;
-//		
+		
+		    /* ---------------------------------------- */
+		    /* Skip mode */
+		    
+		    public const int SKIP_NONE    = 0;
+		    public const int SKIP_NORMAL  = 1; // skip endlessly/to unread text (press 's' button)
+		    public const int SKIP_TO_EOP  = 2; // skip to end of page (press 'o' button)
+		    public const int SKIP_TO_WAIT = 4; // skip to next clickwait
+		    public const int SKIP_TO_EOL  = 8; // skip to end of line
+		    
+		    public int skip_mode;
+		
 //		    /* ---------------------------------------- */
 //		    /* Effect related variables */
 //		    DirtyRect dirty_rect, dirty_rect_tmp; // only this region is updated
@@ -985,9 +996,9 @@ namespace onscripter_csharp
 //		    /* ---------------------------------------- */
 //		    /* Text event related variables */
 //		    TTF_Font *text_font;
-//		    bool new_line_skip_flag;
-//		    int text_speed_no;
-//		
+		    public bool new_line_skip_flag;
+		    public int text_speed_no;
+		
 //		    void displayTextWindow( SDL_Surface *surface, SDL_Rect &clip );
 //		    void clearCurrentPage();
 //		    void newPage( bool next_flag );
@@ -1082,8 +1093,8 @@ namespace onscripter_csharp
 //		    bool executeSystemYesNo( int caller, int file_no=0 );
 //		    void setupLookbackButton();
 //		    void executeSystemLookback();
-//		};
-//		
+		}
+		
 //		#endif // __ONSCRIPTER_LABEL_H__
 	}
 }

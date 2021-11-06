@@ -45,10 +45,10 @@ namespace onscripter_csharp
 		// OS X pollutes the main namespace with its own FontInfo type, so we
 		// have to use something else.
 		public partial class Fontinfo {
-//		public:
-//		    enum { YOKO_MODE = 0,
-//		           TATE_MODE = 1
-//		    };
+
+		    public const int YOKO_MODE = 0;
+		    public const int TATE_MODE = 1;
+		    
 		    public UnsignedCharPtr ttf_font;
 		    public byte[] color = new Byte[3];
 			public byte[] on_color = new Byte[3], off_color = new Byte[3], nofile_color = new Byte[3];
@@ -64,11 +64,11 @@ namespace onscripter_csharp
 		    public bool is_newline_accepted;
 		    public byte[]  window_color = new byte[3];
 		
-//		    int line_offset_xy[2]; // ruby offset for each line
-//		    int ruby_offset_xy[2]; // ruby offset for the whole sentence
-//		    bool rubyon_flag;
-//		    int tateyoko_mode;
-//		
+		    public int[] line_offset_xy = new int[2]; // ruby offset for each line
+		    public int[] ruby_offset_xy = new int[2]; // ruby offset for the whole sentence
+		    public bool rubyon_flag;
+		    public int tateyoko_mode;
+		
 //		    Fontinfo();
 //		    void reset();
 //		    void *openFont( char *font_file, int ratio1, int ratio2 );

@@ -319,7 +319,7 @@ namespace onscripter_csharp
 			    if (null!=savedir) savedir = null;//delete[] savedir;
 			}
 			
-			public void reset()
+			public virtual void reset()
 			{
 			    resetDefineFlags();
 			
@@ -600,7 +600,7 @@ namespace onscripter_csharp
 			    script_h.processError(str, title, reason, false, is_simple);
 			}
 			
-			public int parseLine()
+			public virtual int parseLine()
 			{
 				CharPtr cmd = new CharPtr(script_h.getStringBuffer(), string_buffer_offset);
 			

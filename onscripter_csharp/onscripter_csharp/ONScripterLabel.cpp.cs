@@ -580,7 +580,7 @@ namespace onscripter_csharp
 //			  surround_rects(NULL),
 //			  text_font(NULL), cached_page(NULL), system_menu_title(NULL),
 //			  scaled_flag(false)
-			{
+			{			
 //			    //first initialize *everything* (static) to base values
 //			
 //			    resetFlags();
@@ -1129,7 +1129,7 @@ namespace onscripter_csharp
 //			    return 0;
 			}
 			
-			public void reset()
+			public override void reset()
 			{
 //			    resetFlags();
 //			
@@ -1468,7 +1468,7 @@ namespace onscripter_csharp
 //			    return true;
 			}
 			
-			public void flush( int refresh_mode, SDL_Rect rect, bool clear_dirty_flag, bool direct_flag )
+			public void flush( int refresh_mode, SDL_Rect rect = null, bool clear_dirty_flag = true, bool direct_flag = false )
 			{
 //			    if ( direct_flag ){
 //			        flushDirect( *rect, refresh_mode );
@@ -1752,7 +1752,7 @@ namespace onscripter_csharp
 //			    if ( ret == RET_NOMATCH ) ret = this->parseLine();
 			}
 			
-			public int parseLine( )
+			public override int parseLine( )
 			{
 				return 0;
 //			    int ret;

@@ -220,7 +220,7 @@ namespace onscripter_csharp
 			
 			public void drawChar( CharPtr text, Fontinfo info, bool flush_flag,
 			                                bool lookback_flag, SDL_Surface surface,
-			                                AnimationInfo cache_info, int abs_offset, SDL_Rect clip )
+			                                AnimationInfo cache_info, int abs_offset = 0, SDL_Rect clip = null )
 			{
 //			    //printf("draw %x-%x[%s] %d, %d\n", text[0], text[1], text, info->xy[0], info->xy[1] );
 //			
@@ -878,330 +878,331 @@ namespace onscripter_csharp
 			
 			public void processEOT()
 			{
-//			    skip_mode &= ~SKIP_TO_WAIT;
-//			    if ((skip_mode & SKIP_TO_EOL) || (skip_mode == SKIP_NONE))
-//			        flush(refreshMode());
-//			    if (!clickskippage_flag && !skip_past_newline)
-//			        skip_mode &= ~SKIP_TO_EOL;
-//			    indent_offset = 0;
-//			    if (!sentence_font.isLineEmpty() && !new_line_skip_flag){
-//			        doLineBreak(true);
-//			    }
-//			    line_enter_status = 0;
+			    skip_mode &= ~SKIP_TO_WAIT;
+			    if (0!=(skip_mode & SKIP_TO_EOL) || (skip_mode == SKIP_NONE))
+			        flush(refreshMode());
+			    if (!clickskippage_flag && !skip_past_newline)
+			        skip_mode &= ~SKIP_TO_EOL;
+			    indent_offset = 0;
+			    if (!sentence_font.isLineEmpty() && !new_line_skip_flag){
+			        doLineBreak(true);
+			    }
+			    line_enter_status = 0;
 			}
 			
 			public bool processText()
 			//Mion: extensively modified the text processing
 			{
-				return false;
-//			    //printf("processText %s %d %d %d\n", script_h.getStringBuffer() + string_buffer_offset, string_buffer_offset, event_mode, line_enter_status);
-//			
-//			    char out_text[3]= {'\0', '\0', '\0'};
-//			
-//			    bool old_new_line_skip_flag = new_line_skip_flag; //Mion: for temp Umineko8 fix
-//			
-//			    // process linebreaking when at the start of (non-pretext) buffer
-//			    if (line_enter_status == 2) {
-//			        if (!new_line_skip_flag)
-//			            line_has_nonspace = true;
-//			        if (!sentence_font.isLineEmpty()) {
-//			            new_line_skip_flag = true;
-//			        }
-//			        if ( script_h.preferred_script == ScriptHandler::JAPANESE_SCRIPT ) {
-//			            processBreaks(new_line_skip_flag, KINSOKU);
-//			        } else {
-//			            if (! processBreaks(new_line_skip_flag, SPACEBREAK)) {
-//			                // no spaces or printable ASCII found in this line,
-//			                // use kinsoku rules
-//			                processBreaks(new_line_skip_flag, KINSOKU);
-//			            }
-//			        }
-//			        line_enter_status = 3;
-//			    }
-//			
-//			    if (script_h.getStringBuffer()[string_buffer_offset] == 0x00){
-//			        processEOT();
-//			        return false;
-//			    }
-//			
-//			    new_line_skip_flag = false;
-//			    
-//			    char ch = script_h.getStringBuffer()[string_buffer_offset];
-//			
-//			    if (!line_has_nonspace) {
-//			        // skip over leading spaces in a continued line
-//			        while (ch == ' ')
-//			            ch = script_h.getStringBuffer()[++string_buffer_offset];
-//			    }
-//			
-//			    int cmd = isTextCommand(script_h.getStringBuffer() + string_buffer_offset);
-//			    if (cmd <= 0) {
-//			        line_has_nonspace = true;
-//			        if (sentence_font.isEndOfLine(0) ||
-//			            (IS_TWO_BYTE(ch) && sentence_font.isEndOfLine(1))) {
-//			            // no room for current char on the line
-//			            //printf("at end; breaking before %s", script_h.getStringBuffer() + string_buffer_offset);
-//			            ch = doLineBreak();
-//			        }
-//			        else {
-//			            int break_offset, length, margins, tmp;
-//			            break_offset = findNextBreak(string_buffer_offset, length);
-//			            if (break_offset == string_buffer_offset) {
-//			                if (cmd < 0) {
-//			                    break_offset++;
-//			                    tmp = 0;
-//			                }
-//			                else if (IS_TWO_BYTE(ch)) {
-//			                    break_offset += 2;
-//			                    tmp = 2;
-//			                } else {
-//			                    break_offset += 1;
-//			                    tmp = 1;
-//			                }
-//			                break_offset = findNextBreak(break_offset, length);
-//			                //printf("next break before %s", script_h.getStringBuffer() + break_offset);
-//			                margins = 0;
-//			                for (int i = string_buffer_offset; i < break_offset; i++)
-//			                    margins += string_buffer_margins[i];
-//			                sentence_font.addLineOffset(margins);
-//			                if (sentence_font.isEndOfLine(length+tmp-1)) {
-//			                    //printf("breaking before %s", script_h.getStringBuffer() + string_buffer_offset);
-//			                    ch = doLineBreak();
-//			                } else {
-//			                    sentence_font.addLineOffset(-margins);
-//			                }
-//			            }
-//			        }
-//			    }
-//			
-//			    new_line_skip_flag = false;
-//			
-//			    if ( IS_TWO_BYTE(ch) ){ // Shift jis
-//			
-//			        bool flush_flag = !(skip_mode || ctrl_pressed_status || (sentence_font.wait_time == 0));
-//			
-//			        out_text[0] = script_h.getStringBuffer()[string_buffer_offset];
-//			        out_text[1] = script_h.getStringBuffer()[string_buffer_offset+1];
-//			
-//			        last_textpos_xy[0] = sentence_font.x()-sentence_font.ruby_offset_xy[0];
-//			        last_textpos_xy[1] = sentence_font.y()-sentence_font.ruby_offset_xy[1];
-//			        drawChar( out_text, &sentence_font, flush_flag, true, accumulation_surface, &text_info );
-//			
-//			        if (flush_flag) {
-//			            if (!( (skip_mode & (SKIP_TO_WAIT | SKIP_TO_EOL)) ||
-//			                   (sentence_font.wait_time == 0) )) {
-//			                event_mode = WAIT_TEXTOUT_MODE;
-//			                if ( sentence_font.wait_time == -1 )
-//			                    waitEvent( default_text_speed[text_speed_no] );
-//			                else
-//			                    waitEvent( sentence_font.wait_time );
-//			            }
-//			        }
-//			        num_chars_in_sentence += 2;
-//			        string_buffer_offset += 2;
-//			
-//					SDL_XXX();
-//			        return true;
-//			    }
-//			    else if (script_h.checkClickstr(&script_h.getStringBuffer()[string_buffer_offset]) == -2) {
-//			        // got the special "\@" clickwait-or-page
-//			        if (in_txtbtn)
-//			            terminateTextButton();
-//			        string_buffer_offset += 2;
-//			        if (sentence_font.getRemainingLine() <= clickstr_line)
-//			            return clickNewPage();
-//			        else
-//			            return clickWait();
-//			    }
-//			    else if ( ch == '`' ) {
-//			        string_buffer_offset++;
-//			        return true;
-//			    }
-//			    else if ( ch == '@' ){ // wait for click
-//			        if (in_txtbtn)
-//			            terminateTextButton();
-//			        string_buffer_offset++;
-//			        return clickWait();
-//			    }
-//			    else if ( ch == '\\' ){ // new page
-//			        if (in_txtbtn)
-//			            terminateTextButton();
-//			        string_buffer_offset++;
-//			        return clickNewPage();
-//			    }
-//			    else if ( ch == '!' ){
-//			        string_buffer_offset++;
-//			        if ( script_h.getStringBuffer()[ string_buffer_offset ] == 's' ){
-//			            if (in_txtbtn)
-//			                terminateTextButton();
-//			            string_buffer_offset++;
-//			            if (!skip_mode && (sentence_font.wait_time == 0)) flush(refreshMode());
-//			            if ( script_h.getStringBuffer()[ string_buffer_offset ] == 'd' ){
-//			                sentence_font.wait_time = -1;
-//			                string_buffer_offset++;
-//			            }
-//			            else{
-//			                int t = 0;
-//			                while( script_h.getStringBuffer()[ string_buffer_offset ] >= '0' &&
-//			                       script_h.getStringBuffer()[ string_buffer_offset ] <= '9' ){
-//			                    t = t*10 + script_h.getStringBuffer()[ string_buffer_offset ] - '0';
-//			                    string_buffer_offset++;
-//			                }
-//			                sentence_font.wait_time = t;
-//			                while (script_h.getStringBuffer()[ string_buffer_offset ] == ' ' ||
-//			                       script_h.getStringBuffer()[ string_buffer_offset ] == '\t') string_buffer_offset++;
-//			            }
-//			        }
-//			        else if ( script_h.getStringBuffer()[ string_buffer_offset ] == 'w' ||
-//			                  script_h.getStringBuffer()[ string_buffer_offset ] == 'd' ){
-//			            event_mode = WAIT_SLEEP_MODE;
-//			
-//			            bool flag = false;
-//			            bool in_skip = (skip_mode & (SKIP_NORMAL | SKIP_TO_EOP)) || ctrl_pressed_status;
-//			            if ( script_h.getStringBuffer()[ string_buffer_offset ] == 'd' ) flag = true;
-//			            string_buffer_offset++;
-//			            int t = 0;
-//			            while( script_h.getStringBuffer()[ string_buffer_offset ] >= '0' &&
-//			                   script_h.getStringBuffer()[ string_buffer_offset ] <= '9' ){
-//			                t = t*10 + script_h.getStringBuffer()[ string_buffer_offset ] - '0';
-//			                string_buffer_offset++;
-//			            }
-//			            if (in_txtbtn)
-//			                terminateTextButton();
-//			            flush(refreshMode());
-//			            if ( flag && in_skip) {
-//			                if (!clickskippage_flag)
-//			                    skip_mode &= ~(SKIP_TO_EOL | SKIP_TO_WAIT);
-//			            }
-//			            else{
-//			                if (!flag && in_skip) {
-//			                    //Mion: instead of skipping entirely, let's do a shortened wait (safer)
-//			                    if (t > 100) {
-//			                        t = t / 10;
-//			                    } else if (t > 10) {
-//			                        t = 10;
-//			                    }
-//			                }
-//			                if (!clickskippage_flag)
-//			                    skip_mode &= ~(SKIP_TO_EOL | SKIP_TO_WAIT);
-//			                event_mode |= WAIT_TEXTOUT_MODE;
-//			                if ( flag ) event_mode |= WAIT_INPUT_MODE;
-//			                key_pressed_flag = false;
-//			                waitEvent(t);
-//			            }
-//			        }
-//			        else{
-//			            string_buffer_offset--;
-//			            goto notacommand;
-//			        }
-//			        return true;
-//			    }
-//			    else if ( ch == '#' ){
-//			         char hexchecker;
-//			         for ( int tmpctr = 0; tmpctr <= 5; tmpctr++) {
-//			             hexchecker = script_h.getStringBuffer()[ string_buffer_offset+tmpctr+1 ];
-//			             if(!((hexchecker >= '0' && hexchecker <= '9') || (hexchecker >= 'a' && hexchecker <= 'f') || (hexchecker >= 'A' && hexchecker <= 'F'))) goto notacommand;
-//			         }
-//			        readColor( &sentence_font.color, script_h.getStringBuffer() + string_buffer_offset );
-//			        readColor( &ruby_font.color, script_h.getStringBuffer() + string_buffer_offset );
-//			        string_buffer_offset += 7;
-//			        return true;
-//			    }
-//			    else if ( ch == '(' ){
-//			        current_page->add('(');
-//			        startRuby( script_h.getStringBuffer() + string_buffer_offset + 1, sentence_font );
-//			        sentence_font.addLineOffset(ruby_struct.margin);
-//			        string_buffer_offset++;
-//			        return true;
-//			    }
-//			    else if ( ch == '/'){
-//			        if ( ruby_struct.stage == RubyStruct::BODY ){
-//			            current_page->add('/');
-//			            sentence_font.addLineOffset(ruby_struct.margin);
-//			            string_buffer_offset = ruby_struct.ruby_end - script_h.getStringBuffer();
-//			            if (*ruby_struct.ruby_end == ')'){
-//			                if ( skip_mode & (SKIP_NORMAL | SKIP_TO_EOP) || ctrl_pressed_status )
-//			                    endRuby(false, true, accumulation_surface, &text_info);
-//			                else
-//			                    endRuby(true, true, accumulation_surface, &text_info);
-//			                current_page->add(')');
-//			                string_buffer_offset++;
-//			            }
-//			
-//			            return true;
-//			        }
-//			        else if (script_h.getStringBuffer()[string_buffer_offset+1] != 0x00)
-//			            goto notacommand;
-//			        else{ // skip new line
-//			            new_line_skip_flag = true;
-//			            string_buffer_offset++;
-//			            if (in_txtbtn)
-//			                terminateTextButton();
-//			            if (script_h.getStringBuffer()[string_buffer_offset] != 0x00)
-//			                errorAndExit( "'new line' must follow '/'." );
-//			            return true; // skip the following eol
-//			        }
-//			    }
-//			    else if ( ch == ')' && ruby_struct.stage == RubyStruct::BODY ){
-//			        current_page->add(')');
-//			        string_buffer_offset++;
-//			        ruby_struct.stage = RubyStruct::NONE;
-//			        return true;
-//			    }
-//			    else if ( ch == ScriptHandler::TXTBTN_START ) { //begins a textbutton
-//			        if (!in_txtbtn) {
-//			            textbtnColorChange();
-//			            text_button_info.insert(new TextButtonInfoLink);
-//			            text_button_info.next->xy[0] = sentence_font.xy[0];
-//			            text_button_info.next->xy[1] = sentence_font.xy[1];
-//			            string_buffer_offset++;
-//			            // need to read in optional integer value
-//			            int num = 0;
-//			            while ( script_h.getStringBuffer()[ string_buffer_offset ] >= '0' &&
-//			                    script_h.getStringBuffer()[ string_buffer_offset ] <= '9' ) {
-//			                num *= 10;
-//			                num += script_h.getStringBuffer()[ string_buffer_offset ] - '0';
-//			                string_buffer_offset++;
-//			            }
-//			            if (num > 0) {
-//			                next_txtbtn_num = num;
-//			                text_button_info.next->no = num;
-//			            } else {
-//			                text_button_info.next->no = next_txtbtn_num++;
-//			            }
-//			            text_button_info.next->prtext = current_page->text
-//			                + current_page->text_count;
-//			            text_button_info.next->text = script_h.getStringBuffer() + 
-//			                string_buffer_offset;
-//			            in_txtbtn = true;
-//			        } else
-//			            string_buffer_offset++;
-//			        return true;
-//			    }
-//			    else if ( ch == ScriptHandler::TXTBTN_END ) {   //ends a textbutton
-//			        if (in_txtbtn) {
-//			            char *tmptext;
-//			            int txtbtn_len = script_h.getStringBuffer() + string_buffer_offset
-//			                - text_button_info.next->text;
-//			            tmptext = new char[txtbtn_len + 1];
-//			            strncpy(tmptext, text_button_info.next->text, txtbtn_len);
-//			            tmptext[txtbtn_len] = '\0';
-//			            text_button_info.next->text = tmptext;
-//			            txtbtn_len = current_page->text + current_page->text_count
-//			                - text_button_info.next->prtext;
-//			            tmptext = new char[txtbtn_len + 1];
-//			            strncpy(tmptext, text_button_info.next->prtext, txtbtn_len);
-//			            tmptext[txtbtn_len] = '\0';
-//			            text_button_info.next->prtext = tmptext;
-//			            textbtnColorChange();
-//			            in_txtbtn = false;
-//			        }
-//			        string_buffer_offset++;
-//			        return true;
-//			    }
-//			    else{
-//			        notacommand: //insani
-//			
+				//printf("processText %s %d %d %d\n", script_h.getStringBuffer() + string_buffer_offset, string_buffer_offset, event_mode, line_enter_status);
+			
+				char[] out_text = new char[3]{'\0', '\0', '\0'};
+			
+			    bool old_new_line_skip_flag = new_line_skip_flag; //Mion: for temp Umineko8 fix
+			
+			    // process linebreaking when at the start of (non-pretext) buffer
+			    if (line_enter_status == 2) {
+			        if (!new_line_skip_flag)
+			            line_has_nonspace = true;
+			        if (!sentence_font.isLineEmpty()) {
+			            new_line_skip_flag = true;
+			        }
+			        if ( script_h.preferred_script == ScriptHandler.LanguageScript.JAPANESE_SCRIPT ) {
+			            processBreaks(new_line_skip_flag, LineBreakType.KINSOKU);
+			        } else {
+			            if (! processBreaks(new_line_skip_flag, LineBreakType.SPACEBREAK)) {
+			                // no spaces or printable ASCII found in this line,
+			                // use kinsoku rules
+			                processBreaks(new_line_skip_flag, LineBreakType.KINSOKU);
+			            }
+			        }
+			        line_enter_status = 3;
+			    }
+			
+			    if (script_h.getStringBuffer()[string_buffer_offset] == 0x00){
+			        processEOT();
+			        return false;
+			    }
+			
+			    new_line_skip_flag = false;
+			    
+			    char ch = script_h.getStringBuffer()[string_buffer_offset];
+			
+			    if (!line_has_nonspace) {
+			        // skip over leading spaces in a continued line
+			        while (ch == ' ')
+			            ch = script_h.getStringBuffer()[++string_buffer_offset];
+			    }
+			
+			    int cmd = isTextCommand(new CharPtr(script_h.getStringBuffer(), + string_buffer_offset));
+			    if (cmd <= 0) {
+			        line_has_nonspace = true;
+			        if (sentence_font.isEndOfLine(0) ||
+			            (IS_TWO_BYTE(ch) && sentence_font.isEndOfLine(1))) {
+			            // no room for current char on the line
+			            //printf("at end; breaking before %s", script_h.getStringBuffer() + string_buffer_offset);
+			            ch = doLineBreak();
+			        }
+			        else {
+			            int break_offset, length = 0, margins, tmp;
+			            break_offset = findNextBreak(string_buffer_offset, ref length);
+			            if (break_offset == string_buffer_offset) {
+			                if (cmd < 0) {
+			                    break_offset++;
+			                    tmp = 0;
+			                }
+			                else if (IS_TWO_BYTE(ch)) {
+			                    break_offset += 2;
+			                    tmp = 2;
+			                } else {
+			                    break_offset += 1;
+			                    tmp = 1;
+			                }
+			                break_offset = findNextBreak(break_offset, ref length);
+			                //printf("next break before %s", script_h.getStringBuffer() + break_offset);
+			                margins = 0;
+			                for (int i = string_buffer_offset; i < break_offset; i++)
+			                    margins += string_buffer_margins[i];
+			                sentence_font.addLineOffset(margins);
+			                if (sentence_font.isEndOfLine(length+tmp-1)) {
+			                    //printf("breaking before %s", script_h.getStringBuffer() + string_buffer_offset);
+			                    ch = doLineBreak();
+			                } else {
+			                    sentence_font.addLineOffset(-margins);
+			                }
+			            }
+			        }
+			    }
+			
+			    new_line_skip_flag = false;
+			
+			    if ( IS_TWO_BYTE(ch) ){ // Shift jis
+			
+			        bool flush_flag = !(0!=skip_mode || 0!=ctrl_pressed_status || (sentence_font.wait_time == 0));
+			
+			        out_text[0] = script_h.getStringBuffer()[string_buffer_offset];
+			        out_text[1] = script_h.getStringBuffer()[string_buffer_offset+1];
+			
+			        last_textpos_xy[0] = sentence_font.x()-sentence_font.ruby_offset_xy[0];
+			        last_textpos_xy[1] = sentence_font.y()-sentence_font.ruby_offset_xy[1];
+			        drawChar( out_text, sentence_font, flush_flag, true, accumulation_surface, text_info );
+			
+			        if (flush_flag) {
+			            if (!( 0!=(skip_mode & (SKIP_TO_WAIT | SKIP_TO_EOL)) ||
+			                   (sentence_font.wait_time == 0) )) {
+			                event_mode = WAIT_TEXTOUT_MODE;
+			                if ( sentence_font.wait_time == -1 )
+			                    waitEvent( default_text_speed[text_speed_no] );
+			                else
+			                    waitEvent( sentence_font.wait_time );
+			            }
+			        }
+			        num_chars_in_sentence += 2;
+			        string_buffer_offset += 2;
+			
+					SDL_XXX();
+			        return true;
+			    }
+			    else if (script_h.checkClickstr(new CharPtr(script_h.getStringBuffer(), string_buffer_offset)) == -2) {
+			        // got the special "\@" clickwait-or-page
+			        if (in_txtbtn)
+			            terminateTextButton();
+			        string_buffer_offset += 2;
+			        if (sentence_font.getRemainingLine() <= clickstr_line)
+			            return clickNewPage();
+			        else
+			            return clickWait();
+			    }
+			    else if ( ch == '`' ) {
+			        string_buffer_offset++;
+			        return true;
+			    }
+			    else if ( ch == '@' ){ // wait for click
+			        if (in_txtbtn)
+			            terminateTextButton();
+			        string_buffer_offset++;
+			        return clickWait();
+			    }
+			    else if ( ch == '\\' ){ // new page
+			        if (in_txtbtn)
+			            terminateTextButton();
+			        string_buffer_offset++;
+			        return clickNewPage();
+			    }
+			    else if ( ch == '!' ){
+			        string_buffer_offset++;
+			        if ( script_h.getStringBuffer()[ string_buffer_offset ] == 's' ){
+			            if (in_txtbtn)
+			                terminateTextButton();
+			            string_buffer_offset++;
+			            if (0==skip_mode && (sentence_font.wait_time == 0)) flush(refreshMode());
+			            if ( script_h.getStringBuffer()[ string_buffer_offset ] == 'd' ){
+			                sentence_font.wait_time = -1;
+			                string_buffer_offset++;
+			            }
+			            else{
+			                int t = 0;
+			                while( script_h.getStringBuffer()[ string_buffer_offset ] >= '0' &&
+			                       script_h.getStringBuffer()[ string_buffer_offset ] <= '9' ){
+			                    t = t*10 + script_h.getStringBuffer()[ string_buffer_offset ] - '0';
+			                    string_buffer_offset++;
+			                }
+			                sentence_font.wait_time = t;
+			                while (script_h.getStringBuffer()[ string_buffer_offset ] == ' ' ||
+			                       script_h.getStringBuffer()[ string_buffer_offset ] == '\t') string_buffer_offset++;
+			            }
+			        }
+			        else if ( script_h.getStringBuffer()[ string_buffer_offset ] == 'w' ||
+			                  script_h.getStringBuffer()[ string_buffer_offset ] == 'd' ){
+			            event_mode = WAIT_SLEEP_MODE;
+			
+			            bool flag = false;
+			            bool in_skip = 0!=(skip_mode & (SKIP_NORMAL | SKIP_TO_EOP)) || 0!=ctrl_pressed_status;
+			            if ( script_h.getStringBuffer()[ string_buffer_offset ] == 'd' ) flag = true;
+			            string_buffer_offset++;
+			            int t = 0;
+			            while( script_h.getStringBuffer()[ string_buffer_offset ] >= '0' &&
+			                   script_h.getStringBuffer()[ string_buffer_offset ] <= '9' ){
+			                t = t*10 + script_h.getStringBuffer()[ string_buffer_offset ] - '0';
+			                string_buffer_offset++;
+			            }
+			            if (in_txtbtn)
+			                terminateTextButton();
+			            flush(refreshMode());
+			            if ( flag && in_skip) {
+			                if (!clickskippage_flag)
+			                    skip_mode &= ~(SKIP_TO_EOL | SKIP_TO_WAIT);
+			            }
+			            else{
+			                if (!flag && in_skip) {
+			                    //Mion: instead of skipping entirely, let's do a shortened wait (safer)
+			                    if (t > 100) {
+			                        t = t / 10;
+			                    } else if (t > 10) {
+			                        t = 10;
+			                    }
+			                }
+			                if (!clickskippage_flag)
+			                    skip_mode &= ~(SKIP_TO_EOL | SKIP_TO_WAIT);
+			                event_mode |= WAIT_TEXTOUT_MODE;
+			                if ( flag ) event_mode |= WAIT_INPUT_MODE;
+			                key_pressed_flag = false;
+			                waitEvent(t);
+			            }
+			        }
+			        else{
+			            string_buffer_offset--;
+			            goto notacommand;
+			        }
+			        return true;
+			    }
+			    else if ( ch == '#' ){
+			         char hexchecker;
+			         for ( int tmpctr = 0; tmpctr <= 5; tmpctr++) {
+			             hexchecker = script_h.getStringBuffer()[ string_buffer_offset+tmpctr+1 ];
+			             if(!((hexchecker >= '0' && hexchecker <= '9') || (hexchecker >= 'a' && hexchecker <= 'f') || (hexchecker >= 'A' && hexchecker <= 'F'))) goto notacommand;
+			         }
+			        readColor( ref sentence_font.color, new CharPtr(script_h.getStringBuffer(), + string_buffer_offset) );
+			        readColor( ref ruby_font.color, new CharPtr(script_h.getStringBuffer(), + string_buffer_offset) );
+			        string_buffer_offset += 7;
+			        return true;
+			    }
+			    else if ( ch == '(' ){
+			    	current_page.add((byte)'(');
+			        startRuby( new CharPtr(script_h.getStringBuffer(), + string_buffer_offset + 1), sentence_font );
+			        sentence_font.addLineOffset(ruby_struct.margin);
+			        string_buffer_offset++;
+			        return true;
+			    }
+			    else if ( ch == '/'){
+			        if ( ruby_struct.stage == RubyStruct.BODY ){
+			    		current_page.add((byte)'/');
+			            sentence_font.addLineOffset(ruby_struct.margin);
+			            string_buffer_offset = CharPtr.minus(ruby_struct.ruby_end, script_h.getStringBuffer());
+			            if (ruby_struct.ruby_end[0] == ')'){
+			            	if ( 0!=(skip_mode & (SKIP_NORMAL | SKIP_TO_EOP)) || 0!=ctrl_pressed_status )
+			                    endRuby(false, true, accumulation_surface, text_info);
+			                else
+			                    endRuby(true, true, accumulation_surface, text_info);
+			                current_page.add((byte)')');
+			                string_buffer_offset++;
+			            }
+			
+			            return true;
+			        }
+			        else if (script_h.getStringBuffer()[string_buffer_offset+1] != 0x00)
+			            goto notacommand;
+			        else{ // skip new line
+			            new_line_skip_flag = true;
+			            string_buffer_offset++;
+			            if (in_txtbtn)
+			                terminateTextButton();
+			            if (script_h.getStringBuffer()[string_buffer_offset] != 0x00)
+			                errorAndExit( "'new line' must follow '/'." );
+			            return true; // skip the following eol
+			        }
+			    }
+			    else if ( ch == ')' && ruby_struct.stage == RubyStruct.BODY ){
+			    	current_page.add((byte)')');
+			        string_buffer_offset++;
+			        ruby_struct.stage = RubyStruct.NONE;
+			        return true;
+			    }
+			    else if ( ch == ScriptHandler.TXTBTN_START ) { //begins a textbutton
+			        if (!in_txtbtn) {
+			            textbtnColorChange();
+			            text_button_info.insert(new TextButtonInfoLink());
+			            text_button_info.next.xy[0] = sentence_font.xy[0];
+			            text_button_info.next.xy[1] = sentence_font.xy[1];
+			            string_buffer_offset++;
+			            // need to read in optional integer value
+			            int num = 0;
+			            while ( script_h.getStringBuffer()[ string_buffer_offset ] >= '0' &&
+			                    script_h.getStringBuffer()[ string_buffer_offset ] <= '9' ) {
+			                num *= 10;
+			                num += script_h.getStringBuffer()[ string_buffer_offset ] - '0';
+			                string_buffer_offset++;
+			            }
+			            if (num > 0) {
+			                next_txtbtn_num = num;
+			                text_button_info.next.no = num;
+			            } else {
+			                text_button_info.next.no = next_txtbtn_num++;
+			            }
+			            text_button_info.next.prtext = new CharPtr(current_page.text,
+			                                                       + current_page.text_count);
+			            text_button_info.next.text = new CharPtr(script_h.getStringBuffer(), + 
+			                                                     string_buffer_offset);
+			            in_txtbtn = true;
+			        } else
+			            string_buffer_offset++;
+			        return true;
+			    }
+			    else if ( ch == ScriptHandler.TXTBTN_END ) {   //ends a textbutton
+			        if (in_txtbtn) {
+			            CharPtr tmptext;
+			            int txtbtn_len = CharPtr.minus(new CharPtr(script_h.getStringBuffer(), + string_buffer_offset)
+			                                           , text_button_info.next.text);
+			            tmptext = new char[txtbtn_len + 1];
+			            strncpy(tmptext, text_button_info.next.text, (uint)txtbtn_len);
+			            tmptext[txtbtn_len] = '\0';
+			            text_button_info.next.text = new CharPtr(tmptext);
+			            txtbtn_len = CharPtr.minus(new CharPtr(current_page.text, + current_page.text_count)
+			                                       , text_button_info.next.prtext);
+			            tmptext = new char[txtbtn_len + 1];
+			            strncpy(tmptext, text_button_info.next.prtext, (uint)txtbtn_len);
+			            tmptext[txtbtn_len] = '\0';
+			            text_button_info.next.prtext = new CharPtr(tmptext);
+			            textbtnColorChange();
+			            in_txtbtn = false;
+			        }
+			        string_buffer_offset++;
+			        return true;
+			    }
+			    else{
+			    	//notacommand: //insani
+			        //FIXME: move to below
+			    	goto notacommand;
+			
 //			        line_has_nonspace = true;
 //			        out_text[0] = ch;
 //			
@@ -1215,12 +1216,12 @@ namespace onscripter_csharp
 //			        }
 //			        last_textpos_xy[0] = sentence_font.x()-sentence_font.ruby_offset_xy[0];
 //			        last_textpos_xy[1] = sentence_font.y()-sentence_font.ruby_offset_xy[1];
-//			        bool flush_flag = !(skip_mode || ctrl_pressed_status || (sentence_font.wait_time == 0));
-//			        drawChar( out_text, &sentence_font, flush_flag, true, accumulation_surface, &text_info );
+//			        bool flush_flag = !(0!=skip_mode || 0!=ctrl_pressed_status || (sentence_font.wait_time == 0));
+//			        drawChar( out_text, sentence_font, flush_flag, true, accumulation_surface, text_info );
 //			        num_chars_in_sentence++;
 //			        string_buffer_offset++;
 //			        if (flush_flag){
-//			            if (!((skip_mode & (SKIP_TO_WAIT | SKIP_TO_EOL)) ||
+//			            if (!(0!=(skip_mode & (SKIP_TO_WAIT | SKIP_TO_EOL)) ||
 //			                  (sentence_font.wait_time == 0)) ){
 //			                event_mode = WAIT_TEXTOUT_MODE;
 //			                if ( sentence_font.wait_time == -1 )
@@ -1230,34 +1231,67 @@ namespace onscripter_csharp
 //			            }
 //			        }
 //			        return true;
-//			    }
-//			
-//			    return false;
+			    }
+			    
+			    //FIXME: move to this:
+			   notacommand:
+			    {
+			    	line_has_nonspace = true;
+			        out_text[0] = ch;
+			
+			        if ((string_buffer_offset == 0) && (script_h.getStringBuffer()[1] == 0)) {
+			            // For now, when in double-byte mode, don't output single-byte
+			            // text unless string_buffer has more than 1 character
+			            // (temporary Umineko8 bugfix - Uncle Mion, March 8 2011) FIXME
+			            new_line_skip_flag = old_new_line_skip_flag;
+			            string_buffer_offset++;
+			            return false;
+			        }
+			        last_textpos_xy[0] = sentence_font.x()-sentence_font.ruby_offset_xy[0];
+			        last_textpos_xy[1] = sentence_font.y()-sentence_font.ruby_offset_xy[1];
+			        bool flush_flag = !(0!=skip_mode || 0!=ctrl_pressed_status || (sentence_font.wait_time == 0));
+			        drawChar( out_text, sentence_font, flush_flag, true, accumulation_surface, text_info );
+			        num_chars_in_sentence++;
+			        string_buffer_offset++;
+			        if (flush_flag){
+			            if (!(0!=(skip_mode & (SKIP_TO_WAIT | SKIP_TO_EOL)) ||
+			                  (sentence_font.wait_time == 0)) ){
+			                event_mode = WAIT_TEXTOUT_MODE;
+			                if ( sentence_font.wait_time == -1 )
+			                    waitEvent( default_text_speed[text_speed_no] );
+			                else
+			                    waitEvent( sentence_font.wait_time );
+			            }
+			        }
+			        return true;
+			    }
+			
+			    //FIXME: not reach
+			    //return false;
 			}
 			
-			public char doLineBreak(bool isHardBreak)
+			public char doLineBreak(bool isHardBreak=false)
 			// Mion: for text processing
 			{
-				return '\0';
-//			    sentence_font.newLine();
-//			    /* Mion: working on proper handling for "soft" page breaks,
-//			         but commented out for now until log text processing
-//			         can do intelligent linebreaking */
-//			    //if (isHardBreak) {
-//			        //add break char to the page log
-//			        current_page->add( 0x0a );
-//			        for (int i=0 ; i<indent_offset ; i++){
-//			            current_page->add(0x81);
-//			            current_page->add(0x40);
-//			            sentence_font.advanceCharInHankaku(2);
-//			        }
-//			    //}
-//			    line_has_nonspace = false;
-//			    char ch = script_h.getStringBuffer()[string_buffer_offset];
-//			    // skip leading spaces after a newline
-//			    while (ch == ' ')
-//			        ch = script_h.getStringBuffer()[++string_buffer_offset];
-//			    return ch;
+				sentence_font.newLine();
+			    /* Mion: working on proper handling for "soft" page breaks,
+			         but commented out for now until log text processing
+			         can do intelligent linebreaking */
+			    //if (isHardBreak) {
+			        //add break char to the page log
+			        current_page.add( 0x0a );
+			        for (int i=0 ; i<indent_offset ; i++){
+			            current_page.add(0x81);
+			            current_page.add(0x40);
+			            sentence_font.advanceCharInHankaku(2);
+			        }
+			    //}
+			    line_has_nonspace = false;
+			    char ch = script_h.getStringBuffer()[string_buffer_offset];
+			    // skip leading spaces after a newline
+			    while (ch == ' ')
+			        ch = script_h.getStringBuffer()[++string_buffer_offset];
+			    return ch;
 			}
 			
 			public int isTextCommand(CharPtr buf)
@@ -1266,99 +1300,100 @@ namespace onscripter_csharp
 			// if it's a ruby command, return -(# of chars)
 			// return 0 if not a text command
 			{
-				return 0;
-//			    int offset = 0;
-//			    if (script_h.checkClickstr(buf) == -2) {
-//			        // got the special "\@" clickwait-or-page
-//			        return 2;
-//			    }
-//			    else if (*buf == '`') {
-//			        return 1;
-//			    }
-//			    else if ((*buf == '@') || (*buf == '\\')) {
-//			        // clickwait, new page
-//			        return 1;
-//			    }
-//			    else if ( *buf == ScriptHandler::TXTBTN_START ||
-//			              *buf == ScriptHandler::TXTBTN_END ){
-//			        return 1;
-//			    }
-//			    else if ( *buf == '/') {
-//			        if (buf[1] == 0x0a)
-//			            return 1;
-//			        else
-//			            return 0;
-//			    }
-//			    else if ( *buf == '!' ){
-//			        offset++;
-//			        if ( buf[offset] == 's' ){
-//			            offset++;
-//			            if ( buf[offset] == 'd' ){
-//			                offset++;
-//			            }
-//			            else{
-//			                while( buf[offset] >= '0' && buf[offset] <= '9' ){
-//			                    offset++;
-//			                }
-//			            }
-//			        }
-//			        else if ( buf[offset] == 'w' || buf[offset] == 'd' ){
-//			            offset++;
-//			            while( buf[offset] >= '0' && buf[offset] <= '9' ){
-//			                offset++;
-//			            }
-//			        } else
-//			            return 0;
-//			        return offset;
-//			    }
-//			    else if ( *buf == '#' ){
-//			         char hexchecker;
-//			         for ( int tmpctr = 1; tmpctr <= 6; tmpctr++) {
-//			             hexchecker = buf[tmpctr];
-//			             if (!((hexchecker >= '0' && hexchecker <= '9') ||
-//			                 (hexchecker >= 'a' && hexchecker <= 'f') ||
-//			                 (hexchecker >= 'A' && hexchecker <= 'F')))
-//			                 return 0;
-//			         }
-//			         return 7;
-//			    }
-//			    else if ( *buf == '(' && rubyon_flag) {
-//			        // if ruby command, return as -length to indicate ruby
-//			        bool found_slash = false;
-//			        while (*buf != ')' && *buf != '\0') {
-//			            if (IS_TWO_BYTE(*buf)) {
-//			                buf++;
-//			                offset--;
-//			            } else if (*buf == '/') {
-//			                found_slash = true;
-//			            }
-//			            buf++;
-//			            offset--;
-//			        }
-//			        if (*buf == ')' && found_slash) {
-//			            return --offset;
-//			        } else
-//			            return 0;
-//			    }
-//			    else
-//			        return 0;
+				buf = new CharPtr(buf);
+				
+			    int offset = 0;
+			    if (script_h.checkClickstr(buf) == -2) {
+			        // got the special "\@" clickwait-or-page
+			        return 2;
+			    }
+			    else if (buf[0] == '`') {
+			        return 1;
+			    }
+			    else if ((buf[0] == '@') || (buf[0] == '\\')) {
+			        // clickwait, new page
+			        return 1;
+			    }
+			    else if ( buf[0] == ScriptHandler.TXTBTN_START ||
+			              buf[0] == ScriptHandler.TXTBTN_END ){
+			        return 1;
+			    }
+			    else if ( buf[0] == '/') {
+			        if (buf[1] == 0x0a)
+			            return 1;
+			        else
+			            return 0;
+			    }
+			    else if ( buf[0] == '!' ){
+			        offset++;
+			        if ( buf[offset] == 's' ){
+			            offset++;
+			            if ( buf[offset] == 'd' ){
+			                offset++;
+			            }
+			            else{
+			                while( buf[offset] >= '0' && buf[offset] <= '9' ){
+			                    offset++;
+			                }
+			            }
+			        }
+			        else if ( buf[offset] == 'w' || buf[offset] == 'd' ){
+			            offset++;
+			            while( buf[offset] >= '0' && buf[offset] <= '9' ){
+			                offset++;
+			            }
+			        } else
+			            return 0;
+			        return offset;
+			    }
+			    else if ( buf[0] == '#' ){
+			         char hexchecker;
+			         for ( int tmpctr = 1; tmpctr <= 6; tmpctr++) {
+			             hexchecker = buf[tmpctr];
+			             if (!((hexchecker >= '0' && hexchecker <= '9') ||
+			                 (hexchecker >= 'a' && hexchecker <= 'f') ||
+			                 (hexchecker >= 'A' && hexchecker <= 'F')))
+			                 return 0;
+			         }
+			         return 7;
+			    }
+			    else if ( buf[0] == '(' && rubyon_flag) {
+			        // if ruby command, return as -length to indicate ruby
+			        bool found_slash = false;
+			        while (buf[0] != ')' && buf[0] != '\0') {
+			            if (IS_TWO_BYTE(buf[0])) {
+			        		buf.inc();
+			                offset--;
+			            } else if (buf[0] == '/') {
+			                found_slash = true;
+			            }
+			        	buf.inc();
+			            offset--;
+			        }
+			        if (buf[0] == ')' && found_slash) {
+			            return --offset;
+			        } else
+			            return 0;
+			    }
+			    else
+			        return 0;
 			}
 			
 			public void processRuby(uint i, int cmd)
 			{
-//			    char *string_buffer = script_h.getStringBuffer();
-//			    unsigned int j, k;
-//			    // ruby - find the margins
-//			    startRuby( string_buffer + i + 1, sentence_font );
-//			    string_buffer_margins[i] = ruby_struct.margin;
-//			    string_buffer_margins[i-cmd-1] = ruby_struct.margin;
-//			    ruby_struct.stage = RubyStruct::NONE;
-//			    //printf("ruby margin: %d; at %s", string_buffer_margins[i], string_buffer+i);
-//			    j = i + -cmd;
-//			    // no breaking within a ruby
-//			    for (k=i+1; k<j; k++) {
-//			        string_buffer_breaks[k] = false;
-//			    }
+			    CharPtr string_buffer = script_h.getStringBuffer();
+			    uint j, k;
+			    // ruby - find the margins
+			    startRuby( new CharPtr(string_buffer, (int)( + i + 1)), sentence_font );
+			    string_buffer_margins[i] = (char)ruby_struct.margin;
+			    string_buffer_margins[(int)(i-cmd-1)] = (char)ruby_struct.margin;
+			    ruby_struct.stage = RubyStruct.NONE;
+			    //printf("ruby margin: %d; at %s", string_buffer_margins[i], string_buffer+i);
+			    j = (uint)(i + -cmd);
+			    // no breaking within a ruby
+			    for (k=i+1; k<j; k++) {
+			        string_buffer_breaks[k] = false;
+			    }
 			}
 			
 			public bool processBreaks(bool cont_line, LineBreakType style)
@@ -1366,235 +1401,233 @@ namespace onscripter_csharp
 			// cont_line: is this a continuation of a prior line (using "/")?
 			// style: SPACEBREAK or KINSOKU linebreak rules
 			{
-				return false;
-//			    char *string_buffer = script_h.getStringBuffer();
-//			    unsigned int i=0, j=0;
-//			    unsigned int len = strlen(string_buffer);
-//			    int cmd=0;
-//			    bool return_val;
-//			    bool is_ruby = false;
-//			    if (string_buffer_breaks) delete[] string_buffer_breaks;
-//			    string_buffer_breaks = new bool[len+2];
-//			    if (string_buffer_margins) delete[] string_buffer_margins;
-//			    string_buffer_margins = new char[len];
-//			    for (i=0; i<len; i++) string_buffer_margins[i] = 0;
-//			
-//			    i = 0;
-//			    // first skip past starting text commands
-//			    do {
-//			        cmd = isTextCommand(string_buffer + i);
-//			        if (cmd > 0) i += cmd;
-//			    } while (cmd > 0);
-//			    // don't allow break before first char unless it's a continuation
-//			    if (cont_line)
-//			        string_buffer_breaks[i] = true;
-//			    else {
-//			        string_buffer_breaks[i] = false;
-//			        //printf("Can't break before:%s", string_buffer + i);
-//			    }
-//			    if (cmd < 0) {
-//			        // at a ruby command
-//			        processRuby(i,cmd);
-//			    }
-//			
-//			    if (style == KINSOKU) {
-//			        // straight kinsoku, using current kinsoku char sets
-//			        return_val = false; // does it contain any printable ASCII?
-//			        while (i<strlen(string_buffer)) {
-//			            is_ruby = false;
-//			            if (cmd < 0) {
-//			                is_ruby = true;
-//			                j = -cmd;
-//			                cmd = 0;
-//			            } 
-//			            else {
-//			                j = (IS_TWO_BYTE(string_buffer[i])) ? 2 : 1;
-//			                do {
-//			                    cmd = isTextCommand(string_buffer + i + j);
-//			                    // skip over regular text commands
-//			                    if (cmd > 0) j += cmd;
-//			                } while (cmd > 0);
-//			            }
-//			            if ((cmd >= 0) && ((unsigned char) string_buffer[i+j] < 0x80) &&
-//			                !(string_buffer[i+j] == ' ' || string_buffer[i+j] == 0x00 ||
-//			                  string_buffer[i+j] == 0x0a)) {
-//			                return_val = true;
-//			                //printf("Found ASCII at %s", string_buffer + i + j);
-//			            }
-//			            if (cmd < 0) {
-//			                if (is_ruby || !isEndKinsoku(string_buffer + i))
-//			                    string_buffer_breaks[i+j] = true;
-//			                else
-//			                    string_buffer_breaks[i+j] = false;
-//			            }
-//			            else if (isEndKinsoku(string_buffer + i) ||
-//			                (!is_ruby && isStartKinsoku(string_buffer + i + j))) {
-//			                // don't break before start-kinsoku or after end-kinsoku
-//			                string_buffer_breaks[i+j] = false;
-//			                //printf("Can't break before:%s", string_buffer + i + j);
-//			            } else {
-//			                if ((cmd >= 0) && ((unsigned char) string_buffer[i+j] < 0x80) &&
-//			                    !(string_buffer[i+j] == ' ' || string_buffer[i+j] == 0x00 ||
-//			                      string_buffer[i+j] == 0x0a)) {
-//			                    // treat standard ASCII as start-kinsoku,
-//			                    // except for space or line-end
-//			//                    printf("Can't break before:%s", string_buffer + i + j);
-//			                    string_buffer_breaks[i+j] = false;
-//			                }
-//			                else
-//			                    string_buffer_breaks[i+j] = true;
-//			            }
-//			            i += j;
-//			            if (cmd < 0) {
-//			                // at a ruby command
-//			                processRuby(i,cmd);
-//			            }
-//			        }
-//			        return return_val;
-//			    }
-//			    else { // style == SPACEBREAK
-//			        // straight space-breaking
-//			        bool return_val = false; // does it contain space?
-//			        while (i<strlen(string_buffer)) {
-//			            is_ruby = false;
-//			            if (cmd < 0) {
-//			                is_ruby = true;
-//			                j = -cmd;
-//			            } else 
-//			                j = (IS_TWO_BYTE(string_buffer[i])) ? 2 : 1;
-//			            bool had_wait = false;
-//			            do {
-//			                cmd = isTextCommand(string_buffer + i + j);
-//			                if (string_buffer[i+j] == '@' || string_buffer[i+j] == '\\')
-//			                    had_wait = true;
-//			                if (cmd > 0) j += cmd;
-//			            } while (cmd > 0);
-//			            if (cmd < 0) {
-//			                string_buffer_breaks[i+j] = false;
-//			            }
-//			            else if (!IS_TWO_BYTE(string_buffer[i+j]) &&
-//			                (string_buffer[i+j] == 0x0a ||
-//			                 string_buffer[i+j] == 0x00 ||
-//			                 string_buffer[i+j] == '/' ||
-//			                 ((string_buffer[i+j] == ' ' || string_buffer[i+j] == '\t') &&
-//			                  (had_wait || !(string_buffer[i] == ' ' || string_buffer[i] == '\t'))))) {
-//			                // allow break before newline or line-cont command
-//			                // allow a break before a run of spaces/tabs but not within,
-//			                // except to allow break after a clickwait/newpage within the run
-//			                //printf("Can break before %s", string_buffer + i + j);
-//			                string_buffer_breaks[i+j] = true;
-//			                if (string_buffer[i+j] == ' ' || string_buffer[i+j] == '\t') {
-//			                    return_val = true;
-//			                }
-//			            }
-//			            else if ((unsigned char) string_buffer[i] == 0x81 &&
-//			                     string_buffer[i+1] == 0x40) {
-//			                // allow breaks _after_ fullwidth spaces
-//			                string_buffer_breaks[i+j] = true;
-//			            } else {
-//			                string_buffer_breaks[i+j] = false;
-//			                if ((unsigned char) string_buffer[i+j] < 0x80) {
-//			                    //printf("found ASCII: %d", string_buffer[i + j]);
-//			                    return_val = true; // found ASCII
-//			                }
-//			            }
-//			            i += j;
-//			            if (cmd < 0) {
-//			                // at a ruby command
-//			                processRuby(i,cmd);
-//			            }
-//			        }
-//			        return return_val;
-//			    }
+			    CharPtr string_buffer = script_h.getStringBuffer();
+			    uint i=0, j=0;
+			    uint len = strlen(string_buffer);
+			    int cmd=0;
+			    bool return_val;
+			    bool is_ruby = false;
+			    if (null!=string_buffer_breaks) string_buffer_breaks = null;//delete[] string_buffer_breaks;
+			    string_buffer_breaks = new bool[len+2];
+			    if (null!=string_buffer_margins) string_buffer_margins = null;//delete[] string_buffer_margins;
+			    string_buffer_margins = new char[len];
+			    for (i=0; i<len; i++) string_buffer_margins[i] = (char)0;
+			
+			    i = 0;
+			    // first skip past starting text commands
+			    do {
+			    	cmd = isTextCommand(new CharPtr(string_buffer, (int)+ i));
+			    	if (cmd > 0) i = (uint)(i + cmd);
+			    } while (cmd > 0);
+			    // don't allow break before first char unless it's a continuation
+			    if (cont_line)
+			        string_buffer_breaks[i] = true;
+			    else {
+			        string_buffer_breaks[i] = false;
+			        //printf("Can't break before:%s", string_buffer + i);
+			    }
+			    if (cmd < 0) {
+			        // at a ruby command
+			        processRuby(i,cmd);
+			    }
+			
+			    if (style == LineBreakType.KINSOKU) {
+			        // straight kinsoku, using current kinsoku char sets
+			        return_val = false; // does it contain any printable ASCII?
+			        while (i<strlen(string_buffer)) {
+			            is_ruby = false;
+			            if (cmd < 0) {
+			                is_ruby = true;
+			                j = (uint)-cmd;
+			                cmd = 0;
+			            } 
+			            else {
+			            	j = (uint)((IS_TWO_BYTE(string_buffer[i])) ? 2 : 1);
+			                do {
+			                	cmd = isTextCommand(new CharPtr(string_buffer, (int)(+ i + j)));
+			                    // skip over regular text commands
+			                    if (cmd > 0) j = (uint)(j + cmd);
+			                } while (cmd > 0);
+			            }
+			            if ((cmd >= 0) && ((byte) string_buffer[i+j] < 0x80) &&
+			                !(string_buffer[i+j] == ' ' || string_buffer[i+j] == 0x00 ||
+			                  string_buffer[i+j] == 0x0a)) {
+			                return_val = true;
+			                //printf("Found ASCII at %s", string_buffer + i + j);
+			            }
+			            if (cmd < 0) {
+			            	if (is_ruby || !isEndKinsoku(new CharPtr(string_buffer,(int)( + i))))
+			                    string_buffer_breaks[i+j] = true;
+			                else
+			                    string_buffer_breaks[i+j] = false;
+			            }
+			            else if (isEndKinsoku(new CharPtr(string_buffer, (int)( + i))) ||
+			                (!is_ruby && isStartKinsoku(new CharPtr(string_buffer, (int)( + i + j))))) {
+			                // don't break before start-kinsoku or after end-kinsoku
+			                string_buffer_breaks[i+j] = false;
+			                //printf("Can't break before:%s", string_buffer + i + j);
+			            } else {
+			                if ((cmd >= 0) && ((byte) string_buffer[i+j] < 0x80) &&
+			                    !(string_buffer[i+j] == ' ' || string_buffer[i+j] == 0x00 ||
+			                      string_buffer[i+j] == 0x0a)) {
+			                    // treat standard ASCII as start-kinsoku,
+			                    // except for space or line-end
+			//                    printf("Can't break before:%s", string_buffer + i + j);
+			                    string_buffer_breaks[i+j] = false;
+			                }
+			                else
+			                    string_buffer_breaks[i+j] = true;
+			            }
+			            i += j;
+			            if (cmd < 0) {
+			                // at a ruby command
+			                processRuby(i,cmd);
+			            }
+			        }
+			        return return_val;
+			    }
+			    else { // style == SPACEBREAK
+			        // straight space-breaking
+			        /*bool */return_val = false; // does it contain space?
+			        while (i<strlen(string_buffer)) {
+			            is_ruby = false;
+			            if (cmd < 0) {
+			                is_ruby = true;
+			                j = (uint)(-cmd);
+			            } else 
+			            	j = (uint)((IS_TWO_BYTE(string_buffer[i])) ? 2 : 1);
+			            bool had_wait = false;
+			            do {
+			            	cmd = isTextCommand(new CharPtr(string_buffer, (int)( + i + j)));
+			                if (string_buffer[i+j] == '@' || string_buffer[i+j] == '\\')
+			                    had_wait = true;
+			                if (cmd > 0) j = (uint)(j + cmd);
+			            } while (cmd > 0);
+			            if (cmd < 0) {
+			                string_buffer_breaks[i+j] = false;
+			            }
+			            else if (!IS_TWO_BYTE(string_buffer[i+j]) &&
+			                (string_buffer[i+j] == 0x0a ||
+			                 string_buffer[i+j] == 0x00 ||
+			                 string_buffer[i+j] == '/' ||
+			                 ((string_buffer[i+j] == ' ' || string_buffer[i+j] == '\t') &&
+			                  (had_wait || !(string_buffer[i] == ' ' || string_buffer[i] == '\t'))))) {
+			                // allow break before newline or line-cont command
+			                // allow a break before a run of spaces/tabs but not within,
+			                // except to allow break after a clickwait/newpage within the run
+			                //printf("Can break before %s", string_buffer + i + j);
+			                string_buffer_breaks[i+j] = true;
+			                if (string_buffer[i+j] == ' ' || string_buffer[i+j] == '\t') {
+			                    return_val = true;
+			                }
+			            }
+			            else if ((byte) string_buffer[i] == 0x81 &&
+			                     string_buffer[i+1] == 0x40) {
+			                // allow breaks _after_ fullwidth spaces
+			                string_buffer_breaks[i+j] = true;
+			            } else {
+			                string_buffer_breaks[i+j] = false;
+			                if ((byte) string_buffer[i+j] < 0x80) {
+			                    //printf("found ASCII: %d", string_buffer[i + j]);
+			                    return_val = true; // found ASCII
+			                }
+			            }
+			            i += j;
+			            if (cmd < 0) {
+			                // at a ruby command
+			                processRuby(i,cmd);
+			            }
+			        }
+			        return return_val;
+			    }
 			}
 			
 			public int findNextBreak(int offset, ref int len)
 			// Mion: for text processing
 			{
-				return 0;
-//			    // return offset of first break_before after/including current offset;
-//			    // use len to return # of printed chars between (in half-width chars)
-//			    char *string_buffer = script_h.getStringBuffer();
-//			    int i = 0, cmd = 0, ruby_end = 0;
-//			    bool in_ruby = false;
-//			    len = 0;
-//			
-//			    while (i<offset) {
-//			        // skip over text commands, chars until offset reached
-//			        cmd = isTextCommand(string_buffer + i);
-//			        if (cmd > 0) {
-//			            i += cmd;
-//			        } else if (cmd < 0) {
-//			            if ((i - cmd) > offset) {
-//			                //starting offset is inside a ruby body
-//			                in_ruby = true;
-//			                ruby_end = i - cmd;
-//			                cmd = 0;
-//			                i++;
-//			            } else {
-//			                i -= cmd;
-//			            }
-//			        } else
-//			            i += (IS_TWO_BYTE(string_buffer[i])) ? 2 : 1;
-//			    }
-//			
-//			    while (i<(int)(strlen(string_buffer)+2)) {
-//			        if (in_ruby && (string_buffer[i] == '/')) {
-//			            // done with ruby body; skip past ruby command
-//			            len += 3; // seems we need to do this to match Nscr
-//			            i = ruby_end;
-//			            in_ruby = false;
-//			            ruby_end = 0;
-//			        }
-//			        if (!in_ruby) {
-//			            // don't look for text commands while inside a ruby
-//			            do {
-//			                cmd = isTextCommand(string_buffer + i);
-//			                if (cmd > 0) i += cmd;
-//			            } while (cmd > 0);
-//			            if (cmd < 0) {
-//			                //printf("found ruby: %s\n", string_buffer + i);
-//			                in_ruby = true;
-//			                ruby_end = i - cmd;
-//			            }
-//			        }
-//			        if (string_buffer_breaks[i]) {
-//			            return i;
-//			        } else if (cmd < 0) {
-//			            // skip the begin paren of a ruby
-//			            i++;
-//			            cmd = 0;
-//			        } else if (IS_TWO_BYTE(string_buffer[i])) {
-//			            i += 2;
-//			            len += 2;
-//			        } else {
-//			            i++;
-//			            len++;
-//			        }
-//			    }
-//			    // didn't find a break
-//			    return i;
+				// return offset of first break_before after/including current offset;
+			    // use len to return # of printed chars between (in half-width chars)
+			    CharPtr string_buffer = script_h.getStringBuffer();
+			    int i = 0, cmd = 0, ruby_end = 0;
+			    bool in_ruby = false;
+			    len = 0;
+			
+			    while (i<offset) {
+			        // skip over text commands, chars until offset reached
+			        cmd = isTextCommand(new CharPtr(string_buffer, + i));
+			        if (cmd > 0) {
+			            i += cmd;
+			        } else if (cmd < 0) {
+			            if ((i - cmd) > offset) {
+			                //starting offset is inside a ruby body
+			                in_ruby = true;
+			                ruby_end = i - cmd;
+			                cmd = 0;
+			                i++;
+			            } else {
+			                i -= cmd;
+			            }
+			        } else
+			            i += (IS_TWO_BYTE(string_buffer[i])) ? 2 : 1;
+			    }
+			
+			    while (i<(int)(strlen(string_buffer)+2)) {
+			        if (in_ruby && (string_buffer[i] == '/')) {
+			            // done with ruby body; skip past ruby command
+			            len += 3; // seems we need to do this to match Nscr
+			            i = ruby_end;
+			            in_ruby = false;
+			            ruby_end = 0;
+			        }
+			        if (!in_ruby) {
+			            // don't look for text commands while inside a ruby
+			            do {
+			            	cmd = isTextCommand(new CharPtr(string_buffer, + i));
+			                if (cmd > 0) i += cmd;
+			            } while (cmd > 0);
+			            if (cmd < 0) {
+			                //printf("found ruby: %s\n", string_buffer + i);
+			                in_ruby = true;
+			                ruby_end = i - cmd;
+			            }
+			        }
+			        if (string_buffer_breaks[i]) {
+			            return i;
+			        } else if (cmd < 0) {
+			            // skip the begin paren of a ruby
+			            i++;
+			            cmd = 0;
+			        } else if (IS_TWO_BYTE(string_buffer[i])) {
+			            i += 2;
+			            len += 2;
+			        } else {
+			            i++;
+			            len++;
+			        }
+			    }
+			    // didn't find a break
+			    return i;
 			}
 			
 			public void terminateTextButton()
 			//Mion: use to destroy improperly terminated text button
 			{
-//			    TextButtonInfoLink *tmp = text_button_info.next;
-//			    tmp->text = tmp->prtext = NULL;
-//			    text_button_info.next = tmp->next;
-//			    delete tmp;
-//			    in_txtbtn = false;
-//			    textbtnColorChange();
+			    TextButtonInfoLink tmp = text_button_info.next;
+			    tmp.text = tmp.prtext = null;
+			    text_button_info.next = tmp.next;
+			    tmp = null;//delete tmp;
+			    in_txtbtn = false;
+			    textbtnColorChange();
 			}
 			
 			public void textbtnColorChange()
 			//Mion: swap linkcolor[0] with sentence_font color, make color change
 			{
-//			    uchar3 tmpcolor;
-//			    setColor(tmpcolor, linkcolor[0]);
-//			    setColor(linkcolor[0], sentence_font.color);
-//			    setColor(sentence_font.color, tmpcolor);
-//			    setColor(ruby_font.color, tmpcolor);
+				byte[] tmpcolor = new byte[3];
+			    setColor(tmpcolor, linkcolor[0]);
+			    setColor(linkcolor[0], sentence_font.color);
+			    setColor(sentence_font.color, tmpcolor);
+			    setColor(ruby_font.color, tmpcolor);
 			}
 		}
 	}

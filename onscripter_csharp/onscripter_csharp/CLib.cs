@@ -247,5 +247,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		
+		public static void SDL_XXX()
+		{
+			
+		}
 	}
 }
