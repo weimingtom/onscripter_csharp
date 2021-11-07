@@ -309,7 +309,7 @@ namespace onscripter_csharp
 //			    current_cell = cell;
 			}
 			
-			public int doClipping( SDL_Rect dst, SDL_Rect clip, SDL_Rect clipped )
+			public static int doClipping( SDL_Rect dst, SDL_Rect clip, SDL_Rect clipped=null )
 			{
 				return 0;
 //			    if ( clipped ) clipped->x = clipped->y = 0;
@@ -430,7 +430,7 @@ namespace onscripter_csharp
 			
 			
 			public void blendOnSurface( SDL_Surface dst_surface, int dst_x, int dst_y,
-			                           SDL_Rect clip, int alpha )
+			                           ref SDL_Rect clip, int alpha )
 			{
 //			    if ( image_surface == NULL ) return;
 //
@@ -686,15 +686,15 @@ namespace onscripter_csharp
 //			    // unlock surface
 //			    SDL_UnlockSurface( image_surface );
 //			    SDL_UnlockSurface( dst_surface );
-//			}
-//
-//			// used to draw characters on text_surface
-//			// Alpha = 1 - (1-Da)(1-Sa)
-//			// Color = (DaSaSc + Da(1-Sa)Dc + Sa(1-Da)Sc)/A
-//			void AnimationInfo::blendText( SDL_Surface *surface, int dst_x, int dst_y,
-//			                               SDL_Color &color, SDL_Rect *clip,
-//			                               bool rotate_flag )
-//			{
+			}
+
+			// used to draw characters on text_surface
+			// Alpha = 1 - (1-Da)(1-Sa)
+			// Color = (DaSaSc + Da(1-Sa)Dc + Sa(1-Da)Sc)/A
+			public void blendText( SDL_Surface surface, int dst_x, int dst_y,
+			                               ref SDL_Color color, SDL_Rect clip,
+			                               bool rotate_flag )
+			{
 //			    if (image_surface == NULL || surface == NULL) return;
 //
 //			    SDL_Rect dst_rect = {dst_x, dst_y, SDL_Surface_get_w(surface), SDL_Surface_get_h(surface)};

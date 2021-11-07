@@ -72,6 +72,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MessageId.cs" />
+    <Compile Include="MSD_Surface.cs" />
     <Compile Include="NsaReader.cpp.cs" />
     <Compile Include="NsaReader.h.cs" />
     <Compile Include="onscripter.cpp.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Uint8Ptr.cs" />
     <Compile Include="UnsignedCharPtr.cs" />
     <Compile Include="UnsignedLongPtr.cs" />
+    <Compile Include="UnsignedShortPtr.cs" />
     <Compile Include="version.h.cs" />
     <Compile Include="winres.h.cs" />
   </ItemGroup>

@@ -15,8 +15,20 @@ namespace onscripter_csharp
 	/// </summary>
 	public class SDL_Color
 	{
+		public byte r;
+		public byte g;
+		public byte b;
+		public byte unused;		
+		
 		public SDL_Color()
 		{
+		}
+		public SDL_Color(byte r, byte g, byte b, byte unused)
+		{
+			this.r = r;
+			this.g = g;
+			this.b = b;
+			this.unused = unused;
 		}
 	}
 }

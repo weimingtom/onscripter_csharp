@@ -87,9 +87,9 @@ namespace onscripter_csharp
 //		
 //		#define DEFAULT_WM_TITLE "ONScripter-EN"
 //		#define DEFAULT_WM_ICON  "Ons-en"
-//		
-//		#define NUM_GLYPH_CACHE 30
-//		
+		
+		private const int NUM_GLYPH_CACHE = 30;
+		
 //		#define KEYPRESS_NULL ((SDLKey)(SDLK_LAST+1)) // "null" for keypress variables
 		
 		public partial class ONScripterLabel : ScriptParser
@@ -415,13 +415,13 @@ namespace onscripter_csharp
 //		    bool waitEvent(int count);
 //		    void trapHandler();
 //		    void initSDL();
-//		
+		
 //		private:
-//		    enum {
-//		        DISPLAY_MODE_NORMAL  = 0, 
-//		        DISPLAY_MODE_TEXT    = 1,
-//		        DISPLAY_MODE_UPDATED = 2
-//		    };
+		    
+		    public const int DISPLAY_MODE_NORMAL  = 0; 
+		    public const int DISPLAY_MODE_TEXT    = 1;
+		    public const int DISPLAY_MODE_UPDATED = 2;
+
 		    
 		    public const int IDLE_EVENT_MODE      = 0;
 		    public const int WAIT_RCLICK_MODE     = 1;   // for lrclick
@@ -490,21 +490,29 @@ namespace onscripter_csharp
 //		        animp->pos.h = StretchPosY(animp->orig_pos.h);
 //		    }
 //		
-//		    // ----------------------------------------
-//		    // Global definitions
-//		    long internal_timer;
-//		    bool automode_flag;
-//		    long automode_time;
-//		    long autoclick_time;
-//		
-//		    bool saveon_flag;
-//		    bool internal_saveon_flag; // to saveoff at the head of text
-//		
-//		    bool monocro_flag;
-//		    uchar3 monocro_color;
-//		    uchar3 monocro_color_lut[256];
-//		    int  nega_mode;
-//		
+		    // ----------------------------------------
+		    // Global definitions
+		    public long internal_timer;
+		    public bool automode_flag;
+		    public long automode_time;
+		    public long autoclick_time;
+		
+		    public bool saveon_flag;
+		    public bool internal_saveon_flag; // to saveoff at the head of text
+		
+		    public bool monocro_flag;
+		    public byte[] monocro_color = new byte[3];
+		    public byte[][] monocro_color_lut = init_monocro_color_lut();
+		    private static byte[][] init_monocro_color_lut() {
+		    	byte[][] ret = new byte[256][];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new byte[3];
+		    	}
+		    	return ret;
+		    }
+		    public int  nega_mode;
+		
 //		    enum {
 //		        TRAP_NONE        = 0,
 //		        TRAP_LEFT_CLICK  = 1,
@@ -535,16 +543,16 @@ namespace onscripter_csharp
 //		
 //		    void quit();
 //		
-//		    /* ---------------------------------------- */
-//		    /* Script related variables */
-//		    enum {
-//		        REFRESH_NONE_MODE   = 0,
-//		        REFRESH_NORMAL_MODE = 1,
-//		        REFRESH_SAYA_MODE   = 2,
-//		        REFRESH_WINDOW_MODE = 4,  //show textwindow background
-//		        REFRESH_TEXT_MODE   = 8,  //show textwindow text
-//		        REFRESH_CURSOR_MODE = 16  //show textwindow cursor
-//		    };
+		    /* ---------------------------------------- */
+		    /* Script related variables */
+		    
+		    public const int REFRESH_NONE_MODE   = 0;
+		    public const int REFRESH_NORMAL_MODE = 1;
+		    public const int REFRESH_SAYA_MODE   = 2;
+		    public const int REFRESH_WINDOW_MODE = 4;  //show textwindow background
+		    public const int REFRESH_TEXT_MODE   = 8;  //show textwindow text
+		    public const int REFRESH_CURSOR_MODE = 16; //show textwindow cursor
+		    
 		
 		    public int refresh_window_text_mode;
 		    public int display_mode;
@@ -781,15 +789,25 @@ namespace onscripter_csharp
 		    public int  indent_offset;
 		    public int  line_enter_status; // 0 - no enter, 1 - pretext, 2 - body start, 3 - within body
 		    public int  page_enter_status; // 0 ... no enter, 1 ... body
-//		    struct GlyphCache{
-//		        GlyphCache *next;
-//		        Uint16 text;
-//		        TTF_Font *font;
-//		        SDL_Surface *surface;
-//		        GlyphCache()
-//		        : next(NULL), text(0), font(NULL), surface(NULL) {}
-//		        ~GlyphCache() { SDL_FreeSurface(surface); }
-//		    } *root_glyph_cache, glyph_cache[NUM_GLYPH_CACHE];
+		    public class GlyphCache{
+		        public GlyphCache next;
+		        public UInt16 text;
+		        public TTF_Font font;
+		        public SDL_Surface surface;
+		        public GlyphCache()
+		        { next = (null); text = (0); font = (null); surface = (null); }
+		        ~GlyphCache() { SDL_FreeSurface(surface); }
+		    } 
+		    public GlyphCache root_glyph_cache = null; 
+		    public GlyphCache[] glyph_cache = init_glyph_cache();
+		    private static GlyphCache[] init_glyph_cache() {
+		    	GlyphCache[] ret = new GlyphCache[NUM_GLYPH_CACHE];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new GlyphCache();
+		    	}
+		    	return ret;
+		    }
 		    public int[] last_textpos_xy = new int[2];
 		
 //		    int  refreshMode();
@@ -837,17 +855,17 @@ namespace onscripter_csharp
 		    
 		    public int skip_mode;
 		
-//		    /* ---------------------------------------- */
-//		    /* Effect related variables */
-//		    DirtyRect dirty_rect, dirty_rect_tmp; // only this region is updated
-//		    int effect_counter, effect_duration; // counter in each effect
-//		    int effect_timer_resolution;
-//		    int effect_start_time;
-//		    int effect_start_time_old;
-//		    int effect_tmp; //tmp variable for use by effect routines
-//		    bool in_effect_blank;
-//		    bool effectskip_flag;
-//		    bool skip_effect;
+		    /* ---------------------------------------- */
+		    /* Effect related variables */
+		    public DirtyRect dirty_rect = new DirtyRect(), dirty_rect_tmp = new DirtyRect(); // only this region is updated
+		    public int effect_counter, effect_duration; // counter in each effect
+		    public int effect_timer_resolution;
+		    public int effect_start_time;
+		    public int effect_start_time_old;
+		    public int effect_tmp; //tmp variable for use by effect routines
+		    public bool in_effect_blank;
+		    public bool effectskip_flag;
+		    public bool skip_effect;
 //		    enum {
 //		        EFFECTSPEED_NORMAL  = 0,
 //		        EFFECTSPEED_QUICKER = 1,

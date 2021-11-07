@@ -88,12 +88,12 @@ namespace onscripter_csharp
 		#endif
 		    
 		
-//		    bool is_copy; // allocated buffers should not be deleted from a copied instance
-//		    bool stale_image; //set to true when the image needs to be created/redone
-//		
-//		    SDL_Rect orig_pos; //Mion: position and size of the image before resizing
-//		    SDL_Rect pos; // position and size of the current cell
-//		
+		    public bool is_copy; // allocated buffers should not be deleted from a copied instance
+		    public bool stale_image; //set to true when the image needs to be created/redone
+		
+		    public SDL_Rect orig_pos = new SDL_Rect(); //Mion: position and size of the image before resizing
+		    public SDL_Rect pos = new SDL_Rect(); // position and size of the current cell
+		
 //		    /* variables set from the image tag */
 //		    int trans_mode;
 //		    uchar3 direct_color;
@@ -105,11 +105,11 @@ namespace onscripter_csharp
 //		    int *duration_list;
 //		    uchar3 *color_list;
 //		    int loop_mode;
-//		    bool is_animatable;
-//		    bool is_single_line;
-//		    bool is_tight_region; // valid under TRANS_STRING
-//		    bool is_ruby_drawable;
-//		    bool skip_whitespace;
+		    public bool is_animatable;
+		    public bool is_single_line;
+		    public bool is_tight_region; // valid under TRANS_STRING
+		    public bool is_ruby_drawable;
+		    public bool skip_whitespace;
 //		#ifndef NO_LAYER_EFFECTS
 //		    int layer_no; //Mion: for Layer effects
 //		#endif

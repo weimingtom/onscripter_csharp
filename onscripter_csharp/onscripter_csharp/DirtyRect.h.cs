@@ -40,8 +40,8 @@ namespace onscripter_csharp
 		
 		//#include <SDL.h>
 		
-//		struct DirtyRect
-//		{
+		public partial class DirtyRect
+		{
 //		    DirtyRect();
 //		    DirtyRect( const DirtyRect &d );
 //		    DirtyRect& operator =( const DirtyRect &d );
@@ -53,10 +53,10 @@ namespace onscripter_csharp
 //		    void fill( int w, int h );
 //		
 //		    SDL_Rect calcBoundingBox( SDL_Rect src1, SDL_Rect &src2 );
-//		
-//		    int screen_width, screen_height;
-//		    SDL_Rect bounding_box;
-//		};
+		
+		    public int screen_width, screen_height;
+		    public SDL_Rect bounding_box;
+		}
 		
 		//#endif // __DIRTY_RECT__
 	}

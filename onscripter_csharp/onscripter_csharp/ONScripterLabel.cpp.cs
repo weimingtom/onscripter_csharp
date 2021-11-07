@@ -1483,7 +1483,7 @@ namespace onscripter_csharp
 //			    if ( clear_dirty_flag ) dirty_rect.clear();
 			}
 			
-			public void flushDirect( SDL_Rect rect, int refresh_mode, bool updaterect )
+			public void flushDirect( SDL_Rect rect, int refresh_mode, bool updaterect=true )
 			{
 //				char str[256] = {0};
 //			    sprintf(str, "flush %d: %d %d %d %d\n", refresh_mode, rect.x, rect.y, rect.w, rect.h );

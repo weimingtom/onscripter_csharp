@@ -575,7 +575,7 @@ namespace onscripter_csharp
 //			    writeChar( SAVEFILE_VERSION_MINOR, output_flag );
 			}
 			
-			public int saveSaveFile( int no, CharPtr savestr )
+			public int saveSaveFile( int no, CharPtr savestr=null )
 			{
 				return 0;
 //			    // make save data structure on memory

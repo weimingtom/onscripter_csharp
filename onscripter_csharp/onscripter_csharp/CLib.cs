@@ -252,5 +252,52 @@ namespace onscripter_csharp
 		{
 			
 		}
+		
+		public static int SDL_BlitSurface(SDL_Surface src, SDL_Rect srcrect, SDL_Surface dst, SDL_Rect dstrect)
+		{
+			return 0;
+		}
+		
+		public static int MultiByteToWideChar(uint     CodePage,
+			    long    dwFlags,
+			    CharPtr   lpMultiByteStr,
+			    int      cchMultiByte,
+			    UnsignedShortPtr   lpWideCharStr,
+			    int      cchWideChar)
+		{
+			return 0;
+		}
+		
+		public static int SDL_Surface_get_w(SDL_Surface surface)
+		{
+			return 0;
+		}
+		public static int SDL_Surface_get_h(SDL_Surface surface)
+		{
+			return 0;
+		}
+		public static void SDL_savebmp(MSD_Surface surf, CharPtr name)
+		{
+			
+		}
+		public static int TTF_GlyphMetrics(TTF_Font font, ushort ch, 
+		                                   ref int minx, ref int maxx, 
+		                                   ref int miny, ref int maxy, 
+		                                   ref int advance)
+		{
+			return 0;	
+		}
+		public static int TTF_FontAscent(TTF_Font font)
+		{
+			return 0;
+		}
+		public static SDL_Surface TTF_RenderGlyph_Shaded(TTF_Font font, UInt16 ch, SDL_Color fg, SDL_Color bg)
+		{
+			return null;
+		}
+		public static void SDL_FreeSurface(SDL_Surface surface)
+		{
+			
+		}
 	}
 }

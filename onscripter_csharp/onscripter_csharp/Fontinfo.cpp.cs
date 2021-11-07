@@ -147,7 +147,7 @@ namespace onscripter_csharp
 //			    return xy[1]*pitch_xy[1]/2 + top_xy[1] + line_offset_xy[1] + ruby_offset_xy[1];
 			}
 			
-			public void setXY( int x, int y )
+			public void setXY( int x=-1, int y=-1 )
 			{
 //			    if ( x != -1 ) xy[0] = x*2;
 //			    if ( y != -1 ) xy[1] = y*2;
@@ -182,7 +182,7 @@ namespace onscripter_csharp
 //			    num_xy[1-tateyoko_mode] = 1;
 			}
 			
-			public bool isEndOfLine(int margin)
+			public bool isEndOfLine(int margin=0)
 			{
 				return false;
 //			    if (pitch_xy[tateyoko_mode] == 0)

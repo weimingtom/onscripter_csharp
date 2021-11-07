@@ -18,5 +18,9 @@ namespace onscripter_csharp
 		public TTF_Font()
 		{
 		}
+		
+		public static TTF_Font fromUnsignedCharPtr(UnsignedCharPtr ptr) {
+			return new TTF_Font();
+		}
 	}
 }

@@ -15,6 +15,8 @@ namespace onscripter_csharp
 	/// </summary>
 	public class SDL_Surface
 	{
+		public MSD_Surface _surf;
+		
 		public SDL_Surface()
 		{
 		}
