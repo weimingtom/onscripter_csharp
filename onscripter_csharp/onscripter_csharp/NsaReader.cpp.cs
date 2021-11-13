@@ -301,7 +301,7 @@ namespace onscripter_csharp
 //			    return 0;
 			}
 			
-			public override uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location )
+			public override uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location, bool is_location_null=true )
 			{
 				return 0;
 //			    size_t ret;

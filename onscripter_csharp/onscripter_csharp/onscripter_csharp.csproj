@@ -88,7 +88,6 @@
     <Compile Include="ONScripterLabel_rmenu.cpp.cs" />
     <Compile Include="ONScripterLabel_sound.cpp.cs" />
     <Compile Include="ONScripterLabel_text.cpp.cs" />
-    <Compile Include="OVInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="resize_image.cpp.cs" />

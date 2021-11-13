@@ -82,14 +82,14 @@ namespace onscripter_csharp
 //		
 //		SDL_TimerID timer_bgmfade_id = NULL;
 //		SDL_TimerID timer_silentmovie_id = NULL;
-//		
-//		// The reason we have a separate midi loop timer id here is that on Mac OS X, looping midis via SDL will cause SDL itself
-//		// to hard crash after the first play.  So, we work around that by manually causing the midis to loop.  This OS X midi
-//		// workaround is the work of Ben Carter.  Recommend for integration.  [Seung Park, 20060621]
-//		#ifdef MACOSX
-//		SDL_TimerID timer_seqmusic_id = NULL;
-//		#endif
-//		bool ext_music_play_once_flag = false;
+		
+		// The reason we have a separate midi loop timer id here is that on Mac OS X, looping midis via SDL will cause SDL itself
+		// to hard crash after the first play.  So, we work around that by manually causing the midis to loop.  This OS X midi
+		// workaround is the work of Ben Carter.  Recommend for integration.  [Seung Park, 20060621]
+		#if MACOSX
+		SDL_TimerID timer_seqmusic_id = NULL;
+		#endif
+		public static bool ext_music_play_once_flag = false;
 		
 //		private static void clearTimer(SDL_TimerID timer_id)
 //		{

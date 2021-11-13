@@ -112,5 +112,9 @@ namespace onscripter_csharp
 		public static CharPtr fromDoubleByte(string str) {
 			return null;
 		}
+		
+		public static CharPtr fromUnsignedCharPtr(UnsignedCharPtr str) {
+			return null;
+		}
 	}
 }

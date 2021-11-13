@@ -69,16 +69,16 @@ namespace onscripter_csharp
 //		#define MAX_SPRITE2_NUM 256
 //		#define MAX_PARAM_NUM 100
 //		#define CUSTOM_EFFECT_NO 100
-//		
-//		#define DEFAULT_VOLUME 100
-//		#define ONS_MIX_CHANNELS 50
-//		#define ONS_MIX_EXTRA_CHANNELS 5
-//		#define MIX_WAVE_CHANNEL (ONS_MIX_CHANNELS+0)
-//		#define MIX_CLICKVOICE_CHANNEL (ONS_MIX_CHANNELS+1)
-//		#define MIX_BGM_CHANNEL (ONS_MIX_CHANNELS+2)
-//		#define MIX_LOOPBGM_CHANNEL0 (ONS_MIX_CHANNELS+3)
-//		#define MIX_LOOPBGM_CHANNEL1 (ONS_MIX_CHANNELS+4)
-//		
+		
+		public const int DEFAULT_VOLUME = 100;
+		public const int ONS_MIX_CHANNELS = 50;
+		public const int ONS_MIX_EXTRA_CHANNELS = 5;
+		public const int MIX_WAVE_CHANNEL = (ONS_MIX_CHANNELS+0);
+		public const int MIX_CLICKVOICE_CHANNEL = (ONS_MIX_CHANNELS+1);
+		public const int MIX_BGM_CHANNEL = (ONS_MIX_CHANNELS+2);
+		public const int MIX_LOOPBGM_CHANNEL0 = (ONS_MIX_CHANNELS+3);
+		public const int MIX_LOOPBGM_CHANNEL1 = (ONS_MIX_CHANNELS+4);
+		
 //		#if defined(PDA) && !defined(PSP)
 //		#define DEFAULT_AUDIO_RATE 22050
 //		#else
@@ -445,24 +445,24 @@ namespace onscripter_csharp
 //		        ALPHA_BLEND_FADE_MASK      = 3,
 //		        ALPHA_BLEND_CROSSFADE_MASK = 4
 //		    };
-//		
-//		    // ----------------------------------------
-//		    // start-up options
-//		    bool cdaudio_flag;
-//		    char *default_font;
-//		    char *registry_file;
-//		    char *dll_file;
-//		    char *getret_str;
-//		    int  getret_int;
-//		    bool enable_wheeldown_advance_flag;
-//		    bool disable_rescale_flag;
-//		    bool edit_flag;
-//		    char *key_exe_file;
-//		#ifdef RCA_SCALE
-//		    bool widescreen_flag;
-//		#endif
-//		    bool scaled_flag;
-//		
+		
+		    // ----------------------------------------
+		    // start-up options
+		    public bool cdaudio_flag;
+		    public CharPtr default_font;
+		    public CharPtr registry_file;
+		    public CharPtr dll_file;
+		    public CharPtr getret_str;
+		    public int  getret_int;
+		    public bool enable_wheeldown_advance_flag;
+		    public bool disable_rescale_flag;
+		    public bool edit_flag;
+		    public CharPtr key_exe_file;
+		#if RCA_SCALE
+		    bool widescreen_flag;
+		#endif
+		    public bool scaled_flag;
+		
 //		    //Mion: inlines for image/screen resizing & scaling
 //		    int ExpandPos(int val);
 //		    int ContractPos(int val);
@@ -936,49 +936,49 @@ namespace onscripter_csharp
 //		    void deleteSelectLink();
 //		    AnimationInfo *getSentence( char *buffer, Fontinfo *info, int num_cells, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true );
 //		    struct ButtonLink *getSelectableSentence( char *buffer, Fontinfo *info, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true );
-//		
-//		    /* ---------------------------------------- */
-//		    /* Sound related variables */
-//		    enum{
-//		        SOUND_NONE          =  0,
-//		        SOUND_PRELOAD       =  1,
-//		        SOUND_WAVE          =  2,
-//		        SOUND_OGG           =  4,
-//		        SOUND_OGG_STREAMING =  8,
-//		        SOUND_MP3           = 16,
-//		        SOUND_SEQMUSIC      = 32, //MIDI/XM/MOD
-//		        SOUND_OTHER         = 64
-//		    };
-//		    int  cdrom_drive_number;
-//		    char *default_cdrom_drive;
-//		    bool cdaudio_on_flag; // false if mute
-//		    bool volume_on_flag; // false if mute
-//		    //SDL_AudioSpec audio_format;
-//		    bool audio_open_flag;
-//		
-//		    bool wave_play_loop_flag;
-//		    char *wave_file_name;
-//		
-//		    bool seqmusic_play_loop_flag;
-//		    char *seqmusic_file_name;
-//		
-//		    int current_cd_track;
-//		    bool cd_play_loop_flag;
-//		    bool music_play_loop_flag;
-//		    bool mp3save_flag;
-//		    char *music_file_name;
-//		    unsigned char *music_buffer; // for looped music
-//		    long music_buffer_length;
-//		    Uint32 mp3fade_start;
-//		    Uint32 mp3fadeout_duration;
-//		    Uint32 mp3fadein_duration;
-//		    char *loop_bgm_name[2];
-//		
-//		    int channelvolumes[ONS_MIX_CHANNELS]; //insani's addition
-//		
-//		    char *music_cmd;
-//		    char *seqmusic_cmd;
-//		
+		
+		    /* ---------------------------------------- */
+		    /* Sound related variables */
+		    
+		    public const int SOUND_NONE          =  0;
+		    public const int SOUND_PRELOAD       =  1;
+		    public const int SOUND_WAVE          =  2;
+		    public const int SOUND_OGG           =  4;
+		    public const int SOUND_OGG_STREAMING =  8;
+		    public const int SOUND_MP3           = 16;
+		    public const int SOUND_SEQMUSIC      = 32; //MIDI/XM/MOD
+		    public const int SOUND_OTHER         = 64;
+		    
+		    public int  cdrom_drive_number;
+		    public CharPtr default_cdrom_drive;
+		    public bool cdaudio_on_flag; // false if mute
+		    public bool volume_on_flag; // false if mute
+		    //SDL_AudioSpec audio_format;
+		    public bool audio_open_flag;
+		
+		    public bool wave_play_loop_flag;
+		    public CharPtr wave_file_name;
+		
+		    public bool seqmusic_play_loop_flag;
+		    public CharPtr seqmusic_file_name;
+		
+		    public int current_cd_track;
+		    public bool cd_play_loop_flag;
+		    public bool music_play_loop_flag;
+		    public bool mp3save_flag;
+		    public CharPtr music_file_name;
+		    public UnsignedCharPtr music_buffer; // for looped music
+		    public long music_buffer_length;
+		    public UInt32 mp3fade_start;
+		    public UInt32 mp3fadeout_duration;
+		    public UInt32 mp3fadein_duration;
+		    public CharPtr[] loop_bgm_name = new CharPtr[2];
+		
+		    public int[] channelvolumes = new int[ONS_MIX_CHANNELS]; //insani's addition
+		
+		    public CharPtr music_cmd;
+		    public CharPtr seqmusic_cmd;
+		
 //		    int playSound(const char *filename, int format, bool loop_flag, int channel=0);
 //		    void playCDAudio();
 //		    int playMP3();

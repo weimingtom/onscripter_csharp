@@ -460,7 +460,7 @@ namespace onscripter_csharp
 			    return ret;
 			}
 			
-			public override uint getFile( CharPtr file_name, UnsignedCharPtr buf, ref int location )
+			public override uint getFile( CharPtr file_name, UnsignedCharPtr buf, ref int location, bool is_location_null=true )
 			{
 				uint ret;
 			    if ( 0!=( ret = base.getFile( file_name, buf, ref location ) ) ) return ret;

@@ -118,7 +118,7 @@ namespace onscripter_csharp
 		    public abstract FileInfo getFileByIndex( uint index );
 		    //file_name parameter is assumed to use SJIS encoding
 		    public abstract uint getFileLength( CharPtr file_name );
-		    public abstract uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location/*=null*/ );
+		    public abstract uint getFile( CharPtr file_name, UnsignedCharPtr buffer, ref int location/*=null*/, bool is_location_null=true );
 		}
 		
 //		#endif // __BASE_READER_H__

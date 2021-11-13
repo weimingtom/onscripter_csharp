@@ -98,6 +98,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static void memcpy(UnsignedCharPtr s1, WAVE_HEADER s2, uint length)
+		{
+			
+		}
 		public static void memcpy(CharPtr s1, UnsignedCharPtr s2, uint length)
 		{
 			
@@ -298,6 +302,9 @@ namespace onscripter_csharp
 		public static void SDL_FreeSurface(SDL_Surface surface)
 		{
 			
+		}
+		public static int sizeof_WAVE_HEADER() {
+			return 0;
 		}
 	}
 }

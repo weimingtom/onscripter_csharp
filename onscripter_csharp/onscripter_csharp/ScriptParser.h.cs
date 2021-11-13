@@ -83,26 +83,26 @@ namespace onscripter_csharp
 		public const string DEFAULT_END_KINSOKU   = "乽亀乮乵乷";
 		
 //		typedef unsigned char uchar3[3];
-//		
-//		struct OVInfo{
-//		    //SDL_AudioCVT cvt;
-//		    int cvt_len;
-//		    int mult1;
-//		    int mult2;
-//		    unsigned char *buf;
-//		    long decoded_length;
-//		};
+		
+		public class OVInfo{
+		    //SDL_AudioCVT cvt;
+		    public int cvt_len;
+		    public int mult1;
+		    public int mult2;
+		    public UnsignedCharPtr buf;
+		    public long decoded_length;
+		}
 		
 		public partial class ScriptParser
 		{
 //		public:
-//			struct MusicStruct{
-//		        int volume;
-//		        bool is_mute;
-//		        MusicStruct()
-//		        : volume(0), is_mute(false) {}
-//		    };
-//		
+			public class MusicStruct{
+		        public int volume;
+		        public bool is_mute;
+		        public MusicStruct()
+		        { volume = (0); is_mute = (false); }
+		    }
+		
 //		    ScriptParser();
 //		    virtual ~ScriptParser();
 //		
