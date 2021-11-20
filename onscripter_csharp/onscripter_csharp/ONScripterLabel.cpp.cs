@@ -2042,7 +2042,7 @@ namespace onscripter_csharp
 //			    flush( refreshMode(), &sentence_font_info.pos );
 			}
 			
-			public AnimationInfo getSentence( CharPtr buffer, Fontinfo info, int num_cells, bool flush_flag, bool nofile_flag, bool skip_whitespace )
+			public AnimationInfo getSentence( CharPtr buffer, Fontinfo info, int num_cells, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true )
 			{
 				return null;
 //			    //Mion: moved from getSelectableSentence and modified
@@ -2084,7 +2084,7 @@ namespace onscripter_csharp
 //			    return anim;
 			}
 			
-			public ButtonLink getSelectableSentence( CharPtr buffer, Fontinfo info, bool flush_flag, bool nofile_flag, bool skip_whitespace )
+			public ButtonLink getSelectableSentence( CharPtr buffer, Fontinfo info, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true )
 			{
 				return null;
 //			    ButtonLink *button_link = new ButtonLink();

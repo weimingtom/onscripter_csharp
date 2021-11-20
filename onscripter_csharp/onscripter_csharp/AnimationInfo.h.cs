@@ -124,12 +124,12 @@ namespace onscripter_csharp
 //		        CPUF_X86_SSE2       =  4,
 //		        CPUF_PPC_ALTIVEC    =  8
 //		    };
-//		
-//		    /* Variables from AnimationInfo */
-//		    bool visible;
-//		    bool abs_flag;
-//		    bool affine_flag;
-//		    int trans;
+		
+		    /* Variables from AnimationInfo */
+		    public bool visible;
+		    public bool abs_flag;
+		    public bool affine_flag;
+		    public int trans;
 //		    char *image_name;
 //		    SDL_Surface *image_surface;
 //		    unsigned char *alpha_buf;

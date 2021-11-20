@@ -71,7 +71,6 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageId.cs" />
     <Compile Include="MSD_Surface.cs" />
     <Compile Include="NsaReader.cpp.cs" />
     <Compile Include="NsaReader.h.cs" />

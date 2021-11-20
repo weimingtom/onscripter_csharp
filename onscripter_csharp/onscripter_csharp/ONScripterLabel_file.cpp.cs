@@ -199,7 +199,7 @@ namespace onscripter_csharp
 //			                                   true, use_fullwidth );
 			}
 			
-			public int loadSaveFile( int no, bool input_flag )
+			public int loadSaveFile( int no, bool input_flag = true )
 			{
 				return 0;
 //			    char filename[16];

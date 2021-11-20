@@ -442,17 +442,17 @@ namespace onscripter_csharp
 		    /* Transmode related variables */
 		    public int trans_mode;
 		    
-//		    /* ---------------------------------------- */
-//		    /* Save/Load related variables */
-//		    struct SaveFileInfo{
-//		        bool valid;
-//		        int  month, day, hour, minute;
-//		        char sjis_no[5];
-//		        char sjis_month[5];
-//		        char sjis_day[5];
-//		        char sjis_hour[5];
-//		        char sjis_minute[5];
-//		    };
+		    /* ---------------------------------------- */
+		    /* Save/Load related variables */
+		    public class SaveFileInfo{
+		        public bool valid;
+		        public int  month, day, hour, minute;
+		        public char[] sjis_no = new char[5];
+		        public char[] sjis_month = new char[5];
+		        public char[] sjis_day = new char[5];
+		        public char[] sjis_hour = new char[5];
+		        public char[] sjis_minute = new char[5];
+		    }
 		    public uint num_save_file;
 		    public CharPtr save_menu_name;
 		    public CharPtr load_menu_name;

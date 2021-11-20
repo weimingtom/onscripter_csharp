@@ -575,88 +575,90 @@ namespace onscripter_csharp
 //		    /* ---------------------------------------- */
 //		    /* Button related variables */
 //		    AnimationInfo btndef_info;
-//		
-//		    struct ButtonState{
-//		        int x, y, button;
-//		        bool down_flag, valid_flag;
-//		        //Mion - initialize the button
-//		        ButtonState()
-//		        : x(0), y(0), button(0), down_flag(false), valid_flag(false)
-//		        {}
-//		        void reset(){ //Mion - clear the button state
-//		            button = 0;
-//		            valid_flag = false;
-//		        };
-//		        void set(int val){ //Mion - set button & valid_flag
-//		            button = val;
-//		            valid_flag = true;
-//		        };
-//		    } current_button_state, volatile_button_state, last_mouse_state, shelter_mouse_state;
-//		
-//		    struct ButtonLink{
-//		        typedef enum {
-//		            NORMAL_BUTTON     = 0,
-//		            SPRITE_BUTTON     = 1,
-//		            EX_SPRITE_BUTTON  = 2,
-//		            LOOKBACK_BUTTON   = 3,
-//		            TMP_SPRITE_BUTTON = 4,
-//		            TEXT_BUTTON       = 5
-//		        } BUTTON_TYPE;
-//		
-//		        struct ButtonLink *next;
-//		        struct ButtonLink *same; //Mion: to link buttons that act in concert
-//		        BUTTON_TYPE button_type;
-//		        int no;
-//		        int sprite_no;
-//		        char *exbtn_ctl;
-//		        int show_flag; // 0...show nothing, 1... show anim[0], 2 ... show anim[1]
-//		        SDL_Rect select_rect;
-//		        SDL_Rect image_rect;
-//		        AnimationInfo *anim[2];
-//		
-//		        ButtonLink(){
-//		            button_type = NORMAL_BUTTON;
-//		            next = NULL;
-//		            same = NULL;
-//		            exbtn_ctl = NULL;
-//		            anim[0] = anim[1] = NULL;
-//		            show_flag = 0;
-//		        };
-//		        ~ButtonLink(){
-//		            if ((button_type == NORMAL_BUTTON || 
-//		                 button_type == TMP_SPRITE_BUTTON ||
-//		                 button_type == TEXT_BUTTON) && anim[0]) delete anim[0];
-//		            if ( exbtn_ctl ) delete[] exbtn_ctl;
-//		        };
-//		        void insert( ButtonLink *button ){
-//		            button->next = this->next;
-//		            this->next = button;
-//		        };
-//		        void connect( ButtonLink *button ){
-//		            button->same = this->same;
-//		            this->same = button;
-//		        };
-//		        void removeSprite( int no ){
-//		            ButtonLink *p = this;
-//		            while(p->next){
-//		                if ((p->next->sprite_no == no) &&
-//		                    ( (p->next->button_type == SPRITE_BUTTON) ||
-//		                      (p->next->button_type == EX_SPRITE_BUTTON) )){
-//		                    ButtonLink *p2 = p->next;
-//		                    p->next = p->next->next;
-//		                    delete p2;
-//		                }
-//		                else{
-//		                    p = p->next;
-//		                }
-//		            }
-//		        };
-//		    } root_button_link, *current_button_link, *shelter_button_link,
-//		      exbtn_d_button_link, exbtn_d_shelter_button_link, text_button_link;
-//		    bool is_exbtn_enabled;
-//		
-//		    bool current_button_valid;
-//		    int current_over_button;
+		
+		    public class ButtonState{
+		        public int x, y, button;
+		        public bool down_flag, valid_flag;
+		        //Mion - initialize the button
+		        public ButtonState()
+		        { x = (0); y = (0); button = (0); down_flag = (false); valid_flag = (false);
+		        }
+		        public void reset(){ //Mion - clear the button state
+		            button = 0;
+		            valid_flag = false;
+		        }
+		        public void set(int val){ //Mion - set button & valid_flag
+		            button = val;
+		            valid_flag = true;
+		        }
+		    } 
+		    ButtonState current_button_state = new ButtonState(), volatile_button_state = new ButtonState(), last_mouse_state = new ButtonState(), shelter_mouse_state = new ButtonState();
+		
+		    public class ButtonLink{
+		        public enum BUTTON_TYPE {
+		            NORMAL_BUTTON     = 0,
+		            SPRITE_BUTTON     = 1,
+		            EX_SPRITE_BUTTON  = 2,
+		            LOOKBACK_BUTTON   = 3,
+		            TMP_SPRITE_BUTTON = 4,
+		            TEXT_BUTTON       = 5
+		        }
+		
+		        public ButtonLink next;
+		        public ButtonLink same; //Mion: to link buttons that act in concert
+		        public BUTTON_TYPE button_type;
+		        public int no;
+		        public int sprite_no;
+		        public CharPtr exbtn_ctl;
+		        public int show_flag; // 0...show nothing, 1... show anim[0], 2 ... show anim[1]
+		        public SDL_Rect select_rect = new SDL_Rect();
+		        public SDL_Rect image_rect = new SDL_Rect();
+		        public AnimationInfo[] anim = new AnimationInfo[2];
+		
+		        public ButtonLink(){
+		            button_type = BUTTON_TYPE.NORMAL_BUTTON;
+		            next = null;
+		            same = null;
+		            exbtn_ctl = null;
+		            anim[0] = anim[1] = null;
+		            show_flag = 0;
+		        }
+		        ~ButtonLink(){
+		            if ((button_type == BUTTON_TYPE.NORMAL_BUTTON || 
+		                 button_type == BUTTON_TYPE.TMP_SPRITE_BUTTON ||
+		                 button_type == BUTTON_TYPE.TEXT_BUTTON) && null!=anim[0]) anim[0] = null;//delete anim[0];
+		            if ( null!=exbtn_ctl ) exbtn_ctl = null;//delete[] exbtn_ctl;
+		        }
+		        public void insert( ButtonLink button ){
+		            button.next = this.next;
+		            this.next = button;
+		        }
+		        public void connect( ButtonLink button ){
+		            button.same = this.same;
+		            this.same = button;
+		        }
+		        public void removeSprite( int no ){
+		            ButtonLink p = this;
+		            while(null!=p.next){
+		                if ((p.next.sprite_no == no) &&
+		                    ( (p.next.button_type == BUTTON_TYPE.SPRITE_BUTTON) ||
+		                      (p.next.button_type == BUTTON_TYPE.EX_SPRITE_BUTTON) )){
+		                    ButtonLink p2 = p.next;
+		                    p.next = p.next.next;
+		                    p2 = null;//delete p2;
+		                }
+		                else{
+		                    p = p.next;
+		                }
+		            }
+		        }
+		    } 
+		    public ButtonLink root_button_link = new ButtonLink(), current_button_link = null, shelter_button_link = null;
+		    public ButtonLink exbtn_d_button_link = new ButtonLink(), exbtn_d_shelter_button_link = new ButtonLink(), text_button_link = new ButtonLink();
+		    public bool is_exbtn_enabled;
+		
+		    public bool current_button_valid;
+		    public int current_over_button;
 		
 		    /* ---------------------------------------- */
 		    /* Mion: textbtn related variables */
@@ -742,13 +744,13 @@ namespace onscripter_csharp
 //		    AnimationInfo tachi_info[3];
 //		    int human_order[3];
 //		
-//		    /* ---------------------------------------- */
-//		    /* Sprite related variables */
-//		    AnimationInfo *sprite_info;
-//		    AnimationInfo *sprite2_info;
-//		    bool all_sprite_hide_flag;
-//		    bool all_sprite2_hide_flag;
-//		
+		    /* ---------------------------------------- */
+		    /* Sprite related variables */
+		    public AnimationInfo[] sprite_info;
+		    public AnimationInfo[] sprite2_info;
+		    public bool all_sprite_hide_flag;
+		    public bool all_sprite2_hide_flag;
+		
 //		    //Mion: track the last few sprite numbers loaded, for sprite data reuse
 //		    enum {
 //		        SPRITE_NUM_LAST_LOADS = 4
@@ -917,19 +919,20 @@ namespace onscripter_csharp
 //		        SELECT_NUM_MODE   = 2,
 //		        SELECT_CSEL_MODE  = 3
 //		    };
-//		    struct SelectLink{
-//		        struct SelectLink *next;
-//		        char *text;
-//		        char *label;
-//		
-//		        SelectLink()
-//		        : next(NULL), text(NULL), label(NULL)
-//		        {}
-//		        ~SelectLink(){
-//		            if ( text )  delete[] text;
-//		            if ( label ) delete[] label;
-//		        }
-//		    } root_select_link, *shelter_select_link;
+		    public class SelectLink{
+		        public SelectLink next;
+		        public CharPtr text;
+		        public CharPtr label;
+		
+		        public SelectLink()
+		        { next = (null); text = (null); label = (null);
+		        }
+		        ~SelectLink(){
+		            if ( null!=text )  text = null;//delete[] text;
+		            if ( null!=label ) label = null;//delete[] label;
+		        }
+		    } 
+		    public SelectLink root_select_link = new SelectLink(), shelter_select_link = null;
 //		    struct NestInfo select_label_info;
 //		    int shortcut_mouse_line;
 //		
@@ -1072,28 +1075,28 @@ namespace onscripter_csharp
 //		    void makeMonochromeSurface( SDL_Surface *surface, SDL_Rect &clip );
 //		    void refreshSurface( SDL_Surface *surface, SDL_Rect *clip_src, int refresh_mode = REFRESH_NORMAL_MODE );
 //		    void createBackground();
-//		
-//		    /* ---------------------------------------- */
-//		    /* rmenu and system call */
-//		    bool system_menu_enter_flag;
-//		    int  system_menu_mode;
-//		
-//		    int  shelter_event_mode;
-//		    int  shelter_display_mode;
-//		    bool shelter_draw_cursor_flag;
-//		    struct Page *cached_page;
-//		    AnimationInfo *system_menu_title;
-//		
-//		    enum MessageId {
-//		        MESSAGE_SAVE_EXIST,
-//		        MESSAGE_SAVE_EMPTY,
-//		        MESSAGE_SAVE_CONFIRM,
-//		        MESSAGE_LOAD_CONFIRM,
-//		        MESSAGE_RESET_CONFIRM,
-//		        MESSAGE_END_CONFIRM,
-//		        MESSAGE_YES,
-//		        MESSAGE_NO
-//		    };
+		
+		    /* ---------------------------------------- */
+		    /* rmenu and system call */
+		    public bool system_menu_enter_flag;
+		    public int  system_menu_mode;
+		
+		    public int  shelter_event_mode;
+		    public int  shelter_display_mode;
+		    public bool shelter_draw_cursor_flag;
+		    public Page cached_page = null;
+		    public AnimationInfo system_menu_title;
+		
+		    public enum MessageId {
+		        MESSAGE_SAVE_EXIST,
+		        MESSAGE_SAVE_EMPTY,
+		        MESSAGE_SAVE_CONFIRM,
+		        MESSAGE_LOAD_CONFIRM,
+		        MESSAGE_RESET_CONFIRM,
+		        MESSAGE_END_CONFIRM,
+		        MESSAGE_YES,
+		        MESSAGE_NO
+		    }
 //		    const char* getMessageString( MessageId which );
 //		    
 //		    void enterSystemCall();
