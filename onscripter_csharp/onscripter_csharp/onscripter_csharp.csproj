@@ -105,7 +105,9 @@
     <Compile Include="SDL_KeyboardEvent.cs" />
     <Compile Include="SDL_MouseButtonEvent.cs" />
     <Compile Include="SDL_MouseMotionEvent.cs" />
+    <Compile Include="SDL_PixelFormat.cs" />
     <Compile Include="SDL_Rect.cs" />
+    <Compile Include="SDL_RWops.cs" />
     <Compile Include="SDL_Surface.cs" />
     <Compile Include="TTF_Font.cs" />
     <Compile Include="Uint32Ptr.cs" />

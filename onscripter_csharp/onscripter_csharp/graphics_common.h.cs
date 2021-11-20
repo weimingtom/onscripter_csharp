@@ -64,22 +64,22 @@ namespace onscripter_csharp
 //		#else
 //		
 //		#define BPP 32
-//		// the mask is the same as the one used in TTF_RenderGlyph_Blended
-//		#define RBMASK 0x00ff00ff
-//		#define GBMASK 0x0000ffff
-//		#define RMASK 0x00ff0000
-//		#define GMASK 0x0000ff00
-//		#define BMASK 0x000000ff
-//		#define AMASK 0xff000000
-//		#define RSHIFT 16
-//		#define GSHIFT 8
-//		#define BSHIFT 0
-//		#define ASHIFT 24
-//		#define RLOSS  0
-//		#define GLOSS  0
-//		#define BLOSS  0
-//		#define ALOSS  0
-//		
+		// the mask is the same as the one used in TTF_RenderGlyph_Blended
+		public const UInt32 RBMASK = 0x00ff00ff;
+		public const UInt32 GBMASK = 0x0000ffff;
+		public const UInt32 RMASK = 0x00ff0000;
+		public const UInt32 GMASK = 0x0000ff00;
+		public const UInt32 BMASK = 0x000000ff;
+		public const UInt32 AMASK = 0xff000000;
+		public const int RSHIFT = 16;
+		public const int GSHIFT = 8;
+		public const int BSHIFT = 0;
+		public const int ASHIFT = 24;
+		public const int RLOSS = 0;
+		public const int GLOSS = 0;
+		public const int BLOSS = 0;
+		public const int ALOSS = 0;
+		
 //		#endif
 //		
 //		#define RGBMASK 0x00ffffff
@@ -140,14 +140,14 @@ namespace onscripter_csharp
 //		        *dst_buffer = mask | mask >> 16; \
 //		    } \
 //		}
-//		
-//		#define BLEND_MASK_PIXEL(){\
+		
+		public static void BLEND_MASK_PIXEL(){
 //		    Uint32 s1 = (*src1_buffer | *src1_buffer << 16) & BLENDMASK; \
 //		    Uint32 s2 = (*src2_buffer | *src2_buffer << 16) & BLENDMASK; \
 //		    Uint32 mask = (s1 + ((s2-s1) * mask2 >> BLENDSHIFT)) & BLENDMASK; \
 //		    *dst_buffer = mask | mask >> 16; \
-//		}
-//		
+		}
+		
 //		#define ADDBLEND_PIXEL(){\
 //		    if ((*src_buffer != 0) && (*alphap != 0)){\
 //		        Uint32 mask2 = (*alphap * alpha) >> 11;\
@@ -237,8 +237,8 @@ namespace onscripter_csharp
 //		}
 //		
 //		/* Used in ONScripterLabel_image */
-//		
-//		#define BLEND_TEXT(){\
+		
+		public static void BLEND_TEXT(){
 //		    Uint32 mask2 = *src_buffer; \
 //		    if (mask2 == 255){ \
 //		        *dst_buffer = src_color3; \
@@ -251,8 +251,8 @@ namespace onscripter_csharp
 //		                            src_color2 * mask2) >> 8) & GMASK; \
 //		        *dst_buffer = mask_rb | mask_g; \
 //		    } \
-//		}
-//		
+		}
+		
 //		#define BLEND_MASK_PIXEL(){\
 //		    Uint32 temp = *src1_buffer & RBMASK;\
 //		    Uint32 mask_rb = (((((*src2_buffer & RBMASK) - temp) * mask2) >> 8) + temp) & RBMASK;\
@@ -292,9 +292,9 @@ namespace onscripter_csharp
 //		    }\
 //		    alphap += 4;\
 //		}
-//		
-//		// monocro 85/86/85 uses 85=(4+1)*(16+1)
-//		#define MONOCRO_PIXEL(){\
+		
+		// monocro 85/86/85 uses 85=(4+1)*(16+1)
+		public static void MONOCRO_PIXEL(){
 //		    const ONSBuf tmp = ((*buffer & GMASK) >> GSHIFT); \
 //		    ONSBuf c = ((*buffer & RMASK) >> RSHIFT) + (*buffer & BMASK) + tmp; \
 //		    c += c<<2; \
@@ -303,8 +303,8 @@ namespace onscripter_csharp
 //		    *buffer = (monocro_color_lut[c][0] << RSHIFT) | \
 //		              (monocro_color_lut[c][1] << GSHIFT) | \
 //		              monocro_color_lut[c][2]; \
-//		}
-//		
+		}
+		
 //		#endif //ndef BPP16
 //		
 //		

@@ -430,7 +430,7 @@ namespace onscripter_csharp
 			
 			
 			public void blendOnSurface( SDL_Surface dst_surface, int dst_x, int dst_y,
-			                           ref SDL_Rect clip, int alpha )
+			                           ref SDL_Rect clip, int alpha=256 )
 			{
 //			    if ( image_surface == NULL ) return;
 //
@@ -595,7 +595,7 @@ namespace onscripter_csharp
 			}
 			
 			public void blendOnSurface2( SDL_Surface dst_surface, int dst_x, int dst_y,
-			                            SDL_Rect clip, int alpha )
+			                            SDL_Rect clip, int alpha=256 )
 			{
 //			    if ( image_surface == NULL ) return;
 //			    if (scale_x == 0 || scale_y == 0) return;

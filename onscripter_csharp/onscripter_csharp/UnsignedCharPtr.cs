@@ -76,5 +76,9 @@ namespace onscripter_csharp
 		public void inc(int size) {
 			
 		}
+		public void minus(int size)
+		{
+			
+		}
 	}
 }

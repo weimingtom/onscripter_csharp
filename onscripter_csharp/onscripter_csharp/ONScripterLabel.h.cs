@@ -61,14 +61,14 @@ namespace onscripter_csharp
 //		#include <SDL_ttf.h>
 //		
 //		#define DEFAULT_VIDEO_SURFACE_FLAG (SDL_SWSURFACE)
-//		
-//		#define DEFAULT_BLIT_FLAG (0)
-//		//#define DEFAULT_BLIT_FLAG (SDL_RLEACCEL)
-//		
-//		#define MAX_SPRITE_NUM 1000
-//		#define MAX_SPRITE2_NUM 256
-//		#define MAX_PARAM_NUM 100
-//		#define CUSTOM_EFFECT_NO 100
+		
+		public const int DEFAULT_BLIT_FLAG = (0);
+		//#define DEFAULT_BLIT_FLAG (SDL_RLEACCEL)
+		
+		public const int MAX_SPRITE_NUM = 1000;
+		public const int MAX_SPRITE2_NUM = 256;
+		public const int MAX_PARAM_NUM = 100;
+		public const int CUSTOM_EFFECT_NO = 100;
 		
 		public const int DEFAULT_VOLUME = 100;
 		public const int ONS_MIX_CHANNELS = 50;
@@ -132,11 +132,11 @@ namespace onscripter_csharp
 //		    void setScaled();
 //		    inline void setStrict() { script_h.strict_warnings = true; }
 //		    void setGameIdentifier(const char *gameid);
-//		    enum {
-//		        PNG_MASK_AUTODETECT    = 0,
-//		        PNG_MASK_USE_ALPHA     = 1,
-//		        PNG_MASK_USE_NSCRIPTER = 2
-//		    };
+		    
+		    public const int PNG_MASK_AUTODETECT    = 0;
+		    public const int PNG_MASK_USE_ALPHA     = 1;
+		    public const int PNG_MASK_USE_NSCRIPTER = 2;
+		    
 //		    inline void setMaskType( int mask_type ) { png_mask_type = mask_type; }
 //		    inline void setEnglishDefault()
 //		        { script_h.default_script = ScriptHandler::LATIN_SCRIPT; }
@@ -435,16 +435,16 @@ namespace onscripter_csharp
 		    public const int WAIT_TEXT_MODE       = 256; // clickwait, newpage, select
 		    public const int WAIT_NO_ANIM_MODE    = 512;
 		    
-//		    enum {
-//		        EFFECT_DST_GIVEN     = 0,
-//		        EFFECT_DST_GENERATE  = 1
-//		    };
-//		    enum {
-//		        ALPHA_BLEND_CONST          = 1,
-//		        ALPHA_BLEND_MULTIPLE       = 2,
-//		        ALPHA_BLEND_FADE_MASK      = 3,
-//		        ALPHA_BLEND_CROSSFADE_MASK = 4
-//		    };
+		    
+		    public const int EFFECT_DST_GIVEN     = 0;
+		    public const int EFFECT_DST_GENERATE  = 1;
+		    
+		    
+		    public const int ALPHA_BLEND_CONST          = 1;
+		    public const int ALPHA_BLEND_MULTIPLE       = 2;
+		    public const int ALPHA_BLEND_FADE_MASK      = 3;
+		    public const int ALPHA_BLEND_CROSSFADE_MASK = 4;
+		    
 		
 		    // ----------------------------------------
 		    // start-up options
@@ -567,14 +567,14 @@ namespace onscripter_csharp
 		    public SDL_Surface screenshot_surface; // Screenshot
 		    public SDL_Surface image_surface; // Reference for loadImage() - 32bpp
 		
-//		    unsigned char *tmp_image_buf;
-//		    unsigned long tmp_image_buf_length;
-//		    unsigned long mean_size_of_loaded_images;
-//		    unsigned long num_loaded_images;
-//		
-//		    /* ---------------------------------------- */
-//		    /* Button related variables */
-//		    AnimationInfo btndef_info;
+		    public UnsignedCharPtr tmp_image_buf;
+		    public ulong tmp_image_buf_length;
+		    public ulong mean_size_of_loaded_images;
+		    public ulong num_loaded_images;
+		
+		    /* ---------------------------------------- */
+		    /* Button related variables */
+		    public AnimationInfo btndef_info = new AnimationInfo();
 		
 		    public class ButtonState{
 		        public int x, y, button;
@@ -729,21 +729,29 @@ namespace onscripter_csharp
 //		
 //		    void disableGetButtonFlag();
 //		    int getNumberFromBuffer( const char **buf );
-//		
-//		    /* ---------------------------------------- */
-//		    /* General image-related variables */
-//		    int png_mask_type;
-//		
-//		    /* ---------------------------------------- */
-//		    /* Background related variables */
-//		    AnimationInfo bg_info;
-//		
-//		    /* ---------------------------------------- */
-//		    /* Tachi-e related variables */
-//		    /* 0 ... left, 1 ... center, 2 ... right */
-//		    AnimationInfo tachi_info[3];
-//		    int human_order[3];
-//		
+		
+		    /* ---------------------------------------- */
+		    /* General image-related variables */
+		    public int png_mask_type;
+		
+		    /* ---------------------------------------- */
+		    /* Background related variables */
+		    public AnimationInfo bg_info = new AnimationInfo();
+		
+		    /* ---------------------------------------- */
+		    /* Tachi-e related variables */
+		    /* 0 ... left, 1 ... center, 2 ... right */
+		    public AnimationInfo[] tachi_info = tachi_info_init();
+		    private static AnimationInfo[] tachi_info_init() {
+		    	AnimationInfo[] ret = new AnimationInfo[3];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new AnimationInfo();
+		    	}
+		    	return ret;
+		    }
+		    public int[] human_order = new int[3];
+		
 		    /* ---------------------------------------- */
 		    /* Sprite related variables */
 		    public AnimationInfo[] sprite_info;
@@ -751,25 +759,34 @@ namespace onscripter_csharp
 		    public bool all_sprite_hide_flag;
 		    public bool all_sprite2_hide_flag;
 		
-//		    //Mion: track the last few sprite numbers loaded, for sprite data reuse
-//		    enum {
-//		        SPRITE_NUM_LAST_LOADS = 4
-//		    };
-//		    int last_loaded_sprite[SPRITE_NUM_LAST_LOADS];
-//		    int last_loaded_sprite_ind;
-//		
-//		    /* ---------------------------------------- */
-//		    /* Parameter related variables */
-//		    AnimationInfo *bar_info[MAX_PARAM_NUM], *prnum_info[MAX_PARAM_NUM];
-//		
-//		    /* ---------------------------------------- */
-//		    /* Cursor related variables */
-//		    enum {
-//		        CURSOR_WAIT_NO    = 0,
-//		        CURSOR_NEWPAGE_NO = 1
-//		    };
-//		    AnimationInfo cursor_info[2];
-//		
+		    //Mion: track the last few sprite numbers loaded, for sprite data reuse
+		    
+		    public const int SPRITE_NUM_LAST_LOADS = 4;
+		    
+		    public int[] last_loaded_sprite = new int[SPRITE_NUM_LAST_LOADS];
+		    public int last_loaded_sprite_ind;
+		
+		    /* ---------------------------------------- */
+		    /* Parameter related variables */
+		    public AnimationInfo[] bar_info = new AnimationInfo[MAX_PARAM_NUM], prnum_info = new AnimationInfo[MAX_PARAM_NUM];
+		
+		    /* ---------------------------------------- */
+		    /* Cursor related variables */
+		    
+		    public const int CURSOR_WAIT_NO    = 0;
+		    public const int CURSOR_NEWPAGE_NO = 1;
+		    
+		    public AnimationInfo[] cursor_info = cursor_info_init();
+		    private static AnimationInfo[] cursor_info_init()
+		    {
+		    	AnimationInfo[] ret = new AnimationInfo[2];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new AnimationInfo();
+		    	}
+		    	return ret;
+		    }
+		
 //		    void loadCursor( int no, const char *str, int x, int y, bool abs_flag = false );
 //		    void saveAll();
 //		    void loadEnvData();

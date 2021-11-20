@@ -94,58 +94,74 @@ namespace onscripter_csharp
 		    public SDL_Rect orig_pos = new SDL_Rect(); //Mion: position and size of the image before resizing
 		    public SDL_Rect pos = new SDL_Rect(); // position and size of the current cell
 		
-//		    /* variables set from the image tag */
-//		    int trans_mode;
-//		    uchar3 direct_color;
-//		    int pallette_number;
-//		    uchar3 color;
-//		    int num_of_cells;
-//		    int current_cell;
-//		    int direction;
-//		    int *duration_list;
-//		    uchar3 *color_list;
-//		    int loop_mode;
+		    /* variables set from the image tag */
+		    public int trans_mode;
+		    public byte[] direct_color = new byte[3];
+		    public int pallette_number;
+		    public byte[] color = new byte[3];
+		    public int num_of_cells;
+		    public int current_cell;
+		    public int direction;
+		    public int[] duration_list;
+		    public byte[][] color_list;
+		    public int loop_mode;
 		    public bool is_animatable;
 		    public bool is_single_line;
 		    public bool is_tight_region; // valid under TRANS_STRING
 		    public bool is_ruby_drawable;
 		    public bool skip_whitespace;
-//		#ifndef NO_LAYER_EFFECTS
-//		    int layer_no; //Mion: for Layer effects
-//		#endif
-//		    char *file_name;
-//		    char *mask_file_name;
-//		
-//		    //Mion: for special graphics routine handling
-//		    enum{
-//		        CPUF_NONE           =  0,
-//		        CPUF_X86_MMX        =  1,
-//		        CPUF_X86_SSE        =  2,
-//		        CPUF_X86_SSE2       =  4,
-//		        CPUF_PPC_ALTIVEC    =  8
-//		    };
+		#if !NO_LAYER_EFFECTS
+		    public int layer_no; //Mion: for Layer effects
+		#endif
+		    public CharPtr file_name;
+		    public CharPtr mask_file_name;
+		
+		    //Mion: for special graphics routine handling
+		    
+		    public const int CPUF_NONE           =  0;
+		    public const int CPUF_X86_MMX        =  1;
+		    public const int CPUF_X86_SSE        =  2;
+		    public const int CPUF_X86_SSE2       =  4;
+		    public const int CPUF_PPC_ALTIVEC    =  8;
+		    
 		
 		    /* Variables from AnimationInfo */
 		    public bool visible;
 		    public bool abs_flag;
 		    public bool affine_flag;
 		    public int trans;
-//		    char *image_name;
-//		    SDL_Surface *image_surface;
-//		    unsigned char *alpha_buf;
-//		    /* Variables for extended sprite (lsp2, drawsp2, etc.) */
-//		    int scale_x, scale_y, rot;
-//		    int mat[2][2], inv_mat[2][2];
-//		    int corner_xy[4][2];
-//		    SDL_Rect bounding_rect;
-//		
-//		    enum { BLEND_NORMAL      = 0,
-//		           BLEND_ADD         = 1,
-//		           BLEND_SUB         = 2
-//		    };
-//		    int blending_mode;
-//		    int cos_i, sin_i;
-//		    
+		    public CharPtr image_name;
+		    public SDL_Surface image_surface;
+		    public byte[] alpha_buf;
+		    /* Variables for extended sprite (lsp2, drawsp2, etc.) */
+		    public int scale_x, scale_y, rot;
+		    public int[][] mat = mat_init(), inv_mat = mat_init();
+		    private static int[][] mat_init() {
+		    	int[][] ret = new int[2][];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new int[2];
+		    	}
+		    	return ret;
+		    }
+		    public int[][] corner_xy = corner_xy_init();
+		    private static int[][] corner_xy_init() {
+		    	int[][] ret = new int[4][];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new int[2];
+		    	}
+		    	return ret;
+		    }
+		    public SDL_Rect bounding_rect = new SDL_Rect();
+		
+		    public const int BLEND_NORMAL      = 0;
+		    public const int BLEND_ADD         = 1;
+		    public const int BLEND_SUB         = 2;
+		    
+		    public int blending_mode;
+		    public int cos_i, sin_i;
+		    
 //		    int font_size_xy[2]; // used by prnum and lsp string
 //		    int font_pitch; // used by lsp string
 //		    int remaining_time;

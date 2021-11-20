@@ -216,7 +216,7 @@ namespace onscripter_csharp
 //			void ONScripterLabel::setupAnimationInfo( AnimationInfo *anim, Fontinfo *info,
 //			                                          float stretch_x, float stretch_y )
 //			#else
-			public void setupAnimationInfo( AnimationInfo anim, Fontinfo info )
+			public void setupAnimationInfo( AnimationInfo anim, Fontinfo info = null )
 //			#endif
 			{
 //			    if (anim->image_surface && !anim->stale_image) return;
@@ -348,7 +348,7 @@ namespace onscripter_csharp
 //			    return true;
 			}
 			
-			public void parseTaggedString( AnimationInfo anim, bool is_mask )
+			public void parseTaggedString( AnimationInfo anim, bool is_mask=false )
 			{
 //			    if (anim->image_name == NULL) return;
 //			

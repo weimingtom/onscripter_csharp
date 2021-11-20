@@ -306,5 +306,62 @@ namespace onscripter_csharp
 		public static int sizeof_WAVE_HEADER() {
 			return 0;
 		}
+		public static void SDL_LockSurface(SDL_Surface x)
+		{
+			
+		}
+		public static void SDL_UnlockSurface(SDL_Surface x)
+		{
+			
+		}
+		public static UnsignedCharPtr SDL_Surface_get_pixels(SDL_Surface x)
+		{
+			return null;
+		}
+		
+		public static SDL_PixelFormat SDL_Surface_get_format(SDL_Surface surface)
+		{
+			return null;
+		}
+		public static int SDL_Surface_get_pitch(SDL_Surface x)
+		{
+			return 0;
+		}
+		public static void SDL_RWclose(SDL_RWops ctx)
+		{
+			
+		}
+		public static SDL_RWops SDL_RWFromMem(UnsignedCharPtr mem, int size)
+		{
+			return null;
+		}
+		public static SDL_Surface IMG_Load_RW(SDL_RWops src, int freesrc)
+		{
+			return null;
+		}
+		public static CharPtr IMG_GetError()
+		{
+			return null;
+		}
+		public const UInt32 SDL_SWSURFACE = 0x00000000;
+		public static SDL_Surface SDL_CreateRGBSurface(
+			UInt32 flags, int width, int height, int depth, 
+			UInt32 Rmask, UInt32 Gmask, UInt32 Bmask, UInt32 Amask)
+		{
+			return null;
+		}
+		public static UInt32 SDL_MapRGBA(SDL_PixelFormat format, 
+		    byte r, byte g, byte b, byte a)
+		{
+			return 0;
+		}
+		public static int SDL_FillRect(SDL_Surface dst, SDL_Rect dstrect, UInt32 color)
+		{
+			return 0;
+		}
+		public static SDL_Surface SDL_ConvertSurface(SDL_Surface src, SDL_PixelFormat fmt, UInt32 flags)
+		{
+			return null;
+		}
 	}
 }

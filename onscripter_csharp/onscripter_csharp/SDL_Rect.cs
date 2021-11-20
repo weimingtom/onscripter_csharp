@@ -22,6 +22,14 @@ namespace onscripter_csharp
 	
 		public SDL_Rect()
 		{
+			
+		}
+		public SDL_Rect(int x, int y, int w, int h)
+		{
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
 		}
 	}
 }
