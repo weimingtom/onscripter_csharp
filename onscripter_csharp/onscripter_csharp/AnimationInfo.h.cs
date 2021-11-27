@@ -162,14 +162,14 @@ namespace onscripter_csharp
 		    public int blending_mode;
 		    public int cos_i, sin_i;
 		    
-//		    int font_size_xy[2]; // used by prnum and lsp string
-//		    int font_pitch; // used by lsp string
-//		    int remaining_time;
-//		
-//		    int param; // used by prnum and bar
-//		    int max_param; // used by bar
-//		    int max_width; // used by bar
-//		    
+		    public int[] font_size_xy = new int[2]; // used by prnum and lsp string
+		    public int font_pitch; // used by lsp string
+		    public int remaining_time;
+		
+		    public int param; // used by prnum and bar
+		    public int max_param; // used by bar
+		    public int max_width; // used by bar
+		    
 //		    AnimationInfo();
 //		    AnimationInfo(const AnimationInfo &anim);
 //		    ~AnimationInfo();

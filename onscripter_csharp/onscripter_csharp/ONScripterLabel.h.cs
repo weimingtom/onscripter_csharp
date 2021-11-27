@@ -473,23 +473,23 @@ namespace onscripter_csharp
 //		    inline int StretchPosX(int val) { return ExpandPos(val); }
 //		    inline int StretchPosY(int val) { return ExpandPos(val); }
 //		#endif
-//		    inline void UpdateAnimPosXY(AnimationInfo *animp) {
-//		        animp->pos.x = ExpandPos(animp->orig_pos.x);
-//		        animp->pos.y = ExpandPos(animp->orig_pos.y);
-//		    }
-//		    inline void UpdateAnimPosWH(AnimationInfo *animp) {
-//		        animp->pos.w = ExpandPos(animp->orig_pos.w);
-//		        animp->pos.h = ExpandPos(animp->orig_pos.h);
-//		    }
-//		    inline void UpdateAnimPosStretchXY(AnimationInfo *animp) {
-//		        animp->pos.x = StretchPosX(animp->orig_pos.x);
-//		        animp->pos.y = StretchPosY(animp->orig_pos.y);
-//		    }
-//		    inline void UpdateAnimPosStretchWH(AnimationInfo *animp) {
-//		        animp->pos.w = StretchPosX(animp->orig_pos.w);
-//		        animp->pos.h = StretchPosY(animp->orig_pos.h);
-//		    }
-//		
+		    public void UpdateAnimPosXY(AnimationInfo animp) {
+		        animp.pos.x = ExpandPos(animp.orig_pos.x);
+		        animp.pos.y = ExpandPos(animp.orig_pos.y);
+		    }
+		    public void UpdateAnimPosWH(AnimationInfo animp) {
+		        animp.pos.w = ExpandPos(animp.orig_pos.w);
+		        animp.pos.h = ExpandPos(animp.orig_pos.h);
+		    }
+		    public void UpdateAnimPosStretchXY(AnimationInfo animp) {
+		        animp.pos.x = StretchPosX(animp.orig_pos.x);
+		        animp.pos.y = StretchPosY(animp.orig_pos.y);
+		    }
+		    public void UpdateAnimPosStretchWH(AnimationInfo animp) {
+		        animp.pos.w = StretchPosX(animp.orig_pos.w);
+		        animp.pos.h = StretchPosY(animp.orig_pos.h);
+		    }
+		
 		    // ----------------------------------------
 		    // Global definitions
 		    public long internal_timer;

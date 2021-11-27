@@ -363,5 +363,10 @@ namespace onscripter_csharp
 		{
 			return null;
 		}
+		public const byte SDL_ALPHA_OPAQUE = 255;
+		public static int SDL_SetAlpha(SDL_Surface surface, UInt32 flag, byte alpha)
+		{
+			return 0;
+		}
 	}
 }
