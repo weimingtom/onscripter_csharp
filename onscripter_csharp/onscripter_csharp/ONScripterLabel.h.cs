@@ -524,10 +524,10 @@ namespace onscripter_csharp
 //		    char *trap_dest; //label to jump to when trapped
 //		    char *wm_title_string;
 //		    char *wm_icon_string;
-//		    char wm_edit_string[256];
-//		    bool fullscreen_mode;
-//		    bool window_mode; //ons-specific, for cmd-line option --window
-//		    int fileversion;
+		    public CharPtr wm_edit_string = new char[256];
+		    public bool fullscreen_mode;
+		    public bool window_mode; //ons-specific, for cmd-line option --window
+		    public int fileversion;
 //		#ifdef WIN32
 //		    bool current_user_appdata;
 //		#endif

@@ -301,7 +301,7 @@ namespace onscripter_csharp
 			        //if CD audio is not available, search the "cd" subfolder
 			        //for a file named "track01.mp3" or similar, depending on the
 			        //track number; check for mp3, ogg and wav files
-			        char[] filename = new char[256];
+			        CharPtr filename = new char[256];
 			        sprintf( filename, "cd\\track%2.2d.mp3", current_cd_track );
 			        int ret = playSound( filename, SOUND_MP3, cd_play_loop_flag );
 			        if (ret == SOUND_MP3) return;
@@ -333,7 +333,7 @@ namespace onscripter_csharp
 			    if (music_cmd) music_looping = 0;
 			#endif
 			
-			    char[] music_filename = new char[256];
+			    CharPtr music_filename = new char[256];
 			    sprintf(music_filename, "%s%s", script_h.save_path, TMP_MUSIC_FILE);
 			
 			    // Mix_VolumeMusic( music_volume );
@@ -343,7 +343,7 @@ namespace onscripter_csharp
 			
 			public int playSequencedMusic(bool loop_flag)
 			{
-				char[] seqmusic_filename = new char[256];
+				CharPtr seqmusic_filename = new char[256];
 			    sprintf(seqmusic_filename, "%s%s", script_h.save_path, TMP_SEQMUSIC_FILE);
 			    int seqmusic_looping = loop_flag ? -1 : 0;
 			

@@ -368,5 +368,64 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		public const UInt32 GENERIC_READ = (UInt32)(0x80000000L);
+		public const int OPEN_EXISTING = 3;
+		public const int FILE_ATTRIBUTE_NORMAL = 0x00000080;
+		public const uint INVALID_HANDLE_VALUE = (uint)(uint.MaxValue); //-1
+		public static uint CreateFile(
+			CharPtr lpFileName,
+		    UInt32 dwDesiredAccess,
+		    UInt32 dwShareMode,
+		    Object lpSecurityAttributes,
+		    UInt32 dwCreationDisposition,
+		    UInt32 dwFlagsAndAttributes,
+		    uint hTemplateFile
+		    )
+		{
+			return 0;
+		}
+		public static void CloseHandle(uint handle)
+		{
+			
+		}
+		
+		public class FILETIME
+		{
+			
+		}
+		public class SYSTEMTIME
+		{
+			public Int16 wYear;
+		    public Int16 wMonth;
+		    public Int16 wDayOfWeek;
+		    public Int16 wDay;
+		    public Int16 wHour;
+		    public Int16 wMinute;
+		    public Int16 wSecond;
+		    public Int16 wMilliseconds;
+		}
+		public static void GetFileTime(
+		    uint hFile,
+		    FILETIME lpCreationTime,
+		    FILETIME lpLastAccessTime,
+		    FILETIME lpLastWriteTime
+		    )
+		{
+			
+		}
+		public static bool FileTimeToLocalFileTime(
+		    FILETIME lpFileTime,
+		    FILETIME lpLocalFileTime
+		    )
+		{
+			return false;
+		}
+		public static bool FileTimeToSystemTime(
+		    FILETIME lpFileTime,
+		    SYSTEMTIME lpSystemTime
+		    )
+		{
+			return false;
+		}
 	}
 }

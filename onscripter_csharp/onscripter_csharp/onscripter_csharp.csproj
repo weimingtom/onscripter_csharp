@@ -94,7 +94,6 @@
     <Compile Include="resources.h.cs" />
     <Compile Include="SarReader.cpp.cs" />
     <Compile Include="SarReader.h.cs" />
-    <Compile Include="SaveFileInfo.cs" />
     <Compile Include="ScriptHandler.cpp.cs" />
     <Compile Include="ScriptHandler.h.cs" />
     <Compile Include="ScriptParser.cpp.cs" />

@@ -1378,7 +1378,7 @@ namespace onscripter_csharp
 			    archive_path = path;
 			
 			    FILEPtr fp = null;
-			    char[] filename = new char[10];
+			    CharPtr filename = new char[10];
 			    int i, n=0, encrypt_mode = 0;
 			    while ((fp == null) && (n<archive_path.get_num_paths())) {
 			        CharPtr curpath = archive_path.get_path(n);
