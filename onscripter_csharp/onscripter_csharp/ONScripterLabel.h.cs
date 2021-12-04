@@ -84,13 +84,13 @@ namespace onscripter_csharp
 //		#else
 //		#define DEFAULT_AUDIO_RATE 44100
 //		#endif
-//		
-//		#define DEFAULT_WM_TITLE "ONScripter-EN"
-//		#define DEFAULT_WM_ICON  "Ons-en"
+		
+		public static CharPtr DEFAULT_WM_TITLE = "ONScripter-EN";
+		public static CharPtr DEFAULT_WM_ICON = "Ons-en";
 		
 		private const int NUM_GLYPH_CACHE = 30;
 		
-//		#define KEYPRESS_NULL ((SDLKey)(SDLK_LAST+1)) // "null" for keypress variables
+		public const SDLKey KEYPRESS_NULL = ((SDLKey)(SDLKey.SDLK_LAST+1)); // "null" for keypress variables
 		
 		public partial class ONScripterLabel : ScriptParser
 		{			
@@ -364,18 +364,18 @@ namespace onscripter_csharp
 //		    int layermessageCommand();
 //		
 //		protected:
-//		    /* ---------------------------------------- */
-//		    /* Event related variables */
-//		    enum {
-//		        NOT_EDIT_MODE            = 0,
-//		        EDIT_SELECT_MODE         = 1,
-//		        EDIT_VOLUME_MODE         = 2,
-//		        EDIT_VARIABLE_INDEX_MODE = 3,
-//		        EDIT_VARIABLE_NUM_MODE   = 4,
-//		        EDIT_MP3_VOLUME_MODE     = 5,
-//		        EDIT_VOICE_VOLUME_MODE   = 6,
-//		        EDIT_SE_VOLUME_MODE      = 7
-//		    };
+		    /* ---------------------------------------- */
+		    /* Event related variables */
+		    
+		    public const int NOT_EDIT_MODE            = 0;
+		    public const int EDIT_SELECT_MODE         = 1;
+		    public const int EDIT_VOLUME_MODE         = 2;
+		    public const int EDIT_VARIABLE_INDEX_MODE = 3;
+		    public const int EDIT_VARIABLE_NUM_MODE   = 4;
+		    public const int EDIT_MP3_VOLUME_MODE     = 5;
+		    public const int EDIT_VOICE_VOLUME_MODE   = 6;
+		    public const int EDIT_SE_VOLUME_MODE      = 7;
+		    
 		
 		    public int variable_edit_mode;
 		    //Mion: These 3 variables are only used in _event;
@@ -513,36 +513,36 @@ namespace onscripter_csharp
 		    }
 		    public int  nega_mode;
 		
-//		    enum {
-//		        TRAP_NONE        = 0,
-//		        TRAP_LEFT_CLICK  = 1,
-//		        TRAP_RIGHT_CLICK = 2,
-//		        TRAP_NEXT_SELECT = 4,
-//		        TRAP_STOP        = 8
-//		    };
-//		    int  trap_mode;
-//		    char *trap_dest; //label to jump to when trapped
-//		    char *wm_title_string;
-//		    char *wm_icon_string;
+		    
+		    public const int TRAP_NONE        = 0;
+		    public const int TRAP_LEFT_CLICK  = 1;
+		    public const int TRAP_RIGHT_CLICK = 2;
+		    public const int TRAP_NEXT_SELECT = 4;
+		    public const int TRAP_STOP        = 8;
+		    
+		    public int  trap_mode;
+		    public CharPtr trap_dest; //label to jump to when trapped
+		    public CharPtr wm_title_string;
+		    public CharPtr wm_icon_string;
 		    public CharPtr wm_edit_string = new char[256];
 		    public bool fullscreen_mode;
 		    public bool window_mode; //ons-specific, for cmd-line option --window
 		    public int fileversion;
-//		#ifdef WIN32
-//		    bool current_user_appdata;
-//		#endif
-//		    bool use_app_icons;
-//		
-//		    bool btntime2_flag;
-//		    long btntime_value;
-//		    long btnwait_time;
-//		    bool btndown_flag;
-//		    bool transbtn_flag;
-//		
-//		    SDLKey last_keypress;
-//		
+		#if true//def WIN32
+		    public bool current_user_appdata;
+		#endif
+		    public bool use_app_icons;
+		
+		    public bool btntime2_flag;
+		    public long btntime_value;
+		    public long btnwait_time;
+		    public bool btndown_flag;
+		    public bool transbtn_flag;
+		
+		    public SDLKey last_keypress;
+		
 //		    void quit();
-//		
+		
 		    /* ---------------------------------------- */
 		    /* Script related variables */
 		    
@@ -700,22 +700,22 @@ namespace onscripter_csharp
 				return linkcolor_;
 			}
 			
-//		    bool getzxc_flag;
-//		    bool gettab_flag;
-//		    bool getpageup_flag;
-//		    bool getpagedown_flag;
-//		    bool getinsert_flag;
-//		    bool getfunction_flag;
-//		    bool getenter_flag;
-//		    bool getcursor_flag;
-//		    bool spclclk_flag;
-//		    bool getmclick_flag;
-//		    bool getskipoff_flag;
-//		    bool getmouseover_flag;
-//		    int  getmouseover_min, getmouseover_max;
-//		    bool btnarea_flag;
-//		    int  btnarea_pos;
-//		
+		    public bool getzxc_flag;
+		    public bool gettab_flag;
+		    public bool getpageup_flag;
+		    public bool getpagedown_flag;
+		    public bool getinsert_flag;
+		    public bool getfunction_flag;
+		    public bool getenter_flag;
+		    public bool getcursor_flag;
+		    public bool spclclk_flag;
+		    public bool getmclick_flag;
+		    public bool getskipoff_flag;
+		    public bool getmouseover_flag;
+		    public int  getmouseover_min, getmouseover_max;
+		    public bool btnarea_flag;
+		    public int  btnarea_pos;
+		
 //		    void resetSentenceFont();
 //		    void deleteButtonLink();
 //		    void processTextButtonInfo();
@@ -951,8 +951,8 @@ namespace onscripter_csharp
 		    } 
 		    public SelectLink root_select_link = new SelectLink(), shelter_select_link = null;
 //		    struct NestInfo select_label_info;
-//		    int shortcut_mouse_line;
-//		
+		    public int shortcut_mouse_line;
+		
 //		    void deleteSelectLink();
 //		    AnimationInfo *getSentence( char *buffer, Fontinfo *info, int num_cells, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true );
 //		    struct ButtonLink *getSelectableSentence( char *buffer, Fontinfo *info, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true );

@@ -13,8 +13,13 @@ namespace onscripter_csharp
 	/// <summary>
 	/// Description of SDL_KeyboardEvent.
 	/// </summary>
-	public class SDL_KeyboardEvent
+	public class SDL_KeyboardEvent : SDL_Event
 	{
+//		public byte		type;
+	//	BYTE		which;
+	//	BYTE		state;
+		public SDL_keysym	keysym = new SDL_keysym();
+		
 		public SDL_KeyboardEvent()
 		{
 		}

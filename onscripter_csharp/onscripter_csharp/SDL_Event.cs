@@ -15,6 +15,16 @@ namespace onscripter_csharp
 	/// </summary>
 	public class SDL_Event
 	{
+		//FIXME: union, use SDL_MouseMotionEvent : SDL_Event extends
+		public byte					type;
+//		public SDL_KeyboardEvent		key;
+//		public SDL_MouseMotionEvent	motion;
+//		public SDL_MouseButtonEvent	button;
+//		public SDL_UserEvent user; //FIXME:not implemented
+//		public SDL_JoyButtonEvent jbutton; //FIXME:not implemented
+//		public SDL_JoyAxisEvent jaxis;  //FIXME:not implemented
+//		public SDL_ActiveEvent active; //FIXME:not implemented
+		
 		public SDL_Event()
 		{
 		}

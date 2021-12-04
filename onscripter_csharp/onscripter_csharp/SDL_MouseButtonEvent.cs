@@ -13,8 +13,15 @@ namespace onscripter_csharp
 	/// <summary>
 	/// Description of SDL_MouseButtonEvent.
 	/// </summary>
-	public class SDL_MouseButtonEvent
+	public class SDL_MouseButtonEvent : SDL_Event
 	{
+//		BYTE	type;
+	//	BYTE	which;
+		public byte	button;
+		public byte	state;
+		public Int16	x;
+		public Int16	y;
+		
 		public SDL_MouseButtonEvent()
 		{
 		}

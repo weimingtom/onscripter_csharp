@@ -427,5 +427,118 @@ namespace onscripter_csharp
 		{
 			return false;
 		}
+		
+		public static int SDL_WaitEvent(SDL_Event event_)
+		{
+			return 0;
+		}
+		
+		public const int SDL_RELEASED = 0;
+		public const int SDL_PRESSED = 1;
+		
+		
+		public const int SDL_NOEVENT = 0;
+		public const int SDL_ACTIVEEVENT = 1; //FIXME:not implemented
+		public const int SDL_KEYDOWN = 2;
+		public const int SDL_KEYUP = 3;
+		public const int SDL_MOUSEMOTION = 4;
+		public const int SDL_MOUSEBUTTONDOWN = 5;
+		public const int SDL_MOUSEBUTTONUP = 6;
+		public const int SDL_JOYAXISMOTION = 7; //FIXME:not implemented
+		public const int SDL_JOYBALLMOTION = 8; //FIXME:not implemented
+		public const int SDL_JOYHATMOTION = 9; //FIXME:not implemented
+		public const int SDL_JOYBUTTONDOWN = 10; //FIXME:not implemented
+		public const int SDL_JOYBUTTONUP = 11; //FIXME:not implemented
+		public const int SDL_QUIT = 12;
+	//	public const int SDL_SYSWMEVENT = 13;
+	//	public const int SDL_EVENT_RESERVEDA = 14;
+	//	public const int SDL_EVENT_RESERVEDB = 15;
+	//	public const int SDL_VIDEORESIZE = 16;
+		public const int SDL_VIDEOEXPOSE = 17; //FIXME:not implemented
+	//	public const int SDL_EVENT_RESERVED2 = 18;
+	//	public const int SDL_EVENT_RESERVED3 = 19;
+	//	public const int SDL_EVENT_RESERVED4 = 20;
+	//	public const int SDL_EVENT_RESERVED5 = 21;
+	//	public const int SDL_EVENT_RESERVED6 = 22;
+	//	public const int SDL_EVENT_RESERVED7 = 23;
+		public const int SDL_USEREVENT = 24;
+		public const int SDL_NUMEVENTS = 32;
+		
+		
+		
+		
+		
+		public const UInt32 SDL_ALLEVENTS = 0xFFFFFFFF;
+		public enum SDL_eventaction {
+			SDL_ADDEVENT,
+			SDL_PEEKEVENT,
+			SDL_GETEVENT
+		}
+		public static int SDL_PeepEvents(SDL_Event events, int numevents, SDL_eventaction action, UInt32 mask)
+		{
+			return 0;
+		}
+		
+		public delegate UInt32 SDL_NewTimerCallback(UInt32 interval, object param);
+		public class SDL_TimerID {
+			public ulong idTimer;
+			public int idx;
+			public SDL_NewTimerCallback callback;
+			public int interval;
+			public object param;
+		}
+		public enum SDL_bool {
+			SDL_FALSE = 0,
+			SDL_TRUE  = 1
+		}
+		public static SDL_TimerID SDL_AddTimer(UInt32 interval, SDL_NewTimerCallback callback, object param)
+		{
+			return null;
+		}
+		public static SDL_bool SDL_RemoveTimer(SDL_TimerID t)
+		{
+			return SDL_bool.SDL_FALSE;
+		}
+		
+		
+		public static int SDL_PushEvent(SDL_Event event_)
+		{
+			return 0;
+		}
+		public static int SDL_PollEvent(SDL_Event event_)
+		{
+			return 0;	
+		}
+		
+		
+		public static void SDL_UpdateRect(SDL_Surface screen, Int32 x, Int32 y, UInt32 w, UInt32 h)
+		{
+			return;
+		}
+		
+		public static void SDL_WM_SetCaption(CharPtr title, CharPtr icon)
+		{
+			
+		}
+		
+		public static void SDL_Delay(UInt32 ms)
+		{
+			
+		}
+		
+		
+		public const int SDL_BUTTON_LEFT = 1;
+		public const int SDL_BUTTON_MIDDLE = 2;
+		public const int SDL_BUTTON_RIGHT = 3;
+		public const int SDL_BUTTON_WHEELUP = 4;
+		public const int SDL_BUTTON_WHEELDOWN = 5;
+		
+		
+		
+		public static UInt32 SDL_GetTicks()
+		{
+			return 0;
+		}
+		
 	}
 }
