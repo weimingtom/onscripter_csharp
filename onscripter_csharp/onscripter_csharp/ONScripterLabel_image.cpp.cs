@@ -321,8 +321,8 @@ namespace onscripter_csharp
 			// src1: effect_src_surface
 			// src2: effect_dst_surface
 			public void alphaMaskBlend( SDL_Surface mask_surface, int trans_mode,
-			                                      uint mask_value, SDL_Rect clip,
-			                                      SDL_Surface src1, SDL_Surface src2, SDL_Surface dst )
+			                                      uint mask_value=255, SDL_Rect clip=null,
+			                                      SDL_Surface src1=null, SDL_Surface src2=null, SDL_Surface dst=null )
 			{
 				SDL_Rect rect = new SDL_Rect(0, 0, screen_width, screen_height);
 			

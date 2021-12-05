@@ -50,6 +50,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public Uint32Ptr(Uint32Ptr ptr, int offset)
+		{
+			
+		}
 		
 		public UInt32 this[int offset]
 		{
@@ -67,6 +71,10 @@ namespace onscripter_csharp
 			
 		}
 		public void inc(int offset)
+		{
+			
+		}
+		public void dec(int offset)
 		{
 			
 		}

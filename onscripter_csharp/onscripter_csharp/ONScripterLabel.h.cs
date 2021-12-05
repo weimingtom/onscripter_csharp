@@ -885,21 +885,21 @@ namespace onscripter_csharp
 		    public bool in_effect_blank;
 		    public bool effectskip_flag;
 		    public bool skip_effect;
-//		    enum {
-//		        EFFECTSPEED_NORMAL  = 0,
-//		        EFFECTSPEED_QUICKER = 1,
-//		        EFFECTSPEED_INSTANT = 2
-//		    };
-//		    int effectspeed;
-//		
-//		    enum {
-//		        //some constants for trig tables
-//		        TRIG_TABLE_SIZE = 256,
-//		        TRIG_FACTOR     = 16384
-//		    };
-//		    int *sin_table, *cos_table;
-//		    int *whirl_table;
-//		
+		    
+		    public const int EFFECTSPEED_NORMAL  = 0;
+		    public const int EFFECTSPEED_QUICKER = 1;
+		    public const int EFFECTSPEED_INSTANT = 2;
+		    
+		    public int effectspeed;
+		
+		    
+		    //some constants for trig tables
+		    public const int TRIG_TABLE_SIZE = 256;
+		    public const int TRIG_FACTOR = 16384;
+		    
+		    public int[] sin_table, cos_table;
+		    public int[] whirl_table;
+		
 //		    void buildSinTable();
 //		    void buildCosTable();
 //		    void buildWhirlTable();
@@ -911,18 +911,19 @@ namespace onscripter_csharp
 //		    void effectCascade( char *params, int duration );
 //		    void effectTrvswave( char *params, int duration );
 //		    void effectWhirl( char *params, int duration );
-//		
-//		    struct BreakupCell {
-//		        int cell_x, cell_y;
-//		        int dir;
-//		        int state;
-//		        int radius;
-//		        BreakupCell()
-//		        : cell_x(0), cell_y(0),
-//		          dir(0), state(0), radius(0)
-//		        {}
-//		    } *breakup_cells;
-//		    bool *breakup_cellforms, *breakup_mask;
+		
+		    public class BreakupCell {
+		        public int cell_x, cell_y;
+		        public int dir;
+		        public int state;
+		        public int radius;
+		        BreakupCell()
+		        { cell_x = (0); cell_y = (0);
+		          dir = (0); state = (0); radius = (0);
+		        }
+		    } 
+		    public BreakupCell[] breakup_cells;
+		    public bool[] breakup_cellforms, breakup_mask;
 //		    void buildBreakupCellforms();
 //		    void buildBreakupMask();
 //		    void initBreakup( char *params );

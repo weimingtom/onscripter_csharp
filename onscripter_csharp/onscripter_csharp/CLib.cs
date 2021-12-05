@@ -209,7 +209,8 @@ namespace onscripter_csharp
 			
 		}
 		
-		public static double rand()
+		public const int RAND_MAX = 0x7fff;
+		public static int rand()
 		{
 			return 0;
 		}
@@ -540,5 +541,14 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
+		public static int abs(int x)
+		{
+			return Math.Abs(x);
+		}
+		
+		public static double sqrt(double x)
+		{
+			return Math.Sqrt(x);
+		}
 	}
 }
