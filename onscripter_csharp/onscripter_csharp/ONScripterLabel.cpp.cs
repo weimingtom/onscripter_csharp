@@ -2099,7 +2099,7 @@ namespace onscripter_csharp
 //			    return button_link;
 			}
 			
-			public void decodeExbtnControl( CharPtr ctl_str, SDL_Rect check_src_rect, SDL_Rect check_dst_rect )
+			public void decodeExbtnControl( CharPtr ctl_str, SDL_Rect check_src_rect = null, SDL_Rect check_dst_rect = null )
 			{
 //			    char sound_name[256];
 //			    int i, sprite_no, sprite_no2, cell_no;

@@ -856,7 +856,7 @@ namespace onscripter_csharp
 //			    pos.h = h;
 			}
 			
-			public void copySurface( SDL_Surface surface, SDL_Rect src_rect, SDL_Rect dst_rect )
+			public void copySurface( SDL_Surface surface, SDL_Rect src_rect, SDL_Rect dst_rect = null )
 			{
 //			    if (!image_surface || !surface) return;
 //

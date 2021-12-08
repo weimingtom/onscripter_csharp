@@ -263,12 +263,25 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
+		public const uint CP_ACP = 0;
+		public const uint CP_UTF8 = 65001;
 		public static int MultiByteToWideChar(uint     CodePage,
 			    long    dwFlags,
 			    CharPtr   lpMultiByteStr,
 			    int      cchMultiByte,
 			    UnsignedShortPtr   lpWideCharStr,
 			    int      cchWideChar)
+		{
+			return 0;
+		}
+		public static int WideCharToMultiByte(uint     CodePage,
+			    long    dwFlags,
+			    UnsignedShortPtr  lpWideCharStr,
+			    int      cchWideChar,
+			    CharPtr    lpMultiByteStr,
+			    int      cchMultiByte,
+			    CharPtr   lpDefaultChar,
+			    bool[]   lpUsedDefaultChar)
 		{
 			return 0;
 		}
@@ -549,6 +562,21 @@ namespace onscripter_csharp
 		public static double sqrt(double x)
 		{
 			return Math.Sqrt(x);
+		}
+		
+		public static int SDL_GetWMInfo(SDL_SysWMinfo info)
+		{
+			return 0;
+		}
+				
+		public const uint WM_SETTEXT = 0x000C;
+		public static long SendMessageA(
+		    long/*HWND*/ hWnd,
+		    uint Msg,
+		    uint wParam,
+		    CharPtr/*long*/ lParam) //FIXME:change to CharPtr
+		{
+			return 0;
 		}
 	}
 }

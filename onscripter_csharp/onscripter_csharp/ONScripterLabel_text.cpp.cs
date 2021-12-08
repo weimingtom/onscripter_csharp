@@ -563,7 +563,7 @@ namespace onscripter_csharp
 			    }
 			}
 			
-			public void leaveTextDisplayMode(bool force_leave_flag)
+			public void leaveTextDisplayMode(bool force_leave_flag = false)
 			{
 			    //ons-en feature: when in certain skip modes, don't actually leave
 			    //text display mode unless forced to (but say you did)

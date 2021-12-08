@@ -524,7 +524,7 @@ namespace onscripter_csharp
 //			    return total;
 			}
 			
-			public void convertFromSJISToEUC( CharPtr buf )
+			public static void convertFromSJISToEUC( CharPtr buf )
 			{
 //			    int i = 0;
 //			    while ( buf[i] ) {
@@ -554,7 +554,7 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public void convertFromSJISToUTF8( CharPtr dst_buf, CharPtr src_buf )
+			public static void convertFromSJISToUTF8( CharPtr dst_buf, CharPtr src_buf )
 			{
 //			#if defined(RECODING_FILENAMES) || defined(UTF8_FILESYSTEM)
 //			#if defined(MACOSX)

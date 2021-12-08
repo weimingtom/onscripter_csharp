@@ -188,7 +188,7 @@ namespace onscripter_csharp
 			    return false;
 			}
 			
-			public bool doEffect( ScriptParser.EffectLink effect, bool clear_dirty_region )
+			public bool doEffect( ScriptParser.EffectLink effect, bool clear_dirty_region = true )
 			{
 				bool first_time = (effect_counter == 0);
 			
