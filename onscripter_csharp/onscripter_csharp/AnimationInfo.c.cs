@@ -108,16 +108,16 @@ namespace onscripter_csharp
 //			    reset();
 			}
 			
-			//AnimationInfo::AnimationInfo(const AnimationInfo &anim)
-			//{
-			//	memcpy(this, &anim, sizeof(AnimationInfo));
-			//	is_copy = true;
-			//}
+			public AnimationInfo(AnimationInfo anim)
+			{
+//				memcpy(this, &anim, sizeof(AnimationInfo));
+//				is_copy = true;
+			}
 			
-			//AnimationInfo::~AnimationInfo()
-			//{
-			//	if (!is_copy) reset();
-			//}
+			~AnimationInfo()
+			{
+//				if (!is_copy) reset();
+			}
 			
 			//AnimationInfo& AnimationInfo::operator =(const AnimationInfo &anim)
 			//{

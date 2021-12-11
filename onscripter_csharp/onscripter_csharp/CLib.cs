@@ -578,5 +578,10 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		
+		public static int toupper(int x)
+		{
+			return 0;
+		}
 	}
 }

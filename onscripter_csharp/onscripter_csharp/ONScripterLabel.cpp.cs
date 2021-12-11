@@ -2160,7 +2160,7 @@ namespace onscripter_csharp
 //			    }
 			}
 			
-			public void loadCursor( int no, CharPtr str, int x, int y, bool abs_flag )
+			public void loadCursor( int no, CharPtr str, int x, int y, bool abs_flag = false )
 			{
 //			    cursor_info[ no ].setImageName( str );
 //			    cursor_info[ no ].orig_pos.x = x;

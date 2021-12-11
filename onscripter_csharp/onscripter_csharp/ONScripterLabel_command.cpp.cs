@@ -87,10 +87,10 @@ namespace onscripter_csharp
 //		#ifdef _MSC_VER
 //		#define snprintf _snprintf
 //		#endif
-//		
-//		#define DEFAULT_CURSOR_WAIT    ":l/3,160,2;cursor0.bmp"
-//		#define DEFAULT_CURSOR_NEWPAGE ":l/3,160,2;cursor1.bmp"
-//		
+		
+		private const string DEFAULT_CURSOR_WAIT    = ":l/3,160,2;cursor0.bmp";
+		private const string DEFAULT_CURSOR_NEWPAGE = ":l/3,160,2;cursor1.bmp";
+		
 //		#define CONTINUOUS_PLAY
 //		
 //		extern SDL_TimerID timer_bgmfade_id;
@@ -2993,991 +2993,948 @@ namespace onscripter_csharp
 			
 			public int getmp3volCommand()
 			{
-				return 0;
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, music_volume );
-//			    return RET_CONTINUE;
+				script_h.readInt();
+			    script_h.setInt( script_h.current_variable, music_volume );
+			    return RET_CONTINUE;
 			}
 			
 			public int getmouseposCommand()
 			{
-				return 0;
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, ContractPos(current_button_state.x) );
-//			
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, ContractPos(current_button_state.y) );
-//			
-//			    return RET_CONTINUE;
+				script_h.readInt();
+			    script_h.setInt( script_h.current_variable, ContractPos(current_button_state.x) );
+			
+			    script_h.readInt();
+			    script_h.setInt( script_h.current_variable, ContractPos(current_button_state.y) );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getmouseoverCommand()
 			{
-				return 0;
-//			    getmouseover_flag = true;
-//			    getmouseover_min = script_h.readInt();
-//			    getmouseover_max = script_h.readInt();
-//			
-//			    return RET_CONTINUE;
+				getmouseover_flag = true;
+			    getmouseover_min = script_h.readInt();
+			    getmouseover_max = script_h.readInt();
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getmclickCommand()
 			{
-				return 0;
-//			    getmclick_flag = true;
-//			
-//			    return RET_CONTINUE;
+				getmclick_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getlogCommand()
 			{
-				return 0;
-//			    script_h.readVariable();
-//			    script_h.pushVariable();
-//			
-//			    int page_no = script_h.readInt();
-//			
-//			    Page *page = current_page;
-//			    while(page != start_page && page_no > 0){
-//			        page_no--;
-//			        page = page->previous;
-//			    }
-//			
-//			    if (page_no > 0)
-//			        setStr( &script_h.getVariableData( script_h.pushed_variable.var_no ).str, NULL );
-//			    else
-//			        setStr( &script_h.getVariableData( script_h.pushed_variable.var_no ).str, page->text, page->text_count );
-//			
-//			    return RET_CONTINUE;
+				script_h.readVariable();
+			    script_h.pushVariable();
+			
+			    int page_no = script_h.readInt();
+			
+			    Page page = current_page;
+			    while(page != start_page && page_no > 0){
+			        page_no--;
+			        page = page.previous;
+			    }
+			
+			    if (page_no > 0)
+			        setStr( ref script_h.getVariableData( script_h.pushed_variable.var_no ).str, null );
+			    else
+			        setStr( ref script_h.getVariableData( script_h.pushed_variable.var_no ).str, page.text, page.text_count );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getinsertCommand()
 			{
-				return 0;
-//			    getinsert_flag = true;
-//			
-//			    return RET_CONTINUE;
+				getinsert_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getfunctionCommand()
 			{
-				return 0;
-//			    getfunction_flag = true;
-//			
-//			    return RET_CONTINUE;
+				getfunction_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getenterCommand()
 			{
-				return 0;
-//			    if ( !force_button_shortcut_flag )
-//			        getenter_flag = true;
-//			
-//			    return RET_CONTINUE;
+				if ( !force_button_shortcut_flag )
+			        getenter_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getcursorposCommand()
 			{
-				return 0;
-//			    if ( script_h.isName( "getcursorpos2" ) ){
-//			        script_h.readInt();
-//			        script_h.setInt( &script_h.current_variable, last_textpos_xy[0] );
-//			
-//			        script_h.readInt();
-//			        script_h.setInt( &script_h.current_variable, last_textpos_xy[1] );
-//			    } else {
-//			        int xy_bak[2], line_offset_xy_bak[2];
-//			        xy_bak[0] = sentence_font.xy[0];
-//			        xy_bak[1] = sentence_font.xy[1];
-//			        line_offset_xy_bak[0] = sentence_font.line_offset_xy[0];
-//			        line_offset_xy_bak[1] = sentence_font.line_offset_xy[1];
-//			        if ( script_h.isName( "getnextline" ) ){
-//			            sentence_font.newLine();
-//			        }
-//			
-//			        script_h.readInt();
-//			        //script_h.setInt( &script_h.current_variable, sentence_font.x() );
-//			#ifdef RCA_SCALE
-//			        if (scr_stretch_x > 1.0)
-//			            script_h.setInt( &script_h.current_variable, (sentence_font.x()-sentence_font.ruby_offset_xy[0]) / scr_stretch_x + 0.5);
-//			        else
-//			#endif
-//			        script_h.setInt( &script_h.current_variable, sentence_font.x()-sentence_font.ruby_offset_xy[0] ); // workaround for possibly a bug in the original
-//			
-//			        script_h.readInt();
-//			        //script_h.setInt( &script_h.current_variable, sentence_font.y() );
-//			#ifdef RCA_SCALE
-//			        if (scr_stretch_y > 1.0)
-//			            script_h.setInt( &script_h.current_variable, (sentence_font.y()-sentence_font.ruby_offset_xy[1]) / scr_stretch_y + 0.5);
-//			        else
-//			#endif
-//			        script_h.setInt( &script_h.current_variable, sentence_font.y()-sentence_font.ruby_offset_xy[1] ); // workaround for possibly a bug in the original
-//			
-//			        sentence_font.xy[0] = xy_bak[0];
-//			        sentence_font.xy[1] = xy_bak[1];
-//			        sentence_font.line_offset_xy[0] = line_offset_xy_bak[0];
-//			        sentence_font.line_offset_xy[1] = line_offset_xy_bak[1];
-//			    }
-//			
-//			    return RET_CONTINUE;
+				if ( script_h.isName( "getcursorpos2" ) ){
+			        script_h.readInt();
+			        script_h.setInt( script_h.current_variable, last_textpos_xy[0] );
+			
+			        script_h.readInt();
+			        script_h.setInt( script_h.current_variable, last_textpos_xy[1] );
+			    } else {
+					int[] xy_bak = new int[2], line_offset_xy_bak = new int[2];
+			        xy_bak[0] = sentence_font.xy[0];
+			        xy_bak[1] = sentence_font.xy[1];
+			        line_offset_xy_bak[0] = sentence_font.line_offset_xy[0];
+			        line_offset_xy_bak[1] = sentence_font.line_offset_xy[1];
+			        if ( script_h.isName( "getnextline" ) ){
+			            sentence_font.newLine();
+			        }
+			
+			        script_h.readInt();
+			        //script_h.setInt( &script_h.current_variable, sentence_font.x() );
+			#if RCA_SCALE
+			        if (scr_stretch_x > 1.0)
+			            script_h.setInt( &script_h.current_variable, (sentence_font.x()-sentence_font.ruby_offset_xy[0]) / scr_stretch_x + 0.5);
+			        else
+			#endif
+			        script_h.setInt( script_h.current_variable, sentence_font.x()-sentence_font.ruby_offset_xy[0] ); // workaround for possibly a bug in the original
+			
+			        script_h.readInt();
+			        //script_h.setInt( &script_h.current_variable, sentence_font.y() );
+			#if RCA_SCALE
+			        if (scr_stretch_y > 1.0)
+			            script_h.setInt( &script_h.current_variable, (sentence_font.y()-sentence_font.ruby_offset_xy[1]) / scr_stretch_y + 0.5);
+			        else
+			#endif
+			        script_h.setInt( script_h.current_variable, sentence_font.y()-sentence_font.ruby_offset_xy[1] ); // workaround for possibly a bug in the original
+			
+			        sentence_font.xy[0] = xy_bak[0];
+			        sentence_font.xy[1] = xy_bak[1];
+			        sentence_font.line_offset_xy[0] = line_offset_xy_bak[0];
+			        sentence_font.line_offset_xy[1] = line_offset_xy_bak[1];
+			    }
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getcursorCommand()
 			{
-				return 0;
-//			    if ( !force_button_shortcut_flag )
-//			        getcursor_flag = true;
-//			
-//			    return RET_CONTINUE;
+				if ( !force_button_shortcut_flag )
+			        getcursor_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getcselstrCommand()
 			{
-				return 0;
-//			    script_h.readVariable();
-//			    script_h.pushVariable();
-//			
-//			    int csel_no = script_h.readInt();
-//			
-//			    int counter = 0;
-//			    SelectLink *link = root_select_link.next;
-//			    while (link){
-//			        if (csel_no == counter++) break;
-//			        link = link->next;
-//			    }
-//			    if (!link) errorAndExit("getcselstr: no select link");
-//			    setStr(&script_h.getVariableData( script_h.pushed_variable.var_no ).str, link->text);
-//			
-//			    return RET_CONTINUE;
+				script_h.readVariable();
+			    script_h.pushVariable();
+			
+			    int csel_no = script_h.readInt();
+			
+			    int counter = 0;
+			    SelectLink link = root_select_link.next;
+			    while (null!=link){
+			        if (csel_no == counter++) break;
+			        link = link.next;
+			    }
+			    if (null==link) errorAndExit("getcselstr: no select link");
+			    setStr(ref script_h.getVariableData( script_h.pushed_variable.var_no ).str, link.text);
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int getcselnumCommand()
 			{
-				return 0;
-//			    int count = 0;
-//			
-//			    SelectLink *link = root_select_link.next;
-//			    while ( link ) {
-//			        count++;
-//			        link = link->next;
-//			    }
-//			    script_h.readInt();
-//			    script_h.setInt( &script_h.current_variable, count );
-//			
-//			    return RET_CONTINUE;
+				int count = 0;
+			
+			    SelectLink link = root_select_link.next;
+			    while ( null!=link ) {
+			        count++;
+			        link = link.next;
+			    }
+			    script_h.readInt();
+			    script_h.setInt( script_h.current_variable, count );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int gameCommand()
 			{
-				return 0;
-//			    int i;
-//			    current_mode = NORMAL_MODE;
-//			    effectspeed = EFFECTSPEED_NORMAL;
-//			
-//			    /* ---------------------------------------- */
-//			    if ( !lookback_info[0].image_surface ){
-//			        setStr( &lookback_info[0].image_name, DEFAULT_LOOKBACK_NAME0 );
-//			        parseTaggedString( &lookback_info[0] );
-//			        setupAnimationInfo( &lookback_info[0] );
-//			    }
-//			    if ( !lookback_info[1].image_surface ){
-//			        setStr( &lookback_info[1].image_name, DEFAULT_LOOKBACK_NAME1 );
-//			        parseTaggedString( &lookback_info[1] );
-//			        setupAnimationInfo( &lookback_info[1] );
-//			    }
-//			    if ( !lookback_info[2].image_surface ){
-//			        setStr( &lookback_info[2].image_name, DEFAULT_LOOKBACK_NAME2 );
-//			        parseTaggedString( &lookback_info[2] );
-//			        setupAnimationInfo( &lookback_info[2] );
-//			    }
-//			    if ( !lookback_info[3].image_surface ){
-//			        setStr( &lookback_info[3].image_name, DEFAULT_LOOKBACK_NAME3 );
-//			        parseTaggedString( &lookback_info[3] );
-//			        setupAnimationInfo( &lookback_info[3] );
-//			    }
-//			
-//			    /* ---------------------------------------- */
-//			    /* Load default cursor */
-//			    loadCursor( CURSOR_WAIT_NO, DEFAULT_CURSOR_WAIT, 0, 0 );
-//			    loadCursor( CURSOR_NEWPAGE_NO, DEFAULT_CURSOR_NEWPAGE, 0, 0 );
-//			
-//			    /* ---------------------------------------- */
-//			    /* Initialize text buffer */
-//			    page_list = new Page[max_page_list];
-//			    for ( i=0 ; i<max_page_list-1 ; i++ ){
-//			        page_list[i].next = &page_list[i+1];
-//			        page_list[i+1].previous = &page_list[i];
-//			    }
-//			    page_list[0].previous = &page_list[max_page_list-1];
-//			    page_list[max_page_list-1].next = &page_list[0];
-//			    start_page = current_page = &page_list[0];
-//			
-//			    clearCurrentPage();
-//			
-//			    /* ---------------------------------------- */
-//			    /* Initialize local variables */
-//			    for ( i=0 ; i<script_h.global_variable_border ; i++ )
-//			        script_h.getVariableData(i).reset(false);
-//			
-//			    setCurrentLabel( "start" );
-//			    saveSaveFile(-1);
-//			
-//			    return RET_CONTINUE;
+				int i;
+			    current_mode = NORMAL_MODE;
+			    effectspeed = EFFECTSPEED_NORMAL;
+			
+			    /* ---------------------------------------- */
+			    if ( null==lookback_info[0].image_surface ){
+			        setStr( ref lookback_info[0].image_name, DEFAULT_LOOKBACK_NAME0 );
+			        parseTaggedString( lookback_info[0] );
+			        setupAnimationInfo( lookback_info[0] );
+			    }
+			    if ( null==lookback_info[1].image_surface ){
+			        setStr( ref lookback_info[1].image_name, DEFAULT_LOOKBACK_NAME1 );
+			        parseTaggedString( lookback_info[1] );
+			        setupAnimationInfo( lookback_info[1] );
+			    }
+			    if ( null==lookback_info[2].image_surface ){
+			        setStr( ref lookback_info[2].image_name, DEFAULT_LOOKBACK_NAME2 );
+			        parseTaggedString( lookback_info[2] );
+			        setupAnimationInfo( lookback_info[2] );
+			    }
+			    if ( null==lookback_info[3].image_surface ){
+			        setStr( ref lookback_info[3].image_name, DEFAULT_LOOKBACK_NAME3 );
+			        parseTaggedString( lookback_info[3] );
+			        setupAnimationInfo( lookback_info[3] );
+			    }
+			
+			    /* ---------------------------------------- */
+			    /* Load default cursor */
+			    loadCursor( CURSOR_WAIT_NO, DEFAULT_CURSOR_WAIT, 0, 0 );
+			    loadCursor( CURSOR_NEWPAGE_NO, DEFAULT_CURSOR_NEWPAGE, 0, 0 );
+			
+			    /* ---------------------------------------- */
+			    /* Initialize text buffer */
+			    page_list = new Page[max_page_list];
+			    for ( i=0 ; i<max_page_list-1 ; i++ ){
+			        page_list[i].next = page_list[i+1];
+			        page_list[i+1].previous = page_list[i];
+			    }
+			    page_list[0].previous = page_list[max_page_list-1];
+			    page_list[max_page_list-1].next = page_list[0];
+			    start_page = current_page = page_list[0];
+			
+			    clearCurrentPage();
+			
+			    /* ---------------------------------------- */
+			    /* Initialize local variables */
+			    for ( i=0 ; i<script_h.global_variable_border ; i++ )
+			        script_h.getVariableData(i).reset(false);
+			
+			    setCurrentLabel( "start" );
+			    saveSaveFile(-1);
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int flushoutCommand()
 			{
-				return 0;
-//			    //Mion: flushout special effect
-//			    // not quite the same as NScr's, but looks good
-//			    // does a "flushout" in 30 stages while fading to white
-//			    tmp_effect.duration = script_h.readInt();
-//			    tmp_effect.effect   = CUSTOM_EFFECT_NO + 3;
-//			
-//			    dirty_rect.fill( screen_width, screen_height );
-//			
-//			    if (setEffect(&tmp_effect, false, false)) return RET_CONTINUE;
-//			
-//			    setStr( &bg_info.file_name, "white" );
-//			    createBackground();
-//			    SDL_BlitSurface( bg_info.image_surface, NULL, effect_dst_surface, NULL );
-//			    SDL_BlitSurface( accumulation_surface, NULL, effect_tmp_surface, NULL );
-//			    while (doEffect(&tmp_effect));
-//			
-//			    return RET_CONTINUE;
+				//Mion: flushout special effect
+			    // not quite the same as NScr's, but looks good
+			    // does a "flushout" in 30 stages while fading to white
+			    tmp_effect.duration = script_h.readInt();
+			    tmp_effect.effect   = CUSTOM_EFFECT_NO + 3;
+			
+			    dirty_rect.fill( screen_width, screen_height );
+			
+			    if (setEffect(tmp_effect, false, false)) return RET_CONTINUE;
+			
+			    setStr( ref bg_info.file_name, "white" );
+			    createBackground();
+			    SDL_BlitSurface( bg_info.image_surface, null, effect_dst_surface, null );
+			    SDL_BlitSurface( accumulation_surface, null, effect_tmp_surface, null );
+			    while (doEffect(tmp_effect));
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int fileexistCommand()
 			{
-				return 0;
-//			    script_h.readInt();
-//			    script_h.pushVariable();
-//			    const char *buf = script_h.readStr();
-//			
-//			    int found = (script_h.cBR->getFileLength(buf)>0)?1:0;
-//			    if (!found) {
-//			        char fn[4096];
-//			        sprintf(fn, "%s%s", script_h.save_path, buf);
-//			        char* si = fn;
-//			        do {
-//			            if (IS_TWO_BYTE(*si)) si++;
-//			            else if ( (*si == '\\') || (*si == '/') ) *si = DELIMITER;
-//			        } while (*(++si));
-//			#if MSC_VER < 1200
-//					FILE* fp = fopen(fn, "rb"); // FIXME: failing even when file exists?!
-//			#else
-//			        FILE* fp = std::fopen(fn, "rb"); // FIXME: failing even when file exists?!
-//			#endif
-//			//printf("Seek %s, fp = %s, ", fn, fp ? "yes" : "no");
-//			        if (fp) {
-//			            found = 1;
-//			            fclose(fp);
-//			//puts("found\n");
-//			        }
-//			//else printf(" fail (%s)\n", strerror(errno));
-//			    }
-//			    script_h.setInt( &script_h.pushed_variable, found );
-//			
-//			    return RET_CONTINUE;
+				script_h.readInt();
+			    script_h.pushVariable();
+			    CharPtr buf = script_h.readStr();
+			
+			    int found = (script_h.cBR.getFileLength(buf)>0)?1:0;
+			    if (0==found) {
+			        CharPtr fn = new char[4096];
+			        sprintf(fn, "%s%s", script_h.save_path, buf);
+			        CharPtr si = new CharPtr(fn);
+			        do {
+			        	if (IS_TWO_BYTE(si[0])) si.inc();
+			        	else if ( (si[0] == '\\') || (si[0] == '/') ) si[0] = DELIMITER;
+			        	si.inc();
+			        } while (0!=si[0]);
+			#if true//MSC_VER < 1200
+					FILEPtr fp = fopen(fn, "rb"); // FIXME: failing even when file exists?!
+			#else
+			        FILE* fp = std::fopen(fn, "rb"); // FIXME: failing even when file exists?!
+			#endif
+			//printf("Seek %s, fp = %s, ", fn, fp ? "yes" : "no");
+			        if (null!=fp) {
+			            found = 1;
+			            fclose(fp);
+			//puts("found\n");
+			        }
+			//else printf(" fail (%s)\n", strerror(errno));
+			    }
+			    script_h.setInt( script_h.pushed_variable, found );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int exec_dllCommand()
 			{
-				return 0;
-//			    const char *buf = script_h.readStr();
-//			    char dll_name[256];
-//			    unsigned int c=0;
-//			    while(buf[c] && (buf[c] != '/')){
-//			        dll_name[c] = buf[c];
-//			        c++;
-//			    }
-//			    dll_name[c] = '\0';
-//			
-//			    printf("  reading %s for %s\n", dll_file, dll_name );
-//			
-//			    FILE *fp;
-//			    if ( ( fp = fopen( dll_file, "r" ) ) == NULL ){
-//			        fprintf( stderr, "Cannot open file [%s]\n", dll_file );
-//			        return RET_CONTINUE;
-//			    }
-//			
-//			    char dll_buf[256], dll_buf2[256];
-//			    bool found_flag = false;
-//			    while( fgets( dll_buf, 256, fp) && !found_flag ){
-//			        if ( dll_buf[0] == '[' ){
-//			            c=0;
-//			            while ( dll_buf[c] != ']' && dll_buf[c] != '\0' ) c++;
-//			            if ( !strncmp( dll_buf + 1, dll_name, (c-1>strlen(dll_name))?(c-1):strlen(dll_name) ) ){
-//			                found_flag = true;
-//			                while( fgets( dll_buf2, 256, fp) ){
-//			                    c=0;
-//			                    while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
-//			                    if ( !strncmp( &dll_buf2[c], "str", 3 ) ){
-//			                        c+=3;
-//			                        while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
-//			                        if ( dll_buf2[c] != '=' ) continue;
-//			                        c++;
-//			                        while ( dll_buf2[c] != '"' ) c++;
-//			                        unsigned int c2 = ++c;
-//			                        while ( dll_buf2[c2] != '"' && dll_buf2[c2] != '\0' ) c2++;
-//			                        dll_buf2[c2] = '\0';
-//			                        setStr( &getret_str, &dll_buf2[c] );
-//			                        printf("  getret_str = %s\n", getret_str );
-//			                    }
-//			                    else if ( !strncmp( &dll_buf2[c], "ret", 3 ) ){
-//			                        c+=3;
-//			                        while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
-//			                        if ( dll_buf2[c] != '=' ) continue;
-//			                        c++;
-//			                        while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
-//			                        getret_int = atoi( &dll_buf2[c] );
-//			                        printf("  getret_int = %d\n", getret_int );
-//			                    }
-//			                    else if ( dll_buf2[c] == '[' )
-//			                        break;
-//			                }
-//			            }
-//			        }
-//			    }
-//			
-//			    if ( !found_flag ) fprintf( stderr, "  The DLL is not found in %s.\n", dll_file );
-//			    fclose( fp );
-//			
-//			    return RET_CONTINUE;
+				CharPtr buf = script_h.readStr();
+			    CharPtr dll_name = new char[256];
+			    uint c=0;
+			    while(0!=buf[c] && (buf[c] != '/')){
+			        dll_name[c] = buf[c];
+			        c++;
+			    }
+			    dll_name[c] = '\0';
+			
+			    printf("  reading %s for %s\n", dll_file, dll_name );
+			
+			    FILEPtr fp;
+			    if ( ( fp = fopen( dll_file, "r" ) ) == null ){
+			        fprintf( stderr, "Cannot open file [%s]\n", dll_file );
+			        return RET_CONTINUE;
+			    }
+			
+			    CharPtr dll_buf = new char[256], dll_buf2 = new char[256];
+			    bool found_flag = false;
+			    while( null!=fgets( dll_buf, 256, fp) && !found_flag ){
+			        if ( dll_buf[0] == '[' ){
+			            c=0;
+			            while ( dll_buf[c] != ']' && dll_buf[c] != '\0' ) c++;
+			            if ( 0==strncmp( new CharPtr(dll_buf, + 1), dll_name, (int)((c-1>strlen(dll_name))?(c-1):strlen(dll_name)) ) ){
+			                found_flag = true;
+			                while( null!=fgets( dll_buf2, 256, fp) ){
+			                    c=0;
+			                    while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
+			                    if ( 0==strncmp( new CharPtr(dll_buf2,(int)c), "str", 3 ) ){
+			                        c+=3;
+			                        while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
+			                        if ( dll_buf2[c] != '=' ) continue;
+			                        c++;
+			                        while ( dll_buf2[c] != '"' ) c++;
+			                        uint c2 = ++c;
+			                        while ( dll_buf2[c2] != '"' && dll_buf2[c2] != '\0' ) c2++;
+			                        dll_buf2[c2] = '\0';
+			                        setStr( ref getret_str, new CharPtr(dll_buf2,(int)c) );
+			                        printf("  getret_str = %s\n", getret_str );
+			                    }
+			                    else if ( 0==strncmp( new CharPtr(dll_buf2,(int)c), "ret", 3 ) ){
+			                        c+=3;
+			                        while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
+			                        if ( dll_buf2[c] != '=' ) continue;
+			                        c++;
+			                        while ( dll_buf2[c] == ' ' || dll_buf2[c] == '\t' ) c++;
+			                        getret_int = atoi( new CharPtr(dll_buf2,(int)c) );
+			                        printf("  getret_int = %d\n", getret_int );
+			                    }
+			                    else if ( dll_buf2[c] == '[' )
+			                        break;
+			                }
+			            }
+			        }
+			    }
+			
+			    if ( !found_flag ) fprintf( stderr, "  The DLL is not found in %s.\n", dll_file );
+			    fclose( fp );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int exbtnCommand()
 			{
-				return 0;
-//			    int sprite_no=-1, no=0;
-//			    ButtonLink *button;
-//			
-//			    if ( script_h.isName( "exbtn_d" ) ){
-//			        button = &exbtn_d_button_link;
-//			        if ( button->exbtn_ctl ) delete[] button->exbtn_ctl;
-//			    }
-//			    else{
-//			        bool cellcheck_flag = false;
-//			
-//			        if ( script_h.isName( "cellcheckexbtn" ) )
-//			            cellcheck_flag = true;
-//			
-//			        sprite_no = script_h.readInt();
-//			        no = script_h.readInt();
-//			
-//			        if ( (cellcheck_flag && (sprite_info[ sprite_no ].num_of_cells < 2)) ||
-//			             (!cellcheck_flag && (sprite_info[ sprite_no ].num_of_cells == 0)) ){
-//			            script_h.readStr();
-//			            return RET_CONTINUE;
-//			        }
-//			
-//			        button = new ButtonLink();
-//			        root_button_link.insert( button );
-//			    }
-//			    is_exbtn_enabled = true;
-//			
-//			    const char *buf = script_h.readStr();
-//			
-//			    button->button_type = ButtonLink::EX_SPRITE_BUTTON;
-//			    button->sprite_no   = sprite_no;
-//			    button->no          = no;
-//			    button->exbtn_ctl   = new char[ strlen( buf ) + 1 ];
-//			    strcpy( button->exbtn_ctl, buf );
-//			
-//			    if ( sprite_no >= 0 &&
-//			         ( sprite_info[ sprite_no ].image_surface ||
-//			           sprite_info[ sprite_no ].trans_mode == AnimationInfo::TRANS_STRING ) )
-//			    {
-//			        button->image_rect = button->select_rect = sprite_info[ sprite_no ].pos;
-//			    }
-//			
-//			    return RET_CONTINUE;
+				int sprite_no=-1, no=0;
+			    ButtonLink button;
+			
+			    if ( script_h.isName( "exbtn_d" ) ){
+			        button = exbtn_d_button_link;
+			        if ( null!=button.exbtn_ctl ) button.exbtn_ctl = null;//delete[] button->exbtn_ctl;
+			    }
+			    else{
+			        bool cellcheck_flag = false;
+			
+			        if ( script_h.isName( "cellcheckexbtn" ) )
+			            cellcheck_flag = true;
+			
+			        sprite_no = script_h.readInt();
+			        no = script_h.readInt();
+			
+			        if ( (cellcheck_flag && (sprite_info[ sprite_no ].num_of_cells < 2)) ||
+			             (!cellcheck_flag && (sprite_info[ sprite_no ].num_of_cells == 0)) ){
+			            script_h.readStr();
+			            return RET_CONTINUE;
+			        }
+			
+			        button = new ButtonLink();
+			        root_button_link.insert( button );
+			    }
+			    is_exbtn_enabled = true;
+			
+			    CharPtr buf = script_h.readStr();
+			
+			    button.button_type = ButtonLink.BUTTON_TYPE.EX_SPRITE_BUTTON;
+			    button.sprite_no   = sprite_no;
+			    button.no          = no;
+			    button.exbtn_ctl   = new char[ strlen( buf ) + 1 ];
+			    strcpy( button.exbtn_ctl, buf );
+			
+			    if ( sprite_no >= 0 &&
+			         ( null!=sprite_info[ sprite_no ].image_surface ||
+			           sprite_info[ sprite_no ].trans_mode == AnimationInfo.TRANS_STRING ) )
+			    {
+			        button.image_rect = button.select_rect = sprite_info[ sprite_no ].pos;
+			    }
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int erasetextwindowCommand()
 			{
-				return 0;
-//			    erase_text_window_mode = script_h.readInt();
-//			    did_leavetext = false;
-//			    dirty_rect.add( sentence_font_info.pos );
-//			
-//			    return RET_CONTINUE;
+				erase_text_window_mode = script_h.readInt();
+			    did_leavetext = false;
+			    dirty_rect.add( sentence_font_info.pos );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int erasetextbtnCommand()
 			{
-				return 0;
-//			    if (!txtbtn_visible) return RET_CONTINUE;
-//			
-//			    TextButtonInfoLink *info = text_button_info.next;
-//			    while (info) {
-//			        ButtonLink *cur_button_link = info->button;
-//			        while (cur_button_link) {
-//			            cur_button_link->show_flag = 1;
-//			            cur_button_link->anim[0]->visible = true;
-//			            cur_button_link->anim[0]->setCell(0);
-//			            dirty_rect.add( cur_button_link->image_rect );
-//			            cur_button_link = cur_button_link->same;
-//			        }
-//			        info = info->next;
-//			    }
-//			    flush( refreshMode() );
-//			
-//			    return RET_CONTINUE;
+				if (!txtbtn_visible) return RET_CONTINUE;
+			
+			    TextButtonInfoLink info = text_button_info.next;
+			    while (null!=info) {
+			        ButtonLink cur_button_link = info.button;
+			        while (null!=cur_button_link) {
+			            cur_button_link.show_flag = 1;
+			            cur_button_link.anim[0].visible = true;
+			            cur_button_link.anim[0].setCell(0);
+			            dirty_rect.add( cur_button_link.image_rect );
+			            cur_button_link = cur_button_link.same;
+			        }
+			        info = info.next;
+			    }
+			    flush( refreshMode() );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int endCommand()
 			{
-				return 0;
-//			    printf("Quitting...\n");
-//			    quit();
-//			    exit(0);
-//			    return RET_CONTINUE; // dummy
+				printf("Quitting...\n");
+			    quit();
+			    exit(0);
+			    return RET_CONTINUE; // dummy
 			}
 			
 			public int effectskipCommand()
 			{
-				return 0;
-//			    if (script_h.readInt() == 0)
-//			        effectskip_flag = false;
-//			    else
-//			        effectskip_flag = true;
-//			
-//			    return RET_CONTINUE;
+				if (script_h.readInt() == 0)
+			        effectskip_flag = false;
+			    else
+			        effectskip_flag = true;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int dwavestopCommand()
 			{
-				return 0;
-//			    int ch = script_h.readInt();
-//			    //Mion - ogapee2008: avoid dwavestop outside array
-//			    if (ch < 0) ch = 0;
-//			    else if (ch >= ONS_MIX_CHANNELS) ch = ONS_MIX_CHANNELS-1;
-//			
-//			    if ((ch == 0) && bgmdownmode_flag)
-//			        setCurMusicVolume( music_volume );
-//			
-//			    return RET_CONTINUE;
+				int ch = script_h.readInt();
+			    //Mion - ogapee2008: avoid dwavestop outside array
+			    if (ch < 0) ch = 0;
+			    else if (ch >= ONS_MIX_CHANNELS) ch = ONS_MIX_CHANNELS-1;
+			
+			    if ((ch == 0) && bgmdownmode_flag)
+			        setCurMusicVolume( music_volume );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int dwaveCommand()
 			{
-				return 0;
-//			    int play_mode = WAVE_PLAY;
-//			    bool loop_flag = false;
-//			
-//			    if ( script_h.isName( "dwaveloop" ) ){
-//			        loop_flag = true;
-//			    }
-//			    else if ( script_h.isName( "dwaveload" ) ){
-//			        play_mode = WAVE_PRELOAD;
-//			    }
-//			    else if ( script_h.isName( "dwaveplayloop" ) ){
-//			        play_mode = WAVE_PLAY_LOADED;
-//			        loop_flag = true;
-//			    }
-//			    else if ( script_h.isName( "dwaveplay" ) ){
-//			        play_mode = WAVE_PLAY_LOADED;
-//			        loop_flag = false;
-//			    }
-//			
-//			    int ch = script_h.readInt();
-//			    if      (ch < 0) ch = 0;
-//			    else if (ch >= ONS_MIX_CHANNELS) ch = ONS_MIX_CHANNELS-1;
-//			
-//			    if (play_mode == WAVE_PLAY_LOADED){
-//			
-//			    }
-//			    else{
-//			        const char *buf = script_h.readStr();
-//			        int fmt = SOUND_WAVE|SOUND_OGG;
-//			        if (play_mode == WAVE_PRELOAD) fmt |= SOUND_PRELOAD;
-//			        playSound(buf, fmt, loop_flag, ch);
-//			    }
-//			    if ((ch == 0) && bgmdownmode_flag)
-//			        setCurMusicVolume( music_volume );
-//			
-//			    return RET_CONTINUE;
+				int play_mode = WAVE_PLAY;
+			    bool loop_flag = false;
+			
+			    if ( script_h.isName( "dwaveloop" ) ){
+			        loop_flag = true;
+			    }
+			    else if ( script_h.isName( "dwaveload" ) ){
+			        play_mode = WAVE_PRELOAD;
+			    }
+			    else if ( script_h.isName( "dwaveplayloop" ) ){
+			        play_mode = WAVE_PLAY_LOADED;
+			        loop_flag = true;
+			    }
+			    else if ( script_h.isName( "dwaveplay" ) ){
+			        play_mode = WAVE_PLAY_LOADED;
+			        loop_flag = false;
+			    }
+			
+			    int ch = script_h.readInt();
+			    if      (ch < 0) ch = 0;
+			    else if (ch >= ONS_MIX_CHANNELS) ch = ONS_MIX_CHANNELS-1;
+			
+			    if (play_mode == WAVE_PLAY_LOADED){
+			
+			    }
+			    else{
+			        CharPtr buf = script_h.readStr();
+			        int fmt = SOUND_WAVE|SOUND_OGG;
+			        if (play_mode == WAVE_PRELOAD) fmt |= SOUND_PRELOAD;
+			        playSound(buf, fmt, loop_flag, ch);
+			    }
+			    if ((ch == 0) && bgmdownmode_flag)
+			        setCurMusicVolume( music_volume );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int dvCommand()
 			{
-				return 0;
-//			    char buf[256];
-//			
-//			    sprintf(buf, "voice%c%s.wav", DELIMITER, script_h.getStringBuffer()+2);
-//			    playSound(buf, SOUND_WAVE|SOUND_OGG, false, 0);
-//			
-//			    return RET_CONTINUE;
+				CharPtr buf = new char[256];
+			
+				sprintf(buf, "voice%c%s.wav", DELIMITER, new CharPtr(script_h.getStringBuffer(),+2));
+			    playSound(buf, SOUND_WAVE|SOUND_OGG, false, 0);
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawtextCommand()
 			{
-				return 0;
-//			    SDL_Rect clip = {0, 0, SDL_Surface_get_w(accumulation_surface), SDL_Surface_get_h(accumulation_surface)};
-//			    text_info.blendOnSurface( accumulation_surface, 0, 0, clip );
-//			
-//			    return RET_CONTINUE;
+				SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(accumulation_surface), SDL_Surface_get_h(accumulation_surface));
+			    text_info.blendOnSurface( accumulation_surface, 0, 0, ref clip );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawsp3Command()
 			{
-				return 0;
-//			    int sprite_no = script_h.readInt();
-//			    int cell_no = script_h.readInt();
-//			    int alpha = script_h.readInt();
-//			
-//			    int x = StretchPosX(script_h.readInt());
-//			    int y = StretchPosY(script_h.readInt());
-//			
-//			    AnimationInfo &si = sprite_info[sprite_no];
-//			    int old_cell_no = si.current_cell;
-//			    si.setCell(cell_no);
-//			
-//			    si.mat[0][0] = script_h.readInt();
-//			    si.mat[0][1] = script_h.readInt();
-//			    si.mat[1][0] = script_h.readInt();
-//			    si.mat[1][1] = script_h.readInt();
-//			
-//			    int denom = (si.mat[0][0]*si.mat[1][1]-si.mat[0][1]*si.mat[1][0])/1000;
-//			    if (denom != 0){
-//			        si.inv_mat[0][0] =  si.mat[1][1] * 1000 / denom;
-//			        si.inv_mat[0][1] = -si.mat[0][1] * 1000 / denom;
-//			        si.inv_mat[1][0] = -si.mat[1][0] * 1000 / denom;
-//			        si.inv_mat[1][1] =  si.mat[0][0] * 1000 / denom;
-//			    }
-//			
-//			    SDL_Rect clip = {0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface)};
-//			    si.blendOnSurface2( accumulation_surface, x, y, clip, alpha );
-//			    si.setCell(old_cell_no);
-//			
-//			    return RET_CONTINUE;
+				int sprite_no = script_h.readInt();
+			    int cell_no = script_h.readInt();
+			    int alpha = script_h.readInt();
+			
+			    int x = StretchPosX(script_h.readInt());
+			    int y = StretchPosY(script_h.readInt());
+			
+			    AnimationInfo si = sprite_info[sprite_no];
+			    int old_cell_no = si.current_cell;
+			    si.setCell(cell_no);
+			
+			    si.mat[0][0] = script_h.readInt();
+			    si.mat[0][1] = script_h.readInt();
+			    si.mat[1][0] = script_h.readInt();
+			    si.mat[1][1] = script_h.readInt();
+			
+			    int denom = (si.mat[0][0]*si.mat[1][1]-si.mat[0][1]*si.mat[1][0])/1000;
+			    if (denom != 0){
+			        si.inv_mat[0][0] =  si.mat[1][1] * 1000 / denom;
+			        si.inv_mat[0][1] = -si.mat[0][1] * 1000 / denom;
+			        si.inv_mat[1][0] = -si.mat[1][0] * 1000 / denom;
+			        si.inv_mat[1][1] =  si.mat[0][0] * 1000 / denom;
+			    }
+			
+			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface));
+			    si.blendOnSurface2( accumulation_surface, x, y, clip, alpha );
+			    si.setCell(old_cell_no);
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawsp2Command()
 			{
-				return 0;
-//			    int sprite_no = script_h.readInt();
-//			    int cell_no = script_h.readInt();
-//			    int alpha = script_h.readInt();
-//			
-//			    AnimationInfo si = sprite_info[sprite_no];
-//			    si.orig_pos.x = script_h.readInt();
-//			    si.orig_pos.y = script_h.readInt();
-//			    UpdateAnimPosStretchXY(&si);
-//			    si.scale_x = script_h.readInt();
-//			    si.scale_y = script_h.readInt();
-//			    si.rot = script_h.readInt();
-//			    si.calcAffineMatrix();
-//			    si.setCell(cell_no);
-//			
-//			    SDL_Rect clip = {0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface)};
-//			    si.blendOnSurface2( accumulation_surface, si.pos.x, si.pos.y, clip, alpha );
-//			
-//			    return RET_CONTINUE;
+				int sprite_no = script_h.readInt();
+			    int cell_no = script_h.readInt();
+			    int alpha = script_h.readInt();
+			
+			    AnimationInfo si = new AnimationInfo(sprite_info[sprite_no]);
+			    si.orig_pos.x = script_h.readInt();
+			    si.orig_pos.y = script_h.readInt();
+			    UpdateAnimPosStretchXY(si);
+			    si.scale_x = script_h.readInt();
+			    si.scale_y = script_h.readInt();
+			    si.rot = script_h.readInt();
+			    si.calcAffineMatrix();
+			    si.setCell(cell_no);
+			
+			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface));
+			    si.blendOnSurface2( accumulation_surface, si.pos.x, si.pos.y, clip, alpha );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawspCommand()
 			{
-				return 0;
-//			    int sprite_no = script_h.readInt();
-//			    int cell_no = script_h.readInt();
-//			    int alpha = script_h.readInt();
-//			    int x = StretchPosX(script_h.readInt());;
-//			    int y = StretchPosY(script_h.readInt());;
-//			
-//			    AnimationInfo &si = sprite_info[sprite_no];
-//			    int old_cell_no = si.current_cell;
-//			    si.setCell(cell_no);
-//			    SDL_Rect clip = {0, 0, SDL_Surface_get_w(accumulation_surface), SDL_Surface_get_h(accumulation_surface)};
-//			    si.blendOnSurface( accumulation_surface, x, y, clip, alpha );
-//			    si.setCell(old_cell_no);
-//			
-//			    return RET_CONTINUE;
+				int sprite_no = script_h.readInt();
+			    int cell_no = script_h.readInt();
+			    int alpha = script_h.readInt();
+			    int x = StretchPosX(script_h.readInt());;
+			    int y = StretchPosY(script_h.readInt());;
+			
+			    AnimationInfo si = sprite_info[sprite_no];
+			    int old_cell_no = si.current_cell;
+			    si.setCell(cell_no);
+			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(accumulation_surface), SDL_Surface_get_h(accumulation_surface));
+			    si.blendOnSurface( accumulation_surface, x, y, ref clip, alpha );
+			    si.setCell(old_cell_no);
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawfillCommand()
 			{
-				return 0;
-//			    int r = script_h.readInt();
-//			    int g = script_h.readInt();
-//			    int b = script_h.readInt();
-//			
-//			    SDL_FillRect( accumulation_surface, NULL, SDL_MapRGBA( SDL_Surface_get_format(accumulation_surface), r, g, b, 0xff) );
-//			
-//			    return RET_CONTINUE;
+				int r = script_h.readInt();
+			    int g = script_h.readInt();
+			    int b = script_h.readInt();
+			
+			    SDL_FillRect( accumulation_surface, null, SDL_MapRGBA( SDL_Surface_get_format(accumulation_surface), (byte)r, (byte)g, (byte)b, 0xff) );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawclearCommand()
 			{
-				return 0;
-//			    SDL_FillRect( accumulation_surface, NULL, SDL_MapRGBA( SDL_Surface_get_format(accumulation_surface), 0, 0, 0, 0xff) );
-//			
-//			    return RET_CONTINUE;
+				SDL_FillRect( accumulation_surface, null, SDL_MapRGBA( SDL_Surface_get_format(accumulation_surface), 0, 0, 0, 0xff) );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawbgCommand()
 			{
-				return 0;
-//			    SDL_Rect clip = {0, 0, SDL_Surface_get_w(accumulation_surface), SDL_Surface_get_h(accumulation_surface)};
-//			    bg_info.blendOnSurface( accumulation_surface, bg_info.pos.x, bg_info.pos.y, clip );
-//			
-//			    return RET_CONTINUE;
+				SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(accumulation_surface), SDL_Surface_get_h(accumulation_surface));
+			    bg_info.blendOnSurface( accumulation_surface, bg_info.pos.x, bg_info.pos.y, ref clip );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawbg2Command()
 			{
-				return 0;
-//			    AnimationInfo bi = bg_info;
-//			    bi.orig_pos.x = script_h.readInt();
-//			    bi.orig_pos.y = script_h.readInt();
-//			    UpdateAnimPosXY(&bi);
-//			    bi.scale_x = script_h.readInt();
-//			    bi.scale_y = script_h.readInt();
-//			    bi.rot = script_h.readInt();
-//			    bi.calcAffineMatrix();
-//			
-//			    SDL_Rect clip = {0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface)};
-//			    bi.blendOnSurface2( accumulation_surface, bi.pos.x, bi.pos.y,
-//			                        clip, 256 );
-//			
-//			    return RET_CONTINUE;
+				AnimationInfo bi = new AnimationInfo(bg_info);
+			    bi.orig_pos.x = script_h.readInt();
+			    bi.orig_pos.y = script_h.readInt();
+			    UpdateAnimPosXY(bi);
+			    bi.scale_x = script_h.readInt();
+			    bi.scale_y = script_h.readInt();
+			    bi.rot = script_h.readInt();
+			    bi.calcAffineMatrix();
+			
+			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface));
+			    bi.blendOnSurface2( accumulation_surface, bi.pos.x, bi.pos.y,
+			                        clip, 256 );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int drawCommand()
 			{
-				return 0;
-//			    SDL_Rect rect = {0, 0, screen_width, screen_height};
-//			    flushDirect( rect, REFRESH_NONE_MODE );
-//			    dirty_rect.clear();
-//			
-//			    return RET_CONTINUE;
+				SDL_Rect rect = new SDL_Rect(0, 0, screen_width, screen_height);
+			    flushDirect( rect, REFRESH_NONE_MODE );
+			    dirty_rect.clear();
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int deletescreenshotCommand()
 			{
-				return 0;
-//			    if ( screenshot_surface ) {
-//			        SDL_FreeSurface( screenshot_surface );
-//			        screenshot_surface = NULL;
-//			    }
-//			    return RET_CONTINUE;
+				if ( null!=screenshot_surface ) {
+			        SDL_FreeSurface( screenshot_surface );
+			        screenshot_surface = null;
+			    }
+			    return RET_CONTINUE;
 			}
 			
 			public int delayCommand()
 			{
-				return 0;
-//			    int t = script_h.readInt();
-//			
-//			    //Mion: use a shorter delay during skip mode
-//			    if( (skip_mode & (SKIP_NORMAL | SKIP_TO_WAIT)) || ctrl_pressed_status ) {
-//			        t = 0;
-//			    }
-//			
-//			    event_mode = WAIT_TIMER_MODE | WAIT_INPUT_MODE;
-//			    waitEvent( t );
-//			
-//			    return RET_CONTINUE;
+				int t = script_h.readInt();
+			
+			    //Mion: use a shorter delay during skip mode
+			    if( 0!=(skip_mode & (SKIP_NORMAL | SKIP_TO_WAIT)) || 0!=ctrl_pressed_status ) {
+			        t = 0;
+			    }
+			
+			    event_mode = WAIT_TIMER_MODE | WAIT_INPUT_MODE;
+			    waitEvent( t );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int defineresetCommand()
 			{
-				return 0;
-//			    //clear out the event queue
-//			    SDL_Event event;
-//			    while( SDL_PollEvent( &event ) )
-//			        if (event.type == SDL_QUIT) endCommand();
-//			
-//			    script_h.reset();
-//			    ScriptParser::reset();
-//			    reset();
-//			    //reopen the audio mixer with default settings, if needed
-//			
-//			    setCurrentLabel( "define" );
-//			
-//			    return RET_CONTINUE;
+				//clear out the event queue
+				SDL_Event event_ = new SDL_Event();
+			    while( 0!=SDL_PollEvent( event_ ) )
+			        if (event_.type == SDL_QUIT) endCommand();
+			
+			    script_h.reset();
+			    /*ScriptParser*/base.reset();
+			    reset();
+			    //reopen the audio mixer with default settings, if needed
+			
+			    setCurrentLabel( "define" );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int cspCommand()
 			{
-				return 0;
-//			    leaveTextDisplayMode();
-//			
-//			    bool csp2_flag = false;
-//			    if (script_h.isName("csp2")) csp2_flag = true;
-//			
-//			    int no = script_h.readInt();
-//			    AnimationInfo *si = NULL;
-//			    int num = 0;
-//			    if (csp2_flag) {
-//			        num = MAX_SPRITE2_NUM;
-//			        si = sprite2_info;
-//			    }
-//			    else{
-//			        num = MAX_SPRITE_NUM;
-//			        si = sprite_info;
-//			    }
-//			
-//			    if ( no == -1 )
-//			        for ( int i=0 ; i<num ; i++ ){
-//			            if ( si[i].visible ){
-//			                if (csp2_flag)
-//			                    dirty_rect.add( si[i].bounding_rect );
-//			                else
-//			                    dirty_rect.add( si[i].pos );
-//			            }
-//			            if ( si[i].image_name ){
-//			                si[i].orig_pos.x = -1000;
-//			                si[i].orig_pos.y = -1000;
-//			#ifndef RCA_SCALE
-//			                si[i].pos.x = ExpandPos(-1000);
-//			                si[i].pos.y = ExpandPos(-1000);
-//			#else
-//			                si[i].pos.x = ExpandPos(-10000);
-//			                si[i].pos.y = ExpandPos(-10000);
-//			#endif
-//			            }
-//			            if (!csp2_flag) root_button_link.removeSprite(i);
-//			            si[i].remove();
-//			        }
-//			    else if (no >= 0 && no < MAX_SPRITE_NUM){
-//			        if ( si[no].visible ) {
-//			            if (csp2_flag)
-//			                dirty_rect.add( si[no].bounding_rect );
-//			            else
-//			                dirty_rect.add( si[no].pos );
-//			        }
-//			        if (!csp2_flag) root_button_link.removeSprite(no);
-//			        si[no].remove();
-//			    }
-//			
-//			    return RET_CONTINUE;
+				leaveTextDisplayMode();
+			
+			    bool csp2_flag = false;
+			    if (script_h.isName("csp2")) csp2_flag = true;
+			
+			    int no = script_h.readInt();
+			    AnimationInfo[] si = null;
+			    int num = 0;
+			    if (csp2_flag) {
+			        num = MAX_SPRITE2_NUM;
+			        si = sprite2_info;
+			    }
+			    else{
+			        num = MAX_SPRITE_NUM;
+			        si = sprite_info;
+			    }
+			
+			    if ( no == -1 )
+			        for ( int i=0 ; i<num ; i++ ){
+			            if ( si[i].visible ){
+			                if (csp2_flag)
+			                    dirty_rect.add( si[i].bounding_rect );
+			                else
+			                    dirty_rect.add( si[i].pos );
+			            }
+			            if ( null!=si[i].image_name ){
+			                si[i].orig_pos.x = -1000;
+			                si[i].orig_pos.y = -1000;
+			#if !RCA_SCALE
+			                si[i].pos.x = ExpandPos(-1000);
+			                si[i].pos.y = ExpandPos(-1000);
+			#else
+			                si[i].pos.x = ExpandPos(-10000);
+			                si[i].pos.y = ExpandPos(-10000);
+			#endif
+			            }
+			            if (!csp2_flag) root_button_link.removeSprite(i);
+			            si[i].remove();
+			        }
+			    else if (no >= 0 && no < MAX_SPRITE_NUM){
+			        if ( si[no].visible ) {
+			            if (csp2_flag)
+			                dirty_rect.add( si[no].bounding_rect );
+			            else
+			                dirty_rect.add( si[no].pos );
+			        }
+			        if (!csp2_flag) root_button_link.removeSprite(no);
+			        si[no].remove();
+			    }
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int cselgotoCommand()
 			{
-				return 0;
-//			    int csel_no = script_h.readInt();
-//			
-//			    int counter = 0;
-//			    SelectLink *link = root_select_link.next;
-//			    while( link ){
-//			        if ( csel_no == counter++ ) break;
-//			        link = link->next;
-//			    }
-//			    if ( !link ) errorAndExit( "cselgoto: no select link" );
-//			
-//			    setCurrentLabel( link->label );
-//			
-//			    deleteSelectLink();
-//			    newPage( true );
-//			
-//			    return RET_CONTINUE;
+				int csel_no = script_h.readInt();
+			
+			    int counter = 0;
+			    SelectLink link = root_select_link.next;
+			    while( null!=link ){
+			        if ( csel_no == counter++ ) break;
+			        link = link.next;
+			    }
+			    if ( null==link ) errorAndExit( "cselgoto: no select link" );
+			
+			    setCurrentLabel( link.label );
+			
+			    deleteSelectLink();
+			    newPage( true );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int cselbtnCommand()
 			{
-				return 0;
-//			    int csel_no   = script_h.readInt();
-//			    int button_no = script_h.readInt();
-//			
-//			    Fontinfo csel_info = sentence_font;
-//			    csel_info.setRubyOnFlag(false);
-//			    csel_info.top_xy[0] = script_h.readInt();
-//			    csel_info.top_xy[1] = script_h.readInt();
-//			
-//			    int counter = 0;
-//			    SelectLink *link = root_select_link.next;
-//			    while ( link ){
-//			        if ( csel_no == counter++ ) break;
-//			        link = link->next;
-//			    }
-//			    if ( link == NULL || link->text == NULL || *link->text == '\0' )
-//			        return RET_CONTINUE;
-//			
-//			    csel_info.setLineArea( strlen(link->text)/2+1 );
-//			    csel_info.clear();
-//			    ButtonLink *button = getSelectableSentence( link->text, &csel_info );
-//			    root_button_link.insert( button );
-//			    button->no          = button_no;
-//			    button->sprite_no   = csel_no;
-//			
-//			    sentence_font.ttf_font = csel_info.ttf_font;
-//			
-//			    return RET_CONTINUE;
+				int csel_no   = script_h.readInt();
+			    int button_no = script_h.readInt();
+			
+			    Fontinfo csel_info = sentence_font;
+			    csel_info.setRubyOnFlag(false);
+			    csel_info.top_xy[0] = script_h.readInt();
+			    csel_info.top_xy[1] = script_h.readInt();
+			
+			    int counter = 0;
+			    SelectLink link = root_select_link.next;
+			    while ( null!=link ){
+			        if ( csel_no == counter++ ) break;
+			        link = link.next;
+			    }
+			    if ( link == null || link.text == null || link.text[0] == '\0' )
+			        return RET_CONTINUE;
+			
+			    csel_info.setLineArea( (int)strlen(link.text)/2+1 );
+			    csel_info.clear();
+			    ButtonLink button = getSelectableSentence( link.text, csel_info );
+			    root_button_link.insert( button );
+			    button.no          = button_no;
+			    button.sprite_no   = csel_no;
+			
+			    sentence_font.ttf_font = csel_info.ttf_font;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int clickCommand()
 			{
-				return 0;
-//			    bool lrclick_flag = false;
-//			    if ( script_h.isName( "lrclick" ) ) lrclick_flag = true;
-//			
-//			    //Mion: NScr doesn't stop skip-to-choice mode for a "click" command
-//			    if (skip_mode & SKIP_NORMAL)
-//			        return RET_CONTINUE;
-//			
-//			    skip_mode &= ~SKIP_TO_WAIT;
-//			    key_pressed_flag = false;
-//			
-//			    clickstr_state = CLICK_WAIT;
-//			    event_mode = WAIT_TIMER_MODE | WAIT_INPUT_MODE;
-//			    if (lrclick_flag) event_mode |= WAIT_RCLICK_MODE;
-//			    waitEvent(-1);
-//			    clickstr_state = CLICK_NONE;
-//			
-//			    if (lrclick_flag)
-//			        getret_int = (current_button_state.button == -1) ? 0 : 1;
-//			
-//			    return RET_CONTINUE;
+				bool lrclick_flag = false;
+			    if ( script_h.isName( "lrclick" ) ) lrclick_flag = true;
+			
+			    //Mion: NScr doesn't stop skip-to-choice mode for a "click" command
+			    if (0!=(skip_mode & SKIP_NORMAL))
+			        return RET_CONTINUE;
+			
+			    skip_mode &= ~SKIP_TO_WAIT;
+			    key_pressed_flag = false;
+			
+			    clickstr_state = CLICK_WAIT;
+			    event_mode = WAIT_TIMER_MODE | WAIT_INPUT_MODE;
+			    if (lrclick_flag) event_mode |= WAIT_RCLICK_MODE;
+			    waitEvent(-1);
+			    clickstr_state = CLICK_NONE;
+			
+			    if (lrclick_flag)
+			        getret_int = (current_button_state.button == -1) ? 0 : 1;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int clCommand()
 			{
-				return 0;
-//			    leaveTextDisplayMode();
-//			
-//			    char loc = script_h.readName()[0];
-//			
-//			    if ( loc == 'l' || loc == 'a' ){
-//			        dirty_rect.add( tachi_info[0].pos );
-//			        tachi_info[0].remove();
-//			    }
-//			    if ( loc == 'c' || loc == 'a' ){
-//			        dirty_rect.add( tachi_info[1].pos );
-//			        tachi_info[1].remove();
-//			    }
-//			    if ( loc == 'r' || loc == 'a' ){
-//			        dirty_rect.add( tachi_info[2].pos );
-//			        tachi_info[2].remove();
-//			    }
-//			
-//			    EffectLink *el = parseEffect(true);
-//			    if (setEffect(el, true, true)) return RET_CONTINUE;
-//			    while (doEffect(el));
-//			
-//			    return RET_CONTINUE;
+				leaveTextDisplayMode();
+			
+			    char loc = script_h.readName()[0];
+			
+			    if ( loc == 'l' || loc == 'a' ){
+			        dirty_rect.add( tachi_info[0].pos );
+			        tachi_info[0].remove();
+			    }
+			    if ( loc == 'c' || loc == 'a' ){
+			        dirty_rect.add( tachi_info[1].pos );
+			        tachi_info[1].remove();
+			    }
+			    if ( loc == 'r' || loc == 'a' ){
+			        dirty_rect.add( tachi_info[2].pos );
+			        tachi_info[2].remove();
+			    }
+			
+			    EffectLink el = parseEffect(true);
+			    if (setEffect(el, true, true)) return RET_CONTINUE;
+			    while (doEffect(el));
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int chvolCommand()
 			{
-				return 0;
-//			    int ch  = script_h.readInt();
-//			    //Mion - ogapee2008: avoid access outside array bounds
-//			    if (ch < 0) ch = 0;
-//			    else if (ch >= ONS_MIX_CHANNELS) ch = ONS_MIX_CHANNELS-1;
-//			    int vol = script_h.readInt();
-//			
-//			    channelvolumes[ch] = vol;
-//			
-//			    return RET_CONTINUE;
+				int ch  = script_h.readInt();
+			    //Mion - ogapee2008: avoid access outside array bounds
+			    if (ch < 0) ch = 0;
+			    else if (ch >= ONS_MIX_CHANNELS) ch = ONS_MIX_CHANNELS-1;
+			    int vol = script_h.readInt();
+			
+			    channelvolumes[ch] = vol;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int checkpageCommand()
 			{
-				return 0;
-//			    script_h.readVariable();
-//			    script_h.pushVariable();
-//			
-//			    if ( script_h.pushed_variable.type != ScriptHandler::VAR_INT &&
-//			         script_h.pushed_variable.type != ScriptHandler::VAR_ARRAY )
-//			        errorAndExit( "checkpage: no integer variable." );
-//			
-//			    int page_no = script_h.readInt();
-//			
-//			    Page *page = current_page;
-//			    while(page != start_page && page_no > 0){
-//			        page_no--;
-//			        page = page->previous;
-//			    }
-//			
-//			    if (page_no > 0)
-//			        script_h.setInt( &script_h.pushed_variable, 0 );
-//			    else
-//			        script_h.setInt( &script_h.pushed_variable, 1 );
-//			
-//			    return RET_CONTINUE;
+				script_h.readVariable();
+			    script_h.pushVariable();
+			
+			    if ( script_h.pushed_variable.type != ScriptHandler.VAR_INT &&
+			         script_h.pushed_variable.type != ScriptHandler.VAR_ARRAY )
+			        errorAndExit( "checkpage: no integer variable." );
+			
+			    int page_no = script_h.readInt();
+			
+			    Page page = current_page;
+			    while(page != start_page && page_no > 0){
+			        page_no--;
+			        page = page.previous;
+			    }
+			
+			    if (page_no > 0)
+			        script_h.setInt( script_h.pushed_variable, 0 );
+			    else
+			        script_h.setInt( script_h.pushed_variable, 1 );
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int checkkeyCommand()
 			{
-				return 0;
-//			    script_h.readVariable();
-//			    script_h.pushVariable();
-//			
-//			    if ( script_h.pushed_variable.type != ScriptHandler::VAR_INT &&
-//			         script_h.pushed_variable.type != ScriptHandler::VAR_ARRAY )
-//			        errorAndExit( "checkpage: no integer variable." );
-//			
-//			    const char* buf = script_h.readStr();
-//			    if (!buf || (*buf == '\0')) {
-//			        script_h.setInt( &script_h.pushed_variable, 0 );
-//			        return RET_CONTINUE;
-//			    }
-//			    char* keystr = new char[strlen(buf)+1];
-//			
-//			    for (unsigned int i=0; i<strlen(keystr); i++)
-//			        keystr[i] = toupper(buf[i]);
-//			    keystr[strlen(buf)] = '\0';
-//			
-//			    int ret = 1;
-//			    if (strlen(keystr) == 1){
-//			        if ((last_keypress >= SDLK_0) && (last_keypress <= SDLK_9))
-//			            ret = (last_keypress - SDLK_0) - (*keystr - '0');
-//			        else if ((last_keypress >= SDLK_a) && (last_keypress <= SDLK_z))
-//			            ret = (last_keypress - SDLK_a) - (*keystr - 'A');
-//			    }
-//			    if (ret != 0){
-//			        switch (last_keypress){
-//			          default:
-//			            ret = 1; break;
-//			          case SDLK_RCTRL:
-//			          case SDLK_LCTRL:
-//			            ret = strcmp(keystr, "CTRL"); break;
-//			          case SDLK_RSHIFT:
-//			          case SDLK_LSHIFT:
-//			            ret = strcmp(keystr, "SHIFT"); break;
-//			          case SDLK_RETURN:
-//			            ret = strcmp(keystr, "RETURN");
-//			            if (ret != 0)
-//			                ret = strcmp(keystr, "ENTER");
-//			            break;
-//			          case SDLK_SPACE:
-//			            ret = strcmp(keystr, " ");
-//			            if (ret != 0)
-//			                ret = strcmp(keystr, "SPACE");
-//			            break;
-//			          case SDLK_PAGEUP:
-//			            ret = strcmp(keystr, "PAGEUP"); break;
-//			          case SDLK_PAGEDOWN:
-//			            ret = strcmp(keystr, "PAGEDOWN"); break;
-//			          case SDLK_UP:
-//			            ret = strcmp(keystr, "UP"); break;
-//			          case SDLK_DOWN:
-//			            ret = strcmp(keystr, "DOWN"); break;
-//			          case SDLK_LEFT:
-//			            ret = strcmp(keystr, "LEFT"); break;
-//			          case SDLK_RIGHT:
-//			            ret = strcmp(keystr, "RIGHT"); break;
-//			          case SDLK_F1:  ret = strcmp(keystr, "F1");  break;
-//			          case SDLK_F2:  ret = strcmp(keystr, "F2");  break;
-//			          case SDLK_F3:  ret = strcmp(keystr, "F3");  break;
-//			          case SDLK_F4:  ret = strcmp(keystr, "F4");  break;
-//			          case SDLK_F5:  ret = strcmp(keystr, "F5");  break;
-//			          case SDLK_F6:  ret = strcmp(keystr, "F6");  break;
-//			          case SDLK_F7:  ret = strcmp(keystr, "F7");  break;
-//			          case SDLK_F8:  ret = strcmp(keystr, "F8");  break;
-//			          case SDLK_F9:  ret = strcmp(keystr, "F9");  break;
-//			          case SDLK_F10: ret = strcmp(keystr, "F10"); break;
-//			          case SDLK_F11: ret = strcmp(keystr, "F11"); break;
-//			          case SDLK_F12: ret = strcmp(keystr, "F12"); break;
-//			        }
-//			    }
-//			    if (ret == 0) printf("checkkey: got key %s\n", keystr);
-//			    script_h.setInt( &script_h.pushed_variable, (ret == 0) ? 1 : 0 );
-//			    delete[] keystr;
-//			
-//			    return RET_CONTINUE;
+				script_h.readVariable();
+			    script_h.pushVariable();
+			
+			    if ( script_h.pushed_variable.type != ScriptHandler.VAR_INT &&
+			         script_h.pushed_variable.type != ScriptHandler.VAR_ARRAY )
+			        errorAndExit( "checkpage: no integer variable." );
+			
+			    CharPtr buf = script_h.readStr();
+			    if (null==buf || (buf[0] == '\0')) {
+			        script_h.setInt( script_h.pushed_variable, 0 );
+			        return RET_CONTINUE;
+			    }
+			    CharPtr keystr = new char[strlen(buf)+1];
+			
+			    for (uint i=0; i<strlen(keystr); i++)
+			    	keystr[i] = (char)toupper(buf[i]);
+			    keystr[strlen(buf)] = '\0';
+			
+			    int ret = 1;
+			    if (strlen(keystr) == 1){
+			        if ((last_keypress >= SDLKey.SDLK_0) && (last_keypress <= SDLKey.SDLK_9))
+			            ret = (last_keypress - SDLKey.SDLK_0) - (keystr[0] - '0');
+			        else if ((last_keypress >= SDLKey.SDLK_a) && (last_keypress <= SDLKey.SDLK_z))
+			        	ret = (last_keypress - SDLKey.SDLK_a) - (keystr[0] - 'A');
+			    }
+			    if (ret != 0){
+			        switch (last_keypress){
+			          default:
+			            ret = 1; break;
+			          case SDLKey.SDLK_RCTRL:
+			          case SDLKey.SDLK_LCTRL:
+			            ret = strcmp(keystr, "CTRL"); break;
+			          case SDLKey.SDLK_RSHIFT:
+			          case SDLKey.SDLK_LSHIFT:
+			            ret = strcmp(keystr, "SHIFT"); break;
+			          case SDLKey.SDLK_RETURN:
+			            ret = strcmp(keystr, "RETURN");
+			            if (ret != 0)
+			                ret = strcmp(keystr, "ENTER");
+			            break;
+			          case SDLKey.SDLK_SPACE:
+			            ret = strcmp(keystr, " ");
+			            if (ret != 0)
+			                ret = strcmp(keystr, "SPACE");
+			            break;
+			          case SDLKey.SDLK_PAGEUP:
+			            ret = strcmp(keystr, "PAGEUP"); break;
+			          case SDLKey.SDLK_PAGEDOWN:
+			            ret = strcmp(keystr, "PAGEDOWN"); break;
+			          case SDLKey.SDLK_UP:
+			            ret = strcmp(keystr, "UP"); break;
+			          case SDLKey.SDLK_DOWN:
+			            ret = strcmp(keystr, "DOWN"); break;
+			          case SDLKey.SDLK_LEFT:
+			            ret = strcmp(keystr, "LEFT"); break;
+			          case SDLKey.SDLK_RIGHT:
+			            ret = strcmp(keystr, "RIGHT"); break;
+			          case SDLKey.SDLK_F1:  ret = strcmp(keystr, "F1");  break;
+			          case SDLKey.SDLK_F2:  ret = strcmp(keystr, "F2");  break;
+			          case SDLKey.SDLK_F3:  ret = strcmp(keystr, "F3");  break;
+			          case SDLKey.SDLK_F4:  ret = strcmp(keystr, "F4");  break;
+			          case SDLKey.SDLK_F5:  ret = strcmp(keystr, "F5");  break;
+			          case SDLKey.SDLK_F6:  ret = strcmp(keystr, "F6");  break;
+			          case SDLKey.SDLK_F7:  ret = strcmp(keystr, "F7");  break;
+			          case SDLKey.SDLK_F8:  ret = strcmp(keystr, "F8");  break;
+			          case SDLKey.SDLK_F9:  ret = strcmp(keystr, "F9");  break;
+			          case SDLKey.SDLK_F10: ret = strcmp(keystr, "F10"); break;
+			          case SDLKey.SDLK_F11: ret = strcmp(keystr, "F11"); break;
+			          case SDLKey.SDLK_F12: ret = strcmp(keystr, "F12"); break;
+			        }
+			    }
+			    if (ret == 0) printf("checkkey: got key %s\n", keystr);
+			    script_h.setInt( script_h.pushed_variable, (ret == 0) ? 1 : 0 );
+			    keystr = null;//delete[] keystr;
+			
+			    return RET_CONTINUE;
 			}
 			
 			public int cellCommand()

@@ -1010,11 +1010,11 @@ namespace onscripter_csharp
 //		    int playingMusic();
 //		    int setCurMusicVolume(int volume);
 //		    int setVolumeMute(bool do_mute);
-//		
-//		    enum { WAVE_PLAY        = 0,
-//		           WAVE_PRELOAD     = 1,
-//		           WAVE_PLAY_LOADED = 2
-//		    };
+		
+		    public const int WAVE_PLAY        = 0;
+		    public const int WAVE_PRELOAD     = 1;
+		    public const int WAVE_PLAY_LOADED = 2;
+		    
 //		    void stopBGM( bool continue_flag );
 //		    void stopAllDWAVE();
 //		    void playClickVoice();

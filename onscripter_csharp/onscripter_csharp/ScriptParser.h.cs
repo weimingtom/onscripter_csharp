@@ -492,7 +492,7 @@ namespace onscripter_csharp
 		            return 0;
 		        }
 		    }
-		    public Page page_list = null, start_page = null, current_page = null; // ring buffer
+		    public Page[] page_list = null; public Page start_page = null, current_page = null; // ring buffer
 		    public int  max_page_list;
 		    public int  clickstr_line;
 		    public int  clickstr_state;
