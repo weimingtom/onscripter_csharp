@@ -151,16 +151,16 @@ namespace onscripter_csharp
 		    return 0;
 		}
 		
-//		extern "C" Uint32 bgmfadeCallback( Uint32 interval, void *param )
-//		{
-//		    SDL_Event event;
-//		    event.type = ONS_BGMFADE_EVENT;
-//		    event.user.code = (param == NULL) ? 0 : 1;
-//		    SDL_PushEvent( &event );
-//		
-//		    return interval;
-//		}
-//		
+		public static UInt32 bgmfadeCallback( UInt32 interval, object param )
+		{
+			SDL_Event event_ = new SDL_UserEvent();
+		    event_.type = ONS_BGMFADE_EVENT;
+		    ((SDL_UserEvent)event_).code = (param == null) ? 0 : 1;
+		    SDL_PushEvent( event_ );
+		
+		    return interval;
+		}
+		
 //		extern "C" Uint32 silentmovieCallback( Uint32 interval, void *param )
 //		{
 //			if (1) {
@@ -1484,7 +1484,6 @@ namespace onscripter_csharp
 			              }
 			              break;
 			          }
-			            break;
 						
 			          case ONS_TIMER_EVENT:
 			            timerEvent();

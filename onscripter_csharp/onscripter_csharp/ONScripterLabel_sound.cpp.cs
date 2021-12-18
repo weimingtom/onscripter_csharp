@@ -384,7 +384,7 @@ namespace onscripter_csharp
 			    return 0;
 			}
 			
-			public int playMPEG( CharPtr filename, bool async_flag, bool use_pos, int xpos, int ypos, int width, int height )
+			public int playMPEG( CharPtr filename, bool async_flag, bool use_pos=false, int xpos=0, int ypos=0, int width=0, int height=0 )
 			{
 				int ret = 0;
 			

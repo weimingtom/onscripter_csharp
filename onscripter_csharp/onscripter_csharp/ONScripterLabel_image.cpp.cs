@@ -514,12 +514,12 @@ namespace onscripter_csharp
 			    if (null!=clip_src) if ( 0!=AnimationInfo.doClipping( clip, clip_src ) ) return;
 			
 			    int i, top;
-			    if (false) {
+			    #if false
 					SDL_BlitSurface( bg_info.image_surface, clip, surface, clip );
-				} else {
+				#else
 					//???why this work???
 					bg_info.blendOnSurface( surface, 0, 0, ref clip );
-				}
+				#endif
 			
 			    if ( !all_sprite_hide_flag ){
 			    	if ( z_order < 10 && 0!=(refresh_mode & REFRESH_SAYA_MODE) )

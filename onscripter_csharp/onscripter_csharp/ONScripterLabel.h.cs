@@ -928,15 +928,15 @@ namespace onscripter_csharp
 //		    void buildBreakupMask();
 //		    void initBreakup( char *params );
 //		    void effectBreakup( char *params, int duration );
-//		
-//		    /* ---------------------------------------- */
-//		    /* Select related variables */
-//		    enum {
-//		        SELECT_GOTO_MODE  = 0,
-//		        SELECT_GOSUB_MODE = 1,
-//		        SELECT_NUM_MODE   = 2,
-//		        SELECT_CSEL_MODE  = 3
-//		    };
+		
+		    /* ---------------------------------------- */
+		    /* Select related variables */
+		    
+		    public const int SELECT_GOTO_MODE  = 0;
+		    public const int SELECT_GOSUB_MODE = 1;
+		    public const int SELECT_NUM_MODE   = 2;
+		    public const int SELECT_CSEL_MODE  = 3;
+		    
 		    public class SelectLink{
 		        public SelectLink next;
 		        public CharPtr text;
@@ -951,7 +951,7 @@ namespace onscripter_csharp
 		        }
 		    } 
 		    public SelectLink root_select_link = new SelectLink(), shelter_select_link = null;
-//		    struct NestInfo select_label_info;
+		    public NestInfo select_label_info = new NestInfo();
 		    public int shortcut_mouse_line;
 		
 //		    void deleteSelectLink();
@@ -1028,7 +1028,7 @@ namespace onscripter_csharp
 //		    SDL_Surface *async_movie_surface;
 //		    SDL_Rect async_movie_rect;
 //		    SDL_Rect *surround_rects;
-//		    bool movie_click_flag, movie_loop_flag;
+		    public bool movie_click_flag, movie_loop_flag;
 //		    int playMPEG( const char *filename, bool async_flag, bool use_pos=false, int xpos=0, int ypos=0, int width=0, int height=0 );
 //		    int playAVI( const char *filename, bool click_flag );
 //		

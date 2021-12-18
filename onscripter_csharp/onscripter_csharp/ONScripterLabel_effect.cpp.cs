@@ -92,8 +92,7 @@ namespace onscripter_csharp
 			
 			public bool setEffect( ScriptParser.EffectLink effect, bool generate_effect_dst, bool update_backup_surface )
 			{
-				return false;
-			    if ( effect.effect == 0 ) return true;
+				if ( effect.effect == 0 ) return true;
 			
 			    if (update_backup_surface)
 			        refreshSurface(backup_surface, dirty_rect.bounding_box, REFRESH_NORMAL_MODE);

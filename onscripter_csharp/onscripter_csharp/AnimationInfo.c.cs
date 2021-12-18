@@ -1338,7 +1338,7 @@ namespace onscripter_csharp
 			
 			
 			// resize 32bit surface to 32bit surface
-			public int resizeSurface( SDL_Surface src, SDL_Surface dst, int num_cells )
+			public static int resizeSurface( SDL_Surface src, SDL_Surface dst, int num_cells=1 )
 			{
 				return 0;
 //			    SDL_LockSurface( dst );

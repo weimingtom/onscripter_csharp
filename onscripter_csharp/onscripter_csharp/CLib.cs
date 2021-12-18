@@ -248,7 +248,7 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
-		public static void mkdir(CharPtr str)
+		public static void mkdir(CharPtr str) //FIXME: second param?
 		{
 			
 		}
@@ -581,6 +581,23 @@ namespace onscripter_csharp
 		
 		public static int toupper(int x)
 		{
+			return 0;
+		}
+		
+		public static int SDL_SaveBMP(SDL_Surface surface, CharPtr file)
+		{
+			return 0;
+		}
+		
+		public const int SW_SHOW = 5;
+		public static long ShellExecuteA(
+			  object   hwnd,
+			  CharPtr lpOperation,
+			  CharPtr lpFile,
+			  CharPtr lpParameters,
+			  CharPtr lpDirectory,
+			  int    nShowCmd
+			) {
 			return 0;
 		}
 	}
