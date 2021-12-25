@@ -1181,7 +1181,7 @@ namespace onscripter_csharp
 			}
 			
 			
-			public void setCpufuncs(uint func)
+			public static void setCpufuncs(uint func)
 			{
 				cpufuncs = func;
 			}
@@ -1328,7 +1328,7 @@ namespace onscripter_csharp
 //			static unsigned char *resize_buffer = NULL;
 //			static size_t resize_buffer_size = 0;
 			
-			public void resetResizeBuffer() {
+			public static void resetResizeBuffer() {
 //			    if (resize_buffer_size != 16){
 //			        if (resize_buffer) delete[] resize_buffer;
 //			        resize_buffer = new unsigned char[16];

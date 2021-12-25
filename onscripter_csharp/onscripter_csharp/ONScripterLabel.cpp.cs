@@ -103,9 +103,9 @@ namespace onscripter_csharp
 //		#define FONT_FILE "default.ttf"
 //		#define REGISTRY_FILE "registry.txt"
 //		#define DLL_FILE "dll.txt"
-//		//haeleth change to use English-language font name
-//		#define DEFAULT_ENV_FONT "MS Gothic"
-//		
+		//haeleth change to use English-language font name
+		private const string DEFAULT_ENV_FONT = "MS Gothic";
+		
 //		#define SAVEFILE_VERSION_MAJOR 2
 //		#define SAVEFILE_VERSION_MINOR 6
 		
@@ -119,7 +119,7 @@ namespace onscripter_csharp
 		    	this.method = method;
 		    }
 		};
-		public FuncLUT[] func_lut = new FuncLUT[] {
+		public static FuncLUT[] func_lut = new FuncLUT[] {
 			new FuncLUT("yesnobox",   delegate (ONScripterLabel this_) { return this_.yesnoboxCommand(); } ),
 		    new FuncLUT("wavestop",   delegate (ONScripterLabel this_) { return this_.wavestopCommand(); } ),
 		    new FuncLUT("waveloop",   delegate (ONScripterLabel this_) { return this_.waveCommand(); } ),
@@ -378,7 +378,7 @@ namespace onscripter_csharp
 		
 		private static void SDL_Quit_Wrapper()
 		{
-//		    SDL_Quit();
+		    SDL_Quit();
 		}
 		
 		public partial class ONScripterLabel {
@@ -540,24 +540,20 @@ namespace onscripter_csharp
 			}
 			
 			public int ExpandPos(int val) {
-				return 0;
-//			    return float(val * screen_ratio1) / screen_ratio2 + 0.5;
+				return (int)((float)(val * screen_ratio1) / screen_ratio2 + 0.5);
 			}
 			
 			public int ContractPos(int val) {
-				return 0;
-//			    return float(val * screen_ratio2) / screen_ratio1 + 0.5;
+				return (int)((float)(val * screen_ratio2) / screen_ratio1 + 0.5);
 			}
-//			#ifdef RCA_SCALE
+			#if true//RCA_SCALE
 			public int StretchPosX(int val) {
-				return 0;
-//			    return float(val * screen_ratio1) * scr_stretch_x / screen_ratio2 + 0.5;
+				return (int)((float)(val * screen_ratio1) * scr_stretch_x / screen_ratio2 + 0.5);
 			}
 			public int StretchPosY(int val) {
-				return 0;
-//			    return float(val * screen_ratio1) * scr_stretch_y / screen_ratio2 + 0.5;
+				return (int)((val * screen_ratio1) * scr_stretch_y / screen_ratio2 + 0.5);
 			}
-//			#endif
+			#endif
 			
 			public ONScripterLabel()
 			//Using an initialization list to make sure pointers start out NULL
@@ -721,135 +717,135 @@ namespace onscripter_csharp
 //			    seqmusic_cmd  = getenv("MUSIC_CMD");
 			}
 			
-//			ONScripterLabel::~ONScripterLabel()
-//			{
-//			    reset();
-//			
-//			    delete[] sprite_info;
-//			    delete[] sprite2_info;
-//			
-//			    if (default_font) delete[] default_font;
-//			    if (font_file) delete[] font_file;
-//			}
+			~ONScripterLabel()
+			{
+			    reset();
+			
+			    sprite_info = null;//delete[] sprite_info;
+			    sprite2_info = null;//delete[] sprite2_info;
+			
+			    if (null!=default_font) default_font = null;//delete[] default_font;
+			    if (null!=font_file) font_file = null;//delete[] font_file;
+			}
 			
 			public void enableCDAudio(){
-//			    cdaudio_flag = true;
+			    cdaudio_flag = true;
 			}
 			
 			public void setCDNumber(int cdrom_drive_number)
 			{
-//			    this->cdrom_drive_number = cdrom_drive_number;
+			    this.cdrom_drive_number = cdrom_drive_number;
 			}
 			
 			public void setFontFile(CharPtr filename)
 			{
-//			    setStr(&default_font, filename);
+			    setStr(ref default_font, filename);
 			}
 			
 			public void setRegistryFile(CharPtr filename)
 			{
-//			    setStr(&registry_file, filename);
+			    setStr(ref registry_file, filename);
 			}
 			
 			public void setDLLFile(CharPtr filename)
 			{
-//			    setStr(&dll_file, filename);
+			    setStr(ref dll_file, filename);
 			}
 			
 			public void setFileVersion(CharPtr ver)
 			{
-//			    int verno = atoi(ver);
-//			    if ((verno >= 199) && (verno <= fileversion))
-//			        fileversion = verno;
+			    int verno = atoi(ver);
+			    if ((verno >= 199) && (verno <= fileversion))
+			        fileversion = verno;
 			}
 			
 			public void setFullscreenMode()
 			{
-//			    fullscreen_mode = true;
+			    fullscreen_mode = true;
 			}
 			
 			public void setWindowMode()
 			{
-//			    window_mode = true;
+			    window_mode = true;
 			}
 			
-//			#ifdef WIN32
+			#if true//def WIN32
 			public void setUserAppData()
 			{
-//			    current_user_appdata = true;
+			    current_user_appdata = true;
 			}
-//			#endif
+			#endif
 			
 			public void setUseAppIcons()
 			{
-//			    use_app_icons = true;
+			    use_app_icons = true;
 			}
 			
 			public void setIgnoreTextgosubNewline()
 			{
-//			    script_h.ignore_textgosub_newline = true;
+			    script_h.ignore_textgosub_newline = true;
 			}
 			
 			public void setSkipPastNewline()
 			{
-//			    skip_past_newline = true;
+			    skip_past_newline = true;
 			}
 			
 			public void setPreferredWidth(CharPtr widthstr)
 			{
-//			    int width = atoi(widthstr);
-//			    //minimum preferred window width of 160 (gets ridiculous if smaller)
-//			    if (width > 160)
-//			        preferred_width = width;
-//			    else if (width > 0)
-//			        preferred_width = 160;
+			    int width = atoi(widthstr);
+			    //minimum preferred window width of 160 (gets ridiculous if smaller)
+			    if (width > 160)
+			        preferred_width = width;
+			    else if (width > 0)
+			        preferred_width = 160;
 			}
 			
 			public void enableButtonShortCut()
 			{
-//			    force_button_shortcut_flag = true;
+			    force_button_shortcut_flag = true;
 			}
 			
 			public void enableWheelDownAdvance()
 			{
-//			    enable_wheeldown_advance_flag = true;
+			    enable_wheeldown_advance_flag = true;
 			}
 			
 			public void disableCpuGfx()
 			{
-//			    AnimationInfo::setCpufuncs(AnimationInfo::CPUF_NONE);
+			    AnimationInfo.setCpufuncs(AnimationInfo.CPUF_NONE);
 			}
 			
 			public void disableRescale()
 			{
-//			    disable_rescale_flag = true;
+			    disable_rescale_flag = true;
 			}
 			
 			public void enableEdit()
 			{
-//			    edit_flag = true;
+			    edit_flag = true;
 			}
 			
 			public void setKeyEXE(CharPtr filename)
 			{
-//			    setStr(&key_exe_file, filename);
+			    setStr(ref key_exe_file, filename);
 			}
 			
-//			#ifdef RCA_SCALE
+			#if RCA_SCALE
 			public void setWidescreen()
 			{
-//			    widescreen_flag = true;
+			    widescreen_flag = true;
 			}
-//			#endif
+			#endif
 			
 			public void setScaled()
 			{
-//			    scaled_flag = true;
+			    scaled_flag = true;
 			}
 			
 			public void setGameIdentifier(CharPtr gameid)
 			{
-//			    setStr(&cmdline_game_id, gameid);
+			    setStr(ref cmdline_game_id, gameid);
 			}
 			
 			public int init()
@@ -1131,288 +1127,287 @@ namespace onscripter_csharp
 			
 			public override void reset()
 			{
-//			    resetFlags();
-//			
-//			    if (sin_table) delete[] sin_table;
-//			    if (cos_table) delete[] cos_table;
-//			    sin_table = cos_table = NULL;
-//			    if (whirl_table) delete[] whirl_table;
-//			    whirl_table = NULL;
-//			
-//			    if (breakup_cells) delete[] breakup_cells;
-//			    if (breakup_mask) delete[] breakup_mask;
-//			    if (breakup_cellforms) delete[] breakup_cellforms;
-//			
-//			    AnimationInfo::resetResizeBuffer();
-//			
-//			    if (string_buffer_breaks) delete[] string_buffer_breaks;
-//			    string_buffer_breaks = NULL;
-//			
-//			    resetSentenceFont();
-//			
-//			    setStr(&getret_str, NULL);
-//			    getret_int = 0;
-//			
-//			    if (movie_buffer) delete[] movie_buffer;
-//			    movie_buffer = NULL;
-//			    if (surround_rects) delete[] surround_rects;
-//			    surround_rects = NULL;
-//			
-//			    resetSub();
-//			
-//			    /* ---------------------------------------- */
-//			    /* Load global variables if available */
-//			    if ( loadFileIOBuf( "gloval.sav" ) == 0 ||
-//			         loadFileIOBuf( "global.sav" ) == 0 )
-//			        readVariables( script_h.global_variable_border, VARIABLE_RANGE );
-//			
+			    resetFlags();
+			
+			    if (null!=sin_table) sin_table = null;//delete[] sin_table;
+			    if (null!=cos_table) cos_table = null;//delete[] cos_table;
+			    sin_table = cos_table = null;
+			    if (null!=whirl_table) whirl_table = null;//delete[] whirl_table;
+			    whirl_table = null;
+			
+			    if (null!=breakup_cells) breakup_cells = null;//delete[] breakup_cells;
+			    if (null!=breakup_mask) breakup_mask = null;//delete[] breakup_mask;
+			    if (null!=breakup_cellforms) breakup_cellforms = null;//delete[] breakup_cellforms;
+			
+			    AnimationInfo.resetResizeBuffer();
+			
+			    if (null!=string_buffer_breaks) string_buffer_breaks = null;//delete[] string_buffer_breaks;
+			    string_buffer_breaks = null;
+			
+			    resetSentenceFont();
+			
+			    setStr(ref getret_str, null);
+			    getret_int = 0;
+			
+			    if (null!=movie_buffer) movie_buffer = null;//delete[] movie_buffer;
+			    movie_buffer = null;
+			    if (null!=surround_rects) surround_rects = null;//delete[] surround_rects;
+			    surround_rects = null;
+			
+			    resetSub();
+			
+			    /* ---------------------------------------- */
+			    /* Load global variables if available */
+			    if ( loadFileIOBuf( "gloval.sav" ) == 0 ||
+			         loadFileIOBuf( "global.sav" ) == 0 )
+			        readVariables( script_h.global_variable_border, VARIABLE_RANGE );
+			
 			}
 			
 			public void resetSub()
 			{
-//			    int i;
-//			
-//			    for ( i=0 ; i<script_h.global_variable_border ; i++ )
-//			        script_h.getVariableData(i).reset(false);
-//			
-//			    resetFlagsSub();
-//			
-//			    skip_mode = (skip_mode & SKIP_TO_EOP) ? SKIP_TO_EOP : SKIP_NONE;
-//			    setStr(&trap_dest, NULL);
-//			
-//			    resetSentenceFont();
-//			
-//			    deleteNestInfo();
-//			    deleteButtonLink();
-//			    deleteSelectLink();
-//			
-//			    stopCommand();
-//			    loopbgmstopCommand();
-//			    stopAllDWAVE();
-//			    setStr(&loop_bgm_name[1], NULL);
-//			
-//			    // ----------------------------------------
-//			    // reset AnimationInfo
-//			    btndef_info.reset();
-//			    bg_info.reset();
-//			    setStr( &bg_info.file_name, "black" );
-//			    createBackground();
-//			    for (i=0 ; i<3 ; i++) tachi_info[i].reset();
-//			    for (i=0 ; i<MAX_SPRITE_NUM ; i++) sprite_info[i].reset();
-//			    for (i=0 ; i<MAX_SPRITE2_NUM ; i++) sprite2_info[i].reset();
-//			    barclearCommand();
-//			    prnumclearCommand();
-//			    for (i=0 ; i<2 ; i++) cursor_info[i].reset();
-//			    for (i=0 ; i<4 ; i++) lookback_info[i].reset();
-//			
-//			    //Mion: reset textbtn
-//			    deleteTextButtonInfo();
-//			    readColor( &linkcolor[0], "#FFFF22" ); // yellow - link color
-//			    readColor( &linkcolor[1], "#88FF88" ); // cyan - mouseover link color
-//			
-//			    dirty_rect.fill( screen_width, screen_height );
+			    int i;
+			
+			    for ( i=0 ; i<script_h.global_variable_border ; i++ )
+			        script_h.getVariableData(i).reset(false);
+			
+			    resetFlagsSub();
+			
+			    skip_mode = 0!=(skip_mode & SKIP_TO_EOP) ? SKIP_TO_EOP : SKIP_NONE;
+			    setStr(ref trap_dest, null);
+			
+			    resetSentenceFont();
+			
+			    deleteNestInfo();
+			    deleteButtonLink();
+			    deleteSelectLink();
+			
+			    stopCommand();
+			    loopbgmstopCommand();
+			    stopAllDWAVE();
+			    setStr(ref loop_bgm_name[1], null);
+			
+			    // ----------------------------------------
+			    // reset AnimationInfo
+			    btndef_info.reset();
+			    bg_info.reset();
+			    setStr( ref bg_info.file_name, "black" );
+			    createBackground();
+			    for (i=0 ; i<3 ; i++) tachi_info[i].reset();
+			    for (i=0 ; i<MAX_SPRITE_NUM ; i++) sprite_info[i].reset();
+			    for (i=0 ; i<MAX_SPRITE2_NUM ; i++) sprite2_info[i].reset();
+			    barclearCommand();
+			    prnumclearCommand();
+			    for (i=0 ; i<2 ; i++) cursor_info[i].reset();
+			    for (i=0 ; i<4 ; i++) lookback_info[i].reset();
+			
+			    //Mion: reset textbtn
+			    deleteTextButtonInfo();
+			    readColor( ref linkcolor[0], "#FFFF22" ); // yellow - link color
+			    readColor( ref linkcolor[1], "#88FF88" ); // cyan - mouseover link color
+			
+			    dirty_rect.fill( screen_width, screen_height );
 			}
 			
 			public void resetFlags()
 			{
-//			    automode_flag = false;
-//			    automode_time = 3000;
-//			    autoclick_time = 0;
-//			    btntime2_flag = false;
-//			    btntime_value = 0;
-//			    btnwait_time = 0;
-//			    
-//			    is_exbtn_enabled = false;
-//			
-//			    system_menu_enter_flag = false;
-//			    system_menu_mode = SYSTEM_NULL;
-//			    key_pressed_flag = false;
-//			    shift_pressed_status = 0;
-//			    ctrl_pressed_status = 0;
-//			#ifdef MACOSX
-//			    apple_pressed_status = 0;
-//			#endif
-//			    display_mode = shelter_display_mode = DISPLAY_MODE_NORMAL;
-//			    event_mode = shelter_event_mode = IDLE_EVENT_MODE;
-//			    did_leavetext = false;
-//			    in_effect_blank = false;
-//			    skip_effect = false;
-//			    effectskip_flag = true; //on by default
-//			
-//			    current_over_button = 0;
-//			    current_button_valid = false;
-//			    variable_edit_mode = NOT_EDIT_MODE;
-//			
-//			    new_line_skip_flag = false;
-//			    text_on_flag = true;
-//			    draw_cursor_flag = shelter_draw_cursor_flag = false;
-//			
-//			    // ----------------------------------------
-//			    // Sound related variables
-//			
-//			    wave_play_loop_flag = false;
-//			    seqmusic_play_loop_flag = false;
-//			    music_play_loop_flag = false;
-//			    cd_play_loop_flag = false;
-//			    mp3save_flag = false;
-//			    current_cd_track = -1;
-//			    mp3fadeout_duration = mp3fadein_duration = 0;
-//			    bgmdownmode_flag = false;
-//			
-//			    movie_click_flag = movie_loop_flag = false;
-//			
-//			    disableGetButtonFlag();
+			    automode_flag = false;
+			    automode_time = 3000;
+			    autoclick_time = 0;
+			    btntime2_flag = false;
+			    btntime_value = 0;
+			    btnwait_time = 0;
+			    
+			    is_exbtn_enabled = false;
+			
+			    system_menu_enter_flag = false;
+			    system_menu_mode = SYSTEM_NULL;
+			    key_pressed_flag = false;
+			    shift_pressed_status = 0;
+			    ctrl_pressed_status = 0;
+			#if MACOSX
+			    apple_pressed_status = 0;
+			#endif
+			    display_mode = shelter_display_mode = DISPLAY_MODE_NORMAL;
+			    event_mode = shelter_event_mode = IDLE_EVENT_MODE;
+			    did_leavetext = false;
+			    in_effect_blank = false;
+			    skip_effect = false;
+			    effectskip_flag = true; //on by default
+			
+			    current_over_button = 0;
+			    current_button_valid = false;
+			    variable_edit_mode = NOT_EDIT_MODE;
+			
+			    new_line_skip_flag = false;
+			    text_on_flag = true;
+			    draw_cursor_flag = shelter_draw_cursor_flag = false;
+			
+			    // ----------------------------------------
+			    // Sound related variables
+			
+			    wave_play_loop_flag = false;
+			    seqmusic_play_loop_flag = false;
+			    music_play_loop_flag = false;
+			    cd_play_loop_flag = false;
+			    mp3save_flag = false;
+			    current_cd_track = -1;
+			    mp3fadeout_duration = mp3fadein_duration = 0;
+			    bgmdownmode_flag = false;
+			
+			    movie_click_flag = movie_loop_flag = false;
+			
+			    disableGetButtonFlag();
 			}
 			
 			public void resetFlagsSub()
 			{
-//			    int i=0;
-//			    
-//			    for ( i=0 ; i<3 ; i++ ) human_order[i] = 2-i; // "rcl"
-//			
-//			    all_sprite_hide_flag = false;
-//			    all_sprite2_hide_flag = false;
-//			
-//			    refresh_window_text_mode = REFRESH_NORMAL_MODE | REFRESH_WINDOW_MODE |
-//			                               REFRESH_TEXT_MODE;
-//			    erase_text_window_mode = 1;
-//			
-//			    monocro_flag = false;
-//			    monocro_color[0] = monocro_color[1] = monocro_color[2] = 0;
-//			    nega_mode = 0;
-//			    clickstr_state = CLICK_NONE;
-//			    trap_mode = TRAP_NONE;
-//			
-//			    last_keypress = KEYPRESS_NULL;
-//			
-//			    saveon_flag = true;
-//			    internal_saveon_flag = true;
-//			
-//			    textgosub_clickstr_state = CLICK_NONE;
-//			    indent_offset = 0;
-//			    line_enter_status = 0;
-//			    page_enter_status = 0;
-//			    last_textpos_xy[0] = last_textpos_xy[1] = 0;
-//			    line_has_nonspace = false;
-//			
-//			    for (i=0 ; i<SPRITE_NUM_LAST_LOADS ; i++) last_loaded_sprite[i] = -1;
-//			    last_loaded_sprite_ind = 0;
-//			
-//			    txtbtn_start_num = next_txtbtn_num = 1;
-//			    in_txtbtn = false;
-//			    txtbtn_show = false;
-//			    txtbtn_visible = false;
+			    int i=0;
+			    
+			    for ( i=0 ; i<3 ; i++ ) human_order[i] = 2-i; // "rcl"
+			
+			    all_sprite_hide_flag = false;
+			    all_sprite2_hide_flag = false;
+			
+			    refresh_window_text_mode = REFRESH_NORMAL_MODE | REFRESH_WINDOW_MODE |
+			                               REFRESH_TEXT_MODE;
+			    erase_text_window_mode = 1;
+			
+			    monocro_flag = false;
+			    monocro_color[0] = monocro_color[1] = monocro_color[2] = 0;
+			    nega_mode = 0;
+			    clickstr_state = CLICK_NONE;
+			    trap_mode = TRAP_NONE;
+			
+			    last_keypress = KEYPRESS_NULL;
+			
+			    saveon_flag = true;
+			    internal_saveon_flag = true;
+			
+			    textgosub_clickstr_state = CLICK_NONE;
+			    indent_offset = 0;
+			    line_enter_status = 0;
+			    page_enter_status = 0;
+			    last_textpos_xy[0] = last_textpos_xy[1] = 0;
+			    line_has_nonspace = false;
+			
+			    for (i=0 ; i<SPRITE_NUM_LAST_LOADS ; i++) last_loaded_sprite[i] = -1;
+			    last_loaded_sprite_ind = 0;
+			
+			    txtbtn_start_num = next_txtbtn_num = 1;
+			    in_txtbtn = false;
+			    txtbtn_show = false;
+			    txtbtn_visible = false;
 			}
 			
 			public void resetSentenceFont()
 			{
-//			    sentence_font.reset();
-//			    sentence_font.font_size_xy[0] = DEFAULT_FONT_SIZE;
-//			    sentence_font.font_size_xy[1] = DEFAULT_FONT_SIZE;
-//			    sentence_font.top_xy[0] = 21;
-//			    sentence_font.top_xy[1] = 16;// + sentence_font.font_size;
-//			    sentence_font.num_xy[0] = 23;
-//			    sentence_font.num_xy[1] = 16;
-//			    sentence_font.pitch_xy[0] = sentence_font.font_size_xy[0];
-//			    sentence_font.pitch_xy[1] = 2 + sentence_font.font_size_xy[1];
-//			    sentence_font.wait_time = 20;
-//			    sentence_font.window_color[0] = sentence_font.window_color[1] = sentence_font.window_color[2] = 0x99;
-//			    sentence_font.color[0] = sentence_font.color[1] = sentence_font.color[2] = 0xff;
-//			    sentence_font_info.reset();
-//			    sentence_font_info.pos.x = 0;
-//			    sentence_font_info.pos.y = 0;
-//			    sentence_font_info.pos.w = screen_width;
-//			    sentence_font_info.pos.h = screen_height;
+			    sentence_font.reset();
+			    sentence_font.font_size_xy[0] = DEFAULT_FONT_SIZE;
+			    sentence_font.font_size_xy[1] = DEFAULT_FONT_SIZE;
+			    sentence_font.top_xy[0] = 21;
+			    sentence_font.top_xy[1] = 16;// + sentence_font.font_size;
+			    sentence_font.num_xy[0] = 23;
+			    sentence_font.num_xy[1] = 16;
+			    sentence_font.pitch_xy[0] = sentence_font.font_size_xy[0];
+			    sentence_font.pitch_xy[1] = 2 + sentence_font.font_size_xy[1];
+			    sentence_font.wait_time = 20;
+			    sentence_font.window_color[0] = sentence_font.window_color[1] = sentence_font.window_color[2] = 0x99;
+			    sentence_font.color[0] = sentence_font.color[1] = sentence_font.color[2] = 0xff;
+			    sentence_font_info.reset();
+			    sentence_font_info.pos.x = 0;
+			    sentence_font_info.pos.y = 0;
+			    sentence_font_info.pos.w = screen_width;
+			    sentence_font_info.pos.h = screen_height;
 			}
 			
 			public bool doErrorBox( CharPtr title, CharPtr errstr, bool is_simple, bool is_warning )
 			//returns true if we need to exit
 			{
-				return false;
-//			    //The OS X dialog box routines are crashing when in fullscreen mode,
-//			    //so let's switch to windowed mode just in case
-//			    menu_windowCommand();
-//			
-//			#if defined(MACOSX)
-//			    if (is_simple && !is_warning)
-//			        ONSCocoa::alertbox(title, errstr);
-//			    else {
-//			        if (ONSCocoa::scriptErrorBox(title, errstr, is_warning, ONSCocoa::ENC_SJIS) == SCRIPTERROR_IGNORE)
-//			            return false;
-//			    }
-//			
-//			#elif defined(WIN32) && defined(USE_MESSAGEBOX)
-//			    char errtitle[256];
-//			    HWND pwin = NULL;
-//			    SDL_SysWMinfo info;
-//			    UINT mb_type = MB_OK;
-//			    SDL_VERSION(&info.version);
-//			    SDL_GetWMInfo(&info);
-//			
-//			    if (SDL_GetWMInfo(&info) == 1) {
-//			        pwin = info.window;
-//			        snprintf(errtitle, 256, "%s", title);
-//			    } else {
-//			        snprintf(errtitle, 256, "ONScripter-EN: %s", title);
-//			    }
-//			
-//			    if (is_warning) {
-//			        //Retry and Ignore both continue, Abort exits
-//			        //would rather do an Ignore/Exit button set, oh well
-//			        mb_type = MB_ABORTRETRYIGNORE|MB_DEFBUTTON3|MB_ICONWARNING;
-//			    }
-//			    else
-//			        mb_type |= MB_ICONERROR;
-//			    int res = MessageBox(pwin, errstr, errtitle, mb_type);
-//			    if (is_warning)
-//			        return (res == IDABORT); //should do exit if got Abort
-//			#else
-//			    //no errorbox support; at least send the info to stderr
-//			    fprintf(stderr, " ***[Info] %s *** \n%s\n", title, errstr);
-//			#endif
-//			
-//			    // get affairs in order
-//			    if (errorsave) {
-//			        saveon_flag = internal_saveon_flag = true;
-//			        saveSaveFile( 999 ); //save current game state to save999.dat
-//			    }
-//			#ifdef WIN32
-//			    openDebugFolders();
-//			#endif
-//			
-//			    quit();
-//			
-//			    return true; //should do exit
+				//The OS X dialog box routines are crashing when in fullscreen mode,
+			    //so let's switch to windowed mode just in case
+			    menu_windowCommand();
+			
+			#if MACOSX
+			    if (is_simple && !is_warning)
+			        ONSCocoa::alertbox(title, errstr);
+			    else {
+			        if (ONSCocoa::scriptErrorBox(title, errstr, is_warning, ONSCocoa::ENC_SJIS) == SCRIPTERROR_IGNORE)
+			            return false;
+			    }
+			
+			#elif WIN32 && USE_MESSAGEBOX
+			    char errtitle[256];
+			    HWND pwin = NULL;
+			    SDL_SysWMinfo info;
+			    UINT mb_type = MB_OK;
+			    SDL_VERSION(&info.version);
+			    SDL_GetWMInfo(&info);
+			
+			    if (SDL_GetWMInfo(&info) == 1) {
+			        pwin = info.window;
+			        snprintf(errtitle, 256, "%s", title);
+			    } else {
+			        snprintf(errtitle, 256, "ONScripter-EN: %s", title);
+			    }
+			
+			    if (is_warning) {
+			        //Retry and Ignore both continue, Abort exits
+			        //would rather do an Ignore/Exit button set, oh well
+			        mb_type = MB_ABORTRETRYIGNORE|MB_DEFBUTTON3|MB_ICONWARNING;
+			    }
+			    else
+			        mb_type |= MB_ICONERROR;
+			    int res = MessageBox(pwin, errstr, errtitle, mb_type);
+			    if (is_warning)
+			        return (res == IDABORT); //should do exit if got Abort
+			#else
+			    //no errorbox support; at least send the info to stderr
+			    fprintf(stderr, " ***[Info] %s *** \n%s\n", title, errstr);
+			#endif
+			
+			    // get affairs in order
+			    if (errorsave) {
+			        saveon_flag = internal_saveon_flag = true;
+			        saveSaveFile( 999 ); //save current game state to save999.dat
+			    }
+			#if true //WIN32
+			    openDebugFolders();
+			#endif
+			
+			    quit();
+			
+			    return true; //should do exit
 			}
 			
 //			#ifdef WIN32
 			public void openDebugFolders()
 			{
-//			    // to make it easier to debug user issues on Windows, open
-//			    // the current directory, save_path and ONScripter output folders
-//			    // in Explorer
+			    // to make it easier to debug user issues on Windows, open
+			    // the current directory, save_path and ONScripter output folders
+			    // in Explorer
 //			    HMODULE shdll = LoadLibrary("shell32");
 //			    if (shdll) {
-//			        char hpath[MAX_PATH];
-//			        bool havefp = false;
+			        CharPtr hpath = new char[MAX_PATH];
+			        bool havefp = false;
 //			        GETFOLDERPATH gfp = GETFOLDERPATH(GetProcAddress(shdll, "SHGetFolderPathA"));
 //			        if (gfp) {
-//			            HRESULT res = gfp(0, CSIDL_APPDATA, 0, 0, hpath); //now user-based
-//			            if (res != S_FALSE && res != E_FAIL && res != E_INVALIDARG) {
-//			                havefp = true;
-//			                sprintf((char *)&hpath + strlen(hpath), "%c%s",
-//			                        DELIMITER, "ONScripter-EN");
-//			            }
+			            long res = SHGetFolderPathA(0, CSIDL_APPDATA, 0, 0, hpath); //now user-based
+			            if (res != S_FALSE && res != E_FAIL && res != E_INVALIDARG) {
+			                havefp = true;
+			                sprintf(new CharPtr(hpath, + (int)(strlen(hpath))), "%c%s",
+			                        DELIMITER, "ONScripter-EN");
+			            }
 //			        }
 //			        typedef HINSTANCE (WINAPI *SHELLEXECUTE)(HWND, LPCSTR, LPCSTR,
 //			                           LPCSTR, LPCSTR, int);
 //			        SHELLEXECUTE shexec =
 //			            SHELLEXECUTE(GetProcAddress(shdll, "ShellExecuteA"));
 //			        if (shexec) {
-//			            shexec(NULL, "open", "", NULL, NULL, SW_SHOWNORMAL);
-//			            shexec(NULL, "open", script_h.save_path, NULL, NULL, SW_SHOWNORMAL);
-//			            if (havefp)
-//			                shexec(NULL, "open", hpath, NULL, NULL, SW_SHOWNORMAL);
+			            ShellExecuteA(null, "open", "", null, null, SW_SHOWNORMAL);
+			            ShellExecuteA(null, "open", script_h.save_path, null, null, SW_SHOWNORMAL);
+			            if (havefp)
+			                ShellExecuteA(null, "open", hpath, null, null, SW_SHOWNORMAL);
 //			        }
 //			        FreeLibrary(shdll);
 //			    }
@@ -1420,895 +1415,904 @@ namespace onscripter_csharp
 //			#endif
 			
 			public bool intersectRects( SDL_Rect result, SDL_Rect rect1, SDL_Rect rect2) {
-				return false;
-//			    if ( (rect1.w == 0) || (rect1.h == 0) ) {
-//			        result = rect1;
-//			        return false;
-//			    } else if ( (rect2.w == 0) || (rect2.h == 0) ) {
-//			        result = rect2;
-//			        return false;
-//			    }
-//			    if (rect1.x < rect2.x) {
-//			        result = rect2;
-//			        if ((rect1.x + rect1.w) < rect2.x) {
-//			            result.w = 0;
-//			            return false;
-//			        } else if ((rect1.x + rect1.w) < (rect2.x + rect2.w)){
-//			            result.w = rect1.x + rect1.w - rect2.x;
-//			        }
-//			    } else {
-//			        result = rect1;
-//			        if ((rect2.x + rect2.w) < rect1.x) {
-//			            result.w = 0;
-//			            return false;
-//			        } else if ((rect2.x + rect2.w) < (rect1.x + rect1.w)){
-//			            result.w = rect2.x + rect2.w - rect1.x;
-//			        }
-//			    }
-//			    if (rect1.y < rect2.y) {
-//			        result.y = rect2.y;
-//			        if ((rect1.y + rect1.h) < rect2.y) {
-//			            result.h = 0;
-//			            return false;
-//			        } else if ((rect1.y + rect1.h) < (rect2.y + rect2.h)){
-//			            result.h = rect1.y + rect1.h - rect2.y;
-//			        } else
-//			            result.h = rect2.h;
-//			    } else {
-//			        result.y = rect1.y;
-//			        if ((rect2.y + rect2.h) < rect1.y) {
-//			            result.h = 0;
-//			            return false;
-//			        } else if ((rect2.y + rect2.h) < (rect1.y + rect1.h)){
-//			            result.h = rect2.y + rect2.h - rect1.y;
-//			        } else
-//			            result.h = rect1.h;
-//			    }
-//			
-//			    return true;
+				if ( (rect1.w == 0) || (rect1.h == 0) ) {
+			        result = rect1;
+			        return false;
+			    } else if ( (rect2.w == 0) || (rect2.h == 0) ) {
+			        result = rect2;
+			        return false;
+			    }
+			    if (rect1.x < rect2.x) {
+			        result = rect2;
+			        if ((rect1.x + rect1.w) < rect2.x) {
+			            result.w = 0;
+			            return false;
+			        } else if ((rect1.x + rect1.w) < (rect2.x + rect2.w)){
+			            result.w = rect1.x + rect1.w - rect2.x;
+			        }
+			    } else {
+			        result = rect1;
+			        if ((rect2.x + rect2.w) < rect1.x) {
+			            result.w = 0;
+			            return false;
+			        } else if ((rect2.x + rect2.w) < (rect1.x + rect1.w)){
+			            result.w = rect2.x + rect2.w - rect1.x;
+			        }
+			    }
+			    if (rect1.y < rect2.y) {
+			        result.y = rect2.y;
+			        if ((rect1.y + rect1.h) < rect2.y) {
+			            result.h = 0;
+			            return false;
+			        } else if ((rect1.y + rect1.h) < (rect2.y + rect2.h)){
+			            result.h = rect1.y + rect1.h - rect2.y;
+			        } else
+			            result.h = rect2.h;
+			    } else {
+			        result.y = rect1.y;
+			        if ((rect2.y + rect2.h) < rect1.y) {
+			            result.h = 0;
+			            return false;
+			        } else if ((rect2.y + rect2.h) < (rect1.y + rect1.h)){
+			            result.h = rect2.y + rect2.h - rect1.y;
+			        } else
+			            result.h = rect1.h;
+			    }
+			
+			    return true;
 			}
 			
 			public void flush( int refresh_mode, SDL_Rect rect = null, bool clear_dirty_flag = true, bool direct_flag = false )
 			{
-//			    if ( direct_flag ){
-//			        flushDirect( *rect, refresh_mode );
-//			    }
-//			    else{
-//			        if ( rect ) dirty_rect.add( *rect );
-//			
-//			        if (dirty_rect.bounding_box.w * dirty_rect.bounding_box.h > 0)
-//			            flushDirect( dirty_rect.bounding_box, refresh_mode );
-//			    }
-//			
-//			    if ( clear_dirty_flag ) dirty_rect.clear();
+			    if ( direct_flag ){
+			        flushDirect( rect, refresh_mode );
+			    }
+			    else{
+			        if ( null!=rect ) dirty_rect.add( rect );
+			
+			        if (dirty_rect.bounding_box.w * dirty_rect.bounding_box.h > 0)
+			            flushDirect( dirty_rect.bounding_box, refresh_mode );
+			    }
+			
+			    if ( clear_dirty_flag ) dirty_rect.clear();
 			}
 			
 			public void flushDirect( SDL_Rect rect, int refresh_mode, bool updaterect=true )
 			{
-//				char str[256] = {0};
-//			    sprintf(str, "flush %d: %d %d %d %d\n", refresh_mode, rect.x, rect.y, rect.w, rect.h );
-//				OutputDebugString(str);
-//			
-//				//for simple test msdl implement
-//				//FIXME:???
-//			#if defined(_MSC_VER)
-//				#define USE_FULL_FLASH_PORT 1
-//				if (USE_FULL_FLASH_PORT) { 
-//					rect.x = 0;
-//					rect.y = 0;
-//					rect.w = 640;
-//					rect.h = 480;
-//				}
-//			#endif    
-//				
-//				if (surround_rects) {
-//			        // playing a movie, need to avoid overpainting it
-//			        SDL_Rect tmp_rects[4];
-//			        for (int i=0; i<4; ++i) {
-//			            if (intersectRects(tmp_rects[i], rect, surround_rects[i])) {
-//			                refreshSurface( accumulation_surface, &tmp_rects[i], refresh_mode );
-//			                SDL_BlitSurface( accumulation_surface, &tmp_rects[i], screen_surface, &tmp_rects[i] );
-//			            }
-//			        }
-//			        if (updaterect) SDL_UpdateRects( screen_surface, 4, tmp_rects );
-//			    } else { 
-//			        refreshSurface( accumulation_surface, &rect, refresh_mode );
-//			        SDL_BlitSurface( accumulation_surface, &rect, screen_surface, &rect );
-//					//SDL_SaveBMP(
-//					SDL_savebmp(accumulation_surface->_surf, "accumulation");
-//			        if (updaterect) SDL_UpdateRect( screen_surface, rect.x, rect.y, rect.w, rect.h );
-//			    }
+				CharPtr str = new char[256];// = {0};
+			    sprintf(str, "flush %d: %d %d %d %d\n", refresh_mode, rect.x, rect.y, rect.w, rect.h );
+				OutputDebugString(str);
+			
+				//for simple test msdl implement
+				//FIXME:???
+			#if true //defined(_MSC_VER)
+				const int USE_FULL_FLASH_PORT = 1;
+				if (0!=USE_FULL_FLASH_PORT) { 
+					rect.x = 0;
+					rect.y = 0;
+					rect.w = 640;
+					rect.h = 480;
+				}
+			#endif    
+				
+				if (null!=surround_rects) {
+			        // playing a movie, need to avoid overpainting it
+			        SDL_Rect[] tmp_rects = new SDL_Rect[4];
+			        for (int i = 0; i < tmp_rects.Length; ++i)
+			        {
+			        	tmp_rects[i] = new SDL_Rect();
+			        }
+			        for (int i=0; i<4; ++i) {
+			            if (intersectRects(tmp_rects[i], rect, surround_rects[i])) {
+			                refreshSurface( accumulation_surface, tmp_rects[i], refresh_mode );
+			                SDL_BlitSurface( accumulation_surface, tmp_rects[i], screen_surface, tmp_rects[i] );
+			            }
+			        }
+			        if (updaterect) SDL_UpdateRects( screen_surface, 4, tmp_rects );
+			    } else { 
+			        refreshSurface( accumulation_surface, rect, refresh_mode );
+			        SDL_BlitSurface( accumulation_surface, rect, screen_surface, rect );
+					//SDL_SaveBMP(
+					SDL_savebmp(accumulation_surface._surf, "accumulation");
+					if (updaterect) SDL_UpdateRect( screen_surface, rect.x, rect.y, (uint)rect.w, (uint)rect.h );
+			    }
 			}
 			
 			public void mouseOverCheck( int x, int y )
 			{
-//			    int c = -1;
-//			
-//			    last_mouse_state.x = x;
-//			    last_mouse_state.y = y;
-//			
-//			    /* ---------------------------------------- */
-//			    /* Check button */
-//			    int button = 0;
-//			    bool found = false;
-//			    ButtonLink *p_button_link = root_button_link.next;
-//			    ButtonLink *cur_button_link = NULL;
-//			    while( p_button_link ){
-//			        c++;
-//			        cur_button_link = p_button_link;
-//			        while (cur_button_link) {
-//			            if ( x >= cur_button_link->select_rect.x &&
-//			                 x < cur_button_link->select_rect.x + cur_button_link->select_rect.w &&
-//			                 y >= cur_button_link->select_rect.y &&
-//			                 y < cur_button_link->select_rect.y + cur_button_link->select_rect.h &&
-//			                 ( cur_button_link->button_type != ButtonLink::TEXT_BUTTON ||
-//			                   ( txtbtn_visible && txtbtn_show ) )){
-//			                bool in_button = true;
-//			                if (transbtn_flag){
-//			                    in_button = false;
-//			                    AnimationInfo *anim = NULL;
-//			                    if ( cur_button_link->button_type == ButtonLink::SPRITE_BUTTON ||
-//			                         cur_button_link->button_type == ButtonLink::EX_SPRITE_BUTTON )
-//			                        anim = &sprite_info[ cur_button_link->sprite_no ];
-//			                    else
-//			                        anim = cur_button_link->anim[0];
-//			                    int alpha = anim->getPixelAlpha(x - cur_button_link->select_rect.x,
-//			                                                    y - cur_button_link->select_rect.y);
-//			                    if (alpha > TRANSBTN_CUTOFF)
-//			                        in_button = true;
-//			                }
-//			                if (in_button){
-//			                    button = cur_button_link->no;
-//			                    found = true;
-//			                    break;
-//			                }
-//			            }
-//			            cur_button_link = cur_button_link->same;
-//			        }
-//			        if (found) break;
-//			        p_button_link = p_button_link->next;
-//			    }
-//			
-//			    if ( (current_button_valid != found) ||
-//			         (current_over_button != button) ) {
-//			//printf("mouseOverCheck: refresh (current=%d, button=%d)", current_over_button, button);
-//			//if (current_button_valid) printf(" valid");
-//			//printf (" cur_link=%d, p_link=%d\n", (unsigned int)current_button_link, (unsigned int)p_button_link);
-//			        DirtyRect dirty = dirty_rect;
-//			        dirty_rect.clear();
-//			
-//			        SDL_Rect check_src_rect = {0, 0, 0, 0};
-//			        SDL_Rect check_dst_rect = {0, 0, 0, 0};
-//			        if (current_button_valid){
-//			            cur_button_link = current_button_link;
-//			            while (cur_button_link) {
-//			                cur_button_link->show_flag = 0;
-//			                check_src_rect = cur_button_link->image_rect;
-//			                if ( cur_button_link->button_type == ButtonLink::SPRITE_BUTTON ||
-//			                     cur_button_link->button_type == ButtonLink::EX_SPRITE_BUTTON ){
-//			                    sprite_info[ cur_button_link->sprite_no ].visible = true;
-//			                    sprite_info[ cur_button_link->sprite_no ].setCell(0);
-//			                }
-//			                else if ( cur_button_link->button_type == ButtonLink::TMP_SPRITE_BUTTON ){
-//			                    cur_button_link->show_flag = 1;
-//			                    cur_button_link->anim[0]->visible = true;
-//			                    cur_button_link->anim[0]->setCell(0);
-//			                }
-//			                else if ( cur_button_link->button_type == ButtonLink::TEXT_BUTTON ){
-//			                    if (txtbtn_visible) {
-//			                        cur_button_link->show_flag = 1;
-//			                        cur_button_link->anim[0]->visible = true;
-//			                        cur_button_link->anim[0]->setCell(0);
-//			                    }
-//			                }
-//			                else if ( cur_button_link->anim[1] != NULL ){
-//			                    cur_button_link->show_flag = 2;
-//			                }
-//			                dirty_rect.add( cur_button_link->image_rect );
-//			                if ( is_exbtn_enabled && exbtn_d_button_link.exbtn_ctl ){
-//			                    decodeExbtnControl( exbtn_d_button_link.exbtn_ctl, &check_src_rect, &check_dst_rect );
-//			                }
-//			
-//			                cur_button_link = cur_button_link->same;
-//			            }
-//			        } else {
-//			            if ( is_exbtn_enabled && exbtn_d_button_link.exbtn_ctl ){
-//			                decodeExbtnControl( exbtn_d_button_link.exbtn_ctl, &check_src_rect, &check_dst_rect );
-//			            }
-//			        }
-//			
-//			        if ( p_button_link ){
-//			            if ( system_menu_mode != SYSTEM_NULL ){
-//			                if ( menuselectvoice_file_name[MENUSELECTVOICE_OVER] )
-//			                    playSound(menuselectvoice_file_name[MENUSELECTVOICE_OVER],
-//			                              SOUND_WAVE|SOUND_OGG, false, MIX_WAVE_CHANNEL);
-//			            }
-//			            else{
-//			                if ( selectvoice_file_name[SELECTVOICE_OVER] )
-//			                    playSound(selectvoice_file_name[SELECTVOICE_OVER],
-//			                              SOUND_WAVE|SOUND_OGG, false, MIX_WAVE_CHANNEL);
-//			            }
-//			            cur_button_link = p_button_link;
-//			            while (cur_button_link) {
-//			                check_dst_rect = cur_button_link->image_rect;
-//			                if ( cur_button_link->button_type == ButtonLink::SPRITE_BUTTON ||
-//			                     cur_button_link->button_type == ButtonLink::EX_SPRITE_BUTTON ){
-//			                    sprite_info[ cur_button_link->sprite_no ].setCell(1);
-//			                    sprite_info[ cur_button_link->sprite_no ].visible = true;
-//			                    if ((cur_button_link == p_button_link) && is_exbtn_enabled &&
-//			                        (cur_button_link->button_type == ButtonLink::EX_SPRITE_BUTTON)){
-//			                        decodeExbtnControl( cur_button_link->exbtn_ctl, &check_src_rect, &check_dst_rect );
-//			                    }
-//			                }
-//			                else if ( cur_button_link->button_type == ButtonLink::TMP_SPRITE_BUTTON){
-//			                    cur_button_link->show_flag = 1;
-//			                    cur_button_link->anim[0]->visible = true;
-//			                    cur_button_link->anim[0]->setCell(1);
-//			                }
-//			                else if ( cur_button_link->button_type == ButtonLink::TEXT_BUTTON &&
-//			                          txtbtn_show && txtbtn_visible ){
-//			                    cur_button_link->show_flag = 1;
-//			                    cur_button_link->anim[0]->visible = true;
-//			                    cur_button_link->anim[0]->setCell(1);
-//			                    if ((cur_button_link == p_button_link) &&
-//			                        is_exbtn_enabled && cur_button_link->exbtn_ctl ){
-//			                        decodeExbtnControl( cur_button_link->exbtn_ctl, &check_src_rect, &check_dst_rect );
-//			                    }
-//			                }
-//			                else if ( cur_button_link->button_type == ButtonLink::NORMAL_BUTTON ||
-//			                          cur_button_link->button_type == ButtonLink::LOOKBACK_BUTTON ){
-//			                    cur_button_link->show_flag = 1;
-//			                }
-//			                dirty_rect.add( cur_button_link->image_rect );
-//			                cur_button_link = cur_button_link->same;
-//			            }
-//			            if (c>=0)
-//			                shortcut_mouse_line = c;
-//			        }
-//			        current_button_link = p_button_link;
-//			
-//			        flush( refreshMode() );
-//			        dirty_rect = dirty;
-//			    }
-//			    current_button_valid = found;
-//			    current_over_button = button;
+			    int c = -1;
+			
+			    last_mouse_state.x = x;
+			    last_mouse_state.y = y;
+			
+			    /* ---------------------------------------- */
+			    /* Check button */
+			    int button = 0;
+			    bool found = false;
+			    ButtonLink p_button_link = root_button_link.next;
+			    ButtonLink cur_button_link = null;
+			    while( null!=p_button_link ){
+			        c++;
+			        cur_button_link = p_button_link;
+			        while (null!=cur_button_link) {
+			            if ( x >= cur_button_link.select_rect.x &&
+			                 x < cur_button_link.select_rect.x + cur_button_link.select_rect.w &&
+			                 y >= cur_button_link.select_rect.y &&
+			                 y < cur_button_link.select_rect.y + cur_button_link.select_rect.h &&
+			                 ( cur_button_link.button_type != ButtonLink.BUTTON_TYPE.TEXT_BUTTON ||
+			                   ( txtbtn_visible && txtbtn_show ) )){
+			                bool in_button = true;
+			                if (transbtn_flag){
+			                    in_button = false;
+			                    AnimationInfo anim = null;
+			                    if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.SPRITE_BUTTON ||
+			                         cur_button_link.button_type == ButtonLink.BUTTON_TYPE.EX_SPRITE_BUTTON )
+			                        anim = sprite_info[ cur_button_link.sprite_no ];
+			                    else
+			                        anim = cur_button_link.anim[0];
+			                    int alpha = anim.getPixelAlpha(x - cur_button_link.select_rect.x,
+			                                                    y - cur_button_link.select_rect.y);
+			                    if (alpha > TRANSBTN_CUTOFF)
+			                        in_button = true;
+			                }
+			                if (in_button){
+			                    button = cur_button_link.no;
+			                    found = true;
+			                    break;
+			                }
+			            }
+			            cur_button_link = cur_button_link.same;
+			        }
+			        if (found) break;
+			        p_button_link = p_button_link.next;
+			    }
+			
+			    if ( (current_button_valid != found) ||
+			         (current_over_button != button) ) {
+			//printf("mouseOverCheck: refresh (current=%d, button=%d)", current_over_button, button);
+			//if (current_button_valid) printf(" valid");
+			//printf (" cur_link=%d, p_link=%d\n", (unsigned int)current_button_link, (unsigned int)p_button_link);
+			        DirtyRect dirty = dirty_rect;
+			        dirty_rect.clear();
+			
+			        SDL_Rect check_src_rect = new SDL_Rect(0, 0, 0, 0);
+			    	SDL_Rect check_dst_rect = new SDL_Rect(0, 0, 0, 0);
+			        if (current_button_valid){
+			            cur_button_link = current_button_link;
+			            while (null!=cur_button_link) {
+			                cur_button_link.show_flag = 0;
+			                check_src_rect = cur_button_link.image_rect;
+			                if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.SPRITE_BUTTON ||
+			                     cur_button_link.button_type == ButtonLink.BUTTON_TYPE.EX_SPRITE_BUTTON ){
+			                    sprite_info[ cur_button_link.sprite_no ].visible = true;
+			                    sprite_info[ cur_button_link.sprite_no ].setCell(0);
+			                }
+			                else if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.TMP_SPRITE_BUTTON ){
+			                    cur_button_link.show_flag = 1;
+			                    cur_button_link.anim[0].visible = true;
+			                    cur_button_link.anim[0].setCell(0);
+			                }
+			                else if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.TEXT_BUTTON ){
+			                    if (txtbtn_visible) {
+			                        cur_button_link.show_flag = 1;
+			                        cur_button_link.anim[0].visible = true;
+			                        cur_button_link.anim[0].setCell(0);
+			                    }
+			                }
+			                else if ( cur_button_link.anim[1] != null ){
+			                    cur_button_link.show_flag = 2;
+			                }
+			                dirty_rect.add( cur_button_link.image_rect );
+			                if ( is_exbtn_enabled && null!=exbtn_d_button_link.exbtn_ctl ){
+			                    decodeExbtnControl( exbtn_d_button_link.exbtn_ctl, check_src_rect, check_dst_rect );
+			                }
+			
+			                cur_button_link = cur_button_link.same;
+			            }
+			        } else {
+			            if ( is_exbtn_enabled && null!=exbtn_d_button_link.exbtn_ctl ){
+			                decodeExbtnControl( exbtn_d_button_link.exbtn_ctl, check_src_rect, check_dst_rect );
+			            }
+			        }
+			
+			        if ( null!=p_button_link ){
+			            if ( system_menu_mode != SYSTEM_NULL ){
+			                if ( null!=menuselectvoice_file_name[MENUSELECTVOICE_OVER] )
+			                    playSound(menuselectvoice_file_name[MENUSELECTVOICE_OVER],
+			                              SOUND_WAVE|SOUND_OGG, false, MIX_WAVE_CHANNEL);
+			            }
+			            else{
+			                if ( null!=selectvoice_file_name[SELECTVOICE_OVER] )
+			                    playSound(selectvoice_file_name[SELECTVOICE_OVER],
+			                              SOUND_WAVE|SOUND_OGG, false, MIX_WAVE_CHANNEL);
+			            }
+			            cur_button_link = p_button_link;
+			            while (null!=cur_button_link) {
+			                check_dst_rect = cur_button_link.image_rect;
+			                if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.SPRITE_BUTTON ||
+			                     cur_button_link.button_type == ButtonLink.BUTTON_TYPE.EX_SPRITE_BUTTON ){
+			                    sprite_info[ cur_button_link.sprite_no ].setCell(1);
+			                    sprite_info[ cur_button_link.sprite_no ].visible = true;
+			                    if ((cur_button_link == p_button_link) && is_exbtn_enabled &&
+			                        (cur_button_link.button_type == ButtonLink.BUTTON_TYPE.EX_SPRITE_BUTTON)){
+			                        decodeExbtnControl( cur_button_link.exbtn_ctl, check_src_rect, check_dst_rect );
+			                    }
+			                }
+			                else if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.TMP_SPRITE_BUTTON){
+			                    cur_button_link.show_flag = 1;
+			                    cur_button_link.anim[0].visible = true;
+			                    cur_button_link.anim[0].setCell(1);
+			                }
+			                else if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.TEXT_BUTTON &&
+			                          txtbtn_show && txtbtn_visible ){
+			                    cur_button_link.show_flag = 1;
+			                    cur_button_link.anim[0].visible = true;
+			                    cur_button_link.anim[0].setCell(1);
+			                    if ((cur_button_link == p_button_link) &&
+			                        is_exbtn_enabled && null!=cur_button_link.exbtn_ctl ){
+			                        decodeExbtnControl( cur_button_link.exbtn_ctl, check_src_rect, check_dst_rect );
+			                    }
+			                }
+			                else if ( cur_button_link.button_type == ButtonLink.BUTTON_TYPE.NORMAL_BUTTON ||
+			                          cur_button_link.button_type == ButtonLink.BUTTON_TYPE.LOOKBACK_BUTTON ){
+			                    cur_button_link.show_flag = 1;
+			                }
+			                dirty_rect.add( cur_button_link.image_rect );
+			                cur_button_link = cur_button_link.same;
+			            }
+			            if (c>=0)
+			                shortcut_mouse_line = c;
+			        }
+			        current_button_link = p_button_link;
+			
+			        flush( refreshMode() );
+			        dirty_rect = dirty;
+			    }
+			    current_button_valid = found;
+			    current_over_button = button;
 			}
 			
 			public void executeLabel()
 			{
-//			    int last_token_line = -1;
-//			
-//			  executeLabelTop:
-//			
-//			    while ( current_line<current_label_info.num_of_lines ){
-//			        if ( (debug_level > 0) && (last_token_line != current_line) )
-//			            printf("\n*****  executeLabel %s:%d/%d:%d:%d *****\n",
-//			                   current_label_info.name,
-//			                   current_line,
-//			                   current_label_info.num_of_lines,
-//			                   string_buffer_offset, display_mode );
-//			            fflush(stdout);
-//			        last_token_line = current_line;
-//			
-//			        if ( script_h.getStringBuffer()[0] == '~' ){
-//			            last_tilde.next_script = script_h.getNext();
-//			            readToken();
-//			            continue;
-//			        }
-//			        if ( break_flag && !script_h.isName("next") ){
-//			            if ( script_h.getStringBuffer()[0] == 0x0a )
-//			                current_line++;
-//			
-//			            if ((script_h.getStringBuffer()[0] != ':') &&
-//			                (script_h.getStringBuffer()[0] != ';') &&
-//			                (script_h.getStringBuffer()[0] != 0x0a))
-//			                script_h.skipToken();
-//			
-//			            readToken();
-//			            continue;
-//			        }
-//			
-//			        if ( kidokuskip_flag && (skip_mode & SKIP_NORMAL) &&
-//			             kidokumode_flag && !script_h.isKidoku() )
-//			            skip_mode &= ~SKIP_NORMAL;
-//			
-//			        //check for quit event before running each command, for safety
-//			        //(this won't prevent all window lockups, but should give some
-//			        // greater chance of the user being able to quit when one happens)
-//			        if ( SDL_PumpEvents(), SDL_PeepEvents( NULL, 1, SDL_PEEKEVENT, SDL_QUITMASK) )
-//			            endCommand();
-//			
-//			        int ret = ScriptParser::parseLine();
-//			        if ( ret == RET_NOMATCH ) ret = this->parseLine();
-//			
-//			        if ( ret & (RET_SKIP_LINE | RET_EOL) ){
-//			            if (ret & RET_SKIP_LINE) script_h.skipLine();
-//			            if (++current_line >= current_label_info.num_of_lines) break;
-//			        }
-//			
-//			        if ( ret & RET_EOT ) processEOT();
-//			        
-//			        if (!(ret & RET_NO_READ)) readToken();
-//			    }
-//			
-//			    current_label_info = script_h.lookupLabelNext( current_label_info.name );
-//			    current_line = 0; last_token_line = -1;
-//			
-//			    if ( current_label_info.start_address != NULL ){
-//			        script_h.setCurrent( current_label_info.label_header );
-//			        readToken();
-//			        goto executeLabelTop;
-//			    }
-//			
-//			    fprintf( stderr, " ***** End *****\n");
-//			    endCommand();
+			    int last_token_line = -1;
+			
+			  executeLabelTop:
+			
+			    while ( current_line<current_label_info.num_of_lines ){
+			        if ( (debug_level > 0) && (last_token_line != current_line) )
+			            printf("\n*****  executeLabel %s:%d/%d:%d:%d *****\n",
+			                   current_label_info.name,
+			                   current_line,
+			                   current_label_info.num_of_lines,
+			                   string_buffer_offset, display_mode );
+			            fflush(stdout);
+			        last_token_line = current_line;
+			
+			        if ( script_h.getStringBuffer()[0] == '~' ){
+			            last_tilde.next_script = script_h.getNext();
+			            readToken();
+			            continue;
+			        }
+			        if ( break_flag && !script_h.isName("next") ){
+			            if ( script_h.getStringBuffer()[0] == 0x0a )
+			                current_line++;
+			
+			            if ((script_h.getStringBuffer()[0] != ':') &&
+			                (script_h.getStringBuffer()[0] != ';') &&
+			                (script_h.getStringBuffer()[0] != 0x0a))
+			                script_h.skipToken();
+			
+			            readToken();
+			            continue;
+			        }
+			
+			        if ( kidokuskip_flag && 0!=(skip_mode & SKIP_NORMAL) &&
+			             kidokumode_flag && !script_h.isKidoku() )
+			            skip_mode &= ~SKIP_NORMAL;
+			
+			        //check for quit event before running each command, for safety
+			        //(this won't prevent all window lockups, but should give some
+			        // greater chance of the user being able to quit when one happens)
+			        SDL_PumpEvents();
+			        if (0!=SDL_PeepEvents( null, 1, SDL_eventaction.SDL_PEEKEVENT, SDL_QUITMASK) )
+			            endCommand();
+			
+			        int ret = base.parseLine();
+			        if ( ret == RET_NOMATCH ) ret = this.parseLine();
+			
+			        if ( 0!=(ret & (RET_SKIP_LINE | RET_EOL)) ){
+			        	if (0!=(ret & RET_SKIP_LINE)) script_h.skipLine();
+			            if (++current_line >= current_label_info.num_of_lines) break;
+			        }
+			
+			        if ( 0!=(ret & RET_EOT) ) processEOT();
+			        
+			        if (0==(ret & RET_NO_READ)) readToken();
+			    }
+			
+			    current_label_info = script_h.lookupLabelNext( current_label_info.name );
+			    current_line = 0; last_token_line = -1;
+			
+			    if ( current_label_info.start_address != null ){
+			        script_h.setCurrent( current_label_info.label_header );
+			        readToken();
+			        goto executeLabelTop;
+			    }
+			
+			    fprintf( stderr, " ***** End *****\n");
+			    endCommand();
 			}
 			
 			public void runScript()
 			{
-//			    readToken();
-//			
-//			    int ret = ScriptParser::parseLine();
-//			    if ( ret == RET_NOMATCH ) ret = this->parseLine();
+			    readToken();
+			
+			    int ret = base.parseLine();
+			    if ( ret == RET_NOMATCH ) ret = this.parseLine();
 			}
 			
 			public override int parseLine( )
 			{
-				return 0;
-//			    int ret;
-//			    char *cmd = script_h.getStringBuffer();
-//			    if (cmd[0] == '_'){
-//			        int c=0;
-//			        while (cmd[c+1] != 0) {
-//			            cmd[c] = cmd[c+1];
-//			            c++;
-//			        }
-//			        cmd[c] = '\0';
-//			    }
-//			    const char *s_buf = script_h.getStringBuffer();
-//			    if ( !script_h.isText() ){
-//			        snprintf(script_h.current_cmd, 64, "%s", s_buf);
-//			        //Check against builtin cmds
-//			        if (cmd[0] >= 'a' && cmd[0] <= 'z'){
-//						//TODO:
-//						char debugstr[256] = {0};
-//						sprintf(debugstr, ">>>>>>>> %s\n", cmd); 
-//						OutputDebugString(debugstr);
-//			
-//			            FuncHash &fh = func_hash[cmd[0]-'a'];
-//			            for (int i=fh.start ; i<=fh.end ; i++){
-//			                if ( !strcmp( func_lut[i].command, cmd ) ){
-//			                    return (this->*func_lut[i].method)();
-//			                }
-//			            }
-//			        }
-//			
-//			        script_h.current_cmd_type = ScriptHandler::CMD_BUILTIN;
-//			        if ( *s_buf == 0x0a ){
-//			            script_h.current_cmd_type = ScriptHandler::CMD_NONE;
-//			            return RET_CONTINUE | RET_EOL;
-//			        }
-//			        else if ((s_buf[0] == 'v') && (s_buf[1] >= '0') && (s_buf[1] <= '9')){
-//			            strcpy(script_h.current_cmd, "vNUM");
-//			            return vCommand();
-//			        }
-//			        else if ((s_buf[0] == 'd') && (s_buf[1] == 'v') &&
-//			                 (s_buf[2] >= '0') && (s_buf[2] <= '9')){
-//			            strcpy(script_h.current_cmd, "dvNUM");
-//			            return dvCommand();
-//			        }
-//			        else if ((s_buf[0] == 'm') && (s_buf[1] == 'v') &&
-//			                 (s_buf[2] >= '0') && (s_buf[2] <= '9')){
-//			            strcpy(script_h.current_cmd, "mvNUM");
-//			            return mvCommand();
-//			        }
-//			
-//			        script_h.current_cmd_type = ScriptHandler::CMD_UNKNOWN;
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN, "command [%s] is not supported yet!!", s_buf );
-//			        errorAndCont(script_h.errbuf);
-//			
-//			        script_h.skipToken();
-//			
-//			        return RET_CONTINUE;
-//			    }
-//			
-//			    /* Text */
-//			    script_h.current_cmd_type = ScriptHandler::CMD_TEXT;
-//			
-//			    if ( current_mode == DEFINE_MODE )
-//			        errorAndExit( "text cannot be displayed while in the define section." );
-//			    ret = textCommand();
-//			    //Mion: moved all text processing into textCommand & its subfunctions
-//			
-//			    return ret;
+				int ret;
+				CharPtr cmd = new CharPtr(script_h.getStringBuffer());
+			    if (cmd[0] == '_'){
+			        int c=0;
+			        while (cmd[c+1] != 0) {
+			            cmd[c] = cmd[c+1];
+			            c++;
+			        }
+			        cmd[c] = '\0';
+			    }
+			    CharPtr s_buf = script_h.getStringBuffer();
+			    if ( !script_h.isText() ){
+			        snprintf(script_h.current_cmd, 64, "%s", s_buf);
+			        //Check against builtin cmds
+			        if (cmd[0] >= 'a' && cmd[0] <= 'z'){
+						//TODO:
+						CharPtr debugstr = new char[256];
+						for (int i = 0; i < 256; ++i)
+						{
+							debugstr[i] = (char)0;
+						}
+						sprintf(debugstr, ">>>>>>>> %s\n", cmd); 
+						OutputDebugString(debugstr);
+			
+			            FuncHash fh = func_hash[cmd[0]-'a'];
+			            for (int i=fh.start ; i<=fh.end ; i++){
+			                if ( 0==strcmp( func_lut[i].command, cmd ) ){
+			                    return func_lut[i].method(this);
+			                }
+			            }
+			        }
+			
+			        script_h.current_cmd_type = ScriptHandler.CMD_BUILTIN;
+			        if ( s_buf[0] == 0x0a ){
+			            script_h.current_cmd_type = ScriptHandler.CMD_NONE;
+			            return RET_CONTINUE | RET_EOL;
+			        }
+			        else if ((s_buf[0] == 'v') && (s_buf[1] >= '0') && (s_buf[1] <= '9')){
+			            strcpy(script_h.current_cmd, "vNUM");
+			            return vCommand();
+			        }
+			        else if ((s_buf[0] == 'd') && (s_buf[1] == 'v') &&
+			                 (s_buf[2] >= '0') && (s_buf[2] <= '9')){
+			            strcpy(script_h.current_cmd, "dvNUM");
+			            return dvCommand();
+			        }
+			        else if ((s_buf[0] == 'm') && (s_buf[1] == 'v') &&
+			                 (s_buf[2] >= '0') && (s_buf[2] <= '9')){
+			            strcpy(script_h.current_cmd, "mvNUM");
+			            return mvCommand();
+			        }
+			
+			        script_h.current_cmd_type = ScriptHandler.CMD_UNKNOWN;
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN, "command [%s] is not supported yet!!", s_buf );
+			        errorAndCont(script_h.errbuf);
+			
+			        script_h.skipToken();
+			
+			        return RET_CONTINUE;
+			    }
+			
+			    /* Text */
+			    script_h.current_cmd_type = ScriptHandler.CMD_TEXT;
+			
+			    if ( current_mode == DEFINE_MODE )
+			        errorAndExit( "text cannot be displayed while in the define section." );
+			    ret = textCommand();
+			    //Mion: moved all text processing into textCommand & its subfunctions
+			
+			    return ret;
 			}
 			
 			/* ---------------------------------------- */
 			public void processTextButtonInfo()
 			{
-//			    TextButtonInfoLink *info = text_button_info.next;
-//			
-//			    if (info) txtbtn_show = true;
-//			    while (info) {
-//			        ButtonLink *firstbtn = NULL;
-//			        char *text = info->prtext;
-//			        char *text2;
-//			        Fontinfo f_info = sentence_font;
-//			        //f_info.clear();
-//			        f_info.xy[0] = info->xy[0];
-//			        f_info.xy[1] = info->xy[1];
-//			        setColor(f_info.off_color, linkcolor[0]);
-//			        setColor(f_info.on_color, linkcolor[1]);
-//			        do {
-//			            text2 = strchr(text, 0x0a);
-//			            if (text2) {
-//			                *text2 = '\0';
-//			            }
-//			            ButtonLink *txtbtn = getSelectableSentence(text, &f_info, true, false, false);
-//			            //printf("made txtbtn: %d '%s'\n", info->no, text);
-//			            txtbtn->button_type = ButtonLink::TEXT_BUTTON;
-//			            txtbtn->no = info->no;
-//			            if (!txtbtn_visible)
-//			                txtbtn->show_flag = 0;
-//			            if (firstbtn)
-//			                firstbtn->connect(txtbtn);
-//			            else
-//			                firstbtn = txtbtn;
-//			            f_info.xy[0] = info->xy[0];
-//			            f_info.xy[1] = info->xy[1];
-//			            f_info.newLine();
-//			            if (text2) {
-//			                *text2 = 0x0a;
-//			                text2++;
-//			            }
-//			            text = text2;
-//			        } while (text2);
-//			        root_button_link.insert(firstbtn);
-//			        info->button = firstbtn;
-//			        info = info->next;
-//			    }
+			    TextButtonInfoLink info = text_button_info.next;
+			
+			    if (null!=info) txtbtn_show = true;
+			    while (null!=info) {
+			        ButtonLink firstbtn = null;
+			        CharPtr text = new CharPtr(info.prtext);
+			        CharPtr text2;
+			        Fontinfo f_info = sentence_font;
+			        //f_info.clear();
+			        f_info.xy[0] = info.xy[0];
+			        f_info.xy[1] = info.xy[1];
+			        setColor(f_info.off_color, linkcolor[0]);
+			        setColor(f_info.on_color, linkcolor[1]);
+			        do {
+			            text2 = strchr(text, 0x0a);
+			            if (null!=text2) {
+			            	text2[0] = '\0';
+			            }
+			            ButtonLink txtbtn = getSelectableSentence(text, f_info, true, false, false);
+			            //printf("made txtbtn: %d '%s'\n", info->no, text);
+			            txtbtn.button_type = ButtonLink.BUTTON_TYPE.TEXT_BUTTON;
+			            txtbtn.no = info.no;
+			            if (!txtbtn_visible)
+			                txtbtn.show_flag = 0;
+			            if (null!=firstbtn)
+			                firstbtn.connect(txtbtn);
+			            else
+			                firstbtn = txtbtn;
+			            f_info.xy[0] = info.xy[0];
+			            f_info.xy[1] = info.xy[1];
+			            f_info.newLine();
+			            if (null!=text2) {
+			            	text2[0] = (char)0x0a;
+			            	text2.inc();
+			            }
+			            text = new CharPtr(text2);
+			        } while (null!=text2);
+			        root_button_link.insert(firstbtn);
+			        info.button = firstbtn;
+			        info = info.next;
+			    }
 			}
 			
 			public void deleteTextButtonInfo()
 			{
-//			    TextButtonInfoLink *i1 = text_button_info.next;
-//			
-//			    while( i1 ){
-//			        TextButtonInfoLink *i2 = i1;
-//			        // need to hide textbtn links
-//			        ButtonLink *cur_button_link = i2->button;
-//			        while (cur_button_link) {
-//			            cur_button_link->show_flag = 0;
-//			            cur_button_link = cur_button_link->same;
-//			        }
-//			        i1 = i1->next;
-//			        delete i2;
-//			    }
-//			    text_button_info.next = NULL;
-//			    txtbtn_visible = false;
-//			    next_txtbtn_num = txtbtn_start_num;
+			    TextButtonInfoLink i1 = text_button_info.next;
+			
+			    while( null!=i1 ){
+			        TextButtonInfoLink i2 = i1;
+			        // need to hide textbtn links
+			        ButtonLink cur_button_link = i2.button;
+			        while (null!=cur_button_link) {
+			            cur_button_link.show_flag = 0;
+			            cur_button_link = cur_button_link.same;
+			        }
+			        i1 = i1.next;
+			        i2 = null;//delete i2;
+			    }
+			    text_button_info.next = null;
+			    txtbtn_visible = false;
+			    next_txtbtn_num = txtbtn_start_num;
 			}
 			
 			public void deleteButtonLink()
 			{
-//			    ButtonLink *b1 = root_button_link.next;
-//			
-//			    while( b1 ){
-//			        ButtonLink *b2 = b1->same;
-//			        while ( b2 ) {
-//			            ButtonLink *b3 = b2;
-//			            b2 = b2->same;
-//			            delete b3;
-//			        }
-//			        b2 = b1;
-//			        b1 = b1->next;
-//			        if ( b2->button_type == ButtonLink::TEXT_BUTTON ) {
-//			            // Need to delete ref to button from text_button_info
-//			            TextButtonInfoLink *i1 = text_button_info.next;
-//			            while (i1) {
-//			                if (i1->button == b2)
-//			                    i1->button = NULL;
-//			                i1 = i1->next;
-//			            }
-//			        }
-//			        delete b2;
-//			    }
-//			    root_button_link.next = NULL;
-//			    current_button_link = NULL;
-//			    current_button_valid = false;
-//			
-//			    if ( exbtn_d_button_link.exbtn_ctl ) delete[] exbtn_d_button_link.exbtn_ctl;
-//			    exbtn_d_button_link.exbtn_ctl = NULL;
-//			    is_exbtn_enabled = false;
+			    ButtonLink b1 = root_button_link.next;
+			
+			    while( null!=b1 ){
+			        ButtonLink b2 = b1.same;
+			        while ( null!=b2 ) {
+			            ButtonLink b3 = b2;
+			            b2 = b2.same;
+			            b3 = null;//delete b3;
+			        }
+			        b2 = b1;
+			        b1 = b1.next;
+			        if ( b2.button_type == ButtonLink.BUTTON_TYPE.TEXT_BUTTON ) {
+			            // Need to delete ref to button from text_button_info
+			            TextButtonInfoLink i1 = text_button_info.next;
+			            while (null!=i1) {
+			                if (i1.button == b2)
+			                    i1.button = null;
+			                i1 = i1.next;
+			            }
+			        }
+			        b2 = null;//delete b2;
+			    }
+			    root_button_link.next = null;
+			    current_button_link = null;
+			    current_button_valid = false;
+			
+			    if ( null!=exbtn_d_button_link.exbtn_ctl ) exbtn_d_button_link.exbtn_ctl = null;//delete[] exbtn_d_button_link.exbtn_ctl;
+			    exbtn_d_button_link.exbtn_ctl = null;
+			    is_exbtn_enabled = false;
 			}
 			
 			void refreshMouseOverButton()
 			{
-//			    int mx, my;
-//			    current_over_button = -1;
-//			    current_button_valid = false;
-//			    current_button_link = NULL;
-//			    SDL_GetMouseState( &mx, &my );
-//			    mouseOverCheck( mx, my );
+			    int mx = 0, my = 0;
+			    current_over_button = -1;
+			    current_button_valid = false;
+			    current_button_link = null;
+			    SDL_GetMouseState( ref mx, ref my );
+			    mouseOverCheck( mx, my );
 			}
 			
 			/* ---------------------------------------- */
 			/* Delete select link */
 			public void deleteSelectLink()
 			{
-//			    SelectLink *link, *last_select_link = root_select_link.next;
-//			
-//			    while ( last_select_link ){
-//			        link = last_select_link;
-//			        last_select_link = last_select_link->next;
-//			        delete link;
-//			    }
-//			    root_select_link.next = NULL;
+			    SelectLink link, last_select_link = root_select_link.next;
+			
+			    while ( null!=last_select_link ){
+			        link = last_select_link;
+			        last_select_link = last_select_link.next;
+			        link = null;//delete link;
+			    }
+			    root_select_link.next = null;
 			}
 			
 			public void clearCurrentPage()
 			{
-//			    sentence_font.clear();
-//			
-//			    int num = (sentence_font.num_xy[0]*2+1)*sentence_font.num_xy[1];
-//			    if (sentence_font.getTateyokoMode() == Fontinfo::TATE_MODE)
-//			        num = (sentence_font.num_xy[1]*2+1)*sentence_font.num_xy[1];
-//			
-//			// TEST for ados backlog cutoff problem
-//			    num *= 2;
-//			
-//			    if ( current_page->text &&
-//			         current_page->max_text != num ){
-//			        delete[] current_page->text;
-//			        current_page->text = NULL;
-//			    }
-//			    if ( !current_page->text ){
-//			        current_page->text = new char[num];
-//			        current_page->max_text = num;
-//			    }
-//			    current_page->text_count = 0;
-//			
-//			    if (current_page->tag){
-//			        delete[] current_page->tag;
-//			        current_page->tag = NULL;
-//			    }
-//			
-//			    num_chars_in_sentence = 0;
-//			    internal_saveon_flag = true;
-//			
-//			    text_info.fill( 0, 0, 0, 0 );
-//			    cached_page = current_page;
-//			
-//			    deleteTextButtonInfo();
+			    sentence_font.clear();
+			
+			    int num = (sentence_font.num_xy[0]*2+1)*sentence_font.num_xy[1];
+			    if (sentence_font.getTateyokoMode() == Fontinfo.TATE_MODE)
+			        num = (sentence_font.num_xy[1]*2+1)*sentence_font.num_xy[1];
+			
+			// TEST for ados backlog cutoff problem
+			    num *= 2;
+			
+			    if ( null!=current_page.text &&
+			         current_page.max_text != num ){
+			        //delete[] current_page->text;
+			        current_page.text = null;
+			    }
+			    if ( null==current_page.text ){
+			        current_page.text = new char[num];
+			        current_page.max_text = num;
+			    }
+			    current_page.text_count = 0;
+			
+			    if (null!=current_page.tag){
+			        //delete[] current_page->tag;
+			        current_page.tag = null;
+			    }
+			
+			    num_chars_in_sentence = 0;
+			    internal_saveon_flag = true;
+			
+			    text_info.fill( 0, 0, 0, 0 );
+			    cached_page = current_page;
+			
+			    deleteTextButtonInfo();
 			}
 			
 			public void displayTextWindow( SDL_Surface surface, SDL_Rect clip )
 			{
-//			    if ( current_font->is_transparent ){
-//			
-//			        SDL_Rect rect = {0, 0, screen_width, screen_height};
-//			        if ( current_font == &sentence_font )
-//			            rect = sentence_font_info.pos;
-//			
-//			        if ( AnimationInfo::doClipping( &rect, &clip ) ) return;
-//			
-//			        if ( rect.x + rect.w > SDL_Surface_get_w(surface) ) rect.w = SDL_Surface_get_w(surface) - rect.x;
-//			        if ( rect.y + rect.h > SDL_Surface_get_h(surface) ) rect.h = SDL_Surface_get_h(surface) - rect.y;
-//			
-//			        SDL_LockSurface( surface );
-//			        ONSBuf *buf = (ONSBuf *)SDL_Surface_get_pixels(surface) + rect.y * SDL_Surface_get_w(surface) + rect.x;
-//			
-//			        SDL_PixelFormat *fmt = SDL_Surface_get_format(surface);
-//			        int color[3];
-//			        color[0] = current_font->window_color[0] + 1;
-//			        color[1] = current_font->window_color[1] + 1;
-//			        color[2] = current_font->window_color[2] + 1;
-//			
-//			        for ( int i=rect.y ; i<rect.y + rect.h ; i++ ){
-//			            for ( int j=rect.x ; j<rect.x + rect.w ; j++, buf++ ){
-//			                *buf = (((*buf & fmt->Rmask) >> fmt->Rshift) * color[0] >> 8) << fmt->Rshift |
-//			                    (((*buf & fmt->Gmask) >> fmt->Gshift) * color[1] >> 8) << fmt->Gshift |
-//			                    (((*buf & fmt->Bmask) >> fmt->Bshift) * color[2] >> 8) << fmt->Bshift;
-//			            }
-//			            buf += SDL_Surface_get_w(surface) - rect.w;
-//			        }
-//			
-//			        SDL_UnlockSurface( surface );
-//			    }
-//			    else if ( sentence_font_info.image_surface ){
-//			        drawTaggedSurface( surface, &sentence_font_info, clip );
-//			    }
+			    if ( current_font.is_transparent ){
+			
+					SDL_Rect rect = new SDL_Rect(0, 0, screen_width, screen_height);
+			        if ( current_font == sentence_font )
+			            rect = sentence_font_info.pos;
+			
+			        if ( 0!=AnimationInfo.doClipping( rect, clip ) ) return;
+			
+			        if ( rect.x + rect.w > SDL_Surface_get_w(surface) ) rect.w = SDL_Surface_get_w(surface) - rect.x;
+			        if ( rect.y + rect.h > SDL_Surface_get_h(surface) ) rect.h = SDL_Surface_get_h(surface) - rect.y;
+			
+			        SDL_LockSurface( surface );
+			        Uint32Ptr buf = new Uint32Ptr(SDL_Surface_get_pixels(surface), + rect.y * SDL_Surface_get_w(surface) + rect.x);
+			
+			        SDL_PixelFormat fmt = SDL_Surface_get_format(surface);
+			        int[] color = new int[3];
+			        color[0] = current_font.window_color[0] + 1;
+			        color[1] = current_font.window_color[1] + 1;
+			        color[2] = current_font.window_color[2] + 1;
+			
+			        for ( int i=rect.y ; i<rect.y + rect.h ; i++ ){
+			        	for ( int j=rect.x ; j<rect.x + rect.w ; j++, buf.inc() ){
+			        		buf[0] = (uint)((((buf[0] & fmt.Rmask) >> fmt.Rshift) * color[0] >> 8) << fmt.Rshift |
+			                    (((buf[0] & fmt.Gmask) >> fmt.Gshift) * color[1] >> 8) << fmt.Gshift |
+			                    (((buf[0] & fmt.Bmask) >> fmt.Bshift) * color[2] >> 8) << fmt.Bshift);
+			            }
+			        	buf.inc(SDL_Surface_get_w(surface) - rect.w);
+			        }
+			
+			        SDL_UnlockSurface( surface );
+			    }
+			    else if ( null!=sentence_font_info.image_surface ){
+			        drawTaggedSurface( surface, sentence_font_info, clip );
+			    }
 			}
 			
 			public void newPage( bool next_flag )
 			{
-//			    /* ---------------------------------------- */
-//			    /* Set forward the text buffer */
-//			    if ( current_page->text_count != 0 ){
-//			        current_page = current_page->next;
-//			        if ( start_page == current_page )
-//			            start_page = start_page->next;
-//			    }
-//			
-//			    if ( next_flag ){
-//			        indent_offset = 0;
-//			        page_enter_status = 0;
-//			    }
-//			    
-//			    clearCurrentPage();
-//			    txtbtn_visible = false;
-//			    txtbtn_show = false;
-//			
-//			    flush( refreshMode(), &sentence_font_info.pos );
+			    /* ---------------------------------------- */
+			    /* Set forward the text buffer */
+			    if ( current_page.text_count != 0 ){
+			        current_page = current_page.next;
+			        if ( start_page == current_page )
+			            start_page = start_page.next;
+			    }
+			
+			    if ( next_flag ){
+			        indent_offset = 0;
+			        page_enter_status = 0;
+			    }
+			    
+			    clearCurrentPage();
+			    txtbtn_visible = false;
+			    txtbtn_show = false;
+			
+			    flush( refreshMode(), sentence_font_info.pos );
 			}
 			
 			public AnimationInfo getSentence( CharPtr buffer, Fontinfo info, int num_cells, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true )
 			{
-				return null;
-//			    //Mion: moved from getSelectableSentence and modified
-//			    int current_text_xy[2];
-//			    current_text_xy[0] = info->xy[0];
-//			    current_text_xy[1] = info->xy[1];
-//			
-//			    AnimationInfo *anim = new AnimationInfo();
-//			
-//			    anim->trans_mode = AnimationInfo::TRANS_STRING;
-//			    anim->is_single_line = false;
-//			    anim->num_of_cells = num_cells;
-//			    anim->color_list = new uchar3[ num_cells ];
-//			    for (int i=0 ; i<3 ; i++){
-//			        if (nofile_flag)
-//			            anim->color_list[0][i] = info->nofile_color[i];
-//			        else
-//			            anim->color_list[0][i] = info->off_color[i];
-//			        if (num_cells > 1)
-//			            anim->color_list[1][i] = info->on_color[i];
-//			    }
-//			    anim->skip_whitespace = skip_whitespace;
-//			    setStr( &anim->file_name, buffer );
-//			    anim->orig_pos.x = info->x();
-//			    anim->orig_pos.y = info->y();
-//			    UpdateAnimPosXY(anim);
-//			    anim->visible = true;
-//			
-//			    setupAnimationInfo( anim, info );
-//			
-//			    info->newLine();
-//			    if (info->getTateyokoMode() == Fontinfo::YOKO_MODE)
-//			        info->xy[0] = current_text_xy[0];
-//			    else
-//			        info->xy[1] = current_text_xy[1];
-//			
-//			    dirty_rect.add( anim->pos );
-//			
-//			    return anim;
+				//Mion: moved from getSelectableSentence and modified
+				int[] current_text_xy = new int[2];
+			    current_text_xy[0] = info.xy[0];
+			    current_text_xy[1] = info.xy[1];
+			
+			    AnimationInfo anim = new AnimationInfo();
+			
+			    anim.trans_mode = AnimationInfo.TRANS_STRING;
+			    anim.is_single_line = false;
+			    anim.num_of_cells = num_cells;
+			    anim.color_list = new byte[ num_cells ][];
+			    for (int i = 0; i < anim.color_list.Length; ++i)
+			    {
+			    	anim.color_list[i] = new byte[3];
+			    }
+			    for (int i=0 ; i<3 ; i++){
+			        if (nofile_flag)
+			            anim.color_list[0][i] = info.nofile_color[i];
+			        else
+			            anim.color_list[0][i] = info.off_color[i];
+			        if (num_cells > 1)
+			            anim.color_list[1][i] = info.on_color[i];
+			    }
+			    anim.skip_whitespace = skip_whitespace;
+			    setStr( ref anim.file_name, buffer );
+			    anim.orig_pos.x = info.x();
+			    anim.orig_pos.y = info.y();
+			    UpdateAnimPosXY(anim);
+			    anim.visible = true;
+			
+			    setupAnimationInfo( anim, info );
+			
+			    info.newLine();
+			    if (info.getTateyokoMode() == Fontinfo.YOKO_MODE)
+			        info.xy[0] = current_text_xy[0];
+			    else
+			        info.xy[1] = current_text_xy[1];
+			
+			    dirty_rect.add( anim.pos );
+			
+			    return anim;
 			}
 			
 			public ButtonLink getSelectableSentence( CharPtr buffer, Fontinfo info, bool flush_flag = true, bool nofile_flag = false, bool skip_whitespace = true )
 			{
-				return null;
-//			    ButtonLink *button_link = new ButtonLink();
-//			    button_link->button_type = ButtonLink::TMP_SPRITE_BUTTON;
-//			    button_link->show_flag = 1;
-//			
-//			    AnimationInfo *anim = getSentence(buffer, info, 2, flush_flag,
-//			                                      nofile_flag, skip_whitespace);
-//			    button_link->anim[0] = anim;
-//			    button_link->select_rect = button_link->image_rect = anim->pos;
-//			
-//			    return button_link;
+				ButtonLink button_link = new ButtonLink();
+			    button_link.button_type = ButtonLink.BUTTON_TYPE.TMP_SPRITE_BUTTON;
+			    button_link.show_flag = 1;
+			
+			    AnimationInfo anim = getSentence(buffer, info, 2, flush_flag,
+			                                      nofile_flag, skip_whitespace);
+			    button_link.anim[0] = anim;
+			    button_link.select_rect = button_link.image_rect = anim.pos;
+			
+			    return button_link;
 			}
 			
 			public void decodeExbtnControl( CharPtr ctl_str, SDL_Rect check_src_rect = null, SDL_Rect check_dst_rect = null )
 			{
-//			    char sound_name[256];
-//			    int i, sprite_no, sprite_no2, cell_no;
-//			
-//			    while( char com = *ctl_str++ ){
-//			        if (com == 'C' || com == 'c'){
-//			            sprite_no = getNumberFromBuffer( &ctl_str );
-//			            sprite_no2 = sprite_no;
-//			            cell_no = -1;
-//			            if ( *ctl_str == '-' ){
-//			                ctl_str++;
-//			                sprite_no2 = getNumberFromBuffer( &ctl_str );
-//			            }
-//			            for (i=sprite_no ; i<=sprite_no2 ; i++)
-//			                refreshSprite( i, false, cell_no, NULL, NULL );
-//			        }
-//			        else if (com == 'P' || com == 'p'){
-//			            sprite_no = getNumberFromBuffer( &ctl_str );
-//			            if ( *ctl_str == ',' ){
-//			                ctl_str++;
-//			                cell_no = getNumberFromBuffer( &ctl_str );
-//			            }
-//			            else
-//			                cell_no = 0;
-//			            refreshSprite( sprite_no, true, cell_no, check_src_rect, check_dst_rect );
-//			        }
-//			        else if (com == 'S' || com == 's'){
-//			            sprite_no = getNumberFromBuffer( &ctl_str );
-//			            if      (sprite_no < 0) sprite_no = 0;
-//			            else if (sprite_no >= ONS_MIX_CHANNELS) sprite_no = ONS_MIX_CHANNELS-1;
-//			            if ( *ctl_str != ',' ) continue;
-//			            ctl_str++;
-//			            if ( *ctl_str != '(' ) continue;
-//			            ctl_str++;
-//			            char *buf = sound_name;
-//			            while (*ctl_str != ')' && *ctl_str != '\0' ) *buf++ = *ctl_str++;
-//			            *buf++ = '\0';
-//			            playSound(sound_name, SOUND_WAVE|SOUND_OGG, false, sprite_no);
-//			            if ( *ctl_str == ')' ) ctl_str++;
-//			        }
-//			        else if (com == 'M' || com == 'm'){
-//			            sprite_no = getNumberFromBuffer( &ctl_str );
-//			            SDL_Rect rect = sprite_info[ sprite_no ].pos;
-//			            if ( *ctl_str != ',' ) continue;
-//			            ctl_str++; // skip ','
-//			            sprite_info[ sprite_no ].orig_pos.x = getNumberFromBuffer( &ctl_str );
-//			            if ( *ctl_str != ',' ) {
-//			                UpdateAnimPosXY(&sprite_info[ sprite_no ]);
-//			                continue;
-//			            }
-//			            ctl_str++; // skip ','
-//			            sprite_info[ sprite_no ].orig_pos.y = getNumberFromBuffer( &ctl_str );
-//			            UpdateAnimPosXY(&sprite_info[ sprite_no ]);
-//			            dirty_rect.add( rect );
-//			            sprite_info[ sprite_no ].visible = true;
-//			            dirty_rect.add( sprite_info[ sprite_no ].pos );
-//			        }
-//			    }
+				ctl_str = new CharPtr(ctl_str); //FIXME:added
+			    CharPtr sound_name = new char[256];
+			    int i, sprite_no, sprite_no2, cell_no;
+			
+			    while( true ){ char com = ctl_str[0]; ctl_str.inc(); if (0!=com) {/*loop*/;}else{break;}
+			        if (com == 'C' || com == 'c'){
+			            sprite_no = getNumberFromBuffer( ref ctl_str );
+			            sprite_no2 = sprite_no;
+			            cell_no = -1;
+			            if ( ctl_str[0] == '-' ){
+			            	ctl_str.inc();
+			                sprite_no2 = getNumberFromBuffer( ref ctl_str );
+			            }
+			            for (i=sprite_no ; i<=sprite_no2 ; i++)
+			                refreshSprite( i, false, cell_no, null, null );
+			        }
+			        else if (com == 'P' || com == 'p'){
+			            sprite_no = getNumberFromBuffer( ref ctl_str );
+			            if ( ctl_str[0] == ',' ){
+			            	ctl_str.inc();
+			                cell_no = getNumberFromBuffer( ref ctl_str );
+			            }
+			            else
+			                cell_no = 0;
+			            refreshSprite( sprite_no, true, cell_no, check_src_rect, check_dst_rect );
+			        }
+			        else if (com == 'S' || com == 's'){
+			            sprite_no = getNumberFromBuffer( ref ctl_str );
+			            if      (sprite_no < 0) sprite_no = 0;
+			            else if (sprite_no >= ONS_MIX_CHANNELS) sprite_no = ONS_MIX_CHANNELS-1;
+			            if ( ctl_str[0] != ',' ) continue;
+			            ctl_str.inc();
+			            if ( ctl_str[0] != '(' ) continue;
+			            ctl_str.inc();
+			            CharPtr buf = new CharPtr(sound_name);
+			            while (ctl_str[0] != ')' && ctl_str[0] != '\0' ) { buf[0] = ctl_str[0]; ctl_str.inc(); buf.inc();}
+			            buf[0] = '\0'; buf.inc();
+			            playSound(sound_name, SOUND_WAVE|SOUND_OGG, false, sprite_no);
+			            if ( ctl_str[0] == ')' ) ctl_str.inc();
+			        }
+			        else if (com == 'M' || com == 'm'){
+			            sprite_no = getNumberFromBuffer( ref ctl_str );
+			            SDL_Rect rect = sprite_info[ sprite_no ].pos;
+			            if ( ctl_str[0] != ',' ) continue;
+			            ctl_str.inc(); // skip ','
+			            sprite_info[ sprite_no ].orig_pos.x = getNumberFromBuffer( ref ctl_str );
+			            if ( ctl_str[0] != ',' ) {
+			                UpdateAnimPosXY(sprite_info[ sprite_no ]);
+			                continue;
+			            }
+			            ctl_str.inc(); // skip ','
+			            sprite_info[ sprite_no ].orig_pos.y = getNumberFromBuffer( ref ctl_str );
+			            UpdateAnimPosXY(sprite_info[ sprite_no ]);
+			            dirty_rect.add( rect );
+			            sprite_info[ sprite_no ].visible = true;
+			            dirty_rect.add( sprite_info[ sprite_no ].pos );
+			        }
+			    }
 			}
 			
 			public void loadCursor( int no, CharPtr str, int x, int y, bool abs_flag = false )
 			{
-//			    cursor_info[ no ].setImageName( str );
-//			    cursor_info[ no ].orig_pos.x = x;
-//			    cursor_info[ no ].orig_pos.y = y;
-//			    UpdateAnimPosXY(&cursor_info[ no ]);
-//			
-//			    parseTaggedString( &cursor_info[ no ] );
-//			    setupAnimationInfo( &cursor_info[ no ] );
-//			    if ( filelog_flag )
-//			        script_h.findAndAddLog( script_h.log_info[ScriptHandler::FILE_LOG], cursor_info[ no ].file_name, true ); // a trick for save file
-//			    cursor_info[ no ].abs_flag = abs_flag;
-//			    if ( cursor_info[ no ].image_surface )
-//			        cursor_info[ no ].visible = true;
-//			    else
-//			        cursor_info[ no ].remove();
+			    cursor_info[ no ].setImageName( str );
+			    cursor_info[ no ].orig_pos.x = x;
+			    cursor_info[ no ].orig_pos.y = y;
+			    UpdateAnimPosXY(cursor_info[ no ]);
+			
+			    parseTaggedString( cursor_info[ no ] );
+			    setupAnimationInfo( cursor_info[ no ] );
+			    if ( filelog_flag )
+			        script_h.findAndAddLog( script_h.log_info[ScriptHandler.FILE_LOG], cursor_info[ no ].file_name, true ); // a trick for save file
+			    cursor_info[ no ].abs_flag = abs_flag;
+			    if ( null!=cursor_info[ no ].image_surface )
+			        cursor_info[ no ].visible = true;
+			    else
+			        cursor_info[ no ].remove();
 			}
 			
 			public void saveAll()
 			{
-//			    // only save the game state if save_path is set
-//			    if (script_h.save_path != NULL) {
-//			        saveEnvData();
-//			        saveGlovalData();
-//			        if ( filelog_flag )  writeLog( script_h.log_info[ScriptHandler::FILE_LOG] );
-//			        if ( labellog_flag ) writeLog( script_h.log_info[ScriptHandler::LABEL_LOG] );
-//			        if ( kidokuskip_flag ) script_h.saveKidokuData();
-//			    }
+			    // only save the game state if save_path is set
+			    if (script_h.save_path != null) {
+			        saveEnvData();
+			        saveGlovalData();
+			        if ( filelog_flag )  writeLog( script_h.log_info[ScriptHandler.FILE_LOG] );
+			        if ( labellog_flag ) writeLog( script_h.log_info[ScriptHandler.LABEL_LOG] );
+			        if ( kidokuskip_flag ) script_h.saveKidokuData();
+			    }
 			}
 			
 			public void loadEnvData()
 			{
-//			    volume_on_flag = true;
-//			    text_speed_no = 1;
-//			    skip_mode &= ~SKIP_TO_EOP;
-//			    setStr( &default_env_font, NULL );
-//			    cdaudio_on_flag = true;
-//			    setStr( &default_cdrom_drive, NULL );
-//			    kidokumode_flag = true;
-//			    use_default_volume = true;
-//			    bgmdownmode_flag = false;
-//			    setStr( &savedir, NULL );
-//			
-//			    if (loadFileIOBuf( "envdata" ) == 0){
-//			        use_default_volume = false;
-//			        if (readInt() == 1 && window_mode == false) menu_fullCommand();
-//			        if (readInt() == 0) volume_on_flag = false;
-//			        text_speed_no = readInt();
-//			        if (readInt() == 1) skip_mode |= SKIP_TO_EOP;
-//			        readStr( &default_env_font );
-//			        if (default_env_font == NULL)
-//			            setStr(&default_env_font, DEFAULT_ENV_FONT);
-//			        if (readInt() == 0) cdaudio_on_flag = false;
-//			        readStr( &default_cdrom_drive );
-//			        voice_volume = DEFAULT_VOLUME - readInt();
-//			        se_volume = DEFAULT_VOLUME - readInt();
-//			        music_volume = DEFAULT_VOLUME - readInt();
-//			        if (readInt() == 0) kidokumode_flag = false;
-//			        if (readInt() == 1) {
-//			            bgmdownmode_flag = true;
-//			        }
-//			        readStr( &savedir );
-//			        if (savedir)
-//			            script_h.setSavedir(savedir);
-//			        else
-//			            setStr( &savedir, "" ); //prevents changing savedir
-//			    }
-//			    else{
-//			        setStr( &default_env_font, DEFAULT_ENV_FONT );
-//			        voice_volume = se_volume = music_volume = DEFAULT_VOLUME;
-//			    }
-//			    // set the volumes of channels
-//			    channelvolumes[0] = voice_volume;
-//			    for ( int i=1 ; i<ONS_MIX_CHANNELS ; i++ )
-//			        channelvolumes[i] = se_volume;
+			    volume_on_flag = true;
+			    text_speed_no = 1;
+			    skip_mode &= ~SKIP_TO_EOP;
+			    setStr( ref default_env_font, null );
+			    cdaudio_on_flag = true;
+			    setStr( ref default_cdrom_drive, null );
+			    kidokumode_flag = true;
+			    use_default_volume = true;
+			    bgmdownmode_flag = false;
+			    setStr( ref savedir, null );
+			
+			    if (loadFileIOBuf( "envdata" ) == 0){
+			        use_default_volume = false;
+			        if (readInt() == 1 && window_mode == false) menu_fullCommand();
+			        if (readInt() == 0) volume_on_flag = false;
+			        text_speed_no = readInt();
+			        if (readInt() == 1) skip_mode |= SKIP_TO_EOP;
+			        readStr( ref default_env_font );
+			        if (default_env_font == null)
+			            setStr(ref default_env_font, DEFAULT_ENV_FONT);
+			        if (readInt() == 0) cdaudio_on_flag = false;
+			        readStr( ref default_cdrom_drive );
+			        voice_volume = DEFAULT_VOLUME - readInt();
+			        se_volume = DEFAULT_VOLUME - readInt();
+			        music_volume = DEFAULT_VOLUME - readInt();
+			        if (readInt() == 0) kidokumode_flag = false;
+			        if (readInt() == 1) {
+			            bgmdownmode_flag = true;
+			        }
+			        readStr( ref savedir );
+			        if (null!=savedir)
+			            script_h.setSavedir(savedir);
+			        else
+			            setStr( ref savedir, "" ); //prevents changing savedir
+			    }
+			    else{
+			        setStr( ref default_env_font, DEFAULT_ENV_FONT );
+			        voice_volume = se_volume = music_volume = DEFAULT_VOLUME;
+			    }
+			    // set the volumes of channels
+			    channelvolumes[0] = voice_volume;
+			    for ( int i=1 ; i<ONS_MIX_CHANNELS ; i++ )
+			        channelvolumes[i] = se_volume;
 			}
 			
 			public void saveEnvData()
 			{
-//			    file_io_buf_ptr = 0;
-//			    bool output_flag = false;
-//			    for (int i=0 ; i<2 ; i++){
-//			        writeInt( fullscreen_mode?1:0, output_flag );
-//			        writeInt( volume_on_flag?1:0, output_flag );
-//			        writeInt( text_speed_no, output_flag );
-//			        writeInt( (skip_mode & SKIP_TO_EOP)?1:0, output_flag );
-//			        writeStr( default_env_font, output_flag );
-//			        writeInt( cdaudio_on_flag?1:0, output_flag );
-//			        writeStr( default_cdrom_drive, output_flag );
-//			        writeInt( DEFAULT_VOLUME - voice_volume, output_flag );
-//			        writeInt( DEFAULT_VOLUME - se_volume, output_flag );
-//			        writeInt( DEFAULT_VOLUME - music_volume, output_flag );
-//			        writeInt( kidokumode_flag?1:0, output_flag );
-//			        writeInt( bgmdownmode_flag?1:0, output_flag );
-//			        writeStr( savedir, output_flag );
-//			        writeInt( 1000, output_flag );
-//			
-//			        if (i==1) break;
-//			        allocFileIOBuf();
-//			        output_flag = true;
-//			    }
-//			
-//			    saveFileIOBuf( "envdata" );
+			    file_io_buf_ptr = 0;
+			    bool output_flag = false;
+			    for (int i=0 ; i<2 ; i++){
+			        writeInt( fullscreen_mode?1:0, output_flag );
+			        writeInt( volume_on_flag?1:0, output_flag );
+			        writeInt( text_speed_no, output_flag );
+			        writeInt( 0!=(skip_mode & SKIP_TO_EOP)?1:0, output_flag );
+			        writeStr( default_env_font, output_flag );
+			        writeInt( cdaudio_on_flag?1:0, output_flag );
+			        writeStr( default_cdrom_drive, output_flag );
+			        writeInt( DEFAULT_VOLUME - voice_volume, output_flag );
+			        writeInt( DEFAULT_VOLUME - se_volume, output_flag );
+			        writeInt( DEFAULT_VOLUME - music_volume, output_flag );
+			        writeInt( kidokumode_flag?1:0, output_flag );
+			        writeInt( bgmdownmode_flag?1:0, output_flag );
+			        writeStr( savedir, output_flag );
+			        writeInt( 1000, output_flag );
+			
+			        if (i==1) break;
+			        allocFileIOBuf();
+			        output_flag = true;
+			    }
+			
+			    saveFileIOBuf( "envdata" );
 			}
 			
 			public int refreshMode()
 			{
-				return 0;
-//			    if (display_mode & DISPLAY_MODE_TEXT)
-//			        return refresh_window_text_mode;
-//			
-//			    return REFRESH_NORMAL_MODE;
+				if (0!=(display_mode & DISPLAY_MODE_TEXT))
+			        return refresh_window_text_mode;
+			
+			    return REFRESH_NORMAL_MODE;
 			}
 			
 			public void quit()
 			{
-//			    saveAll();
+			    saveAll();
 			}
 			
 			public void disableGetButtonFlag()
 			{
-//			    btndown_flag = false;
-//			    transbtn_flag = false;
-//			
-//			    getzxc_flag = false;
-//			    gettab_flag = false;
-//			    getpageup_flag = false;
-//			    getpagedown_flag = false;
-//			    getinsert_flag = false;
-//			    getfunction_flag = false;
-//			    getenter_flag = false;
-//			    getcursor_flag = false;
-//			    spclclk_flag = false;
-//			    getmclick_flag = false;
-//			    getskipoff_flag = false;
-//			    getmouseover_flag = false;
-//			    getmouseover_min = getmouseover_max = 0;
-//			    btnarea_flag = false;
-//			    btnarea_pos = 0;
+			    btndown_flag = false;
+			    transbtn_flag = false;
+			
+			    getzxc_flag = false;
+			    gettab_flag = false;
+			    getpageup_flag = false;
+			    getpagedown_flag = false;
+			    getinsert_flag = false;
+			    getfunction_flag = false;
+			    getenter_flag = false;
+			    getcursor_flag = false;
+			    spclclk_flag = false;
+			    getmclick_flag = false;
+			    getskipoff_flag = false;
+			    getmouseover_flag = false;
+			    getmouseover_min = getmouseover_max = 0;
+			    btnarea_flag = false;
+			    btnarea_pos = 0;
 			}
 			
 			public int getNumberFromBuffer( ref CharPtr buf )
 			{
-				return 0;
-//			    int ret = 0;
-//			    while ( **buf >= '0' && **buf <= '9' )
-//			        ret = ret*10 + *(*buf)++ - '0';
-//			
-//			    return ret;
+				int ret = 0;
+				while ( buf[0] >= '0' && buf[0] <= '9' ) {
+					ret = ret*10 + buf[0] - '0'; buf.inc();
+				}
+			
+			    return ret;
 			}
 		}
 	}

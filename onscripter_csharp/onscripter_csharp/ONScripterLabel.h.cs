@@ -1024,10 +1024,10 @@ namespace onscripter_csharp
 //		
 //		    /* ---------------------------------------- */
 //		    /* Movie related variables */
-//		    unsigned char *movie_buffer;
+		    public UnsignedCharPtr movie_buffer;
 //		    SDL_Surface *async_movie_surface;
 //		    SDL_Rect async_movie_rect;
-//		    SDL_Rect *surround_rects;
+		    public SDL_Rect[] surround_rects;
 		    public bool movie_click_flag, movie_loop_flag;
 //		    int playMPEG( const char *filename, bool async_flag, bool use_pos=false, int xpos=0, int ypos=0, int width=0, int height=0 );
 //		    int playAVI( const char *filename, bool click_flag );

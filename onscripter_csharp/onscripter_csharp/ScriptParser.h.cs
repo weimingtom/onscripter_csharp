@@ -358,11 +358,11 @@ namespace onscripter_csharp
 //		    LUAHandler lua_handler;
 //		#endif
 //		
-//		    /* ---------------------------------------- */
-//		    /* Global definitions */
-//		#ifdef RCA_SCALE
-//		    float scr_stretch_x, scr_stretch_y;
-//		#endif
+		    /* ---------------------------------------- */
+		    /* Global definitions */
+		#if true//RCA_SCALE
+		    public float scr_stretch_x, scr_stretch_y;
+		#endif
 		    public int preferred_width;
 		    public int script_width, script_height;
 		    public int screen_ratio1, screen_ratio2;

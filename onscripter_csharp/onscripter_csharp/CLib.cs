@@ -481,7 +481,8 @@ namespace onscripter_csharp
 		
 		
 		
-		
+		private static UInt32 SDL_EVENTMASK(int X) { return (UInt32)(1<<(X)); }
+		public static UInt32 SDL_QUITMASK = SDL_EVENTMASK(SDL_QUIT);
 		public const UInt32 SDL_ALLEVENTS = 0xFFFFFFFF;
 		public enum SDL_eventaction {
 			SDL_ADDEVENT,
@@ -590,6 +591,7 @@ namespace onscripter_csharp
 		}
 		
 		public const int SW_SHOW = 5;
+		public const int SW_SHOWNORMAL = 1;
 		public static long ShellExecuteA(
 			  object   hwnd,
 			  CharPtr lpOperation,
@@ -599,6 +601,46 @@ namespace onscripter_csharp
 			  int    nShowCmd
 			) {
 			return 0;
+		}
+		
+		public static byte SDL_GetMouseState(ref int x, ref int y)
+		{
+			return 0;
+		}
+		
+		public static CharPtr strchr(CharPtr s, int c)
+		{
+			return null;
+		}
+		
+		public static void SDL_PumpEvents()
+		{
+			
+		}
+		
+		public static void SDL_UpdateRects(SDL_Surface screen, int numrects, SDL_Rect[] rects)
+		{
+			
+		}
+		
+		public const int MAX_PATH = 260;
+		
+		public const UInt32 CSIDL_COMMON_APPDATA = 0x0023; // for [Profiles]/All Users/Application Data
+		public const UInt32 CSIDL_APPDATA = 0x001A; // for [Profiles]/[User]/Application Data
+		public const UInt32 S_OK = (uint)((long)0x00000000L);
+		public const UInt32 S_FALSE = (uint)((long)0x00000001L);
+		public const UInt32 E_FAIL = (uint)((long)(0x80004005L));
+		public const UInt32 E_INVALIDARG = (uint)((long)(0x80000003L));
+		
+		//FIXME:???
+		public static long SHGetFolderPathA(int param1, UInt32 param2, int param3, int param4, CharPtr hpath)
+		{
+			return 0;
+		}
+		
+		public static void SDL_Quit() 
+		{
+			
 		}
 	}
 }

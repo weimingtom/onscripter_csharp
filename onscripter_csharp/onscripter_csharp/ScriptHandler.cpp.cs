@@ -1002,7 +1002,7 @@ namespace onscripter_csharp
 			    return (i==num)?true:false;
 			}
 			
-			public void skipLine( int no )
+			public void skipLine( int no=1 )
 			{
 			    for ( int i=0 ; i<no ; i++ ){
 					while ( current_script[0] != 0x0a ) current_script.inc();
