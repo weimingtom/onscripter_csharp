@@ -99,10 +99,10 @@ namespace onscripter_csharp
 //		extern "C" void waveCallback( int channel );
 //		
 //		#define DEFAULT_AUDIOBUF 2048
-//		
-//		#define FONT_FILE "default.ttf"
-//		#define REGISTRY_FILE "registry.txt"
-//		#define DLL_FILE "dll.txt"
+		
+		private const string FONT_FILE = "default.ttf";
+		private const string REGISTRY_FILE = "registry.txt";
+		private const string DLL_FILE = "dll.txt";
 		//haeleth change to use English-language font name
 		private const string DEFAULT_ENV_FONT = "MS Gothic";
 		
@@ -384,159 +384,159 @@ namespace onscripter_csharp
 		public partial class ONScripterLabel {
 			public void initSDL()
 			{
-//			    /* ---------------------------------------- */
-//			    /* Initialize SDL */
-//			
-//			    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO ) < 0 ){
-//			        errorAndExit("Couldn't initialize SDL", SDL_GetError(), "Init Error", true);
-//			        return; //dummy
-//			    }
-//			    atexit(SDL_Quit_Wrapper); // work-around for OS/2
-//			
-//			    if( cdaudio_flag && SDL_InitSubSystem( SDL_INIT_CDROM ) < 0 ){
-//			        errorAndExit("Couldn't initialize CD-ROM", SDL_GetError(), "Init Error", true);
-//			        return; //dummy
-//			    }
-//			
-//			    SDL_EnableUNICODE(1);
-//			
-//			    /* ---------------------------------------- */
-//			    /* Initialize SDL */
-//			    if ( TTF_Init() < 0 ){
-//			        errorAndExit("can't initialize SDL TTF", NULL, "Init Error", true);
-//			        return; //dummy
-//			    }
-//			
-//			#ifdef BPP16
-//			    screen_bpp = 16;
-//			#else
-//			    screen_bpp = 32;
-//			#endif
-//			
-//			#if defined(PDA) && defined(PDA_WIDTH)
-//			    screen_ratio1 *= PDA_WIDTH;
-//			    screen_ratio2 *= 320;
-//			    screen_width   = screen_width  * PDA_WIDTH / 320;
-//			    screen_height  = screen_height * PDA_WIDTH / 320;
-//			#elif defined(PDA) && defined(PDA_AUTOSIZE)
-//			    SDL_Rect **modes;
-//			    modes = SDL_ListModes(NULL, 0);
-//			    if (modes == (SDL_Rect **)0){
-//			        errorAndExit("No Video mode available.", NULL, "Init Error", true);
-//			        return; //dummy
-//			    }
-//			    else if (modes == (SDL_Rect **)-1){
-//			        // no restriction
-//			    }
-//			 	else{
-//			        int width;
-//			        if (modes[0]->w * 3 > modes[0]->h * 4)
-//			            width = (modes[0]->h / 3) * 4;
-//			        else
-//			            width = (modes[0]->w / 4) * 4;
-//			        screen_ratio1 *= width;
-//			        screen_ratio2 *= 320;
-//			        screen_width   = screen_width  * width / 320;
-//			        screen_height  = screen_height * width / 320;
-//			    }
-//			#endif
-//			
-//			#ifdef RCA_SCALE
-//			    scr_stretch_x = 1.0;
-//			    scr_stretch_y = 1.0;
-//			#endif
-//			    if (scaled_flag) {
-//			        const SDL_VideoInfo* info = SDL_GetVideoInfo();
-//			        int native_width = info->current_w;
-//			        int native_height = info->current_h;
-//			        
-//			        // Resize up to fill screen
-//			#ifndef RCA_SCALE
-//			        float scr_stretch_x, scr_stretch_y;
-//			#endif
-//			        scr_stretch_x = (float)native_width / (float)screen_width;
-//			        scr_stretch_y = (float)native_height / (float)screen_height;
-//			#ifdef RCA_SCALE
-//			        if (widescreen_flag) {
-//			            if (scr_stretch_x > scr_stretch_y) {
-//			                screen_ratio1 = native_height;
-//			                screen_ratio2 = script_height;
-//			                scr_stretch_x /= scr_stretch_y;
-//			                scr_stretch_y = 1.0;
-//			            } else { 
-//			                screen_ratio1 = native_width;
-//			                screen_ratio2 = script_width;
-//			                scr_stretch_y /= scr_stretch_x;
-//			                scr_stretch_x = 1.0;
-//			            }
-//			            screen_width  = StretchPosX(script_width);
-//			            screen_height = StretchPosY(script_height);
-//			        } else
-//			#endif
-//			        {
-//			            // Constrain aspect to same as game
-//			            if (scr_stretch_x > scr_stretch_y) {
-//			                screen_ratio1 = native_height;
-//			                screen_ratio2 = script_height;
-//			            } else { 
-//			                screen_ratio1 = native_width;
-//			                screen_ratio2 = script_width;
-//			            }
-//			            scr_stretch_x = scr_stretch_y = 1.0;
-//			            screen_width  = ExpandPos(script_width);
-//			            screen_height = ExpandPos(script_height);
-//			        }
-//			    }
-//			#ifdef RCA_SCALE
-//			    else if (widescreen_flag) {
-//			        const SDL_VideoInfo* info = SDL_GetVideoInfo();
-//			        int native_width = info->current_w;
-//			        int native_height = info->current_h;
-//			        
-//			        // Resize to screen aspect ratio
-//			        const float screen_asp = (float)screen_width / (float)screen_height;
-//			        const float native_asp = (float)native_width / (float)native_height;
-//			        const float aspquot = native_asp / screen_asp;
-//			        if (aspquot >1.01) {
-//			            // Widescreen; make gamearea wider
-//			            scr_stretch_x = (float)screen_height * native_asp / (float)screen_width;
-//			            screen_width = screen_height * native_asp;
-//			        } else if (aspquot < 0.99) {
-//			            scr_stretch_y = (float)screen_width / native_asp / (float)screen_height;
-//			            screen_height = screen_width / native_asp;
-//			        }
-//			    }
-//			#endif
-//			    screen_surface = SDL_SetVideoMode( screen_width, screen_height, screen_bpp, DEFAULT_VIDEO_SURFACE_FLAG );
-//			
-//			    /* ---------------------------------------- */
-//			    /* Check if VGA screen is available. */
-//			#if defined(PDA) && (PDA_WIDTH==640)
-//			    if ( screen_surface == NULL ){
-//			        screen_ratio1 /= 2;
-//			        screen_width  /= 2;
-//			        screen_height /= 2;
-//			        screen_surface = SDL_SetVideoMode( screen_width, screen_height, screen_bpp, DEFAULT_VIDEO_SURFACE_FLAG );
-//			    }
-//			#endif
-//			
-//			    if ( screen_surface == NULL ) {
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
-//			                 "Couldn't set %dx%dx%d video mode",
-//			                 screen_width, screen_height, screen_bpp);
-//			        errorAndExit(script_h.errbuf, SDL_GetError(), "Init Error", true);
-//			        return; //dummy
-//			    }
-//			    //printf("Display: %d x %d (%d bpp)\n", screen_width, screen_height, screen_bpp);
-//			    dirty_rect.setDimension(screen_width, screen_height);
-//			#if defined(WIN32)
-//			#else
-//			    initSJIS2UTF16();
-//			#endif
-//			
-//			    setStr(&wm_title_string, DEFAULT_WM_TITLE);
-//			    setStr(&wm_icon_string, DEFAULT_WM_ICON);
-//			    SDL_WM_SetCaption( wm_title_string, wm_icon_string );
+			    /* ---------------------------------------- */
+			    /* Initialize SDL */
+			
+			    if ( SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_AUDIO ) < 0 ){
+			        errorAndExit("Couldn't initialize SDL", SDL_GetError(), "Init Error", true);
+			        return; //dummy
+			    }
+			    atexit(SDL_Quit_Wrapper); // work-around for OS/2
+			
+			    if( cdaudio_flag && SDL_InitSubSystem( SDL_INIT_CDROM ) < 0 ){
+			        errorAndExit("Couldn't initialize CD-ROM", SDL_GetError(), "Init Error", true);
+			        return; //dummy
+			    }
+			
+			    SDL_EnableUNICODE(1);
+			
+			    /* ---------------------------------------- */
+			    /* Initialize SDL */
+			    if ( TTF_Init() < 0 ){
+			        errorAndExit("can't initialize SDL TTF", null, "Init Error", true);
+			        return; //dummy
+			    }
+			
+			#if BPP16
+			    screen_bpp = 16;
+			#else
+			    screen_bpp = 32;
+			#endif
+			
+			#if PDA && PDA_WIDTH
+			    screen_ratio1 *= PDA_WIDTH;
+			    screen_ratio2 *= 320;
+			    screen_width   = screen_width  * PDA_WIDTH / 320;
+			    screen_height  = screen_height * PDA_WIDTH / 320;
+			#elif PDA && PDA_AUTOSIZE
+			    SDL_Rect **modes;
+			    modes = SDL_ListModes(NULL, 0);
+			    if (modes == (SDL_Rect **)0){
+			        errorAndExit("No Video mode available.", NULL, "Init Error", true);
+			        return; //dummy
+			    }
+			    else if (modes == (SDL_Rect **)-1){
+			        // no restriction
+			    }
+			 	else{
+			        int width;
+			        if (modes[0]->w * 3 > modes[0]->h * 4)
+			            width = (modes[0]->h / 3) * 4;
+			        else
+			            width = (modes[0]->w / 4) * 4;
+			        screen_ratio1 *= width;
+			        screen_ratio2 *= 320;
+			        screen_width   = screen_width  * width / 320;
+			        screen_height  = screen_height * width / 320;
+			    }
+			#endif
+			
+			#if RCA_SCALE
+			    scr_stretch_x = 1.0;
+			    scr_stretch_y = 1.0;
+			#endif
+			    if (scaled_flag) {
+			        SDL_VideoInfo info = SDL_GetVideoInfo();
+			        int native_width = info.current_w;
+			        int native_height = info.current_h;
+			        
+			        // Resize up to fill screen
+			#if !RCA_SCALE
+			        float scr_stretch_x, scr_stretch_y;
+			#endif
+			        scr_stretch_x = (float)native_width / (float)screen_width;
+			        scr_stretch_y = (float)native_height / (float)screen_height;
+			#if RCA_SCALE
+			        if (widescreen_flag) {
+			            if (scr_stretch_x > scr_stretch_y) {
+			                screen_ratio1 = native_height;
+			                screen_ratio2 = script_height;
+			                scr_stretch_x /= scr_stretch_y;
+			                scr_stretch_y = 1.0;
+			            } else { 
+			                screen_ratio1 = native_width;
+			                screen_ratio2 = script_width;
+			                scr_stretch_y /= scr_stretch_x;
+			                scr_stretch_x = 1.0;
+			            }
+			            screen_width  = StretchPosX(script_width);
+			            screen_height = StretchPosY(script_height);
+			        } else
+			#endif
+			        {
+			            // Constrain aspect to same as game
+			            if (scr_stretch_x > scr_stretch_y) {
+			                screen_ratio1 = native_height;
+			                screen_ratio2 = script_height;
+			            } else { 
+			                screen_ratio1 = native_width;
+			                screen_ratio2 = script_width;
+			            }
+			            scr_stretch_x = scr_stretch_y = (float)1.0;
+			            screen_width  = ExpandPos(script_width);
+			            screen_height = ExpandPos(script_height);
+			        }
+			    }
+			#if RCA_SCALE
+			    else if (widescreen_flag) {
+			        const SDL_VideoInfo* info = SDL_GetVideoInfo();
+			        int native_width = info->current_w;
+			        int native_height = info->current_h;
+			        
+			        // Resize to screen aspect ratio
+			        const float screen_asp = (float)screen_width / (float)screen_height;
+			        const float native_asp = (float)native_width / (float)native_height;
+			        const float aspquot = native_asp / screen_asp;
+			        if (aspquot >1.01) {
+			            // Widescreen; make gamearea wider
+			            scr_stretch_x = (float)screen_height * native_asp / (float)screen_width;
+			            screen_width = screen_height * native_asp;
+			        } else if (aspquot < 0.99) {
+			            scr_stretch_y = (float)screen_width / native_asp / (float)screen_height;
+			            screen_height = screen_width / native_asp;
+			        }
+			    }
+			#endif
+			    screen_surface = SDL_SetVideoMode( screen_width, screen_height, screen_bpp, DEFAULT_VIDEO_SURFACE_FLAG );
+			
+			    /* ---------------------------------------- */
+			    /* Check if VGA screen is available. */
+			#if PDA && PDA_WIDTH//==640
+			    if ( screen_surface == NULL ){
+			        screen_ratio1 /= 2;
+			        screen_width  /= 2;
+			        screen_height /= 2;
+			        screen_surface = SDL_SetVideoMode( screen_width, screen_height, screen_bpp, DEFAULT_VIDEO_SURFACE_FLAG );
+			    }
+			#endif
+			
+			    if ( screen_surface == null ) {
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN,
+			                 "Couldn't set %dx%dx%d video mode",
+			                 screen_width, screen_height, screen_bpp);
+			        errorAndExit(script_h.errbuf, SDL_GetError(), "Init Error", true);
+			        return; //dummy
+			    }
+			    //printf("Display: %d x %d (%d bpp)\n", screen_width, screen_height, screen_bpp);
+			    dirty_rect.setDimension(screen_width, screen_height);
+			#if true//defined(WIN32)
+			#else
+			    initSJIS2UTF16();
+			#endif
+			
+			    setStr(ref wm_title_string, DEFAULT_WM_TITLE);
+			    setStr(ref wm_icon_string, DEFAULT_WM_ICON);
+			    SDL_WM_SetCaption( wm_title_string, wm_icon_string );
 			}
 			
 			public int ExpandPos(int val) {
@@ -557,164 +557,164 @@ namespace onscripter_csharp
 			
 			public ONScripterLabel()
 			//Using an initialization list to make sure pointers start out NULL
-//			: default_font(NULL), registry_file(NULL), dll_file(NULL),
-//			  getret_str(NULL), key_exe_file(NULL), trap_dest(NULL),
-//			  wm_title_string(NULL), wm_icon_string(NULL),
-//			  accumulation_surface(NULL), backup_surface(NULL),
-//			  effect_dst_surface(NULL), effect_src_surface(NULL), effect_tmp_surface(NULL),
-//			  screenshot_surface(NULL), image_surface(NULL), tmp_image_buf(NULL),
-//			  sprite_info(NULL), sprite2_info(NULL),
-//			  font_file(NULL), root_glyph_cache(NULL),
-//			  string_buffer_breaks(NULL), string_buffer_margins(NULL),
-//			  sin_table(NULL), cos_table(NULL), whirl_table(NULL),
-//			  breakup_cells(NULL), breakup_cellforms(NULL), breakup_mask(NULL),
-//			  shelter_select_link(NULL), default_cdrom_drive(NULL),
-//			  wave_file_name(NULL), seqmusic_file_name(NULL), 
-//			  music_file_name(NULL), music_buffer(NULL),
-//			  music_cmd(NULL), seqmusic_cmd(NULL),
-//			  movie_buffer(NULL), async_movie_surface(NULL),
-//			  surround_rects(NULL),
-//			  text_font(NULL), cached_page(NULL), system_menu_title(NULL),
-//			  scaled_flag(false)
-			{			
-//			    //first initialize *everything* (static) to base values
-//			
-//			    resetFlags();
-//			    resetFlagsSub();
-//			
-//			    //init envdata variables
-//			    fullscreen_mode = false;
-//			    volume_on_flag = true;
-//			    text_speed_no = 1;
-//			    cdaudio_on_flag = false;
-//			
-//			    //init onscripter-specific variables
-//			    skip_past_newline = false;
-//			    cdaudio_flag = false;
-//			    enable_wheeldown_advance_flag = false;
-//			    disable_rescale_flag = false;
-//			    edit_flag = false;
-//			#ifdef RCA_SCALE
-//			    widescreen_flag = false;
-//			    scaled_flag = false;
-//			#endif
-//			    window_mode = false;
-//			    use_app_icons = false;
-//			    cdrom_drive_number = 0;
-//			#ifdef WIN32
-//			    current_user_appdata = false;
-//			#endif
-//			
-//			    //init various internal variables
-//			    audio_open_flag = false;
-//			    getret_int = 0;
-//			    variable_edit_index = variable_edit_num = variable_edit_sign = 0;
-//			    tmp_image_buf_length = mean_size_of_loaded_images = 0;
-//			    num_loaded_images = 1; //avoid possible div by zero
-//			    effect_counter = effect_timer_resolution = 0;
-//			    effect_start_time = effect_start_time_old = 0;
-//			    effect_duration = 1; //avoid possible div by zero
-//			    effect_tmp = 0;
-//			    skip_effect = in_effect_blank = false;
-//			    effectspeed = EFFECTSPEED_NORMAL;
-//			    shortcut_mouse_line = -1;
-//			    skip_mode = SKIP_NONE;
-//			    music_buffer_length = 0;
-//			    mp3fade_start = 0;
-//			    wm_edit_string[0] = '\0';
-//			#ifdef PNG_AUTODETECT_NSCRIPTER_MASKS
-//			    png_mask_type = PNG_MASK_AUTODETECT;
-//			#elif defined PNG_FORCE_NSCRIPTER_MASKS
-//			    png_mask_type = PNG_MASK_USE_NSCRIPTER;
-//			#else
-//			    png_mask_type = PNG_MASK_USE_ALPHA;
-//			#endif
-//			    
-//			    //init arrays
-//			    int i=0;
-//			    for (i=0 ; i<MAX_PARAM_NUM ; i++) bar_info[i] = prnum_info[i] = NULL;
-//			    last_textpos_xy[0] = last_textpos_xy[1] = 0;
-//			    loop_bgm_name[0] = loop_bgm_name[1] = NULL;
-//			    for ( i=0 ; i<ONS_MIX_CHANNELS ; i++ )
-//			        channelvolumes[i] = DEFAULT_VOLUME;
-//			
-//			    fileversion = SAVEFILE_VERSION_MAJOR*100 + SAVEFILE_VERSION_MINOR;
-//			
-//			    internal_timer = SDL_GetTicks();
-//			
-//			    //setting this to let script_h call error message popup routines
-//			    script_h.setOns(this);
-//			    
-//			#if defined (USE_X86_GFX) && !defined(MACOSX)
-//			    // determine what functions the cpu supports (Mion)
-//			    {
-//			        unsigned int func, eax, ebx, ecx, edx;
-//			        func = AnimationInfo::CPUF_NONE;
-//			        if (__get_cpuid(1, &eax, &ebx, &ecx, &edx) != 0) {
-//			            printf("System info: Intel CPU, with functions: ");
-//			            if (edx & bit_MMX) {
-//			                func |= AnimationInfo::CPUF_X86_MMX;
-//			                printf("MMX ");
-//			            }
-//			            if (edx & bit_SSE) {
-//			                func |= AnimationInfo::CPUF_X86_SSE;
-//			                printf("SSE ");
-//			            }
-//			            if (edx & bit_SSE2) {
-//			                func |= AnimationInfo::CPUF_X86_SSE2;
-//			                printf("SSE2 ");
-//			            }
-//			            printf("\n");
-//			        }
-//			        AnimationInfo::setCpufuncs(func);
-//			    }
-//			#elif defined (USE_X86_GFX) && defined(MACOSX)
-//			    // x86 CPU on Mac OS X all support SSE2
-//			    AnimationInfo::setCpufuncs(AnimationInfo::CPUF_X86_SSE2);
-//			    printf("System info: Intel CPU with SSE2 functionality\n");
-//			#elif defined(USE_PPC_GFX) && defined(MACOSX)
-//			    // Determine if this PPC CPU supports AltiVec (Roto)
-//			    {
-//			        unsigned int func = AnimationInfo::CPUF_NONE;
-//			        int altivec_present = 0;
-//			    
-//			        size_t length = sizeof(altivec_present);
-//			        int error = sysctlbyname("hw.optional.altivec", &altivec_present, &length, NULL, 0);
-//			        if(error) {
-//			            AnimationInfo::setCpufuncs(AnimationInfo::CPUF_NONE);
-//			            return;
-//			        }
-//			        if(altivec_present) {
-//			            func |= AnimationInfo::CPUF_PPC_ALTIVEC;
-//			            printf("System info: PowerPC CPU, supports altivec\n");
-//			        } else {
-//			            printf("System info: PowerPC CPU, DOES NOT support altivec\n");
-//			        }
-//			        AnimationInfo::setCpufuncs(func);
-//			    }
-//			#else
-//			    AnimationInfo::setCpufuncs(AnimationInfo::CPUF_NONE);
-//			#endif
-//			
-//			    //since we've made it this far, let's init some dynamic variables
-//			    setStr( &registry_file, REGISTRY_FILE );
-//			    setStr( &dll_file, DLL_FILE );
-//			    readColor( &linkcolor[0], "#FFFF22" ); // yellow - link color
-//			    readColor( &linkcolor[1], "#88FF88" ); // cyan - mouseover link color
-//			    sprite_info  = new AnimationInfo[MAX_SPRITE_NUM];
-//			    sprite2_info = new AnimationInfo[MAX_SPRITE2_NUM];
-//			
-//			    for (i=0 ; i<MAX_SPRITE2_NUM ; i++)
-//			        sprite2_info[i].affine_flag = true;
-//			    for (i=0 ; i<NUM_GLYPH_CACHE ; i++){
-//			        if (i != NUM_GLYPH_CACHE-1) glyph_cache[i].next = &glyph_cache[i+1];
-//			    }
-//			    glyph_cache[NUM_GLYPH_CACHE-1].next = NULL;
-//			    root_glyph_cache = &glyph_cache[0];
-//			
-//			    // External Players
-//			    music_cmd = getenv("PLAYER_CMD");
-//			    seqmusic_cmd  = getenv("MUSIC_CMD");
+			{ default_font = (null); registry_file = (null); dll_file = (null);
+			  getret_str = (null); key_exe_file = (null); trap_dest = (null);
+			  wm_title_string = (null); wm_icon_string = (null);
+			  accumulation_surface = (null); backup_surface = (null);
+			  effect_dst_surface = (null); effect_src_surface = (null); effect_tmp_surface = (null);
+			  screenshot_surface = (null); image_surface = (null); tmp_image_buf = (null);
+			  sprite_info = (null); sprite2_info = (null);
+			  font_file = (null); root_glyph_cache = (null);
+			  string_buffer_breaks = (null); string_buffer_margins = (null);
+			  sin_table = (null); cos_table = (null); whirl_table = (null);
+			  breakup_cells = (null); breakup_cellforms = (null); breakup_mask = (null);
+			  shelter_select_link = (null); default_cdrom_drive = (null);
+			  wave_file_name = (null); seqmusic_file_name = (null); 
+			  music_file_name = (null); music_buffer = (null);
+			  music_cmd = (null); seqmusic_cmd = (null);
+			  movie_buffer = (null); async_movie_surface = (null);
+			  surround_rects = (null);
+			  text_font = (null); cached_page = (null); system_menu_title = (null);
+			  scaled_flag = (false);
+		
+			    //first initialize *everything* (static) to base values
+			
+			    resetFlags();
+			    resetFlagsSub();
+			
+			    //init envdata variables
+			    fullscreen_mode = false;
+			    volume_on_flag = true;
+			    text_speed_no = 1;
+			    cdaudio_on_flag = false;
+			
+			    //init onscripter-specific variables
+			    skip_past_newline = false;
+			    cdaudio_flag = false;
+			    enable_wheeldown_advance_flag = false;
+			    disable_rescale_flag = false;
+			    edit_flag = false;
+			#if RCA_SCALE
+			    widescreen_flag = false;
+			    scaled_flag = false;
+			#endif
+			    window_mode = false;
+			    use_app_icons = false;
+			    cdrom_drive_number = 0;
+			#if true// WIN32
+			    current_user_appdata = false;
+			#endif
+			
+			    //init various internal variables
+			    audio_open_flag = false;
+			    getret_int = 0;
+			    variable_edit_index = variable_edit_num = variable_edit_sign = 0;
+			    tmp_image_buf_length = mean_size_of_loaded_images = 0;
+			    num_loaded_images = 1; //avoid possible div by zero
+			    effect_counter = effect_timer_resolution = 0;
+			    effect_start_time = effect_start_time_old = 0;
+			    effect_duration = 1; //avoid possible div by zero
+			    effect_tmp = 0;
+			    skip_effect = in_effect_blank = false;
+			    effectspeed = EFFECTSPEED_NORMAL;
+			    shortcut_mouse_line = -1;
+			    skip_mode = SKIP_NONE;
+			    music_buffer_length = 0;
+			    mp3fade_start = 0;
+			    wm_edit_string[0] = '\0';
+			#if PNG_AUTODETECT_NSCRIPTER_MASKS
+			    png_mask_type = PNG_MASK_AUTODETECT;
+			#elif PNG_FORCE_NSCRIPTER_MASKS
+			    png_mask_type = PNG_MASK_USE_NSCRIPTER;
+			#else
+			    png_mask_type = PNG_MASK_USE_ALPHA;
+			#endif
+			    
+			    //init arrays
+			    int i=0;
+			    for (i=0 ; i<MAX_PARAM_NUM ; i++) bar_info[i] = prnum_info[i] = null;
+			    last_textpos_xy[0] = last_textpos_xy[1] = 0;
+			    loop_bgm_name[0] = loop_bgm_name[1] = null;
+			    for ( i=0 ; i<ONS_MIX_CHANNELS ; i++ )
+			        channelvolumes[i] = DEFAULT_VOLUME;
+			
+			    fileversion = SAVEFILE_VERSION_MAJOR*100 + SAVEFILE_VERSION_MINOR;
+			
+			    internal_timer = SDL_GetTicks();
+			
+			    //setting this to let script_h call error message popup routines
+			    script_h.setOns(this);
+			    
+			#if USE_X86_GFX && !MACOSX
+			    // determine what functions the cpu supports (Mion)
+			    {
+			        unsigned int func, eax, ebx, ecx, edx;
+			        func = AnimationInfo::CPUF_NONE;
+			        if (__get_cpuid(1, &eax, &ebx, &ecx, &edx) != 0) {
+			            printf("System info: Intel CPU, with functions: ");
+			            if (edx & bit_MMX) {
+			                func |= AnimationInfo::CPUF_X86_MMX;
+			                printf("MMX ");
+			            }
+			            if (edx & bit_SSE) {
+			                func |= AnimationInfo::CPUF_X86_SSE;
+			                printf("SSE ");
+			            }
+			            if (edx & bit_SSE2) {
+			                func |= AnimationInfo::CPUF_X86_SSE2;
+			                printf("SSE2 ");
+			            }
+			            printf("\n");
+			        }
+			        AnimationInfo::setCpufuncs(func);
+			    }
+			#elif USE_X86_GFX && MACOSX
+			    // x86 CPU on Mac OS X all support SSE2
+			    AnimationInfo::setCpufuncs(AnimationInfo::CPUF_X86_SSE2);
+			    printf("System info: Intel CPU with SSE2 functionality\n");
+			#elif USE_PPC_GFX && MACOSX
+			    // Determine if this PPC CPU supports AltiVec (Roto)
+			    {
+			        unsigned int func = AnimationInfo::CPUF_NONE;
+			        int altivec_present = 0;
+			    
+			        size_t length = sizeof(altivec_present);
+			        int error = sysctlbyname("hw.optional.altivec", &altivec_present, &length, NULL, 0);
+			        if(error) {
+			            AnimationInfo::setCpufuncs(AnimationInfo::CPUF_NONE);
+			            return;
+			        }
+			        if(altivec_present) {
+			            func |= AnimationInfo::CPUF_PPC_ALTIVEC;
+			            printf("System info: PowerPC CPU, supports altivec\n");
+			        } else {
+			            printf("System info: PowerPC CPU, DOES NOT support altivec\n");
+			        }
+			        AnimationInfo::setCpufuncs(func);
+			    }
+			#else
+			    AnimationInfo.setCpufuncs(AnimationInfo.CPUF_NONE);
+			#endif
+			
+			    //since we've made it this far, let's init some dynamic variables
+			    setStr( ref registry_file, REGISTRY_FILE );
+			    setStr( ref dll_file, DLL_FILE );
+			    readColor( ref linkcolor[0], "#FFFF22" ); // yellow - link color
+			    readColor( ref linkcolor[1], "#88FF88" ); // cyan - mouseover link color
+			    sprite_info  = new AnimationInfo[MAX_SPRITE_NUM];
+			    sprite2_info = new AnimationInfo[MAX_SPRITE2_NUM];
+			
+			    for (i=0 ; i<MAX_SPRITE2_NUM ; i++)
+			        sprite2_info[i].affine_flag = true;
+			    for (i=0 ; i<NUM_GLYPH_CACHE ; i++){
+			        if (i != NUM_GLYPH_CACHE-1) glyph_cache[i].next = glyph_cache[i+1];
+			    }
+			    glyph_cache[NUM_GLYPH_CACHE-1].next = null;
+			    root_glyph_cache = glyph_cache[0];
+			
+			    // External Players
+			    music_cmd = getenv("PLAYER_CMD");
+			    seqmusic_cmd  = getenv("MUSIC_CMD");
 			}
 			
 			~ONScripterLabel()
@@ -850,279 +850,279 @@ namespace onscripter_csharp
 			
 			public int init()
 			{
-				return 0;
-//			    if (archive_path.get_num_paths() == 0) {
-//			    
-//			        //default archive_path is current directory ".", followed by parent ".."
-//			        DirPaths default_path = DirPaths(".");
-//			        default_path.add("..");
-//			#ifdef MACOSX
-//			        // On Mac OS X, store archives etc in the application bundle by default,
-//			        // but also check the application root directory and current directory.
-//			        if (isBundled()) {
-//			            archive_path.add(bundleResPath());
-//			
-//			            // Now add the application path.
-//			            char *path = bundleAppPath();
-//			            if (path) {
-//			                archive_path.add(path);
-//			                // add the next directory up as a fallback.
-//			                char tmp[strlen(path) + 4];
-//			                sprintf(tmp, "%s%c%s", path, DELIMITER, "..");
-//			                archive_path.add(tmp);
-//			            } else {
-//			                //if we couldn't find the application path, we still need
-//			                //something - use current dir and parent (default)
-//			                archive_path.add(default_path);
-//			            }
-//			        }
-//			        else {
-//			            // Not in a bundle: just use current dir and parent as normal.
-//			            archive_path.add(default_path);
-//			        }
-//			#else
-//			        // On Linux, the path is unpredictable and should be set by
-//			        // using "-r PATH" or "--root PATH" in a launcher script.
-//			        // On other platforms it's the same place as the executable.
-//			        archive_path.add(default_path);
-//			        //printf("init:archive_paths: \"%s\"\n", archive_path->get_all_paths());
-//			#endif
-//			    }
-//			    
-//			    if (key_exe_file){
-//			        createKeyTable( key_exe_file );
-//			        script_h.setKeyTable( key_table );
-//			    }
-//			    
-//			    if ( open() ) return -1;
-//			
-//			    if ( script_h.save_path == NULL ){
-//			        char* gameid = script_h.game_identifier;
-//			        char gamename[20];
-//			        if (!gameid) {
-//			            gameid=(char*)&gamename;
-//			            snprintf(gameid, 20, "ONScripter-%x", script_h.game_hash);
-//			        }
-//			#ifdef WIN32
-//			        // On Windows, store in [Profiles]/All Users/Application Data.
-//			        // Permit saves to be per-user rather than shared if
-//			        // option --current-user-appdata is specified
+				if (archive_path.get_num_paths() == 0) {
+			    
+			        //default archive_path is current directory ".", followed by parent ".."
+			        DirPaths default_path = new DirPaths(".");
+			        default_path.add("..");
+			#if MACOSX
+			        // On Mac OS X, store archives etc in the application bundle by default,
+			        // but also check the application root directory and current directory.
+			        if (isBundled()) {
+			            archive_path.add(bundleResPath());
+			
+			            // Now add the application path.
+			            char *path = bundleAppPath();
+			            if (path) {
+			                archive_path.add(path);
+			                // add the next directory up as a fallback.
+			                char tmp[strlen(path) + 4];
+			                sprintf(tmp, "%s%c%s", path, DELIMITER, "..");
+			                archive_path.add(tmp);
+			            } else {
+			                //if we couldn't find the application path, we still need
+			                //something - use current dir and parent (default)
+			                archive_path.add(default_path);
+			            }
+			        }
+			        else {
+			            // Not in a bundle: just use current dir and parent as normal.
+			            archive_path.add(default_path);
+			        }
+			#else
+			        // On Linux, the path is unpredictable and should be set by
+			        // using "-r PATH" or "--root PATH" in a launcher script.
+			        // On other platforms it's the same place as the executable.
+			        archive_path.add(default_path);
+			        //printf("init:archive_paths: \"%s\"\n", archive_path->get_all_paths());
+			#endif
+			    }
+			    
+			    if (null!=key_exe_file){
+			        createKeyTable( key_exe_file );
+			        script_h.setKeyTable( key_table );
+			    }
+			    
+			    if ( 0!=open() ) return -1;
+			
+			    if ( script_h.save_path == null ){
+			    	CharPtr gameid = ((script_h.game_identifier != null) ? new CharPtr(script_h.game_identifier) : null);
+			        CharPtr gamename = new char[20];
+			        if (null==gameid) {
+			        	gameid=new CharPtr(gamename);
+			            snprintf(gameid, 20, "ONScripter-%x", script_h.game_hash);
+			        }
+			#if true// WIN32
+			        // On Windows, store in [Profiles]/All Users/Application Data.
+			        // Permit saves to be per-user rather than shared if
+			        // option --current-user-appdata is specified
 //			        HMODULE shdll = LoadLibrary("shfolder");
 //			        if (shdll) {
 //			            GETFOLDERPATH gfp = GETFOLDERPATH(GetProcAddress(shdll, "SHGetFolderPathA"));
 //			            if (gfp) {
-//			                char hpath[MAX_PATH];
-//			#define CSIDL_COMMON_APPDATA 0x0023 // for [Profiles]/All Users/Application Data
-//			#define CSIDL_APPDATA 0x001A // for [Profiles]/[User]/Application Data
-//			                HRESULT res;
-//			                if (current_user_appdata)
-//			                    res = gfp(0, CSIDL_APPDATA, 0, 0, hpath);
-//			                else
-//			                    res = gfp(0, CSIDL_COMMON_APPDATA, 0, 0, hpath);
-//			                if (res != S_FALSE && res != E_FAIL && res != E_INVALIDARG) {
-//			                    script_h.save_path = new char[strlen(hpath) + strlen(gameid) + 3];
-//			                    sprintf(script_h.save_path, "%s%c%s%c",
-//			                            hpath, DELIMITER, gameid, DELIMITER);
-//			                    CreateDirectory(script_h.save_path, 0);
-//			                }
+			                CharPtr hpath = new char[MAX_PATH];
+			//#define CSIDL_COMMON_APPDATA 0x0023 // for [Profiles]/All Users/Application Data
+			//#define CSIDL_APPDATA 0x001A // for [Profiles]/[User]/Application Data
+			                long res;
+			                if (current_user_appdata)
+			                    res = SHGetFolderPathA(0, CSIDL_APPDATA, 0, 0, hpath);
+			                else
+			                    res = SHGetFolderPathA(0, CSIDL_COMMON_APPDATA, 0, 0, hpath);
+			                if (res != S_FALSE && res != E_FAIL && res != E_INVALIDARG) {
+			                    script_h.save_path = new char[strlen(hpath) + strlen(gameid) + 3];
+			                    sprintf(script_h.save_path, "%s%c%s%c",
+			                            hpath, DELIMITER, gameid, DELIMITER);
+			                    CreateDirectory(script_h.save_path, 0);
+			                }
 //			            }
 //			            FreeLibrary(shdll);
 //			        }
-//			        if (script_h.save_path == NULL) {
-//			            // Error; assume ancient Windows. In this case it's safe
-//			            // to use the archive path!
-//			            setSavePath(archive_path.get_path(0));
-//			        }
-//			#elif defined MACOSX
-//			        // On Mac OS X, place in ~/Library/Application Support/<gameid>/
-//			        char *path;
-//			        ONSCocoa::getGameAppSupportPath(&path, gameid);
-//			        setSavePath(path);
-//			        delete[] path;
-//			#elif defined LINUX
-//			        // On Linux (and similar *nixen), place in ~/.gameid
-//			        passwd* pwd = getpwuid(getuid());
-//			        if (pwd) {
-//			            script_h.save_path = new char[strlen(pwd->pw_dir) + strlen(gameid) + 4];
-//			            sprintf(script_h.save_path, "%s%c.%s%c", 
-//			                    pwd->pw_dir, DELIMITER, gameid, DELIMITER);
-//			            mkdir(script_h.save_path, 0755);
-//			        }
-//			        else setSavePath(archive_path.get_path(0));
-//			#else
-//			        // Fall back on default ONScripter behaviour if we don't have
-//			        // any better ideas.
-//			        setSavePath(archive_path.get_path(0));
-//			#endif
-//			    }
-//			    if ( script_h.game_identifier ) {
-//			        delete[] script_h.game_identifier; 
-//			        script_h.game_identifier = NULL; 
-//			    }
-//			
-//			    if (strcmp(script_h.save_path, archive_path.get_path(0)) != 0) {
-//			        // insert save_path onto the front of archive_path
-//			        DirPaths new_path = DirPaths(script_h.save_path);
-//			        new_path.add(archive_path);
-//			        archive_path = new_path;
-//			    }
-//			
-//			#ifdef USE_LUA
-//			    lua_handler.init(this, &script_h);
-//			#endif
-//			
-//			    //initialize cmd function table hash
-//			    int idx = 0;
-//			    while (func_lut[idx].method){
-//			        int j = func_lut[idx].command[0]-'a';
-//			        if (func_hash[j].start == -1) func_hash[j].start = idx;
-//			        func_hash[j].end = idx;
-//			        idx++;
-//			    }
-//			
-//			#ifdef WIN32
-//			    if (debug_level > 0) {
-//			        openDebugFolders();
-//			    }
-//			#endif
-//			
-//			    initSDL();
-//			
-//			    image_surface = SDL_CreateRGBSurface( SDL_SWSURFACE, 1, 1, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000 );
-//			
-//			    accumulation_surface = AnimationInfo::allocSurface( screen_width, screen_height );
-//			    backup_surface       = AnimationInfo::allocSurface( screen_width, screen_height );
-//			    effect_src_surface   = AnimationInfo::allocSurface( screen_width, screen_height );
-//			    effect_dst_surface   = AnimationInfo::allocSurface( screen_width, screen_height );
-//			    effect_tmp_surface   = AnimationInfo::allocSurface( screen_width, screen_height );
-//			    SDL_SetAlpha( accumulation_surface, 0, SDL_ALPHA_OPAQUE );
-//			    SDL_SetAlpha( backup_surface, 0, SDL_ALPHA_OPAQUE );
-//			    SDL_SetAlpha( effect_src_surface, 0, SDL_ALPHA_OPAQUE );
-//			    SDL_SetAlpha( effect_dst_surface, 0, SDL_ALPHA_OPAQUE );
-//			    SDL_SetAlpha( effect_tmp_surface, 0, SDL_ALPHA_OPAQUE );
-//			
-//			    num_loaded_images = 10; // to suppress temporal increase at the start-up
-//			
-//			    text_info.num_of_cells = 1;
-//			    text_info.allocImage( screen_width, screen_height );
-//			    text_info.fill(0, 0, 0, 0);
-//			
-//			    // ----------------------------------------
-//			    // Initialize font
-//			    delete[] font_file;
-//			    if ( default_font ){
-//			        font_file = new char[ strlen(default_font) + 1 ];
-//			        sprintf( font_file, "%s", default_font );
-//			    }
-//			    else{
-//			        FILE *fp;
-//			        font_file = new char[ archive_path.max_path_len() + strlen(FONT_FILE) + 1 ];
-//			        for (int i=0; i<(archive_path.get_num_paths()); i++) {
-//			            // look through archive_path(s) for the font file
-//			            sprintf( font_file, "%s%s", archive_path.get_path(i), FONT_FILE );
-//			            //printf("font file: %s\n", font_file);
-//			#if _MSC_VER <= 1200
-//			            fp = fopen(font_file, "rb");
-//			#else
-//			            fp = std::fopen(font_file, "rb");
-//			#endif
-//			            if (fp != NULL) {
-//			                fclose(fp);
-//			                break;
-//			            }
-//			        }
-//			        //sprintf( font_file, "%s%s", archive_path->get_path(0), FONT_FILE );
-//			        setStr(&default_font, FONT_FILE);
-//			    }
-//			
-//			    // ----------------------------------------
-//			    // Sound related variables
-//			    this->cdaudio_flag = cdaudio_flag;
-//			
-//			    // ----------------------------------------
-//			    // Initialize misc variables
-//			
-//			    internal_timer = SDL_GetTicks();
-//			
-//			    loadEnvData();
-//			
-//			    ScriptHandler::LanguageScript cur_pref = script_h.preferred_script;
-//			    defineresetCommand();
-//			    readToken();
-//			
-//			    if ( sentence_font.openFont( font_file, screen_ratio1, screen_ratio2 ) == NULL ){
-//			#if defined(MACOSX)
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN, "Could not find the font file '%s'.\n"
-//			                 "Please ensure it is present with the game data.", default_font);
-//			#else
-//			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN, "Could not find the font file '%s'.", default_font);
-//			#endif
-//			        errorAndExit(script_h.errbuf, NULL, "Missing font file", true);
-//			        return -1;
-//			    }
-//			
-//			    //Do a little check for whether the font supports Japanese glyphs,
-//			    //if either system-menu or preferred text mode is Japanese
-//			    if ( (script_h.system_menu_script == ScriptHandler::JAPANESE_SCRIPT) ||
-//			         (cur_pref == ScriptHandler::JAPANESE_SCRIPT) ) {
-//			        if (debug_level > 0)
-//			            printf("Checking font for Japanese support\n");
-//			        Uint16 test = 0x300c; // Unicode JP start-quote
-//			        int error, minx1, maxx1, miny1, maxy1;
-//			        int minx2, maxx2, miny2, maxy2;
-//			        int minx3, maxx3, miny3, maxy3;
-//			        error = TTF_GlyphMetrics((TTF_Font*)sentence_font.ttf_font, test,
-//			                                 &minx1, &maxx1, &miny1, &maxy1, NULL);
-//			        if (debug_level > 0)
-//			            printf("JP start-quote glyph metrics: x=(%d,%d), y=(%d,%d)\n",
-//			                   minx1, maxx1, miny1, maxy1);
-//			        test = 0x300d; // Unicode JP end-quote
-//			        error = TTF_GlyphMetrics((TTF_Font*)sentence_font.ttf_font, test,
-//			                                     &minx2, &maxx2, &miny2, &maxy2, NULL);
-//			        if (debug_level > 0)
-//			            printf("JP end-quote glyph metrics: x=(%d,%d), y=(%d,%d)\n",
-//			                   minx2, maxx2, miny2, maxy2);
-//			        test = 0x3042; // Unicode Hiragana letter A
-//			        error = TTF_GlyphMetrics((TTF_Font*)sentence_font.ttf_font, test,
-//			                                     &minx3, &maxx3, &miny3, &maxy3, NULL);
-//			        if (debug_level > 0)
-//			            printf("JP hiragana A glyph metrics: x=(%d,%d), y=(%d,%d)\n",
-//			                   minx3, maxx3, miny3, maxy3);
-//			        if (error != 0) {
-//			            // font doesn't have the glyph, so set to use English mode default
-//			            setEnglishDefault();
-//			            setEnglishMenu();
-//			            setDefaultMenuLabels();
-//			            printf("Font file doesn't support Japanese; reverting to English\n");
-//			        } else if ((minx1 == minx2) && (maxx1 == maxx2) && (miny1 == miny2) && 
-//			                   (maxy1 == maxy2) && (minx1 == minx3) && (maxx1 == maxx3) &&
-//			                   (miny1 == miny3) && (maxy1 == maxy3)) {
-//			            // font has equal metrics for quotes, so assume glyphs are both null
-//			            setEnglishDefault();
-//			            setEnglishMenu();
-//			            setDefaultMenuLabels();
-//			            printf("Font file has equivalent metrics for 3 Japanese glyphs - ");
-//			            printf("assuming it doesn't support Japanese; reverting to English\n");
-//			        } else if (debug_level > 0) {
-//			            printf("Ok, the font appears to support Japanese\n");
-//			        }
-//			    }
-//			
-//			    // preferred was set by command-line option if it was set, so
-//			    // make it the default from now on; default to English otherwise
-//			    if (script_h.default_script == ScriptHandler::NO_SCRIPT_PREF) {
-//			        if (cur_pref == ScriptHandler::NO_SCRIPT_PREF)
-//			            script_h.preferred_script = ScriptHandler::LATIN_SCRIPT;
-//			        else
-//			            script_h.preferred_script = cur_pref;
-//			        script_h.default_script = script_h.preferred_script;
-//			    }
-//			    if (script_h.system_menu_script == ScriptHandler::NO_SCRIPT_PREF) {
-//			        setEnglishMenu();
-//			        setDefaultMenuLabels();
-//			    }
-//			
-//			    return 0;
+			        if (script_h.save_path == null) {
+			            // Error; assume ancient Windows. In this case it's safe
+			            // to use the archive path!
+			            setSavePath(archive_path.get_path(0));
+			        }
+			#elif MACOSX
+			        // On Mac OS X, place in ~/Library/Application Support/<gameid>/
+			        char *path;
+			        ONSCocoa::getGameAppSupportPath(&path, gameid);
+			        setSavePath(path);
+			        delete[] path;
+			#elif LINUX
+			        // On Linux (and similar *nixen), place in ~/.gameid
+			        passwd* pwd = getpwuid(getuid());
+			        if (pwd) {
+			            script_h.save_path = new char[strlen(pwd->pw_dir) + strlen(gameid) + 4];
+			            sprintf(script_h.save_path, "%s%c.%s%c", 
+			                    pwd->pw_dir, DELIMITER, gameid, DELIMITER);
+			            mkdir(script_h.save_path, 0755);
+			        }
+			        else setSavePath(archive_path.get_path(0));
+			#else
+			        // Fall back on default ONScripter behaviour if we don't have
+			        // any better ideas.
+			        setSavePath(archive_path.get_path(0));
+			#endif
+			    }
+			    if ( null!=script_h.game_identifier ) {
+			        //delete[] script_h.game_identifier; 
+			        script_h.game_identifier = null; 
+			    }
+			
+			    if (strcmp(script_h.save_path, archive_path.get_path(0)) != 0) {
+			        // insert save_path onto the front of archive_path
+			        DirPaths new_path = new DirPaths(script_h.save_path);
+			        new_path.add(archive_path);
+			        archive_path = new_path;
+			    }
+			
+			#if USE_LUA
+			    lua_handler.init(this, &script_h);
+			#endif
+			
+			    //initialize cmd function table hash
+			    int idx = 0;
+			    while (null!=func_lut[idx].method){
+			        int j = func_lut[idx].command[0]-'a';
+			        if (func_hash[j].start == -1) func_hash[j].start = idx;
+			        func_hash[j].end = idx;
+			        idx++;
+			    }
+			
+			#if true// WIN32
+			    if (debug_level > 0) {
+			        openDebugFolders();
+			    }
+			#endif
+			
+			    initSDL();
+			
+			    image_surface = SDL_CreateRGBSurface( SDL_SWSURFACE, 1, 1, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000 );
+			
+			    accumulation_surface = AnimationInfo.allocSurface( screen_width, screen_height );
+			    backup_surface       = AnimationInfo.allocSurface( screen_width, screen_height );
+			    effect_src_surface   = AnimationInfo.allocSurface( screen_width, screen_height );
+			    effect_dst_surface   = AnimationInfo.allocSurface( screen_width, screen_height );
+			    effect_tmp_surface   = AnimationInfo.allocSurface( screen_width, screen_height );
+			    SDL_SetAlpha( accumulation_surface, 0, SDL_ALPHA_OPAQUE );
+			    SDL_SetAlpha( backup_surface, 0, SDL_ALPHA_OPAQUE );
+			    SDL_SetAlpha( effect_src_surface, 0, SDL_ALPHA_OPAQUE );
+			    SDL_SetAlpha( effect_dst_surface, 0, SDL_ALPHA_OPAQUE );
+			    SDL_SetAlpha( effect_tmp_surface, 0, SDL_ALPHA_OPAQUE );
+			
+			    num_loaded_images = 10; // to suppress temporal increase at the start-up
+			
+			    text_info.num_of_cells = 1;
+			    text_info.allocImage( screen_width, screen_height );
+			    text_info.fill(0, 0, 0, 0);
+			
+			    // ----------------------------------------
+			    // Initialize font
+			    font_file = null;//delete[] font_file;
+			    if ( null!=default_font ){
+			        font_file = new char[ strlen(default_font) + 1 ];
+			        sprintf( font_file, "%s", default_font );
+			    }
+			    else{
+			        FILEPtr fp;
+			        font_file = new char[ archive_path.max_path_len() + strlen(FONT_FILE) + 1 ];
+			        for (int i=0; i<(archive_path.get_num_paths()); i++) {
+			            // look through archive_path(s) for the font file
+			            sprintf( font_file, "%s%s", archive_path.get_path(i), FONT_FILE );
+			            //printf("font file: %s\n", font_file);
+			#if true//_MSC_VER <= 1200
+			            fp = fopen(font_file, "rb");
+			#else
+			            fp = std::fopen(font_file, "rb");
+			#endif
+			            if (fp != null) {
+			                fclose(fp);
+			                break;
+			            }
+			        }
+			        //sprintf( font_file, "%s%s", archive_path->get_path(0), FONT_FILE );
+			        setStr(ref default_font, FONT_FILE);
+			    }
+			
+			    // ----------------------------------------
+			    // Sound related variables
+			    //this.cdaudio_flag = cdaudio_flag; //FIXME:nosense
+			
+			    // ----------------------------------------
+			    // Initialize misc variables
+			
+			    internal_timer = SDL_GetTicks();
+			
+			    loadEnvData();
+			
+			    ScriptHandler.LanguageScript cur_pref = script_h.preferred_script;
+			    defineresetCommand();
+			    readToken();
+			
+			    if ( sentence_font.openFont( font_file, screen_ratio1, screen_ratio2 ) == null ){
+			#if MACOSX
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN, "Could not find the font file '%s'.\n"
+			                 "Please ensure it is present with the game data.", default_font);
+			#else
+			        snprintf(script_h.errbuf, MAX_ERRBUF_LEN, "Could not find the font file '%s'.", default_font);
+			#endif
+			        errorAndExit(script_h.errbuf, null, "Missing font file", true);
+			        return -1;
+			    }
+			
+			    //Do a little check for whether the font supports Japanese glyphs,
+			    //if either system-menu or preferred text mode is Japanese
+			    if ( (script_h.system_menu_script == ScriptHandler.LanguageScript.JAPANESE_SCRIPT) ||
+			         (cur_pref == ScriptHandler.LanguageScript.JAPANESE_SCRIPT) ) {
+			        if (debug_level > 0)
+			            printf("Checking font for Japanese support\n");
+			        UInt16 test = 0x300c; // Unicode JP start-quote
+			        int error = 0, minx1 = 0, maxx1 = 0, miny1 = 0, maxy1 = 0;
+			        int minx2 = 0, maxx2 = 0, miny2 = 0, maxy2 = 0;
+			        int minx3 = 0, maxx3 = 0, miny3 = 0, maxy3 = 0;
+			        int null_temp = 0;
+			        error = TTF_GlyphMetrics(TTF_Font.fromUnsignedCharPtr(sentence_font.ttf_font), test,
+			                                 ref minx1, ref maxx1, ref miny1, ref maxy1, ref null_temp);
+			        if (debug_level > 0)
+			            printf("JP start-quote glyph metrics: x=(%d,%d), y=(%d,%d)\n",
+			                   minx1, maxx1, miny1, maxy1);
+			        test = 0x300d; // Unicode JP end-quote
+			        error = TTF_GlyphMetrics(TTF_Font.fromUnsignedCharPtr(sentence_font.ttf_font), test,
+			                                     ref minx2, ref maxx2, ref miny2, ref maxy2, ref null_temp);
+			        if (debug_level > 0)
+			            printf("JP end-quote glyph metrics: x=(%d,%d), y=(%d,%d)\n",
+			                   minx2, maxx2, miny2, maxy2);
+			        test = 0x3042; // Unicode Hiragana letter A
+			        error = TTF_GlyphMetrics(TTF_Font.fromUnsignedCharPtr(sentence_font.ttf_font), test,
+			                                     ref minx3, ref maxx3, ref miny3, ref maxy3, ref null_temp);
+			        if (debug_level > 0)
+			            printf("JP hiragana A glyph metrics: x=(%d,%d), y=(%d,%d)\n",
+			                   minx3, maxx3, miny3, maxy3);
+			        if (error != 0) {
+			            // font doesn't have the glyph, so set to use English mode default
+			            setEnglishDefault();
+			            setEnglishMenu();
+			            setDefaultMenuLabels();
+			            printf("Font file doesn't support Japanese; reverting to English\n");
+			        } else if ((minx1 == minx2) && (maxx1 == maxx2) && (miny1 == miny2) && 
+			                   (maxy1 == maxy2) && (minx1 == minx3) && (maxx1 == maxx3) &&
+			                   (miny1 == miny3) && (maxy1 == maxy3)) {
+			            // font has equal metrics for quotes, so assume glyphs are both null
+			            setEnglishDefault();
+			            setEnglishMenu();
+			            setDefaultMenuLabels();
+			            printf("Font file has equivalent metrics for 3 Japanese glyphs - ");
+			            printf("assuming it doesn't support Japanese; reverting to English\n");
+			        } else if (debug_level > 0) {
+			            printf("Ok, the font appears to support Japanese\n");
+			        }
+			    }
+			
+			    // preferred was set by command-line option if it was set, so
+			    // make it the default from now on; default to English otherwise
+			    if (script_h.default_script == ScriptHandler.LanguageScript.NO_SCRIPT_PREF) {
+			        if (cur_pref == ScriptHandler.LanguageScript.NO_SCRIPT_PREF)
+			            script_h.preferred_script = ScriptHandler.LanguageScript.LATIN_SCRIPT;
+			        else
+			            script_h.preferred_script = cur_pref;
+			        script_h.default_script = script_h.preferred_script;
+			    }
+			    if (script_h.system_menu_script == ScriptHandler.LanguageScript.NO_SCRIPT_PREF) {
+			        setEnglishMenu();
+			        setDefaultMenuLabels();
+			    }
+			
+			    return 0;
 			}
 			
 			public override void reset()

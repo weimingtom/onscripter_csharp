@@ -138,16 +138,16 @@ namespace onscripter_csharp
 		    public const int PNG_MASK_USE_NSCRIPTER = 2;
 		    
 //		    inline void setMaskType( int mask_type ) { png_mask_type = mask_type; }
-//		    inline void setEnglishDefault()
-//		        { script_h.default_script = ScriptHandler::LATIN_SCRIPT; }
+		    public void setEnglishDefault()
+		        { script_h.default_script = ScriptHandler.LanguageScript.LATIN_SCRIPT; }
 //		    inline void setJapaneseDefault()
 //		        { script_h.default_script = ScriptHandler::JAPANESE_SCRIPT; }
 //		    inline void setEnglishPreferred()
 //		        { script_h.preferred_script = ScriptHandler::LATIN_SCRIPT; }
 //		    inline void setJapanesePreferred()
 //		        { script_h.preferred_script = ScriptHandler::JAPANESE_SCRIPT; }
-//		    inline void setEnglishMenu()
-//		        { script_h.system_menu_script = ScriptHandler::LATIN_SCRIPT; }
+		    public void setEnglishMenu()
+		        { script_h.system_menu_script = ScriptHandler.LanguageScript.LATIN_SCRIPT; }
 //		    inline void setJapaneseMenu()
 //		        { script_h.system_menu_script = ScriptHandler::JAPANESE_SCRIPT; }
 //		
@@ -1025,16 +1025,16 @@ namespace onscripter_csharp
 //		    /* ---------------------------------------- */
 //		    /* Movie related variables */
 		    public UnsignedCharPtr movie_buffer;
-//		    SDL_Surface *async_movie_surface;
+		    public SDL_Surface async_movie_surface;
 //		    SDL_Rect async_movie_rect;
 		    public SDL_Rect[] surround_rects;
 		    public bool movie_click_flag, movie_loop_flag;
 //		    int playMPEG( const char *filename, bool async_flag, bool use_pos=false, int xpos=0, int ypos=0, int width=0, int height=0 );
 //		    int playAVI( const char *filename, bool click_flag );
-//		
-//		    /* ---------------------------------------- */
-//		    /* Text event related variables */
-//		    TTF_Font *text_font;
+		
+		    /* ---------------------------------------- */
+		    /* Text event related variables */
+		    public TTF_Font text_font;
 		    public bool new_line_skip_flag;
 		    public int text_speed_no;
 		

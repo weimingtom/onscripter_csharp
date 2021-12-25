@@ -115,6 +115,7 @@
     <Compile Include="SDL_Surface.cs" />
     <Compile Include="SDL_SysWMinfo.cs" />
     <Compile Include="SDL_UserEvent.cs" />
+    <Compile Include="SDL_VideoInfo.cs" />
     <Compile Include="TTF_Font.cs" />
     <Compile Include="Uint32Ptr.cs" />
     <Compile Include="Uint8Ptr.cs" />

@@ -642,5 +642,65 @@ namespace onscripter_csharp
 		{
 			
 		}
+		
+		public static int CreateDirectory(
+		    CharPtr lpPathName,
+		    int lpSecurityAttributes
+		    )
+		{
+			return 0;
+		}
+		
+		public static CharPtr getenv(CharPtr name)
+		{
+			return null;
+		}
+		
+		public const UInt32	SDL_INIT_TIMER = 0x00000001;
+		public const UInt32	SDL_INIT_AUDIO = 0x00000010;
+		public const UInt32	SDL_INIT_VIDEO = 0x00000020;
+		public const UInt32	SDL_INIT_CDROM = 0x00000100;
+		public const UInt32	SDL_INIT_JOYSTICK = 0x00000200;
+		public const UInt32	SDL_INIT_NOPARACHUTE = 0x00100000;	/* Don't catch fatal signals */
+		public const UInt32	SDL_INIT_EVENTTHREAD = 0x01000000;	/* Not supported on all OS's */
+		public const UInt32	SDL_INIT_EVERYTHING	= 0x0000FFFF;
+		public static int SDL_Init(UInt32 flags)
+		{
+			return 0;
+		}
+		public static CharPtr SDL_GetError()
+		{
+			return null;
+		}
+		public delegate void atexit_func();
+		public static int atexit(atexit_func func)
+		{
+			return 0;
+		}
+		
+		public static int SDL_InitSubSystem(UInt32 flags)
+		{
+			return 0;
+		}
+		public static int SDL_EnableUNICODE(int enable)
+		{
+			return 0;
+		}
+		
+		public static int TTF_Init()
+		{
+			return 0;
+		}
+		
+		public static SDL_VideoInfo SDL_GetVideoInfo()
+		{
+			return null;
+		}
+		
+		public const UInt32 DEFAULT_VIDEO_SURFACE_FLAG = (SDL_SWSURFACE);
+		public static SDL_Surface SDL_SetVideoMode(int width, int height, int bpp, UInt32 flags)
+		{
+			return null;
+		}
 	}
 }

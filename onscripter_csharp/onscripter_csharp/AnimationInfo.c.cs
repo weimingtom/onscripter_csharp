@@ -831,7 +831,7 @@ namespace onscripter_csharp
 //			    inv_mat[1][1] =  mat[0][0] * 10000 / denom;
 			}
 			
-			public SDL_Surface allocSurface( int w, int h )
+			public static SDL_Surface allocSurface( int w, int h )
 			{
 				return null;
 //			    return SDL_CreateRGBSurface(SDL_SWSURFACE, w, h, BPP, RMASK, GMASK, BMASK, AMASK);

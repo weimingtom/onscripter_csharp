@@ -321,7 +321,7 @@ namespace onscripter_csharp
 		    char *bundle_app_name;
 		#endif
 		    public CharPtr cmdline_game_id;
-		    DirPaths archive_path = new DirPaths();
+		    public DirPaths archive_path = new DirPaths();
 		    public DirPaths nsa_path = new DirPaths();
 		    public int nsa_offset = 0;
 		    public bool globalon_flag;

@@ -145,8 +145,8 @@ namespace onscripter_csharp
 //		    void setKeyTable( const unsigned char *key_table );
 //		
 //		    void setSavedir( const char *dir );
-//		    inline void setOns( ONScripterLabel *newons){ ons = newons; }
-//		
+		    public void setOns( ONScripterLabel newons){ ons = newons; }
+		
 //		    // basic parser function
 //		    const char *readToken();
 //		    const char *readName();
