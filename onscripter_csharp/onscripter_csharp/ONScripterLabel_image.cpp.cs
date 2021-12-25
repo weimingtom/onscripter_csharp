@@ -60,7 +60,7 @@ namespace onscripter_csharp
 //		#endif
 		
 		public partial class ONScripterLabel {
-			public SDL_Surface loadImage(CharPtr filename, ref bool has_alpha )
+			public SDL_Surface loadImage(CharPtr filename, ref bool has_alpha, bool has_alpha_is_not_null )
 			{
 				if ( null==filename ) return null;
 			
@@ -76,9 +76,9 @@ namespace onscripter_csharp
 			    bool has_colorkey = false;
 			    UInt32 colorkey = 0;
 			
-			    //if ( has_alpha ){
+			    if ( has_alpha_is_not_null ){
 			        has_alpha = (SDL_Surface_get_format(tmp).Amask != 0);
-			    //}
+			    }
 			
 			    SDL_Surface ret = SDL_ConvertSurface( tmp, SDL_Surface_get_format(image_surface), SDL_SWSURFACE );
 			    SDL_FreeSurface( tmp );
@@ -103,7 +103,7 @@ namespace onscripter_csharp
 			    // old-style masks, while --force-png-alpha will produce the current
 			    // default behavior.
 			    if ((png_mask_type != PNG_MASK_USE_ALPHA) &&
-			        has_alpha && has_alpha) {
+			        has_alpha_is_not_null && has_alpha) {
 			        if (png_mask_type == PNG_MASK_USE_NSCRIPTER)
 			            has_alpha = false;
 			        else if (png_mask_type == PNG_MASK_AUTODETECT) {

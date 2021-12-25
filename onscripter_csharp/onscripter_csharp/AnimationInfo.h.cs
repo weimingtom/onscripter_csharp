@@ -57,16 +57,16 @@ namespace onscripter_csharp
 		//typedef unsigned char uchar3[3];
 		
 		//useful utility functions
-//		inline bool equalStrings(const char *str1, const char *str2) {
-//		    return ( ((str1 == NULL) && (str2 == NULL)) ||
-//		             ((str1 != NULL) && (str2 != NULL) &&
-//		              (str1[0] == str2[0]) && (strcmp(str1,str2) == 0)) );
-//		}
-//		
-//		inline bool equalColors(const uchar3 &color1, const uchar3 &color2) {
-//		    return ((color1[0] == color2[0]) && (color1[1] == color2[1]) &&
-//		            (color1[2] == color2[2]));
-//		}
+		public static bool equalStrings(CharPtr str1, CharPtr str2) {
+		    return ( ((str1 == null) && (str2 == null)) ||
+		             ((str1 != null) && (str2 != null) &&
+		              (str1[0] == str2[0]) && (strcmp(str1,str2) == 0)) );
+		}
+		
+		public static bool equalColors(byte[] color1, byte[] color2) {
+		    return ((color1[0] == color2[0]) && (color1[1] == color2[1]) &&
+		            (color1[2] == color2[2]));
+		}
 		
 		public partial class AnimationInfo{
 //		public:

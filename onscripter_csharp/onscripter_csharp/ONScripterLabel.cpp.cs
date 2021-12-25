@@ -2301,7 +2301,7 @@ namespace onscripter_csharp
 //			    btnarea_pos = 0;
 			}
 			
-			public int getNumberFromBuffer( CharPtr[] buf )
+			public int getNumberFromBuffer( ref CharPtr buf )
 			{
 				return 0;
 //			    int ret = 0;

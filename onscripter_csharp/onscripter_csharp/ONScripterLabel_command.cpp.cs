@@ -3422,7 +3422,7 @@ namespace onscripter_csharp
 			    }
 			
 			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface));
-			    si.blendOnSurface2( accumulation_surface, x, y, clip, alpha );
+			    si.blendOnSurface2( accumulation_surface, x, y, ref clip, alpha );
 			    si.setCell(old_cell_no);
 			
 			    return RET_CONTINUE;
@@ -3445,7 +3445,7 @@ namespace onscripter_csharp
 			    si.setCell(cell_no);
 			
 			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface));
-			    si.blendOnSurface2( accumulation_surface, si.pos.x, si.pos.y, clip, alpha );
+			    si.blendOnSurface2( accumulation_surface, si.pos.x, si.pos.y, ref clip, alpha );
 			
 			    return RET_CONTINUE;
 			}
@@ -3507,7 +3507,7 @@ namespace onscripter_csharp
 			
 			    SDL_Rect clip = new SDL_Rect(0, 0, SDL_Surface_get_w(screen_surface), SDL_Surface_get_h(screen_surface));
 			    bi.blendOnSurface2( accumulation_surface, bi.pos.x, bi.pos.y,
-			                        clip, 256 );
+			                        ref clip, 256 );
 			
 			    return RET_CONTINUE;
 			}

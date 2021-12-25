@@ -308,7 +308,7 @@ namespace onscripter_csharp
 			
 			public void drawString( CharPtr str, byte[] color, Fontinfo info,
 			                                  bool flush_flag, SDL_Surface surface, 
-			                                  int abs_offset, ref SDL_Rect rect,
+			                                  int abs_offset, SDL_Rect rect,
 			                                  AnimationInfo cache_info, bool skip_whitespace_flag )
 			{
 				str = new CharPtr(str);
@@ -456,7 +456,7 @@ namespace onscripter_csharp
 			    if ( flush_flag )
 			        flush( refresh_window_text_mode, clipped_rect );
 			
-			    /*if ( rect )*/ rect = clipped_rect;
+			    if ( null!=rect ) rect.copy(clipped_rect);
 			}
 			
 			public void restoreTextBuffer()

@@ -73,6 +73,12 @@ namespace onscripter_csharp
 //			    reset();
 			}
 			
+			public Fontinfo(Fontinfo info)
+			{
+				//FIXME: added
+//				this.xxxxxx = xxxxxx
+			}
+			
 			public void reset()
 			{
 //			    tateyoko_mode = YOKO_MODE;

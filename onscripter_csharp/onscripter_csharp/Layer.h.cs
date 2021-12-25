@@ -49,12 +49,12 @@ namespace onscripter_csharp
 		public abstract class Layer
 		{
 		    public BaseReader reader;
-		    public AnimationInfo sprite_info, sprite;
+		    public AnimationInfo[] sprite_info; public AnimationInfo sprite;
 		    public int width, height;
 		
 		    ~Layer(){}
 		    
-		    public void setSpriteInfo( AnimationInfo sinfo, AnimationInfo anim ){
+		    public void setSpriteInfo( AnimationInfo[] sinfo, AnimationInfo anim ){
 		        sprite_info = sinfo;
 		        sprite = anim;
 		    }

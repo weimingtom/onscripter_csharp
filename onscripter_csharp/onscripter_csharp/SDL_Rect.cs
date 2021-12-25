@@ -31,5 +31,23 @@ namespace onscripter_csharp
 			this.w = w;
 			this.h = h;
 		}
+		
+		//FIXME:added
+		public SDL_Rect(SDL_Rect rect)
+		{
+			this.x = rect.x;
+			this.y = rect.y;
+			this.w = rect.w;
+			this.h = rect.h;			
+		}
+		
+		//FIXME:added
+		public void copy(SDL_Rect rect)
+		{
+			this.x = rect.x;
+			this.y = rect.y;
+			this.w = rect.w;
+			this.h = rect.h;			
+		}
 	}
 }
