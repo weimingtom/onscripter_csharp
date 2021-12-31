@@ -130,27 +130,27 @@ namespace onscripter_csharp
 //		    void setWidescreen();
 //		#endif
 //		    void setScaled();
-//		    inline void setStrict() { script_h.strict_warnings = true; }
+		    public void setStrict() { script_h.strict_warnings = true; }
 //		    void setGameIdentifier(const char *gameid);
 		    
 		    public const int PNG_MASK_AUTODETECT    = 0;
 		    public const int PNG_MASK_USE_ALPHA     = 1;
 		    public const int PNG_MASK_USE_NSCRIPTER = 2;
 		    
-//		    inline void setMaskType( int mask_type ) { png_mask_type = mask_type; }
+		    public void setMaskType( int mask_type ) { png_mask_type = mask_type; }
 		    public void setEnglishDefault()
 		        { script_h.default_script = ScriptHandler.LanguageScript.LATIN_SCRIPT; }
 //		    inline void setJapaneseDefault()
 //		        { script_h.default_script = ScriptHandler::JAPANESE_SCRIPT; }
-//		    inline void setEnglishPreferred()
-//		        { script_h.preferred_script = ScriptHandler::LATIN_SCRIPT; }
-//		    inline void setJapanesePreferred()
-//		        { script_h.preferred_script = ScriptHandler::JAPANESE_SCRIPT; }
+		    public void setEnglishPreferred()
+		        { script_h.preferred_script = ScriptHandler.LanguageScript.LATIN_SCRIPT; }
+		    public void setJapanesePreferred()
+		        { script_h.preferred_script = ScriptHandler.LanguageScript.JAPANESE_SCRIPT; }
 		    public void setEnglishMenu()
 		        { script_h.system_menu_script = ScriptHandler.LanguageScript.LATIN_SCRIPT; }
-//		    inline void setJapaneseMenu()
-//		        { script_h.system_menu_script = ScriptHandler::JAPANESE_SCRIPT; }
-//		
+		    public void setJapaneseMenu()
+		        { script_h.system_menu_script = ScriptHandler.LanguageScript.JAPANESE_SCRIPT; }
+		
 //		    int  init();
 //		    void runEventLoop();
 //		

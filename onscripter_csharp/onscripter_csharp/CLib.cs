@@ -140,7 +140,11 @@ namespace onscripter_csharp
 		{
 			return null;
 		}
-		
+		public static int feof(FILEPtr fp)
+		{
+			return 0;
+		}
+			
 		public static int fgetc(FILEPtr fp)
 		{
 			return 0;
