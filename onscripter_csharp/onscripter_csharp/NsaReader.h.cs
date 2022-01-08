@@ -47,12 +47,12 @@ namespace onscripter_csharp
 		//#define __NSA_READER_H__
 		
 //		#include "SarReader.h"
-//		#define MAX_EXTRA_ARCHIVE 9
-//		#define MAX_NS2_ARCHIVE_NUM 99
-//		#define MAX_NS2_ARCHIVE 100
-//		
-//		class NsaReader : public SarReader
-//		{
+		private const int MAX_EXTRA_ARCHIVE = 9;
+		private const int MAX_NS2_ARCHIVE_NUM = 99;
+		private const int MAX_NS2_ARCHIVE = 100;
+		
+		public partial class NsaReader : SarReader
+		{
 //		public:
 //		    NsaReader( DirPaths &path, int nsaoffset = 0, const unsigned char *key_table=NULL );
 //		    ~NsaReader();
@@ -75,18 +75,36 @@ namespace onscripter_csharp
 //		    size_t putFile( FILE *fp, int no, size_t offset, size_t length, size_t original_length, int compression_type, bool modified_flag, unsigned char *buffer );
 //		#endif
 //		private:
-//		    bool sar_flag;
-//		    int nsa_offset;
-//		    int num_of_nsa_archives;
-//		    int num_of_ns2_archives;
-//		    const char *nsa_archive_ext;
-//		    const char *ns2_archive_ext;
-//		    struct ArchiveInfo archive_info_nsa; // for the arc.nsa file
-//		    struct ArchiveInfo archive_info2[MAX_EXTRA_ARCHIVE]; // for the arc1.nsa, arc2.nsa files
-//		    struct ArchiveInfo archive_info_ns2[MAX_NS2_ARCHIVE]; // for the ##.ns2 files
-//		
+		    public bool sar_flag;
+		    public int nsa_offset;
+		    public int num_of_nsa_archives;
+		    public int num_of_ns2_archives;
+		    public CharPtr nsa_archive_ext;
+		    public CharPtr ns2_archive_ext;
+		    public ArchiveInfo archive_info_nsa = new ArchiveInfo(); // for the arc.nsa file
+		    public ArchiveInfo[] archive_info2 = archive_info2_init(); //[MAX_EXTRA_ARCHIVE]; // for the arc1.nsa, arc2.nsa files
+		    private static ArchiveInfo[] archive_info2_init()
+		    {
+		    	ArchiveInfo[] result = new ArchiveInfo[MAX_EXTRA_ARCHIVE];
+		    	for (int i = 0; i < result.Length; ++i)
+		    	{
+		    		result[i] = new ArchiveInfo();
+		    	}
+		    	return result;
+		    }
+		    public ArchiveInfo[] archive_info_ns2 = archive_info_ns2_init(); //[MAX_NS2_ARCHIVE]; // for the ##.ns2 files
+		    private static ArchiveInfo[] archive_info_ns2_init()
+		    {
+		    	ArchiveInfo[] result = new ArchiveInfo[MAX_NS2_ARCHIVE];
+		    	for (int i = 0; i < result.Length; ++i)
+		    	{
+		    		result[i] = new ArchiveInfo();
+		    	}
+		    	return result;
+		    }
+		    
 //		    size_t getFileLengthSub( ArchiveInfo *ai, const char *file_name );
-//		};
+		}
 		
 		//#endif // __NSA_READER_H__
 	}

@@ -757,6 +757,17 @@ namespace onscripter_csharp
 //			
 //			    return length;
 			}
+			
+			public uint DirectReader_getFile( CharPtr file_name, UnsignedCharPtr buffer,
+			                              ref int location, bool is_location_null=true )
+			{
+				return this.getFile(file_name, buffer, ref location, is_location_null);
+			}
+			
+			public uint DirectReader_getFileLength(CharPtr file_name)
+			{
+				return this.getFileLength(file_name);
+			}
 		}
 	}
 }

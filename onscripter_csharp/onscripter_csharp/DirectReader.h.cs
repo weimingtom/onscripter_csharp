@@ -78,7 +78,7 @@ namespace onscripter_csharp
 		    public CharPtr capital_name;
 		    public CharPtr capital_name_tmp;
 		
-//		    DirPaths *archive_path;
+		    public DirPaths archive_path;
 			public UnsignedCharPtr key_table = new UnsignedCharPtr(new byte[256]);
 		    public bool key_table_flag;
 //		    int  getbit_mask;

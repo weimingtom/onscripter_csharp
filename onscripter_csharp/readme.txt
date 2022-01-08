@@ -12,3 +12,9 @@ xx f(CharPtr x)
 	...
 }
 
+---------
+
+def TOOLS_BUILD
+
+--------
+
