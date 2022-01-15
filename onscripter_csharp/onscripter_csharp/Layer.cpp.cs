@@ -63,12 +63,12 @@ namespace onscripter_csharp
 //		#define AMASK 0xff000000
 //		
 //		#define MAX_SPRITE_NUM 1000
-//		
-//		inline static void drawTaggedSurface( SDL_Surface *dst_surface, AnimationInfo *anim, SDL_Rect &clip )
-//		{
-//		        anim->blendOnSurface( dst_surface, anim->pos.x, anim->pos.y,
-//		                              clip, anim->trans );
-//		}
+		
+		private static void drawTaggedSurface( SDL_Surface dst_surface, AnimationInfo anim, ref SDL_Rect clip )
+		{
+		        anim.blendOnSurface( dst_surface, anim.pos.x, anim.pos.y,
+		                              ref clip, anim.trans );
+		}
 		
 //		#ifndef BPP16 //not supporting 16bpp for "oldmovie" yet
 		/*
@@ -831,38 +831,38 @@ namespace onscripter_csharp
 			
 			public override void refresh(SDL_Surface surface, ref SDL_Rect clip)
 			{
-//			    if (initialized) {
-//			        const int virt_w = width + max_sp_w;
-//			        for (int j=0; j<N_FURU_ELEMENTS; j++) {
-//			            Element *cur = &elements[j];
-//			            if (cur->sprite) {
-//			                cur->sprite->visible = true;
-//			                const int n = (cur->pend - cur->pstart + FURU_ELEMENT_BUFSIZE) % FURU_ELEMENT_BUFSIZE;
-//			                int p = cur->pstart;
-//			                if (amplitude == 0) {
-//			                    //no need to mess with angles if no displacement
-//			                    for (int i=n; i>0; i--) {
-//			                        OscPt *curpt = &cur->points[p];
-//			                        ++p %= FURU_ELEMENT_BUFSIZE;
-//			                        cur->sprite->current_cell = curpt->pt.cell;
-//			                        cur->sprite->pos.x = ((curpt->pt.x + virt_w) % virt_w) - max_sp_w;
-//			                        cur->sprite->pos.y = curpt->pt.y;
-//			                        drawTaggedSurface( surface, cur->sprite, clip );
-//			                    }
-//			                } else {
-//			                    for (int i=n; i>0; i--) {
-//			                        OscPt *curpt = &cur->points[p];
-//			                        ++p %= FURU_ELEMENT_BUFSIZE;
-//			                        const int disp_angle = (angle + curpt->base_angle + FURU_AMP_TABLE_SIZE) % FURU_AMP_TABLE_SIZE;
-//			                        cur->sprite->current_cell = curpt->pt.cell;
-//			                        cur->sprite->pos.x = ((curpt->pt.x + cur->amp_table[disp_angle] + virt_w) % virt_w) - max_sp_w;
-//			                        cur->sprite->pos.y = curpt->pt.y;
-//			                        drawTaggedSurface( surface, cur->sprite, clip );
-//			                    }
-//			                }
-//			            }
-//			        }
-//			    }
+			    if (initialized) {
+			        int virt_w = width + max_sp_w;
+			        for (int j=0; j<N_FURU_ELEMENTS; j++) {
+			            Element cur = elements[j];
+			            if (null!=cur.sprite) {
+			                cur.sprite.visible = true;
+			                int n = (cur.pend - cur.pstart + FURU_ELEMENT_BUFSIZE) % FURU_ELEMENT_BUFSIZE;
+			                int p = cur.pstart;
+			                if (amplitude == 0) {
+			                    //no need to mess with angles if no displacement
+			                    for (int i=n; i>0; i--) {
+			                        OscPt curpt = cur.points[p];
+			                        ++p; p %= FURU_ELEMENT_BUFSIZE;
+			                        cur.sprite.current_cell = curpt.pt.cell;
+			                        cur.sprite.pos.x = ((curpt.pt.x + virt_w) % virt_w) - max_sp_w;
+			                        cur.sprite.pos.y = curpt.pt.y;
+			                        drawTaggedSurface( surface, cur.sprite, ref clip );
+			                    }
+			                } else {
+			                    for (int i=n; i>0; i--) {
+			                        OscPt curpt = cur.points[p];
+			                        ++p; p %= FURU_ELEMENT_BUFSIZE;
+			                        int disp_angle = (angle + curpt.base_angle + FURU_AMP_TABLE_SIZE) % FURU_AMP_TABLE_SIZE;
+			                        cur.sprite.current_cell = curpt.pt.cell;
+			                        cur.sprite.pos.x = ((curpt.pt.x + cur.amp_table[disp_angle] + virt_w) % virt_w) - max_sp_w;
+			                        cur.sprite.pos.y = curpt.pt.y;
+			                        drawTaggedSurface( surface, cur.sprite, ref clip );
+			                    }
+			                }
+			            }
+			        }
+			    }
 			}
 		}
 		

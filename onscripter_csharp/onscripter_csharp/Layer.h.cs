@@ -44,7 +44,7 @@ namespace onscripter_csharp
 		
 		//#ifndef NO_LAYER_EFFECTS
 		
-		//struct Pt { int x; int y; int type; int cell; };
+		public class Pt { public int x; public int y; public int type; public int cell; };
 		
 		public abstract class Layer
 		{
@@ -95,14 +95,14 @@ namespace onscripter_csharp
 //		    //void BlendOnSurface(SDL_Surface* src, SDL_Surface* dst, SDL_Rect clip);
 //		};
 //		#endif //BPP16
-//		
-//		#define N_FURU_ELEMENTS 3
-//		#define FURU_ELEMENT_BUFSIZE 512 // should be a power of 2
-//		#define FURU_AMP_TABLE_SIZE 256 // should also be power of 2, it helps
-//		
-//		// FuruLayer: emulation of Takashi Toyama's "snow.dll" and "hana.dll" NScripter plugin filters
-//		class FuruLayer : public Layer
-//		{
+		
+		public const int N_FURU_ELEMENTS = 3;
+		public const int FURU_ELEMENT_BUFSIZE = 512; // should be a power of 2
+		public const int FURU_AMP_TABLE_SIZE = 256; // should also be power of 2, it helps
+		
+		// FuruLayer: emulation of Takashi Toyama's "snow.dll" and "hana.dll" NScripter plugin filters
+		public partial class FuruLayer : Layer
+		{
 //		public:
 //		    FuruLayer( int w, int h, bool animated, BaseReader *br=NULL );
 //		    ~FuruLayer();
@@ -117,59 +117,68 @@ namespace onscripter_csharp
 //		    int interval; // 1 ~ 10000; # frames between a new element release
 //		    int fall_velocity; // 1 ~ screen_height; pix/frame
 //		    int wind; // -screen_width/2 ~ screen_width/2; pix/frame 
-//		    int amplitude; // 0 ~ screen_width/2; pix/frame
-//		    int freq; // 0 ~ 359; degree/frame
-//		    int angle;
-//		    bool paused, halted;
-//		
-//		    struct OscPt { // point plus base oscillation angle
-//		        int base_angle;
-//		        Pt pt;
-//		    };
-//		    struct Element {
-//		        AnimationInfo *sprite;
-//		        int *amp_table;
-//		        // rolling buffer
-//		        OscPt *points;
-//		        int pstart, pend, frame_cnt, fall_speed;
-//		        Element(){
-//		            sprite = NULL;
-//		            amp_table = NULL;
-//		            points = NULL;
-//		            pstart = pend = frame_cnt = fall_speed = 0;
-//		        };
-//		        ~Element(){
-//		            if (sprite) delete sprite;
-//		            if (amp_table) delete[] amp_table;
-//		            if (points) delete[] points;
-//		        };
-//		        void init(){
-//		            if (!points) points = new OscPt[FURU_ELEMENT_BUFSIZE];
-//		            pstart = pend = frame_cnt = 0;
-//		        };
-//		        void clear(){
-//		            if (sprite) delete sprite;
-//		            sprite = NULL;
-//		            if (amp_table) delete[] amp_table;
-//		            amp_table = NULL;
-//		            if (points) delete[] points;
-//		            points = NULL;
-//		            pstart = pend = frame_cnt = 0;
-//		        };
-//		        void setSprite(AnimationInfo *anim){
-//		            if (sprite) delete sprite;
-//		            sprite = anim;
-//		        };
-//		    } elements[N_FURU_ELEMENTS];
-//		    int max_sp_w;
-//		
-//		    bool initialized;
-//		
+		    public int amplitude; // 0 ~ screen_width/2; pix/frame
+		    public int freq; // 0 ~ 359; degree/frame
+		    public int angle;
+		    public bool paused, halted;
+		
+		    public class OscPt { // point plus base oscillation angle
+		        public int base_angle;
+		        public Pt pt = new Pt();
+		    }
+		    public class Element {
+		        public AnimationInfo sprite;
+		        public int[] amp_table;
+		        // rolling buffer
+		        public OscPt[] points;
+		        public int pstart, pend, frame_cnt, fall_speed;
+		        public Element(){
+		            sprite = null;
+		            amp_table = null;
+		            points = null;
+		            pstart = pend = frame_cnt = fall_speed = 0;
+		        }
+		        ~Element(){
+		            if (null!=sprite) sprite = null;//delete sprite;
+		            if (null!=amp_table) amp_table = null;//delete[] amp_table;
+		            if (null!=points) points = null;//delete[] points;
+		        }
+		        public void init(){
+		            if (null==points) points = new OscPt[FURU_ELEMENT_BUFSIZE];
+		            pstart = pend = frame_cnt = 0;
+		        }
+		        public void clear(){
+		            if (null!=sprite) sprite = null;//delete sprite;
+		            sprite = null;
+		            if (null!=amp_table) amp_table = null;//delete[] amp_table;
+		            amp_table = null;
+		            if (null!=points) points = null;//delete[] points;
+		            points = null;
+		            pstart = pend = frame_cnt = 0;
+		        }
+		        public void setSprite(AnimationInfo anim){
+		            if (null!=sprite) sprite = null;//delete sprite;
+		            sprite = anim;
+		        }
+			}
+			public Element[] elements = elements_init();
+			private static Element[] elements_init() {
+				Element[] result = new Element[N_FURU_ELEMENTS];
+				for (int i = 0; i < result.Length; ++i)
+				{
+					result[i] = new Element();
+				}
+				return result;
+			}
+		    public int max_sp_w;
+		
+		    public bool initialized;
+		
 //		    void furu_init();
 //		    void validate_params();
 //		    void buildAmpTables();
-//		};
-//		
+		}
+		
 //		#endif //ndef NO_LAYER_EFFECTS
 //		
 //		#endif // __LAYER_H__
