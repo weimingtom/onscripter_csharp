@@ -65,6 +65,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static CharPtr sscanf(CharPtr dst, string str, params Object[] args)
+		{
+			return null;
+		}
 		
 		public static int strcmp(CharPtr s1, CharPtr s2)
 		{

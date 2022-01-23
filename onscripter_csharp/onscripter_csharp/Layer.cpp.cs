@@ -484,349 +484,351 @@ namespace onscripter_csharp
 		 * C++ coding by Mion, Sep 2008
 		 */
 		public partial class FuruLayer : Layer {
-//			#define FURU_RATE_COEF 0.2
-//			
-//			static float *base_disp_table = NULL;
-//			static int furu_count = 0;
-//			static const float fall_mult[N_FURU_ELEMENTS] = {0.9, 0.7, 0.6};
-//			
-//			static void buildBaseDispTable()
-//			{
-//			    if (base_disp_table) return;
-//			
-//			    base_disp_table = new float[FURU_AMP_TABLE_SIZE];
-//			    // a = sin? * Z(cos?)
-//			    // Z(z) = rate_z * z +1
-//			    for (int i=0; i<FURU_AMP_TABLE_SIZE; ++i) {
-//			        float rad = (float) i * M_PI * 2 / FURU_AMP_TABLE_SIZE;
-//			        base_disp_table[i] = sin(rad) * (FURU_RATE_COEF * cos(rad) + 1);
-//			    }
-//			}
+			private const double FURU_RATE_COEF = 0.2;
+			
+			static float[] base_disp_table = null;
+			static int furu_count = 0;
+			static float[] fall_mult = new float[N_FURU_ELEMENTS]{0.9f, 0.7f, 0.6f};
+			
+			static void buildBaseDispTable()
+			{
+			    if (null!=base_disp_table) return;
+			
+			    base_disp_table = new float[FURU_AMP_TABLE_SIZE];
+			    // a = sin? * Z(cos?)
+			    // Z(z) = rate_z * z +1
+			    for (int i=0; i<FURU_AMP_TABLE_SIZE; ++i) {
+			    	float rad = (float)((float) i * M_PI * 2 / FURU_AMP_TABLE_SIZE);
+			    	base_disp_table[i] = (float)(sin(rad) * (FURU_RATE_COEF * cos(rad) + 1));
+			    }
+			}
 			
 			public FuruLayer( int w, int h, bool animated, BaseReader br )
 			{
-//			    width = w;
-//			    height = h;
-//			    tumbling = animated;
-//			    reader = br;
-//			
-//			    interval = fall_velocity = wind = amplitude = freq = angle = 0;
-//			    paused = halted = false;
-//			    max_sp_w = 0;
-//			    
-//			    initialized = false;
+			    width = w;
+			    height = h;
+			    tumbling = animated;
+			    reader = br;
+			
+			    interval = fall_velocity = wind = amplitude = freq = angle = 0;
+			    paused = halted = false;
+			    max_sp_w = 0;
+			    
+			    initialized = false;
 			}
 			
-//			FuruLayer::~FuruLayer(){
-//			    if (initialized) {
-//			        --furu_count;
-//			        if (furu_count == 0) {
-//			            delete[] base_disp_table;
-//			            base_disp_table = NULL;
-//			        }
-//			    }
-//			}
+			~FuruLayer(){
+			    if (initialized) {
+			        --furu_count;
+			        if (furu_count == 0) {
+			            //delete[] base_disp_table;
+			            base_disp_table = null;
+			        }
+			    }
+			}
 			
 			public void furu_init()
 			{
-//			    for (int i=0; i<N_FURU_ELEMENTS; i++) {
-//			        elements[i].init();
-//			    }
-//			    angle = 0;
-//			    halted = false;
-//			    paused = false;
-//			
-//			    buildBaseDispTable();
-//			
-//			    ++furu_count;
-//			    initialized = true;
+			    for (int i=0; i<N_FURU_ELEMENTS; i++) {
+			        elements[i].init();
+			    }
+			    angle = 0;
+			    halted = false;
+			    paused = false;
+			
+			    buildBaseDispTable();
+			
+			    ++furu_count;
+			    initialized = true;
 			}
 			
 			public override void update()
 			{
-//			    if (initialized && !paused) {
-//			        if (amplitude != 0)
-//			            angle = (angle - freq + FURU_AMP_TABLE_SIZE) % FURU_AMP_TABLE_SIZE;
-//			        for (int j=0; j<N_FURU_ELEMENTS; ++j) {
-//			            Element *cur = &elements[j];
-//			            int i = cur->pstart;
-//			            const int virt_w = width + max_sp_w;
-//			            while (i != cur->pend) {
-//			                cur->points[i].pt.x = (cur->points[i].pt.x + wind + virt_w) % virt_w;
-//			                cur->points[i].pt.y += cur->fall_speed;
-//			                ++(cur->points[i].pt.cell) %= cur->sprite->num_of_cells;
-//			                ++i %= FURU_ELEMENT_BUFSIZE;
-//			            }
-//			            if (!halted) {
-//			                if (--(cur->frame_cnt) <= 0) {
-//			                    const int tmp = (cur->pend + 1) % FURU_ELEMENT_BUFSIZE;
-//			                    cur->frame_cnt += interval;
-//			                    if (tmp != cur->pstart) {
-//			                        // add a point for this element
-//			                        OscPt *item = &cur->points[cur->pend];
-//			                        item->pt.x = rand() % virt_w;
-//			                        item->pt.y = -(cur->sprite->pos.h);
-//			                        item->pt.type = j;
-//			                        item->pt.cell = 0;
-//			                        item->base_angle = rand() % FURU_AMP_TABLE_SIZE;
-//			                        cur->pend = tmp;
-//			                    }
-//			                }
-//			            }
-//			            while ((cur->pstart != cur->pend) &&
-//			                   (cur->points[cur->pstart].pt.y >= height))
-//			                ++(cur->pstart) %= FURU_ELEMENT_BUFSIZE;
-//			        }
-//			    }
+			    if (initialized && !paused) {
+			        if (amplitude != 0)
+			            angle = (angle - freq + FURU_AMP_TABLE_SIZE) % FURU_AMP_TABLE_SIZE;
+			        for (int j=0; j<N_FURU_ELEMENTS; ++j) {
+			            Element cur = elements[j];
+			            int i = cur.pstart;
+			            int virt_w = width + max_sp_w;
+			            while (i != cur.pend) {
+			                cur.points[i].pt.x = (cur.points[i].pt.x + wind + virt_w) % virt_w;
+			                cur.points[i].pt.y += cur.fall_speed;
+			                ++(cur.points[i].pt.cell); cur.points[i].pt.cell %= cur.sprite.num_of_cells;
+			                ++i; i %= FURU_ELEMENT_BUFSIZE;
+			            }
+			            if (!halted) {
+			                if (--(cur.frame_cnt) <= 0) {
+			                    int tmp = (cur.pend + 1) % FURU_ELEMENT_BUFSIZE;
+			                    cur.frame_cnt += interval;
+			                    if (tmp != cur.pstart) {
+			                        // add a point for this element
+			                        OscPt item = cur.points[cur.pend];
+			                        item.pt.x = rand() % virt_w;
+			                        item.pt.y = -(cur.sprite.pos.h);
+			                        item.pt.type = j;
+			                        item.pt.cell = 0;
+			                        item.base_angle = rand() % FURU_AMP_TABLE_SIZE;
+			                        cur.pend = tmp;
+			                    }
+			                }
+			            }
+			            while ((cur.pstart != cur.pend) &&
+			                   (cur.points[cur.pstart].pt.y >= height))
+			                ++(cur.pstart); cur.pstart %= FURU_ELEMENT_BUFSIZE;
+			        }
+			    }
 			}
 			
 			public static void setStr( ref CharPtr dst, CharPtr src, int num=-1 )
 			{
-//			    if ( *dst ) delete[] *dst;
-//			    *dst = NULL;
-//			    
-//			    if ( src ){
-//			        if (num >= 0){
-//			            *dst = new char[ num + 1 ];
-//			            memcpy( *dst, src, num );
-//			            (*dst)[num] = '\0';
-//			        }
-//			        else{
-//			            *dst = new char[ strlen( src ) + 1];
-//			            strcpy( *dst, src );
-//			        }
-//			    }
+			    if ( null!=dst ) dst = null;//delete[] *dst;
+			    dst = null;
+			    
+			    if ( null!=src ){
+			        if (num >= 0){
+			            dst = new char[ num + 1 ];
+			            memcpy( dst, src, (uint)num );
+			            (dst)[num] = '\0';
+			        }
+			        else{
+			            dst = new char[ strlen( src ) + 1];
+			            strcpy( dst, src );
+			        }
+			    }
 			}
 			
 			public static SDL_Surface loadImage( CharPtr file_name, ref bool has_alpha, SDL_Surface surface, BaseReader br )
 			{
-				return null;
-//			    if ( !file_name ) return NULL;
-//			    unsigned long length = br->getFileLength( file_name );
-//			
-//			    if ( length == 0 )
-//			        return NULL;
-//			    unsigned char *buffer = new unsigned char[length];
-//			    int location;
-//			    br->getFile( file_name, buffer, &location );
-//			    SDL_Surface *tmp = IMG_Load_RW(SDL_RWFromMem( buffer, length ), 1);
-//			
-//			#if 0
-//			    char *ext = strrchr(file_name, '.');
-//			    if ( !tmp && ext && (!strcmp( ext+1, "JPG" ) || !strcmp( ext+1, "jpg" ) ) ){
-//			        fprintf( stderr, " *** force-loading a JPG image [%s]\n", file_name );
-//			        SDL_RWops *src = SDL_RWFromMem( buffer, length );
-//			        tmp = IMG_LoadJPG_RW(src);
-//			        SDL_RWclose(src);
-//			    }
-//			#endif
-//			    if ( tmp && has_alpha ) *has_alpha = SDL_Surface_get_format(tmp)->Amask;
-//			
-//			    delete[] buffer;
-//			    if ( !tmp ){
-//			        fprintf( stderr, " *** can't load file [%s] ***\n", file_name );
-//			        return NULL;
-//			    }
-//			
-//			    SDL_Surface *ret = SDL_ConvertSurface( tmp, SDL_Surface_get_format(surface), SDL_SWSURFACE );
-//			    SDL_FreeSurface( tmp );
-//			    return ret;
+				if ( null==file_name ) return null;
+			    ulong length = br.getFileLength( file_name );
+			
+			    if ( length == 0 )
+			        return null;
+			    UnsignedCharPtr buffer = new UnsignedCharPtr(new byte[length]);
+			    int location = 0;
+			    br.getFile( file_name, buffer, ref location );
+			    SDL_Surface tmp = IMG_Load_RW(SDL_RWFromMem( buffer, (int)length ), 1);
+			
+			#if false
+			    char *ext = strrchr(file_name, '.');
+			    if ( !tmp && ext && (!strcmp( ext+1, "JPG" ) || !strcmp( ext+1, "jpg" ) ) ){
+			        fprintf( stderr, " *** force-loading a JPG image [%s]\n", file_name );
+			        SDL_RWops *src = SDL_RWFromMem( buffer, length );
+			        tmp = IMG_LoadJPG_RW(src);
+			        SDL_RWclose(src);
+			    }
+			#endif
+			    if ( null!=tmp /*&& has_alpha*/ ) has_alpha = 0!=SDL_Surface_get_format(tmp).Amask;
+			
+			    buffer = null;//delete[] buffer;
+			    if ( null==tmp ){
+			        fprintf( stderr, " *** can't load file [%s] ***\n", file_name );
+			        return null;
+			    }
+			
+			    SDL_Surface ret = SDL_ConvertSurface( tmp, SDL_Surface_get_format(surface), SDL_SWSURFACE );
+			    SDL_FreeSurface( tmp );
+			    return ret;
 			}
 			
 			public void buildAmpTables()
 			{
-//			    float amp[N_FURU_ELEMENTS];
-//			    amp[0] = (float) amplitude;
-//			    for (int i=1; i<N_FURU_ELEMENTS; ++i)
-//			        amp[i] = amp[i-1] * 0.8;
-//			
-//			#ifdef _MSC_VER
-//				{
-//			#endif
-//			    for (int i=0; i<N_FURU_ELEMENTS; ++i) {
-//			        Element *cur = &elements[i];
-//			        if (!cur->amp_table)
-//			            cur->amp_table = new int[FURU_AMP_TABLE_SIZE];
-//			        for (int j=0; j<FURU_AMP_TABLE_SIZE; ++j)
-//			            cur->amp_table[j] = (int) (amp[i] * base_disp_table[j]);
-//			    }
-//			#ifdef _MSC_VER
-//				}
-//			#endif
+				float[] amp = new float[N_FURU_ELEMENTS];
+			    amp[0] = (float) amplitude;
+			    for (int i=1; i<N_FURU_ELEMENTS; ++i)
+			    	amp[i] = (float)(amp[i-1] * 0.8);
+			
+			#if _MSC_VER
+				{
+			#endif
+			    for (int i=0; i<N_FURU_ELEMENTS; ++i) {
+			        Element cur = elements[i];
+			        if (null==cur.amp_table)
+			            cur.amp_table = new int[FURU_AMP_TABLE_SIZE];
+			        for (int j=0; j<FURU_AMP_TABLE_SIZE; ++j)
+			            cur.amp_table[j] = (int) (amp[i] * base_disp_table[j]);
+			    }
+			#if _MSC_VER
+				}
+			#endif
 			}
 			
 			public void validate_params()
 			{
-//			    const int half_wx = width / 2;
-//			
-//			    if (interval < 1) interval = 1;
-//			    else if (interval > 10000) interval = 10000;
-//			    if (fall_velocity < 1) fall_velocity = 1;
-//			    else if (fall_velocity > height) fall_velocity = height;
-//			    for (int i=0; i<N_FURU_ELEMENTS; i++)
-//			        elements[i].fall_speed = (int)(fall_mult[i] * (fall_velocity+1));
-//			    if (wind < -half_wx) wind = -half_wx;
-//			    else if (wind > half_wx) wind = half_wx;
-//			    if (amplitude < 0) amplitude = 0;
-//			    else if (amplitude > half_wx) amplitude = half_wx;
-//			    if (amplitude != 0) buildAmpTables();
-//			    if (freq < 0) freq = 0;
-//			    else if (freq > 359) freq = 359;
-//			    //adjust the freq to range 0-FURU_AMP_TABLE_SIZE-1
-//			    freq = freq * FURU_AMP_TABLE_SIZE / 360;
+			    int half_wx = width / 2;
+			
+			    if (interval < 1) interval = 1;
+			    else if (interval > 10000) interval = 10000;
+			    if (fall_velocity < 1) fall_velocity = 1;
+			    else if (fall_velocity > height) fall_velocity = height;
+			    for (int i=0; i<N_FURU_ELEMENTS; i++)
+			        elements[i].fall_speed = (int)(fall_mult[i] * (fall_velocity+1));
+			    if (wind < -half_wx) wind = -half_wx;
+			    else if (wind > half_wx) wind = half_wx;
+			    if (amplitude < 0) amplitude = 0;
+			    else if (amplitude > half_wx) amplitude = half_wx;
+			    if (amplitude != 0) buildAmpTables();
+			    if (freq < 0) freq = 0;
+			    else if (freq > 359) freq = 359;
+			    //adjust the freq to range 0-FURU_AMP_TABLE_SIZE-1
+			    freq = freq * FURU_AMP_TABLE_SIZE / 360;
 			}
 			
 			public override CharPtr message( CharPtr message, ref int ret_int )
 			{
-				return null;
-//			    int num_cells[3], tmp[5];
-//			    char buf[3][128];
-//			
-//			    char *ret_str = NULL;
-//			    ret_int = 0;
-//			
-//			    if (!sprite)
-//			        return NULL;
-//			
-//			    //printf("FuruLayer: got message '%s'\n", message);
-//			//Image loading
-//			    if (!strncmp(message, "i|", 2)) {
-//			        max_sp_w = 0;
-//			        SDL_Surface *ref_surface = SDL_CreateRGBSurface( SDL_SWSURFACE, 1, 1, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000 );
-//			        if (tumbling) {
-//			        // "Hana"
-//			            if (sscanf(message, "i|%d,%d,%d,%d,%d,%d",
-//			                       &tmp[0], &num_cells[0],
-//			                       &tmp[1], &num_cells[1],
-//			                       &tmp[2], &num_cells[2])) {
-//			                for (int i=0; i<3; i++) {
-//			                    elements[i].setSprite(new AnimationInfo(sprite_info[tmp[i]]));
-//			                    elements[i].sprite->num_of_cells = num_cells[i];
-//			                    if (elements[i].sprite->pos.w > max_sp_w)
-//			                        max_sp_w = elements[i].sprite->pos.w;
-//			                }
-//			            } else
-//			            if (sscanf(message, "i|%120[^,],%d,%120[^,],%d,%120[^,],%d",
-//			                              &buf[0][0], &num_cells[0],
-//			                              &buf[1][0], &num_cells[1],
-//			                              &buf[2][0], &num_cells[2])) {
-//			                for (int i=0; i<3; i++) {
-//			                    bool has_alpha = false;
-//			                    SDL_Surface *img = loadImage( &buf[i][0], &has_alpha, ref_surface, reader );
-//			                    AnimationInfo *anim = new AnimationInfo();
-//			                    anim->num_of_cells = num_cells[i];
-//			                    anim->duration_list = new int[ anim->num_of_cells ];
-//			                    for (int j=anim->num_of_cells - 1; j>=0; --j )
-//			                        anim->duration_list[j] = 0;
-//			                    anim->loop_mode = 3; // not animatable
-//			                    anim->trans_mode = AnimationInfo::TRANS_TOPLEFT;
-//			                    setStr( &anim->file_name, &buf[i][0] );
-//			                    anim->setImage(anim->setupImageAlpha(img, NULL, has_alpha));
-//			                    elements[i].setSprite(anim);
-//			                    if (anim->pos.w > max_sp_w)
-//			                        max_sp_w = anim->pos.w;
-//			                }
-//			            }
-//			        } else {
-//			        // "Snow"
-//			            if (sscanf(message, "i|%d,%d,%d", 
-//			                       &tmp[0], &tmp[1], &tmp[2])) {
-//			                for (int i=0; i<3; i++) {
-//			                    elements[i].setSprite(new AnimationInfo(sprite_info[tmp[i]]));
-//			                    if (elements[i].sprite->pos.w > max_sp_w)
-//			                        max_sp_w = elements[i].sprite->pos.w;
-//			                }
-//			            } else if (sscanf(message, "i|%[^,],%[^,],%[^,]",
-//			                              &buf[0][0], &buf[1][0], &buf[2][0])) {
-//			                for (int i=0; i<3; i++) {
-//			                    Uint32 firstpix = 0;
-//			                    bool has_alpha = false;
-//			                    SDL_Surface *img = loadImage( &buf[i][0], &has_alpha, ref_surface, reader );
-//			                    AnimationInfo *anim = new AnimationInfo();
-//			                    anim->num_of_cells = 1;
-//			                    SDL_LockSurface( img );
-//			                    firstpix = *((Uint32*) SDL_Surface_get_pixels(img)) & ~AMASK;
-//			                    if (firstpix > 0) {
-//			                        anim->trans_mode = AnimationInfo::TRANS_TOPLEFT;
-//			                    } else {
-//			                        // if first pix is black, this is an "additive" sprite
-//			                        anim->trans_mode = AnimationInfo::TRANS_COPY;
-//			                        anim->blending_mode = AnimationInfo::BLEND_ADD;
-//			                    }
-//			                    SDL_UnlockSurface( img );
-//			                    setStr( &anim->file_name, &buf[i][0] );
-//			                    anim->setImage(anim->setupImageAlpha(img, NULL, has_alpha));
-//			                    elements[i].setSprite(anim);
-//			                    if (anim->pos.w > max_sp_w)
-//			                        max_sp_w = anim->pos.w;
-//			                }
-//			            }
-//			        }
-//			        SDL_FreeSurface(ref_surface);
-//			//Set Parameters
-//			    } else if (sscanf(message, "s|%d,%d,%d,%d,%d", 
-//			                      &interval, &fall_velocity, &wind, 
-//			                      &amplitude, &freq)) {
-//			        furu_init();
-//			        validate_params();
-//			//Transition (adjust) Parameters
-//			    } else if (sscanf(message, "t|%d,%d,%d,%d,%d", 
-//			                      &tmp[0], &tmp[1], &tmp[2], &tmp[3], &tmp[4])) {
-//			        interval += tmp[0];
-//			        fall_velocity += tmp[1];
-//			        wind += tmp[2];
-//			        amplitude += tmp[3];
-//			        freq += tmp[4];
-//			        validate_params();
-//			//Fill Screen w/Elements
-//			    } else if (!strcmp(message, "f")) {
-//			        if (initialized) {
-//			            for (int j=0; j<N_FURU_ELEMENTS; j++) {
-//			                Element *cur = &elements[j];
-//			                int y = 0;
-//			                while (y < height) {
-//			                    const int tmp = (cur->pend + 1) % FURU_ELEMENT_BUFSIZE;
-//			                    if (tmp != cur->pstart) {
-//			                    // add a point for each element
-//			                        OscPt *item = &cur->points[cur->pend];
-//			                        item->pt.x = rand() % (width + max_sp_w);
-//			                        item->pt.y = y;
-//			                        item->pt.type = j;
-//			                        item->pt.cell = rand() % cur->sprite->num_of_cells;
-//			                        item->base_angle = rand() % FURU_AMP_TABLE_SIZE;
-//			                        cur->pend = tmp;
-//			                    }
-//			                    y += interval * cur->fall_speed;
-//			                }
-//			            }
-//			        }
-//			//Get Parameters
-//			    } else if (!strcmp(message, "g")) {
-//			        ret_int = paused ? 1 : 0;
-//			        sprintf(&buf[0][0], "s|%d,%d,%d,%d,%d", interval, fall_velocity,
-//			                wind, amplitude, (freq * 360 / FURU_AMP_TABLE_SIZE));
-//			        setStr( &ret_str, &buf[0][0]);
-//			//Halt adding new elements
-//			    } else if (!strcmp(message, "h")) {
-//			        halted = true;
-//			//Get number of elements displayed
-//			    } else if (!strcmp(message, "n")) {
-//			        for (int i=0; i<N_FURU_ELEMENTS; i++)
-//			            ret_int += (elements[i].pend - elements[i].pstart + FURU_ELEMENT_BUFSIZE)
-//			                % FURU_ELEMENT_BUFSIZE;
-//			//Pause
-//			    } else if (!strcmp(message, "p")) {
-//			        paused = true;
-//			//Restart
-//			    } else if (!strcmp(message, "r")) {
-//			        paused = false;
-//			//eXtinguish
-//			    } else if (!strcmp(message, "x")) {
-//			        for (int i=0; i<N_FURU_ELEMENTS; i++)
-//			            elements[i].clear();
-//			        initialized = false;
-//			    }
-//			    return ret_str;
+				int[] num_cells = new int[3], tmp = new int[5];
+				char[][] buf = new char[3][];
+				for (int i = 0; i < buf.Length; ++i)
+				{
+					buf[i] = new char[128];
+				}
+			
+			    CharPtr ret_str = null;
+			    ret_int = 0;
+			
+			    if (null==sprite)
+			        return null;
+			
+			    //printf("FuruLayer: got message '%s'\n", message);
+			//Image loading
+			    if (0==strncmp(message, "i|", 2)) {
+			        max_sp_w = 0;
+			        SDL_Surface ref_surface = SDL_CreateRGBSurface( SDL_SWSURFACE, 1, 1, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000 );
+			        if (tumbling) {
+			        // "Hana"
+			            if (null!=sscanf(message, "i|%d,%d,%d,%d,%d,%d",
+			                       tmp[0], num_cells[0],
+			                       tmp[1], num_cells[1],
+			                       tmp[2], num_cells[2])) {
+			                for (int i=0; i<3; i++) {
+			                    elements[i].setSprite(new AnimationInfo(sprite_info[tmp[i]]));
+			                    elements[i].sprite.num_of_cells = num_cells[i];
+			                    if (elements[i].sprite.pos.w > max_sp_w)
+			                        max_sp_w = elements[i].sprite.pos.w;
+			                }
+			            } else
+			            if (null!=sscanf(message, "i|%120[^,],%d,%120[^,],%d,%120[^,],%d",
+			        	                  new CharPtr(buf[0], 0), num_cells[0],
+			                              new CharPtr(buf[1], 0), num_cells[1],
+			                              new CharPtr(buf[2], 0), num_cells[2])) {
+			                for (int i=0; i<3; i++) {
+			                    bool has_alpha = false;
+			                    SDL_Surface img = loadImage( new CharPtr(buf[i], 0), ref has_alpha, ref_surface, reader );
+			                    AnimationInfo anim = new AnimationInfo();
+			                    anim.num_of_cells = num_cells[i];
+			                    anim.duration_list = new int[ anim.num_of_cells ];
+			                    for (int j=anim.num_of_cells - 1; j>=0; --j )
+			                        anim.duration_list[j] = 0;
+			                    anim.loop_mode = 3; // not animatable
+			                    anim.trans_mode = AnimationInfo.TRANS_TOPLEFT;
+			                    setStr( ref anim.file_name, new CharPtr(buf[i], 0) );
+			                    anim.setImage(anim.setupImageAlpha(img, null, has_alpha));
+			                    elements[i].setSprite(anim);
+			                    if (anim.pos.w > max_sp_w)
+			                        max_sp_w = anim.pos.w;
+			                }
+			            }
+			        } else {
+			        // "Snow"
+			            if (null!=sscanf(message, "i|%d,%d,%d", 
+			                       tmp[0], tmp[1], tmp[2])) {
+			                for (int i=0; i<3; i++) {
+			                    elements[i].setSprite(new AnimationInfo(sprite_info[tmp[i]]));
+			                    if (elements[i].sprite.pos.w > max_sp_w)
+			                        max_sp_w = elements[i].sprite.pos.w;
+			                }
+			            } else if (null!=sscanf(message, "i|%[^,],%[^,],%[^,]",
+			                          new CharPtr(buf[0], 0), new CharPtr(buf[1], 0), new CharPtr(buf[2], 0))) {
+			                for (int i=0; i<3; i++) {
+			                    UInt32 firstpix = 0;
+			                    bool has_alpha = false;
+			                    SDL_Surface img = loadImage( new CharPtr(buf[i], 0), ref has_alpha, ref_surface, reader );
+			                    AnimationInfo anim = new AnimationInfo();
+			                    anim.num_of_cells = 1;
+			                    SDL_LockSurface( img );
+			                    firstpix = (new Uint32Ptr(SDL_Surface_get_pixels(img)))[0] & ~AMASK;
+			                    if (firstpix > 0) {
+			                        anim.trans_mode = AnimationInfo.TRANS_TOPLEFT;
+			                    } else {
+			                        // if first pix is black, this is an "additive" sprite
+			                        anim.trans_mode = AnimationInfo.TRANS_COPY;
+			                        anim.blending_mode = AnimationInfo.BLEND_ADD;
+			                    }
+			                    SDL_UnlockSurface( img );
+			                    setStr( ref anim.file_name, new CharPtr(buf[i], 0) );
+			                    anim.setImage(anim.setupImageAlpha(img, null, has_alpha));
+			                    elements[i].setSprite(anim);
+			                    if (anim.pos.w > max_sp_w)
+			                        max_sp_w = anim.pos.w;
+			                }
+			            }
+			        }
+			        SDL_FreeSurface(ref_surface);
+			//Set Parameters
+			    } else if (null!=sscanf(message, "s|%d,%d,%d,%d,%d", 
+			                      interval, fall_velocity, wind, 
+			                      amplitude, freq)) {
+			        furu_init();
+			        validate_params();
+			//Transition (adjust) Parameters
+			    } else if (null!=sscanf(message, "t|%d,%d,%d,%d,%d", 
+			                      tmp[0], tmp[1], tmp[2], tmp[3], tmp[4])) {
+			        interval += tmp[0];
+			        fall_velocity += tmp[1];
+			        wind += tmp[2];
+			        amplitude += tmp[3];
+			        freq += tmp[4];
+			        validate_params();
+			//Fill Screen w/Elements
+			    } else if (0==strcmp(message, "f")) {
+			        if (initialized) {
+			            for (int j=0; j<N_FURU_ELEMENTS; j++) {
+			                Element cur = elements[j];
+			                int y = 0;
+			                while (y < height) {
+			                    int tmp_ = (cur.pend + 1) % FURU_ELEMENT_BUFSIZE;
+			                    if (tmp_ != cur.pstart) {
+			                    // add a point for each element
+			                        OscPt item = cur.points[cur.pend];
+			                        item.pt.x = rand() % (width + max_sp_w);
+			                        item.pt.y = y;
+			                        item.pt.type = j;
+			                        item.pt.cell = rand() % cur.sprite.num_of_cells;
+			                        item.base_angle = rand() % FURU_AMP_TABLE_SIZE;
+			                        cur.pend = tmp_;
+			                    }
+			                    y += interval * cur.fall_speed;
+			                }
+			            }
+			        }
+			//Get Parameters
+			    } else if (0==strcmp(message, "g")) {
+			        ret_int = paused ? 1 : 0;
+			        sprintf(new CharPtr(buf[0], 0), "s|%d,%d,%d,%d,%d", interval, fall_velocity,
+			                wind, amplitude, (freq * 360 / FURU_AMP_TABLE_SIZE));
+			        setStr( ref ret_str, new CharPtr(buf[0], 0));
+			//Halt adding new elements
+			    } else if (0==strcmp(message, "h")) {
+			        halted = true;
+			//Get number of elements displayed
+			    } else if (0==strcmp(message, "n")) {
+			        for (int i=0; i<N_FURU_ELEMENTS; i++)
+			            ret_int += (elements[i].pend - elements[i].pstart + FURU_ELEMENT_BUFSIZE)
+			                % FURU_ELEMENT_BUFSIZE;
+			//Pause
+			    } else if (0==strcmp(message, "p")) {
+			        paused = true;
+			//Restart
+			    } else if (0==strcmp(message, "r")) {
+			        paused = false;
+			//eXtinguish
+			    } else if (0==strcmp(message, "x")) {
+			        for (int i=0; i<N_FURU_ELEMENTS; i++)
+			            elements[i].clear();
+			        initialized = false;
+			    }
+			    return ret_str;
 			}
 			
 			public override void refresh(SDL_Surface surface, ref SDL_Rect clip)

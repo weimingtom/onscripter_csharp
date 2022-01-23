@@ -111,12 +111,12 @@ namespace onscripter_csharp
 //		    void refresh( SDL_Surface* surface, SDL_Rect &clip );
 //		
 //		private:
-//		    bool tumbling; // true (hana) or false (snow)
-//		
-//		    // message parameters
-//		    int interval; // 1 ~ 10000; # frames between a new element release
-//		    int fall_velocity; // 1 ~ screen_height; pix/frame
-//		    int wind; // -screen_width/2 ~ screen_width/2; pix/frame 
+		    public bool tumbling; // true (hana) or false (snow)
+		
+		    // message parameters
+		    public int interval; // 1 ~ 10000; # frames between a new element release
+		    public int fall_velocity; // 1 ~ screen_height; pix/frame
+		    public int wind; // -screen_width/2 ~ screen_width/2; pix/frame 
 		    public int amplitude; // 0 ~ screen_width/2; pix/frame
 		    public int freq; // 0 ~ 359; degree/frame
 		    public int angle;
