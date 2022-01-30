@@ -341,6 +341,13 @@ namespace onscripter_csharp
 			return null;
 		}
 		
+		public static UInt32 SDL_MapRGB(SDL_PixelFormat format, 
+		                                       byte r, 
+		                                       byte g, 
+		                                       byte b)
+		{
+			return 0;
+		}
 		public static SDL_PixelFormat SDL_Surface_get_format(SDL_Surface surface)
 		{
 			return null;
@@ -709,6 +716,11 @@ namespace onscripter_csharp
 		public static SDL_Surface SDL_SetVideoMode(int width, int height, int bpp, UInt32 flags)
 		{
 			return null;
+		}
+		
+		public static double floor(double x)
+		{
+			return (double)Math.Floor(x);
 		}
 	}
 }

@@ -65,35 +65,35 @@ namespace onscripter_csharp
 //		
 //		#ifndef BPP16
 //		// OldMovieLayer: emulation of Takashi Toyama's "oldmovie.dll" NScripter plugin filter
-//		class OldMovieLayer : public Layer
-//		{
+		public partial class OldMovieLayer : Layer
+		{
 //		public:
 //		    OldMovieLayer( int w, int h );
 //		    ~OldMovieLayer();
 //		    void update();
 //		    char* message( const char *message, int &ret_int );
 //		    void refresh( SDL_Surface* surface, SDL_Rect &clip );
-//		
+		
 //		private:
 //		    // message parameters
-//		    int blur_level;
-//		    int noise_level;
-//		    int glow_level;
-//		    int scratch_level;
-//		    int dust_level;
-//		    AnimationInfo *dust_sprite;
-//		    AnimationInfo *dust;
-//		
-//		    Pt *dust_pts;
-//		    int rx, ry, // Offset of blur (second copy of background image)
-//		        ns;     // Current noise surface
-//		    int gv, // Current glow level
-//		        go; // Glow delta: flips between 1 and -1 to fade the glow in and out.
-//		    bool initialized;
-//		
+		    public int blur_level;
+		    public int noise_level;
+		    public int glow_level;
+		    public int scratch_level;
+		    public int dust_level;
+		    public AnimationInfo dust_sprite;
+		    public AnimationInfo dust;
+		
+		    public Pt[] dust_pts;
+		    public int rx, ry, // Offset of blur (second copy of background image)
+		        ns;     // Current noise surface
+		    public int gv, // Current glow level
+		        go; // Glow delta: flips between 1 and -1 to fade the glow in and out.
+		    public bool initialized;
+		
 //		    void om_init();
-//		    //void BlendOnSurface(SDL_Surface* src, SDL_Surface* dst, SDL_Rect clip);
-//		};
+		    //void BlendOnSurface(SDL_Surface* src, SDL_Surface* dst, SDL_Rect clip);
+		};
 //		#endif //BPP16
 		
 		public const int N_FURU_ELEMENTS = 3;

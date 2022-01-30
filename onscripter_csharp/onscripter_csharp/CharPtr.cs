@@ -53,6 +53,10 @@ namespace onscripter_csharp
 		public CharPtr(CharPtr str, int offset) {
 			
 		}
+		public CharPtr(UnsignedCharPtr str, int offset) {
+			
+		}
+		
 		
 		public static implicit operator CharPtr(string str) { return new CharPtr(str); }
 		public static implicit operator CharPtr(char[] chars) { return new CharPtr(chars); }

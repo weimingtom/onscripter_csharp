@@ -87,315 +87,323 @@ namespace onscripter_csharp
 		// Modified extensively by Mion, 2008
 		// Modified by Mion, Dec 2009, to optimize and cleanup code
 		
-//		#define MAX_NOISE          8 // Number of noise surfaces.
-//		#define MAX_GLOW          25 // Number of glow levels.
-//		#define MAX_DUST_COUNT    10 // Number of dust particles.
-//		#define MAX_SCRATCH_COUNT  6 // Number of scratches.
-//		static int scratch_count;    // Number of scratches visible.
-//		
-//		class Scratch {
+		private const int MAX_NOISE          = 8; // Number of noise surfaces.
+		private const int MAX_GLOW          = 25; // Number of glow levels.
+		private const int MAX_DUST_COUNT    = 10; // Number of dust particles.
+		private const int MAX_SCRATCH_COUNT  = 6; // Number of scratches.
+		private static int scratch_count;    // Number of scratches visible.
+		
+		public class Scratch {
 //		private:
-//		    int offs;   // Tint of the line: 64 for light, -64 for dark, 0 for no scratch.
-//		    int x1, x2; // Horizontal position of top and bottom of the line.
-//		    int dx;     // Distance by which the line moves each frame.
-//		    int time;   // Number of frames remaining before reinitialisation.
-//		    int width, height;
+		    public int offs;   // Tint of the line: 64 for light, -64 for dark, 0 for no scratch.
+		    public int x1, x2; // Horizontal position of top and bottom of the line.
+		    public int dx;     // Distance by which the line moves each frame.
+		    public int time;   // Number of frames remaining before reinitialisation.
+		    public int width, height;
 //		    void init(int level);
 //		public:
-//		    Scratch() : offs(0), time(1) {}
-//		    void setwindow(int w, int h){ width = w; height = h; }
+		    public Scratch() { offs = (0); time = (1); }
+		    public void setwindow(int w, int h){ width = w; height = h; }
 //		    void update(int level);
 //		    void draw(SDL_Surface* surface, SDL_Rect clip);
 //		};
-//		
-//			// Create a new scratch.
-//		void Scratch::init(int level)
-//		{
-//		    // If this scratch was visible, decrement the counter.
-//		    if (offs) --scratch_count;
-//		    offs = 0;
-//		
-//		    // Each scratch object is reinitialised every 3-9 frames.
-//		    time = rand() % 7 + 3;
-//		
-//		    if ((rand() % 600) < level) {
-//		        ++scratch_count;
-//		        offs = rand() % 2 ? 64 : -64;
-//		        x1 = rand() % (width - 20) + 10;
-//		        dx = rand() % 12 - 6;
-//		        x2 = x1 - dx; // The angle of the line is determined by the speed of motion.
-//		    }
-//		}
-//		
-//		// Called each frame.
-//		void Scratch::update(int level)
-//		{
-//		    if (--time == 0) 
-//		        init(level);
-//		    else if (offs) {
-//		        x1 += dx;
-//		        x2 += dx;
-//		    }
-//		}
-//		
-//		// Called each time the screen is refreshed.  Draws a simple line, without antialiasing.
-//		void Scratch::draw(SDL_Surface* surface, SDL_Rect clip) 
-//		{
-//		    // Don't draw unless this scratch is visible and likely to pass through the updated rectangle.
-//		    if ( (offs == 0) || (x1 < clip.x) || (x2 < clip.x) ||
-//		         (x1 >= (clip.x + clip.w)) || (x2 >= (clip.x + clip.w)) )
-//		        return;
-//		
-//		    const int sp = SDL_Surface_get_pitch(surface);
-//		    float dx = (float)(x2 - x1) / width;
-//		    float realx = (float) x1;
-//		    int y = 0;
-//		    while (y != clip.y) {
-//		         // Skip all scanlines above the clipping rectangle.
-//		        ++y;
-//		        realx += dx;
-//		    }
-//		    while (y < clip.y + clip.h) {
-//		        int lx = (int) floor(realx + 0.5);
-//		        if (lx >= clip.x && lx < clip.x + clip.w) { // Only draw within the clipping rectangle.
-//		            // Get pixel...
-//		            Uint32* p = (Uint32*)((char*)SDL_Surface_get_pixels(surface) + y * sp + lx * 4);
-//		            const Uint32 c = *p;
-//		            // ...add to or subtract from its colour...
-//		            int c1 = (c & 0xff) + offs, c2 = ((c >> 8) & 0xff) + offs, c3 = ((c >> 16) & 0xff) + offs;
-//		            if (c1 < 0) c1 = 0; else if (c1 > 255) c1 = 255;
-//		            if (c2 < 0) c2 = 0; else if (c2 > 255) c2 = 255;
-//		            if (c3 < 0) c3 = 0; else if (c3 > 255) c3 = 255;
-//		            // ...and put it back.
-//		            *p = c1 | c2 << 8 | c3 << 16;
-//		        }
-//		        ++y;
-//		        realx += dx;
-//		    }
-//		}
-//		
-//		static Scratch scratches[MAX_SCRATCH_COUNT];
-//		// We store multiple screens of random noise, and flip between them at random.
-//		static SDL_Surface* NoiseSurface[MAX_NOISE];
+		
+			// Create a new scratch.
+		public void init(int level)
+		{
+		    // If this scratch was visible, decrement the counter.
+		    if (0!=offs) --scratch_count;
+		    offs = 0;
+		
+		    // Each scratch object is reinitialised every 3-9 frames.
+		    time = rand() % 7 + 3;
+		
+		    if ((rand() % 600) < level) {
+		        ++scratch_count;
+		        offs = 0!=(rand() % 2) ? 64 : -64;
+		        x1 = rand() % (width - 20) + 10;
+		        dx = rand() % 12 - 6;
+		        x2 = x1 - dx; // The angle of the line is determined by the speed of motion.
+		    }
+		}
+		
+		// Called each frame.
+		public void update(int level)
+		{
+		    if (--time == 0) 
+		        init(level);
+		    else if (0!=offs) {
+		        x1 += dx;
+		        x2 += dx;
+		    }
+		}
+		
+		// Called each time the screen is refreshed.  Draws a simple line, without antialiasing.
+		public void draw(SDL_Surface surface, SDL_Rect clip) 
+		{
+		    // Don't draw unless this scratch is visible and likely to pass through the updated rectangle.
+		    if ( (offs == 0) || (x1 < clip.x) || (x2 < clip.x) ||
+		         (x1 >= (clip.x + clip.w)) || (x2 >= (clip.x + clip.w)) )
+		        return;
+		
+		    int sp = SDL_Surface_get_pitch(surface);
+		    float dx = (float)(x2 - x1) / width;
+		    float realx = (float) x1;
+		    int y = 0;
+		    while (y != clip.y) {
+		         // Skip all scanlines above the clipping rectangle.
+		        ++y;
+		        realx += dx;
+		    }
+		    while (y < clip.y + clip.h) {
+		        int lx = (int) floor(realx + 0.5);
+		        if (lx >= clip.x && lx < clip.x + clip.w) { // Only draw within the clipping rectangle.
+		            // Get pixel...
+		            Uint32Ptr p = new Uint32Ptr(new CharPtr(SDL_Surface_get_pixels(surface), + y * sp + lx * 4));
+		            UInt32 c = p[0];
+		            // ...add to or subtract from its colour...
+		            int c1 = (int)((c & 0xff) + offs), c2 = (int)(((c >> 8) & 0xff) + offs), c3 = (int)(((c >> 16) & 0xff) + offs);
+		            if (c1 < 0) c1 = 0; else if (c1 > 255) c1 = 255;
+		            if (c2 < 0) c2 = 0; else if (c2 > 255) c2 = 255;
+		            if (c3 < 0) c3 = 0; else if (c3 > 255) c3 = 255;
+		            // ...and put it back.
+		            p[0] = (uint)(c1 | c2 << 8 | c3 << 16);
+		        }
+		        ++y;
+		        realx += dx;
+		    }
+		}
+		} //FIXME:added, end class Scratch
+		
+		private static Scratch[] scratches = scratches_init();
+		private static Scratch[] scratches_init() {
+			Scratch[] result = new Scratch[MAX_SCRATCH_COUNT];
+			for (int i = 0; i < result.Length;++i)
+			{
+				result[i] = new Scratch();
+			}
+			return result;
+		}
+		// We store multiple screens of random noise, and flip between them at random.
+		private static SDL_Surface[] NoiseSurface = new SDL_Surface[MAX_NOISE];
 //		// For the glow effect, we store a single surface with a scanline for each glow level.
-//		static SDL_Surface* GlowSurface;
-//		static int om_count = 0;
-//		static bool initialized_om_surfaces = false;
+		private static SDL_Surface GlowSurface;
+		private static int om_count = 0;
+		private static bool initialized_om_surfaces = false;
 
 		public partial class OldMovieLayer : Layer {
 			public OldMovieLayer( int w, int h )
 			{
-//			    width = w;
-//			    height = h;
-//			
-//			    blur_level = noise_level = glow_level = scratch_level = dust_level = 0;
-//			    dust_sprite = dust = NULL;
-//			    dust_pts = NULL;
-//			
-//			    initialized = false;
+			    width = w;
+			    height = h;
+			
+			    blur_level = noise_level = glow_level = scratch_level = dust_level = 0;
+			    dust_sprite = dust = null;
+			    dust_pts = null;
+			
+			    initialized = false;
 			}
 			
-//			OldMovieLayer::~OldMovieLayer() {
-//			    if (initialized) {
-//			        --om_count;
-//			        if (om_count == 0) {
-//			            for (int i=0; i<MAX_NOISE; i++) {
-//			                SDL_FreeSurface(NoiseSurface[i]);
-//			                NoiseSurface[i] = NULL;
-//			            }
-//			            SDL_FreeSurface(GlowSurface);
-//			            GlowSurface = NULL;
-//			            initialized_om_surfaces = false;
-//			        }
-//			        if (dust) delete dust;
-//			        if (dust_pts) delete[] dust_pts;
-//			    }
-//			}
+			~OldMovieLayer() {
+			    if (initialized) {
+			        --om_count;
+			        if (om_count == 0) {
+			            for (int i=0; i<MAX_NOISE; i++) {
+			                SDL_FreeSurface(NoiseSurface[i]);
+			                NoiseSurface[i] = null;
+			            }
+			            SDL_FreeSurface(GlowSurface);
+			            GlowSurface = null;
+			            initialized_om_surfaces = false;
+			        }
+			        if (null!=dust) dust = null;//delete dust;
+			        if (null!=dust_pts) dust_pts = null;//delete[] dust_pts;
+			    }
+			}
 			
 			public void om_init()
 			{
-//			    ++om_count;
-//			
-//			    gv = 0;
-//			    go = 1;
-//			    rx = ry = 0;
-//			    ns = 0;
-//			
-//			    if (dust_sprite) {
-//			        // Copy dust sprite to dust
-//			        if (dust) delete dust;
-//			        dust = new AnimationInfo(*dust_sprite);
-//			        dust->visible = true;
-//			    }
-//			    if (dust_pts) delete[] dust_pts;
-//			    dust_pts = new Pt[MAX_DUST_COUNT];
-//			
-//			    initialized = true;
-//			
-//			    //don't reinitialise existing noise and glow surfaces or scratches
-//			    if (initialized_om_surfaces) return;
-//			
-//			    // set up scratches
-//			    for (int i = 0; i < MAX_SCRATCH_COUNT; i++)
-//			        scratches[i].setwindow(width, height);
-//			
-//			#ifdef _MSC_VER
-//				{
-//			#endif
-//			    // Generate screens of random noise.
-//			    for (int i = 0; i < MAX_NOISE; i++) {
-//			        NoiseSurface[i] = AnimationInfo::allocSurface(width, height);
-//			        SDL_LockSurface(NoiseSurface[i]);
-//			        char* px = (char*) SDL_Surface_get_pixels(NoiseSurface[i]);
-//			        const int pt = SDL_Surface_get_pitch(NoiseSurface[i]);
-//			        for (int y = 0; y < height; ++y, px += pt) {
-//			            Uint32* row = (Uint32*) px;
-//			            for (int x = 0; x < width; ++x, ++row) {
-//			                const int rm = (rand() % (noise_level + 1)) * 2;
-//			                *row = 0 | (rm << 16) | (rm << 8) | rm;
-//			            }
-//			        }
-//			        SDL_UnlockSurface(NoiseSurface[i]);
-//			    }
-//			#ifdef _MSC_VER
-//				}
-//			#endif
-//			
-//			    // Generate scanlines of solid greyscale, used for the glow effect.
-//			    GlowSurface = AnimationInfo::allocSurface(width, MAX_GLOW);
-//			#ifndef _MSC_VER
-//				for (SDL_Rect r = { 0, 0, width, 1 }; r.y < MAX_GLOW; r.y++) {
-//			#else
-//				SDL_Rect r = { 0, 0, width, 1 };
-//				for (; r.y < MAX_GLOW; r.y++) {
-//			#endif
-//			        const int ry = (r.y * 30 / MAX_GLOW) + 4;
-//			        SDL_FillRect(GlowSurface, &r, SDL_MapRGB(SDL_Surface_get_format(GlowSurface), ry, ry, ry));
-//			    }
+			    ++om_count;
+			
+			    gv = 0;
+			    go = 1;
+			    rx = ry = 0;
+			    ns = 0;
+			
+			    if (null!=dust_sprite) {
+			        // Copy dust sprite to dust
+			        if (null!=dust) dust = null;//delete dust;
+			        dust = new AnimationInfo(dust_sprite);
+			        dust.visible = true;
+			    }
+			    if (null!=dust_pts) dust_pts = null;//delete[] dust_pts;
+			    dust_pts = new Pt[MAX_DUST_COUNT];
+			
+			    initialized = true;
+			
+			    //don't reinitialise existing noise and glow surfaces or scratches
+			    if (initialized_om_surfaces) return;
+			
+			    // set up scratches
+			    for (int i = 0; i < MAX_SCRATCH_COUNT; i++)
+			        scratches[i].setwindow(width, height);
+			
+			#if _MSC_VER
+				{
+			#endif
+			    // Generate screens of random noise.
+			    for (int i = 0; i < MAX_NOISE; i++) {
+			        NoiseSurface[i] = AnimationInfo.allocSurface(width, height);
+			        SDL_LockSurface(NoiseSurface[i]);
+			        CharPtr px = CharPtr.fromUnsignedCharPtr(SDL_Surface_get_pixels(NoiseSurface[i]));
+			        int pt = SDL_Surface_get_pitch(NoiseSurface[i]);
+			        for (int y = 0; y < height; ++y, px.inc(pt)) {
+			        	Uint32Ptr row = new Uint32Ptr( px);
+			            for (int x = 0; x < width; ++x, row.inc()) {
+			                int rm = (rand() % (noise_level + 1)) * 2;
+			                row[0] = (uint)(0 | (rm << 16) | (rm << 8) | rm);
+			            }
+			        }
+			        SDL_UnlockSurface(NoiseSurface[i]);
+			    }
+			#if _MSC_VER
+				}
+			#endif
+			
+			    // Generate scanlines of solid greyscale, used for the glow effect.
+			    GlowSurface = AnimationInfo.allocSurface(width, MAX_GLOW);
+			#if false//!_MSC_VER
+				for (SDL_Rect r = { 0, 0, width, 1 }; r.y < MAX_GLOW; r.y++) {
+			#else
+				SDL_Rect r = new SDL_Rect( 0, 0, width, 1 );
+				for (; r.y < MAX_GLOW; r.y++) {
+			#endif
+			        int ry_ = (r.y * 30 / MAX_GLOW) + 4;
+			        SDL_FillRect(GlowSurface, r, SDL_MapRGB(SDL_Surface_get_format(GlowSurface), (byte)ry_, (byte)ry_, (byte)ry_));
+			    }
 			}
 			
 			// Called once each frame.  Updates effect parameters.
 			public override void update()
 			{
-//			    if (!initialized) return;
-//			
-//			    const int last_x = rx, last_y = ry, last_n = ns;
-//			    // Generate blur offset and noise screen randomly.
-//			    // Ensure neither setting is the same two frames running.
-//			    if (blur_level > 0) {
-//			        do {
-//			            rx = rand() % (blur_level + 1) - 1;
-//			            ry = rand() % (blur_level + 1);
-//			        } while (rx == last_x && ry == last_y);
-//			    }
-//			    do {
-//			        ns = rand() % MAX_NOISE;
-//			    } while (ns == last_n);
-//			
-//			    // Increment glow; reverse direction if we've reached either limit.
-//			    gv += go;
-//			    if (gv >= 5) { gv = 3; go = -1; }
-//			    if (gv < 0) { gv = 1; go = 1; }
-//			
-//			    // Update scratches.
-//			    for (int i=0; i<MAX_SCRATCH_COUNT; i++)
-//			        scratches[i].update(scratch_level);
-//			
-//			    // Update dust
-//			    if (dust->num_of_cells > 0) {
-//			        for (int i=0; i<MAX_DUST_COUNT; i++) {
-//			            dust_pts[i].cell = rand() % (dust->num_of_cells);
-//			            dust_pts[i].x = rand() % (width + 10) - 5;
-//			            dust_pts[i].y = rand() % (height + 10) - 5;
-//			        }
-//			    }
+			    if (!initialized) return;
+			
+			    int last_x = rx, last_y = ry, last_n = ns;
+			    // Generate blur offset and noise screen randomly.
+			    // Ensure neither setting is the same two frames running.
+			    if (blur_level > 0) {
+			        do {
+			            rx = rand() % (blur_level + 1) - 1;
+			            ry = rand() % (blur_level + 1);
+			        } while (rx == last_x && ry == last_y);
+			    }
+			    do {
+			        ns = rand() % MAX_NOISE;
+			    } while (ns == last_n);
+			
+			    // Increment glow; reverse direction if we've reached either limit.
+			    gv += go;
+			    if (gv >= 5) { gv = 3; go = -1; }
+			    if (gv < 0) { gv = 1; go = 1; }
+			
+			    // Update scratches.
+			    for (int i=0; i<MAX_SCRATCH_COUNT; i++)
+			        scratches[i].update(scratch_level);
+			
+			    // Update dust
+			    if (dust.num_of_cells > 0) {
+			        for (int i=0; i<MAX_DUST_COUNT; i++) {
+			            dust_pts[i].cell = rand() % (dust.num_of_cells);
+			            dust_pts[i].x = rand() % (width + 10) - 5;
+			            dust_pts[i].y = rand() % (height + 10) - 5;
+			        }
+			    }
 			}
 
 			public override CharPtr message( CharPtr message, ref int ret_int )
 			{
-				return null;
-	//		    int sprite_no = 0;
-	//		    ret_int = 0;
-	//		    if (!sprite_info)
-	//		        return NULL;
-	//		
-	//		    printf("OldMovieLayer: got message '%s'\n", message);
-	//		    if (sscanf(message, "s|%d,%d,%d,%d,%d,%d", 
-	//		               &blur_level, &noise_level, &glow_level, 
-	//		               &scratch_level, &dust_level, &sprite_no)) {
-	//		        if (blur_level < 0) blur_level = 0;
-	//		        else if (blur_level > 3) blur_level = 3;
-	//		        if (noise_level < 0) noise_level = 0;
-	//		        else if (noise_level > 24) noise_level = 24;
-	//		        if (glow_level < 0) glow_level = 0;
-	//		        else if (glow_level > 24) glow_level = 24;
-	//		        if (scratch_level < 0) scratch_level = 0;
-	//		        else if (scratch_level > 400) scratch_level = 400;
-	//		        if (dust_level < 0) dust_level = 0;
-	//		        else if (dust_level > 400) dust_level = 400;
-	//		        if ((sprite_no >= 0) && (sprite_no < MAX_SPRITE_NUM))
-	//		            dust_sprite = &sprite_info[sprite_no];
-	//		        om_init();
-	//		    }
-	//		    return NULL;
+				int sprite_no = 0;
+			    ret_int = 0;
+			    if (null==sprite_info)
+			        return null;
+			
+			    printf("OldMovieLayer: got message '%s'\n", message);
+			    if (null!=sscanf(message, "s|%d,%d,%d,%d,%d,%d", 
+			               blur_level, noise_level, glow_level, 
+			               scratch_level, dust_level, sprite_no)) {
+			        if (blur_level < 0) blur_level = 0;
+			        else if (blur_level > 3) blur_level = 3;
+			        if (noise_level < 0) noise_level = 0;
+			        else if (noise_level > 24) noise_level = 24;
+			        if (glow_level < 0) glow_level = 0;
+			        else if (glow_level > 24) glow_level = 24;
+			        if (scratch_level < 0) scratch_level = 0;
+			        else if (scratch_level > 400) scratch_level = 400;
+			        if (dust_level < 0) dust_level = 0;
+			        else if (dust_level > 400) dust_level = 400;
+			        if ((sprite_no >= 0) && (sprite_no < MAX_SPRITE_NUM))
+			            dust_sprite = sprite_info[sprite_no];
+			        om_init();
+			    }
+			    return null;
 			}
 		}
 		
 		// Apply blur effect by averaging two offset copies of a source surface together.
 		static void BlurOnSurface(SDL_Surface src, SDL_Surface dst, SDL_Rect clip, int rx, int ry, int width)
 		{
-//		    // Calculate clipping bounds to avoid reading outside the source surface.
-//		    const int srcx = clip.x - rx;
-//		    const int srcy = clip.y - ry;
-//		    const int length = ((srcx + clip.w > width) ? (width - srcx) : clip.w) * 4;
-//		    int rows = clip.h;
-//		    const int skipfirstrows = (srcy < 0) ? -srcy : 0;
-//		    const int srcp = SDL_Surface_get_pitch(src);
-//		    const int dstp = SDL_Surface_get_pitch(dst);
-//		
-//		    SDL_LockSurface(src);
-//		    SDL_LockSurface(dst);
-//		    unsigned char* src1px = ((unsigned char*) SDL_Surface_get_pixels(src)) + srcx * 4 + srcy * srcp;
-//		    unsigned char* src2px = ((unsigned char*) SDL_Surface_get_pixels(src)) + clip.x * 4 + clip.y * srcp;
-//		    unsigned char* dstpx = ((unsigned char*) SDL_Surface_get_pixels(dst)) + clip.x * 4 + clip.y * dstp;
-//		
-//		    // If the vertical offset is positive, we are reading one copy from (x, -1), so we need to
-//		    // skip the first scanline to avoid reading outside the source surface.
-//		    for (int i=skipfirstrows; i; --i) {
-//		        --rows;
-//		        src1px += srcp;
-//		        src2px += srcp;
-//		        dstpx += dstp;
-//		    }
-//		
-//		    // Blend the remaining scanlines.
-//		    while (rows--) {
-//		        AnimationInfo::imageFilterMean(src1px, src2px, dstpx, length);
-//		        src1px += srcp;
-//		        src2px += srcp;
-//		        dstpx += dstp;
-//		    }
-//		
-//		    // If the horizontal offset is -1, the rightmost column has not been written to.
-//		    // Rectify that by copying it directly from the source image.
-//		    if (rx && (clip.x + clip.w >= width)) {
-//		        Uint32* r = ((Uint32*) SDL_Surface_get_pixels(src)) + (width - 1) + clip.y * width;
-//		        Uint32* d = ((Uint32*) SDL_Surface_get_pixels(dst)) + (width - 1) + clip.y * width;
-//		        while (clip.h--) {
-//		            *d = *r;
-//		            d += width;
-//		            r += width;
-//		        }
-//		    }
-//		
-//		    SDL_UnlockSurface(src);
-//		    SDL_UnlockSurface(dst);
-//		
-//		    // If we skipped the first scanlines, rectify that by copying directly from the source image.
-//		    if (skipfirstrows) {
-//		        clip.h = skipfirstrows;
-//		        SDL_BlitSurface(src, &clip, dst, &clip);
-//		    }
+		    // Calculate clipping bounds to avoid reading outside the source surface.
+		    int srcx = clip.x - rx;
+		    int srcy = clip.y - ry;
+		    int length = ((srcx + clip.w > width) ? (width - srcx) : clip.w) * 4;
+		    int rows = clip.h;
+		    int skipfirstrows = (srcy < 0) ? -srcy : 0;
+		    int srcp = SDL_Surface_get_pitch(src);
+		    int dstp = SDL_Surface_get_pitch(dst);
+		
+		    SDL_LockSurface(src);
+		    SDL_LockSurface(dst);
+		    UnsignedCharPtr src1px = new UnsignedCharPtr((UnsignedCharPtr) SDL_Surface_get_pixels(src), + srcx * 4 + srcy * srcp);
+		    UnsignedCharPtr src2px = new UnsignedCharPtr((UnsignedCharPtr) SDL_Surface_get_pixels(src), + clip.x * 4 + clip.y * srcp);
+		    UnsignedCharPtr dstpx = new UnsignedCharPtr((UnsignedCharPtr) SDL_Surface_get_pixels(dst), + clip.x * 4 + clip.y * dstp);
+		
+		    // If the vertical offset is positive, we are reading one copy from (x, -1), so we need to
+		    // skip the first scanline to avoid reading outside the source surface.
+		    for (int i=skipfirstrows; i != 0; --i) {
+		        --rows;
+		        src1px.inc(srcp);
+		        src2px.inc(srcp);
+		        dstpx.inc(dstp);
+		    }
+		
+		    // Blend the remaining scanlines.
+		    while (rows-- != 0) {
+		        AnimationInfo.imageFilterMean(src1px, src2px, dstpx, length);
+		        src1px.inc(srcp);
+				src2px.inc(srcp);
+				dstpx.inc(dstp);
+		    }
+		
+		    // If the horizontal offset is -1, the rightmost column has not been written to.
+		    // Rectify that by copying it directly from the source image.
+		    if (rx != 0 && (clip.x + clip.w >= width)) {
+		    	Uint32Ptr r = new Uint32Ptr(SDL_Surface_get_pixels(src), + (width - 1) + clip.y * width);
+		    	Uint32Ptr d = new Uint32Ptr(SDL_Surface_get_pixels(dst), + (width - 1) + clip.y * width);
+		        while (clip.h-- != 0) {
+		    		d[0] = r[0];
+		    		d.inc(width);
+		    		r.inc(width);
+		        }
+		    }
+		
+		    SDL_UnlockSurface(src);
+		    SDL_UnlockSurface(dst);
+		
+		    // If we skipped the first scanlines, rectify that by copying directly from the source image.
+		    if (0!=skipfirstrows) {
+		        clip.h = skipfirstrows;
+		        SDL_BlitSurface(src, clip, dst, clip);
+		    }
 		}
 		
 		public partial class OldMovieLayer {
@@ -404,74 +412,74 @@ namespace onscripter_csharp
 			// last call to updateOldMovie().
 			public override void refresh(SDL_Surface surface, ref SDL_Rect clip)
 			{
-//			    if (!initialized) return;
-//			
-//			    // Blur background.
-//			    // If no offset is applied, we can just copy the given surface directly.
-//			    // If an offset is present, we average the given surface with an offset version
-//			
-//			    if ( (rx != 0) || (ry != 0) ) {
-//			        SDL_BlitSurface(surface, &clip, sprite->image_surface, &clip);
-//			        BlurOnSurface(sprite->image_surface, surface, clip, rx, ry, width);
-//			    }
-//			
-//			    // Add noise and glow.
-//			    SDL_LockSurface(surface);
-//			    SDL_LockSurface(NoiseSurface[ns]);
-//			    SDL_LockSurface(GlowSurface);
-//			    unsigned char* g = (unsigned char*)SDL_Surface_get_pixels(GlowSurface) + (gv * glow_level / 4) * SDL_Surface_get_pitch(GlowSurface);
-//			    const int sp = SDL_Surface_get_pitch(surface);
-//			    if ((clip.x == 0) && (clip.y == 0) && (clip.w == width) && (clip.h == height)) {
-//			        // If no clipping rectangle is defined, we can apply the noise in one go.
-//			        unsigned char* s = (unsigned char*) SDL_Surface_get_pixels(surface);
-//			        if (noise_level > 0)
-//			            AnimationInfo::imageFilterSubFrom(s, (unsigned char*) SDL_Surface_get_pixels(NoiseSurface[ns]), sp * SDL_Surface_get_h(surface));
-//			        // Since the glow is stored as a single scanline for each level, we always apply
-//			        // the glow scanline by scanline.
-//			        if (glow_level > 0) {
-//			            for (int i = height; i; --i, s += sp)
-//			                AnimationInfo::imageFilterAddTo(s, g, width * 4);
-//			        }
-//			    }
-//			    else {
-//			        // Otherwise we do everything scanline by scanline.
-//			        const int length = clip.w * 4;
-//			        if (noise_level > 0) {
-//			            const int np = SDL_Surface_get_pitch(NoiseSurface[ns]);
-//			            unsigned char* s = ((unsigned char*) SDL_Surface_get_pixels(surface)) + clip.x * 4 + clip.y * sp;
-//			            unsigned char* n = ((unsigned char*) SDL_Surface_get_pixels(NoiseSurface[ns])) + clip.x * 4 + clip.y * np;
-//			            for (int i = clip.h; i; --i, s += sp, n += np)
-//			                AnimationInfo::imageFilterSubFrom(s, n, length); // subtract noise
-//			        }
-//			        if (glow_level > 0) {
-//			            unsigned char* s = ((unsigned char*) SDL_Surface_get_pixels(surface)) + clip.x * 4 + clip.y * sp;
-//			            for (int i = clip.h; i; --i, s += sp)
-//			                AnimationInfo::imageFilterAddTo(s, g, length); // add glow
-//			        }
-//			    }
-//			    SDL_UnlockSurface(NoiseSurface[ns]);
-//			    SDL_UnlockSurface(GlowSurface);
-//			
-//			    // Add scratches.
-//			    if (scratch_level > 0)
-//			        for (int i = 0; i < MAX_SCRATCH_COUNT; i++)
-//			            scratches[i].draw(surface, clip);
-//			
-//			    // Add dust specks.
-//			    if (dust && (dust_level > 0)) {
-//			        for (int i=0; i<MAX_DUST_COUNT; i++) {
-//			            if ((rand() & 1023) < dust_level) {
-//			                dust->current_cell = dust_pts[i].cell;
-//			                dust->pos.x = dust_pts[i].x;
-//			                dust->pos.y = dust_pts[i].y;
-//			                drawTaggedSurface( surface, dust, clip );
-//			            }
-//			        }
-//			    }
-//			
-//			    // And we're done.
-//			    SDL_UnlockSurface(surface);
-//			
+			    if (!initialized) return;
+			
+			    // Blur background.
+			    // If no offset is applied, we can just copy the given surface directly.
+			    // If an offset is present, we average the given surface with an offset version
+			
+			    if ( (rx != 0) || (ry != 0) ) {
+			        SDL_BlitSurface(surface, clip, sprite.image_surface, clip);
+			        BlurOnSurface(sprite.image_surface, surface, clip, rx, ry, width);
+			    }
+			
+			    // Add noise and glow.
+			    SDL_LockSurface(surface);
+			    SDL_LockSurface(NoiseSurface[ns]);
+			    SDL_LockSurface(GlowSurface);
+			    UnsignedCharPtr g = new UnsignedCharPtr(SDL_Surface_get_pixels(GlowSurface),  + (gv * glow_level / 4) * SDL_Surface_get_pitch(GlowSurface));
+			    int sp = SDL_Surface_get_pitch(surface);
+			    if ((clip.x == 0) && (clip.y == 0) && (clip.w == width) && (clip.h == height)) {
+			        // If no clipping rectangle is defined, we can apply the noise in one go.
+			        UnsignedCharPtr s = (UnsignedCharPtr) SDL_Surface_get_pixels(surface);
+			        if (noise_level > 0)
+			            AnimationInfo.imageFilterSubFrom(s, (UnsignedCharPtr) SDL_Surface_get_pixels(NoiseSurface[ns]), sp * SDL_Surface_get_h(surface));
+			        // Since the glow is stored as a single scanline for each level, we always apply
+			        // the glow scanline by scanline.
+			        if (glow_level > 0) {
+			        	for (int i = height; i != 0; --i, s.inc(sp))
+			                AnimationInfo.imageFilterAddTo(s, g, width * 4);
+			        }
+			    }
+			    else {
+			        // Otherwise we do everything scanline by scanline.
+			        int length = clip.w * 4;
+			        if (noise_level > 0) {
+			            int np = SDL_Surface_get_pitch(NoiseSurface[ns]);
+			            UnsignedCharPtr s = new UnsignedCharPtr(SDL_Surface_get_pixels(surface), + clip.x * 4 + clip.y * sp);
+			            UnsignedCharPtr n = new UnsignedCharPtr(SDL_Surface_get_pixels(NoiseSurface[ns]), + clip.x * 4 + clip.y * np);
+			            for (int i = clip.h; i != 0; --i, s.inc(sp), n.inc(np))
+			                AnimationInfo.imageFilterSubFrom(s, n, length); // subtract noise
+			        }
+			        if (glow_level > 0) {
+			        	UnsignedCharPtr s = new UnsignedCharPtr( SDL_Surface_get_pixels(surface), + clip.x * 4 + clip.y * sp);
+			        	for (int i = clip.h; i != 0; --i, s.inc(sp))
+			                AnimationInfo.imageFilterAddTo(s, g, length); // add glow
+			        }
+			    }
+			    SDL_UnlockSurface(NoiseSurface[ns]);
+			    SDL_UnlockSurface(GlowSurface);
+			
+			    // Add scratches.
+			    if (scratch_level > 0)
+			        for (int i = 0; i < MAX_SCRATCH_COUNT; i++)
+			            scratches[i].draw(surface, clip);
+			
+			    // Add dust specks.
+			    if (dust != null && (dust_level > 0)) {
+			        for (int i=0; i<MAX_DUST_COUNT; i++) {
+			            if ((rand() & 1023) < dust_level) {
+			                dust.current_cell = dust_pts[i].cell;
+			                dust.pos.x = dust_pts[i].x;
+			                dust.pos.y = dust_pts[i].y;
+			                drawTaggedSurface( surface, dust, ref clip );
+			            }
+			        }
+			    }
+			
+			    // And we're done.
+			    SDL_UnlockSurface(surface);
+			
 			}
 		}
 		

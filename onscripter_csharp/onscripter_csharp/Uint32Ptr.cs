@@ -42,6 +42,10 @@ namespace onscripter_csharp
 		{
 		}
 		
+		public Uint32Ptr(CharPtr ptr)
+		{
+			
+		}
 		public Uint32Ptr(UnsignedCharPtr ptr)
 		{
 			

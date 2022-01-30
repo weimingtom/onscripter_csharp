@@ -1192,7 +1192,7 @@ namespace onscripter_csharp
 			}
 			
 			
-			public void imageFilterMean(UnsignedCharPtr src1, UnsignedCharPtr src2, UnsignedCharPtr dst, int length)
+			public static void imageFilterMean(UnsignedCharPtr src1, UnsignedCharPtr src2, UnsignedCharPtr dst, int length)
 			{
 //			#if defined(USE_PPC_GFX)
 //			    if(cpufuncs & CPUF_PPC_ALTIVEC) {
@@ -1226,7 +1226,7 @@ namespace onscripter_csharp
 //			#endif
 			}
 			
-			public void imageFilterAddTo(UnsignedCharPtr dst, UnsignedCharPtr src, int length)
+			public static void imageFilterAddTo(UnsignedCharPtr dst, UnsignedCharPtr src, int length)
 			{
 //			#if defined(USE_PPC_GFX)
 //			    if(cpufuncs & CPUF_PPC_ALTIVEC) {
@@ -1260,7 +1260,7 @@ namespace onscripter_csharp
 //			#endif
 			}
 			
-			public void imageFilterSubFrom(UnsignedCharPtr dst, UnsignedCharPtr src, int length)
+			public static void imageFilterSubFrom(UnsignedCharPtr dst, UnsignedCharPtr src, int length)
 			{
 //				#if defined(USE_PPC_GFX)
 //				    if(cpufuncs & CPUF_PPC_ALTIVEC) {
