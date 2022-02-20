@@ -722,5 +722,10 @@ namespace onscripter_csharp
 		{
 			return (double)Math.Floor(x);
 		}
+		
+		public static TTF_Font TTF_OpenFont(CharPtr file, int ptsize)
+		{
+			return null;
+		}
 	}
 }
