@@ -44,16 +44,16 @@ namespace onscripter_csharp
 		//#include <string.h>
 		
 		//#ifdef WIN32
-		//#define DELIMITER '\\'
-		//#define PATH_DELIMITER ';'
+		//public const char DELIMITER = '\\';
+		public const char PATH_DELIMITER = ';';
 		//#else
 		//#define DELIMITER '/'
 		//#define PATH_DELIMITER ':'
 		//#endif
 		
 		
-//		class DirPaths
-//		{
+		public partial class DirPaths
+		{
 //		public:
 //		    DirPaths( const char *new_paths=NULL );
 //		    DirPaths( const DirPaths &dp );
@@ -70,11 +70,11 @@ namespace onscripter_csharp
 //		
 //		private:
 //		    void set( const DirPaths &dp ); //called by copy cons & =op
-//		
-//		    int num_paths;
-//		    char **paths;
-//		    char *all_paths;
-//		};
+		
+		    public int num_paths;
+		    public CharPtr[] paths;
+		    public CharPtr all_paths;
+		}
 		
 		//#endif // __DIR_PATHS__
 	}

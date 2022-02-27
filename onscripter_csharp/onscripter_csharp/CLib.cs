@@ -118,6 +118,10 @@ namespace onscripter_csharp
 		{
 			//FIXME:???
 		}
+		public static void memcpy(DirPaths s1, DirPaths s2, uint length)
+		{
+			//FIXME:???
+		}
 		
 		
 		public static CharPtr strrchr(CharPtr str, char ch)
@@ -326,6 +330,9 @@ namespace onscripter_csharp
 			
 		}
 		public static int sizeof_WAVE_HEADER() {
+			return 0;
+		}
+		public static int sizeof_DirPaths() {
 			return 0;
 		}
 		public static void SDL_LockSurface(SDL_Surface x)
