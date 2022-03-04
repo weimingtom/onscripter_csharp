@@ -49,9 +49,7 @@
   <ItemGroup>
     <Compile Include="AnimationInfo.c.cs" />
     <Compile Include="AnimationInfo.h.cs" />
-    <Compile Include="ArrayVariable.cs" />
     <Compile Include="BaseReader.h.cs" />
-    <Compile Include="ButtonLink.cs" />
     <Compile Include="CharPtr.cs" />
     <Compile Include="CLib.cs" />
     <Compile Include="DirectReader.cpp.cs" />
@@ -124,9 +122,6 @@
     <Compile Include="UnsignedShortPtr.cs" />
     <Compile Include="version.h.cs" />
     <Compile Include="winres.h.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="onscripter_csharp.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

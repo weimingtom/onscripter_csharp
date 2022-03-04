@@ -72,44 +72,45 @@ namespace onscripter_csharp
 //		    static void convertFromSJISToUTF8( char *dst_buf, char *src_buf );
 //		    
 //		protected:
-//		    char *file_full_path;
-//		    char *file_sub_path;
-//		    size_t file_path_len;
+		    public CharPtr file_full_path;
+		    public CharPtr file_sub_path;
+		    public uint file_path_len;
 		    public CharPtr capital_name;
 		    public CharPtr capital_name_tmp;
 		
 		    public DirPaths archive_path;
 			public UnsignedCharPtr key_table = new UnsignedCharPtr(new byte[256]);
 		    public bool key_table_flag;
-//		    int  getbit_mask;
-//		    size_t getbit_len, getbit_count;
-//		    unsigned char *read_buf;
-//		    unsigned char *decomp_buffer;
-//		    size_t decomp_buffer_len;
-//		    
-//		    struct RegisteredCompressionType{
-//		        RegisteredCompressionType *next;
-//		        char *ext;
-//		        int type;
-//		        RegisteredCompressionType(){
-//		            ext = NULL;
-//		            next = NULL;
-//		        };
-//		        RegisteredCompressionType( const char *ext, int type ){
-//		            this->ext = new char[ strlen(ext)+1 ];
-//		            for ( unsigned int i=0 ; i<strlen(ext)+1 ; i++ ){
-//		                this->ext[i] = ext[i];
-//		                if ( this->ext[i] >= 'a' && this->ext[i] <= 'z' )
-//		                    this->ext[i] += 'A' - 'a';
-//		            }
-//		            this->type = type;
-//		            this->next = NULL;
-//		        };
-//		        ~RegisteredCompressionType(){
-//		            if (ext) delete[] ext;
-//		        };
-//		    } root_registered_compression_type, *last_registered_compression_type;
-//		
+		    public int  getbit_mask;
+		    public uint getbit_len, getbit_count;
+		    public UnsignedCharPtr read_buf;
+		    public UnsignedCharPtr decomp_buffer;
+		    public uint decomp_buffer_len;
+		    
+		    public class RegisteredCompressionType{
+		        public RegisteredCompressionType next;
+		        public CharPtr ext;
+		        public int type;
+		        public RegisteredCompressionType(){
+		            ext = null;
+		            next = null;
+		        }
+		        public RegisteredCompressionType( CharPtr ext, int type ){
+		            this.ext = new char[ strlen(ext)+1 ];
+		            for ( uint i=0 ; i<strlen(ext)+1 ; i++ ){
+		                this.ext[i] = ext[i];
+		                if ( this.ext[i] >= 'a' && this.ext[i] <= 'z' )
+		                	this.ext[i] = (char)(this.ext[i] + ('A' - 'a'));
+		            }
+		            this.type = type;
+		            this.next = null;
+		        }
+		        ~RegisteredCompressionType(){
+		            if (null!=ext) ext = null;//delete[] ext;
+		        }
+		    }
+		    public RegisteredCompressionType root_registered_compression_type = new RegisteredCompressionType(), last_registered_compression_type = null;
+		
 //		    FILE *fopen(const char *path, const char *mode);
 //		    unsigned char readChar( FILE *fp );
 //		    unsigned short readShort( FILE *fp );

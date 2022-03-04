@@ -144,7 +144,11 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
-		public static FILEPtr fopen( CharPtr path, CharPtr mode)
+		public static FILEPtr fopen(CharPtr path, CharPtr mode)
+		{
+			return null;
+		}
+		public static FILEPtr _wfopen(UnsignedShortPtr path, UnsignedShortPtr mode)
 		{
 			return null;
 		}
@@ -235,10 +239,19 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static void memset(UnsignedCharPtr s, int ch, uint n)
+		{
+			
+		}
 		public static void memset(UnsignedLongPtr s, int ch, uint n)
 		{
 			
 		}
+		public static void memset(DirectReader.FileInfo s, int ch, uint n)
+		{
+			
+		}
+		
 		
 		public static void exit(int a)
 		{
@@ -333,6 +346,10 @@ namespace onscripter_csharp
 			return 0;
 		}
 		public static int sizeof_DirPaths() {
+			return 0;
+		}
+		public static int sizeof_DirectReader_FileInfo()
+		{
 			return 0;
 		}
 		public static void SDL_LockSurface(SDL_Surface x)
@@ -733,6 +750,11 @@ namespace onscripter_csharp
 		public static TTF_Font TTF_OpenFont(CharPtr file, int ptsize)
 		{
 			return null;
+		}
+		
+		public static void __unused(bool x)
+		{
+			
 		}
 	}
 }
