@@ -47,7 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimationInfo.c.cs" />
+    <Compile Include="AnimationInfo.cpp.cs" />
     <Compile Include="AnimationInfo.h.cs" />
     <Compile Include="BaseReader.h.cs" />
     <Compile Include="CharPtr.cs" />

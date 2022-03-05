@@ -44,13 +44,18 @@ namespace onscripter_csharp
 		public UnsignedCharPtr(UnsignedCharPtr ptr)
 		{
 		}
+		public UnsignedCharPtr(Uint8Ptr ptr)
+		{
+		}
 		public UnsignedCharPtr(UnsignedCharPtr ptr, int offset)
 		{
 		}
 		public UnsignedCharPtr(Uint32Ptr ptr, int offset)
 		{
 		}
-		
+		public UnsignedCharPtr(Uint32Ptr ptr)
+		{
+		}
 				
 		public UnsignedCharPtr(byte[] bytes)
 		{

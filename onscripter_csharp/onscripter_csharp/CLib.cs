@@ -102,6 +102,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		public static void memcpy(Uint32Ptr s1, Uint32Ptr s2, uint length)
+		{
+			
+		}
 		public static void memcpy(UnsignedCharPtr s1, WAVE_HEADER s2, uint length)
 		{
 			
@@ -122,7 +126,18 @@ namespace onscripter_csharp
 		{
 			//FIXME:???
 		}
-		
+		public static void memcpy(AnimationInfo s1, AnimationInfo s2, uint length)
+		{
+			//FIXME:???
+		}
+		public static void memcpy(int[] s1, int[] s2, uint length)
+		{
+			//FIXME:???
+		}
+		public static void memcpy(byte[][] s1, byte[][] s2, uint length)
+		{
+			//FIXME:???
+		}
 		
 		public static CharPtr strrchr(CharPtr str, char ch)
 		{
@@ -352,6 +367,24 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		public static int sizeof_AnimationInfo()
+		{
+			return 0;
+		}
+		public static int sizeof_int()
+		{
+			return 0;
+		}
+		public static int sizeof_uchar3()
+		{
+			return 0;
+		}
+		public static int sizeof_ONSBuf()
+		{
+			return 0;
+		}
+		
+		
 		public static void SDL_LockSurface(SDL_Surface x)
 		{
 			

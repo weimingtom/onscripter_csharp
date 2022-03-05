@@ -130,10 +130,10 @@ namespace onscripter_csharp
 		    }
 		}
 		
-		public void resizeImage( UnsignedCharPtr dst_buffer, int dst_width, int dst_height, int dst_total_width,
+		public static void resizeImage( UnsignedCharPtr dst_buffer, int dst_width, int dst_height, int dst_total_width,
 		                  UnsignedCharPtr src_buffer, int src_width, int src_height, int src_total_width,
 		                  int byte_per_pixel, UnsignedCharPtr tmp_buffer, int tmp_total_width,
-		                  int num_cells, bool no_interpolate )
+		                  int num_cells=1, bool no_interpolate=false )
 		{
 		    if (dst_width == 0 || dst_height == 0) return;
 		    

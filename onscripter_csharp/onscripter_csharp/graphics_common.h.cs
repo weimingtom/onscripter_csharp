@@ -62,8 +62,8 @@ namespace onscripter_csharp
 //		#define ALOSS  0
 //		
 //		#else
-//		
-//		#define BPP 32
+		
+		public const int BPP = 32;
 		// the mask is the same as the one used in TTF_RenderGlyph_Blended
 		public const UInt32 RBMASK = 0x00ff00ff;
 		public const UInt32 GBMASK = 0x0000ffff;
@@ -81,10 +81,10 @@ namespace onscripter_csharp
 		public const int ALOSS = 0;
 		
 //		#endif
-//		
-//		#define RGBMASK 0x00ffffff
-//		#define MEDGRAY 0x88888888
-//		
+		
+		public const uint RGBMASK = 0x00ffffff;
+		public const uint MEDGRAY = 0x88888888;
+		
 //		#define SET_PIXEL32(rgb, alpha) {\
 //		    *dst_buffer = (rgb);\
 //		    *alphap = (alpha);\
@@ -117,8 +117,8 @@ namespace onscripter_csharp
 //		    }\
 //		    alphap++;\
 //		}
-//		
-//		#define BLEND_TEXT_ALPHA(){\
+		
+		public static void BLEND_TEXT_ALPHA(){
 //		    Uint32 mask2 = *src_buffer; \
 //		    if (mask2 != 0){ \
 //		        *alphap = 0xff ^ ((0xff ^ *alphap)*(0xff ^ *src_buffer) >> 8); \
@@ -128,10 +128,10 @@ namespace onscripter_csharp
 //		        *dst_buffer = mask | mask >> 16; \
 //		    } \
 //		    alphap++; \
-//		}
-//		
-//		/* Used in ONScripterLabel_image */
-//		
+		}
+		
+		/* Used in ONScripterLabel_image */
+		
 //		#define BLEND_TEXT(){\
 //		    Uint32 mask2 = *src_buffer >> 3; \
 //		    if (mask2 != 0){ \
@@ -194,16 +194,16 @@ namespace onscripter_csharp
 //		}
 //		
 //		#else //ndef BPP16
-//		
-//		/* Used in AnimationInfo */
-//		
-//		#define SET_PIXEL(rgb, alpha) {\
+		
+		/* Used in AnimationInfo */
+		
+		public static void SET_PIXEL(UInt32 rgb, byte alpha) {
 //		    *dst_buffer = (rgb);\
 //		    *alphap = (alpha);\
 //		    alphap += 4;\
-//		}
-//		
-//		#define BLEND_PIXEL(){\
+		}
+		
+		public static void BLEND_PIXEL(){
 //		    if ((*alphap == 255) && (alpha == 256)) {\
 //		        *dst_buffer = *src_buffer;\
 //		    } else if (*alphap != 0) {\
@@ -215,8 +215,8 @@ namespace onscripter_csharp
 //		        *dst_buffer = mask_rb | mask_g;\
 //		    }\
 //		    alphap += 4;\
-//		}
-//		
+		}
+		
 //		#define BLEND_TEXT_ALPHA(){\
 //		    Uint32 mask2 = *src_buffer; \
 //		    if (mask2 == 255){ \
@@ -260,8 +260,8 @@ namespace onscripter_csharp
 //		    Uint32 mask_g  = (((((*src2_buffer & GMASK) - temp) * mask2) >> 8) + temp) & GMASK;\
 //		    *dst_buffer = mask_rb | mask_g;\
 //		}
-//		
-//		#define ADDBLEND_PIXEL(){\
+		
+		public static void ADDBLEND_PIXEL(){
 //		    if ((*src_buffer != 0) && (*alphap != 0)){\
 //		        Uint32 mask2 = (*alphap * alpha) >> 8;\
 //		        Uint32 mask_rb = (*dst_buffer & RBMASK) +\
@@ -274,9 +274,9 @@ namespace onscripter_csharp
 //		        *dst_buffer = (mask_rb & RBMASK) | (mask_g & GMASK);\
 //		    }\
 //		    alphap += 4;\
-//		}
-//		
-//		#define SUBBLEND_PIXEL(){\
+		}
+		
+		public static void SUBBLEND_PIXEL(){
 //		    if ((*src_buffer != 0) && (*alphap != 0)){\
 //		        Uint32 mask2 = (*alphap * alpha) >> 8;\
 //		        Uint32 mask_r = (*dst_buffer & RMASK) -\
@@ -291,7 +291,7 @@ namespace onscripter_csharp
 //		        *dst_buffer = (mask_r & RMASK) | (mask_g & GMASK) | (mask_b & BMASK);\
 //		    }\
 //		    alphap += 4;\
-//		}
+		}
 		
 		// monocro 85/86/85 uses 85=(4+1)*(16+1)
 		public static void MONOCRO_PIXEL(){
@@ -306,15 +306,15 @@ namespace onscripter_csharp
 		}
 		
 //		#endif //ndef BPP16
-//		
-//		
-//		#define BASIC_BLEND(){\
+		
+		
+		public static void BASIC_BLEND(){
 //		    while(--n > 0) {  \
 //		        BLEND_PIXEL();  \
 //		        ++dst_buffer, ++src_buffer;  \
 //		    } \
-//		}
-//		
+		}
+		
 //		#define BASIC_ADDBLEND(){\
 //		    while(--n > 0) {  \
 //		        ADDBLEND_PIXEL();  \
@@ -334,36 +334,36 @@ namespace onscripter_csharp
 //		    int result = ((int)(*src1) + (int)(*src2)) / 2;  \
 //		    (*dst) = result; \
 //		}
-//		
-//		#define BASIC_MEAN(){\
+		
+		public static void BASIC_MEAN(){
 //		    while (--n > 0) {  \
 //		        MEAN_PIXEL();  \
 //		        ++dst; ++src1; ++src2;  \
 //		    }  \
-//		}
-//		
+		}
+		
 //		#define ADDTO_PIXEL(){\
 //		    int result = (*dst) + (*src);  \
 //		    (*dst) = (result < 255) ? result : 255; \
 //		}
-//		
-//		#define BASIC_ADDTO(){\
+		
+		public static void BASIC_ADDTO(){
 //		    while (--n > 0) {  \
 //		        ADDTO_PIXEL();  \
 //		        ++dst, ++src;  \
 //		    }  \
-//		}
-//		
+		}
+		
 //		#define SUBFROM_PIXEL(){\
 //		    int result = (*dst) - (*src);  \
 //		    (*dst) = (result > 0) ? result : 0;  \
 //		}
-//		
-//		#define BASIC_SUBFROM(){\
+		
+		public static void BASIC_SUBFROM(){
 //		    while(--n > 0) {  \
 //		        SUBFROM_PIXEL();  \
 //		        ++dst, ++src;  \
 //		    } \
-//		}
+		}
 	}
 }

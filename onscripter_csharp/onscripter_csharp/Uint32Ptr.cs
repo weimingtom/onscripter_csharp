@@ -82,5 +82,10 @@ namespace onscripter_csharp
 		{
 			
 		}
+		
+		public static bool isLargerEqual(Uint32Ptr a, Uint32Ptr b)
+		{
+			return false;
+		}
 	}
 }
