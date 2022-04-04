@@ -7,6 +7,8 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.IO;
+using System.Diagnostics;
 
 namespace onscripter_csharp
 {
@@ -20,41 +22,52 @@ namespace onscripter_csharp
 		
 		
 		public class time_t {
-			
+			//done
 		}
 		
+		//done
 		public class tm {
 			public int tm_year, tm_mon, tm_mday;
 			public int tm_hour, tm_min, tm_sec;
+			
+			public tm() {
+				DateTime now = DateTime.Now;
+				this.tm_year = now.Year;
+				this.tm_mon = now.Month;
+				this.tm_mday = now.Day;
+				this.tm_hour = now.Hour;
+				this.tm_min = now.Minute;
+				this.tm_sec = now.Second;
+			}
 		}
 		
+		//done
 		public static time_t time(time_t t) {
 			return new time_t();
 		}
 		
+		//done
 		public static tm localtime(time_t t) {
 			return new tm();
 		}
 		
-		public static CharPtr strcpy(CharPtr dst, CharPtr src)
-		{
-			return null;
-		}
-		public static CharPtr strncpy(CharPtr dst, CharPtr src, uint n)
-		{
-			return null;
-		}
 		
-		public static uint strlen(CharPtr str)
-		{
-			return 0;
-		}
 		
-				
-		public static CharPtr strcat(CharPtr dst, CharPtr src)
-		{
-			return null;	
-		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		public static void printf(string str, params Object[] args) 
 		{
@@ -65,9 +78,80 @@ namespace onscripter_csharp
 		{
 			
 		}
+		
+				
+		public static void sprintf(CharPtr dst, CharPtr str, params Object[] args)
+		{
+			
+		}
+			
+		public static void fprintf(FILEPtr fp, string str, params Object[] args) 
+		{
+			
+		}
+		
 		public static CharPtr sscanf(CharPtr dst, string str, params Object[] args)
 		{
 			return null;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//done
+		public static CharPtr strcpy(CharPtr dst, CharPtr src)
+		{
+			int i;
+			for (i = 0; src[i] != '\0'; i++)
+				dst[i] = src[i];
+			dst[i] = '\0';
+			return dst;
+		}
+		
+		//done
+		public static CharPtr strncpy(CharPtr dst, CharPtr src, uint n)
+		{
+			int i;
+			for (i = 0; src[i] != '\0' && i < n ; i++) {
+				dst[i] = src[i];
+			}
+			dst[i] = '\0';
+			return dst;
+		}
+		
+		//done
+		public static uint strlen(CharPtr str)
+		{
+			uint index = 0;
+			while (str[index] != '\0')
+				index++;
+			return index;
+		}
+	
+		//done
+		public static CharPtr strcat(CharPtr dst, CharPtr src)
+		{
+			int dst_index = 0;
+			while (dst[dst_index] != '\0')
+				dst_index++;
+			int src_index = 0;
+			while (src[src_index] != '\0')
+				dst[dst_index++] = src[src_index++];
+			dst[dst_index++] = '\0';
+			return dst;	
 		}
 		
 		public static int strcmp(CharPtr s1, CharPtr s2)
@@ -75,20 +159,38 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
-		public static int atoi(CharPtr str)
+		public static CharPtr strchr(CharPtr s, int c)
+		{
+			return null;
+		}
+		
+				
+		public static CharPtr strrchr(CharPtr str, char ch)
+		{
+			return null;
+		}
+		
+		public static int strncmp(CharPtr str1, CharPtr str2, int n)
 		{
 			return 0;
 		}
 		
-		public static double cos(double x)
-		{
-			return 0;
-		}
 		
-		public static void sprintf(CharPtr dst, CharPtr str, params Object[] args)
-		{
-			
-		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		public static void memcpy(CharPtr s1, CharPtr s2, uint length)
 		{
@@ -139,26 +241,94 @@ namespace onscripter_csharp
 			//FIXME:???
 		}
 		
-		public static CharPtr strrchr(CharPtr str, char ch)
-		{
-			return null;
-		}
 		
-		public static int strncmp(CharPtr str1, CharPtr str2, int n)
-		{
-			return 0;
-		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//done
 		public static double sin(double d)
 		{
-			return 0;
+			return Math.Sin(d);
 		}
-		
+		//done
+		public static double cos(double x)
+		{
+			return Math.Cos(x);
+		}
+		//done
 		public static double tan(double d)
 		{
-			return 0;
+			return Math.Tan(d);
+		}
+		//done
+		public static int abs(int x)
+		{
+			return Math.Abs(x);
+		}
+		//done
+		public static double sqrt(double x)
+		{
+			return Math.Sqrt(x);
+		}
+		//done
+		public static double floor(double x)
+		{
+			return Math.Floor(x);
+		}
+		//done
+		private static Random _random = new Random();
+		public static void srand(time_t t)
+		{
+			_random = new Random((int)DateTime.Now.Ticks);
+		}
+		//done
+		public const int RAND_MAX = 0x7fff;
+		public static int rand()
+		{
+			return _random.Next() & RAND_MAX;
+		}
+		//done
+		public static void __unused(bool x)
+		{
+			//do nothing
+		}
+		//done
+		public static void exit(int exitCode)
+		{
+			Environment.Exit(exitCode);
 		}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
 		public static FILEPtr fopen(CharPtr path, CharPtr mode)
 		{
 			return null;
@@ -209,14 +379,6 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
-		public static int remove(CharPtr str)
-		{
-			return 0;
-		}
-		public static int rename(CharPtr str,CharPtr str2)
-		{
-			return 0;
-		}
 		public static int fputs(CharPtr buffer, FILEPtr fp)
 		{
 			return 0;
@@ -230,21 +392,88 @@ namespace onscripter_csharp
 		{
 		}
 		
-		public static void OutputDebugString(CharPtr str)
+		
+		public static CharPtr fgets(CharPtr str, int n, FILEPtr stream)
 		{
-			
+			return null;
 		}
 		
-		public static void srand(time_t t)
-		{
-			
-		}
-		
-		public const int RAND_MAX = 0x7fff;
-		public static int rand()
+		public static int ferror(FILEPtr stream)
 		{
 			return 0;
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//done
+		public static int remove(CharPtr filename)
+		{
+			try 
+			{
+				if (File.Exists(filename.ToString()))
+	            {  
+					File.Delete(filename.ToString());
+					return 0;
+				}
+				else
+				{
+					return -1;
+				}
+			} 
+			catch
+			{
+				return -1;
+			}
+		}
+		//done
+		public static int rename(CharPtr oldname, CharPtr newname)
+		{
+			try {
+				new FileInfo(oldname.ToString()).MoveTo(newname.ToString());
+				return 0;
+			} catch (Exception e) {
+				Debug.WriteLine(e);
+				return -1;
+			}
+		}
+		//done
+		public static void mkdir(CharPtr path) //FIXME: second param?
+		{
+			if (!Directory.Exists(path.ToString()))
+			{
+				Directory.CreateDirectory(path.ToString());
+			}
+		}
+		
+				
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		public static void memset(IntPtr s, int ch, uint n)
 		{
@@ -268,95 +497,34 @@ namespace onscripter_csharp
 		}
 		
 		
-		public static void exit(int a)
-		{
-			
-		}
 		
-		public static void fprintf(FILEPtr fp, string str, params Object[] args) 
-		{
-			
-		}
 		
-		public static CharPtr fgets(CharPtr str, int n, FILEPtr stream)
-		{
-			return null;
-		}
 		
-		public static int ferror(FILEPtr stream)
-		{
-			return 0;
-		}
 		
-		public static void mkdir(CharPtr str) //FIXME: second param?
-		{
-			
-		}
 		
-		public static void SDL_XXX()
-		{
-			
-		}
 		
-		public static int SDL_BlitSurface(SDL_Surface src, SDL_Rect srcrect, SDL_Surface dst, SDL_Rect dstrect)
-		{
-			return 0;
-		}
 		
-		public const uint CP_ACP = 0;
-		public const uint CP_UTF8 = 65001;
-		public static int MultiByteToWideChar(uint     CodePage,
-			    long    dwFlags,
-			    CharPtr   lpMultiByteStr,
-			    int      cchMultiByte,
-			    UnsignedShortPtr   lpWideCharStr,
-			    int      cchWideChar)
-		{
-			return 0;
-		}
-		public static int WideCharToMultiByte(uint     CodePage,
-			    long    dwFlags,
-			    UnsignedShortPtr  lpWideCharStr,
-			    int      cchWideChar,
-			    CharPtr    lpMultiByteStr,
-			    int      cchMultiByte,
-			    CharPtr   lpDefaultChar,
-			    bool[]   lpUsedDefaultChar)
-		{
-			return 0;
-		}
 		
-		public static int SDL_Surface_get_w(SDL_Surface surface)
-		{
-			return 0;
-		}
-		public static int SDL_Surface_get_h(SDL_Surface surface)
-		{
-			return 0;
-		}
-		public static void SDL_savebmp(MSD_Surface surf, CharPtr name)
-		{
-			
-		}
-		public static int TTF_GlyphMetrics(TTF_Font font, ushort ch, 
-		                                   ref int minx, ref int maxx, 
-		                                   ref int miny, ref int maxy, 
-		                                   ref int advance)
-		{
-			return 0;	
-		}
-		public static int TTF_FontAscent(TTF_Font font)
-		{
-			return 0;
-		}
-		public static SDL_Surface TTF_RenderGlyph_Shaded(TTF_Font font, UInt16 ch, SDL_Color fg, SDL_Color bg)
-		{
-			return null;
-		}
-		public static void SDL_FreeSurface(SDL_Surface surface)
-		{
-			
-		}
+
+		
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		public static int sizeof_WAVE_HEADER() {
 			return 0;
 		}
@@ -385,72 +553,64 @@ namespace onscripter_csharp
 		}
 		
 		
-		public static void SDL_LockSurface(SDL_Surface x)
+		
+		
+		
+		
+		
+		
+		
+		
+		public static int atoi(CharPtr str)
 		{
-			
+			return 0;
 		}
-		public static void SDL_UnlockSurface(SDL_Surface x)
-		{
-			
-		}
-		public static UnsignedCharPtr SDL_Surface_get_pixels(SDL_Surface x)
+		public static CharPtr getenv(CharPtr name)
 		{
 			return null;
+		}
+		public static int toupper(int x)
+		{
+			return 0;
+		}
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//done
+		public static void OutputDebugString(CharPtr str)
+		{
+			Debug.WriteLine(str);
 		}
 		
-		public static UInt32 SDL_MapRGB(SDL_PixelFormat format, 
-		                                       byte r, 
-		                                       byte g, 
-		                                       byte b)
+		public const uint CP_ACP = 0;
+		public const uint CP_UTF8 = 65001;
+		public static int MultiByteToWideChar(uint     CodePage,
+			    long    dwFlags,
+			    CharPtr   lpMultiByteStr,
+			    int      cchMultiByte,
+			    UnsignedShortPtr   lpWideCharStr,
+			    int      cchWideChar)
 		{
 			return 0;
 		}
-		public static SDL_PixelFormat SDL_Surface_get_format(SDL_Surface surface)
-		{
-			return null;
-		}
-		public static int SDL_Surface_get_pitch(SDL_Surface x)
-		{
-			return 0;
-		}
-		public static void SDL_RWclose(SDL_RWops ctx)
-		{
-			
-		}
-		public static SDL_RWops SDL_RWFromMem(UnsignedCharPtr mem, int size)
-		{
-			return null;
-		}
-		public static SDL_Surface IMG_Load_RW(SDL_RWops src, int freesrc)
-		{
-			return null;
-		}
-		public static CharPtr IMG_GetError()
-		{
-			return null;
-		}
-		public const UInt32 SDL_SWSURFACE = 0x00000000;
-		public static SDL_Surface SDL_CreateRGBSurface(
-			UInt32 flags, int width, int height, int depth, 
-			UInt32 Rmask, UInt32 Gmask, UInt32 Bmask, UInt32 Amask)
-		{
-			return null;
-		}
-		public static UInt32 SDL_MapRGBA(SDL_PixelFormat format, 
-		    byte r, byte g, byte b, byte a)
-		{
-			return 0;
-		}
-		public static int SDL_FillRect(SDL_Surface dst, SDL_Rect dstrect, UInt32 color)
-		{
-			return 0;
-		}
-		public static SDL_Surface SDL_ConvertSurface(SDL_Surface src, SDL_PixelFormat fmt, UInt32 flags)
-		{
-			return null;
-		}
-		public const byte SDL_ALPHA_OPAQUE = 255;
-		public static int SDL_SetAlpha(SDL_Surface surface, UInt32 flag, byte alpha)
+		public static int WideCharToMultiByte(uint     CodePage,
+			    long    dwFlags,
+			    UnsignedShortPtr  lpWideCharStr,
+			    int      cchWideChar,
+			    CharPtr    lpMultiByteStr,
+			    int      cchMultiByte,
+			    CharPtr   lpDefaultChar,
+			    bool[]   lpUsedDefaultChar)
 		{
 			return 0;
 		}
@@ -514,15 +674,168 @@ namespace onscripter_csharp
 			return false;
 		}
 		
-		public static int SDL_WaitEvent(SDL_Event event_)
+		
+		public const uint WM_SETTEXT = 0x000C;
+		public static long SendMessageA(
+		    long/*HWND*/ hWnd,
+		    uint Msg,
+		    uint wParam,
+		    CharPtr/*long*/ lParam) //FIXME:change to CharPtr
 		{
 			return 0;
 		}
 		
+		
+		public const int SW_SHOW = 5;
+		public const int SW_SHOWNORMAL = 1;
+		public static long ShellExecuteA(
+			  object   hwnd,
+			  CharPtr lpOperation,
+			  CharPtr lpFile,
+			  CharPtr lpParameters,
+			  CharPtr lpDirectory,
+			  int    nShowCmd
+			) {
+			return 0;
+		}
+		
+		
+		public const int MAX_PATH = 260;
+		
+		public const UInt32 CSIDL_COMMON_APPDATA = 0x0023; // for [Profiles]/All Users/Application Data
+		public const UInt32 CSIDL_APPDATA = 0x001A; // for [Profiles]/[User]/Application Data
+		public const UInt32 S_OK = (uint)((long)0x00000000L);
+		public const UInt32 S_FALSE = (uint)((long)0x00000001L);
+		public const UInt32 E_FAIL = (uint)((long)(0x80004005L));
+		public const UInt32 E_INVALIDARG = (uint)((long)(0x80000003L));
+		
+		//FIXME:???
+		public static long SHGetFolderPathA(int param1, UInt32 param2, int param3, int param4, CharPtr hpath)
+		{
+			return 0;
+		}
+		
+				
+		public static int CreateDirectory(
+		    CharPtr lpPathName,
+		    int lpSecurityAttributes
+		    )
+		{
+			return 0;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		public static void SDL_XXX()
+		{
+			
+		}
+		public static int SDL_BlitSurface(SDL_Surface src, SDL_Rect srcrect, SDL_Surface dst, SDL_Rect dstrect)
+		{
+			return 0;
+		}
+		public static int SDL_Surface_get_w(SDL_Surface surface)
+		{
+			return 0;
+		}
+		public static int SDL_Surface_get_h(SDL_Surface surface)
+		{
+			return 0;
+		}
+		public static void SDL_savebmp(MSD_Surface surf, CharPtr name)
+		{
+			
+		}
+		public static void SDL_FreeSurface(SDL_Surface surface)
+		{
+			
+		}
+		public static void SDL_LockSurface(SDL_Surface x)
+		{
+			
+		}
+		public static void SDL_UnlockSurface(SDL_Surface x)
+		{
+			
+		}
+		public static UnsignedCharPtr SDL_Surface_get_pixels(SDL_Surface x)
+		{
+			return null;
+		}
+		
+		public static UInt32 SDL_MapRGB(SDL_PixelFormat format, 
+		                                       byte r, 
+		                                       byte g, 
+		                                       byte b)
+		{
+			return 0;
+		}
+		public static SDL_PixelFormat SDL_Surface_get_format(SDL_Surface surface)
+		{
+			return null;
+		}
+		public static int SDL_Surface_get_pitch(SDL_Surface x)
+		{
+			return 0;
+		}
+		public static void SDL_RWclose(SDL_RWops ctx)
+		{
+			
+		}
+		public static SDL_RWops SDL_RWFromMem(UnsignedCharPtr mem, int size)
+		{
+			return null;
+		}
+		
+		public const UInt32 SDL_SWSURFACE = 0x00000000;
+		public static SDL_Surface SDL_CreateRGBSurface(
+			UInt32 flags, int width, int height, int depth, 
+			UInt32 Rmask, UInt32 Gmask, UInt32 Bmask, UInt32 Amask)
+		{
+			return null;
+		}
+		public static UInt32 SDL_MapRGBA(SDL_PixelFormat format, 
+		    byte r, byte g, byte b, byte a)
+		{
+			return 0;
+		}
+		public static int SDL_FillRect(SDL_Surface dst, SDL_Rect dstrect, UInt32 color)
+		{
+			return 0;
+		}
+		public static SDL_Surface SDL_ConvertSurface(SDL_Surface src, SDL_PixelFormat fmt, UInt32 flags)
+		{
+			return null;
+		}
+		public const byte SDL_ALPHA_OPAQUE = 255;
+		public static int SDL_SetAlpha(SDL_Surface surface, UInt32 flag, byte alpha)
+		{
+			return 0;
+		}
+		public static int SDL_WaitEvent(SDL_Event event_)
+		{
+			return 0;
+		}
 		public const int SDL_RELEASED = 0;
 		public const int SDL_PRESSED = 1;
-		
-		
 		public const int SDL_NOEVENT = 0;
 		public const int SDL_ACTIVEEVENT = 1; //FIXME:not implemented
 		public const int SDL_KEYDOWN = 2;
@@ -549,10 +862,6 @@ namespace onscripter_csharp
 	//	public const int SDL_EVENT_RESERVED7 = 23;
 		public const int SDL_USEREVENT = 24;
 		public const int SDL_NUMEVENTS = 32;
-		
-		
-		
-		
 		private static UInt32 SDL_EVENTMASK(int X) { return (UInt32)(1<<(X)); }
 		public static UInt32 SDL_QUITMASK = SDL_EVENTMASK(SDL_QUIT);
 		public const UInt32 SDL_ALLEVENTS = 0xFFFFFFFF;
@@ -586,8 +895,6 @@ namespace onscripter_csharp
 		{
 			return SDL_bool.SDL_FALSE;
 		}
-		
-		
 		public static int SDL_PushEvent(SDL_Event event_)
 		{
 			return 0;
@@ -612,77 +919,30 @@ namespace onscripter_csharp
 		{
 			
 		}
-		
-		
 		public const int SDL_BUTTON_LEFT = 1;
 		public const int SDL_BUTTON_MIDDLE = 2;
 		public const int SDL_BUTTON_RIGHT = 3;
 		public const int SDL_BUTTON_WHEELUP = 4;
 		public const int SDL_BUTTON_WHEELDOWN = 5;
 		
-		
-		
 		public static UInt32 SDL_GetTicks()
 		{
 			return 0;
-		}
-		
-		public static int abs(int x)
-		{
-			return Math.Abs(x);
-		}
-		
-		public static double sqrt(double x)
-		{
-			return Math.Sqrt(x);
 		}
 		
 		public static int SDL_GetWMInfo(SDL_SysWMinfo info)
 		{
 			return 0;
 		}
-				
-		public const uint WM_SETTEXT = 0x000C;
-		public static long SendMessageA(
-		    long/*HWND*/ hWnd,
-		    uint Msg,
-		    uint wParam,
-		    CharPtr/*long*/ lParam) //FIXME:change to CharPtr
-		{
-			return 0;
-		}
-		
-		public static int toupper(int x)
-		{
-			return 0;
-		}
-		
 		public static int SDL_SaveBMP(SDL_Surface surface, CharPtr file)
 		{
 			return 0;
 		}
 		
-		public const int SW_SHOW = 5;
-		public const int SW_SHOWNORMAL = 1;
-		public static long ShellExecuteA(
-			  object   hwnd,
-			  CharPtr lpOperation,
-			  CharPtr lpFile,
-			  CharPtr lpParameters,
-			  CharPtr lpDirectory,
-			  int    nShowCmd
-			) {
-			return 0;
-		}
 		
 		public static byte SDL_GetMouseState(ref int x, ref int y)
 		{
 			return 0;
-		}
-		
-		public static CharPtr strchr(CharPtr s, int c)
-		{
-			return null;
 		}
 		
 		public static void SDL_PumpEvents()
@@ -694,40 +954,10 @@ namespace onscripter_csharp
 		{
 			
 		}
-		
-		public const int MAX_PATH = 260;
-		
-		public const UInt32 CSIDL_COMMON_APPDATA = 0x0023; // for [Profiles]/All Users/Application Data
-		public const UInt32 CSIDL_APPDATA = 0x001A; // for [Profiles]/[User]/Application Data
-		public const UInt32 S_OK = (uint)((long)0x00000000L);
-		public const UInt32 S_FALSE = (uint)((long)0x00000001L);
-		public const UInt32 E_FAIL = (uint)((long)(0x80004005L));
-		public const UInt32 E_INVALIDARG = (uint)((long)(0x80000003L));
-		
-		//FIXME:???
-		public static long SHGetFolderPathA(int param1, UInt32 param2, int param3, int param4, CharPtr hpath)
-		{
-			return 0;
-		}
-		
 		public static void SDL_Quit() 
 		{
 			
 		}
-		
-		public static int CreateDirectory(
-		    CharPtr lpPathName,
-		    int lpSecurityAttributes
-		    )
-		{
-			return 0;
-		}
-		
-		public static CharPtr getenv(CharPtr name)
-		{
-			return null;
-		}
-		
 		public const UInt32	SDL_INIT_TIMER = 0x00000001;
 		public const UInt32	SDL_INIT_AUDIO = 0x00000010;
 		public const UInt32	SDL_INIT_VIDEO = 0x00000020;
@@ -758,12 +988,6 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
-		
-		public static int TTF_Init()
-		{
-			return 0;
-		}
-		
 		public static SDL_VideoInfo SDL_GetVideoInfo()
 		{
 			return null;
@@ -775,9 +999,39 @@ namespace onscripter_csharp
 			return null;
 		}
 		
-		public static double floor(double x)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+				
+		public static int TTF_Init()
 		{
-			return (double)Math.Floor(x);
+			return 0;
+		}
+		
+		public static int TTF_GlyphMetrics(TTF_Font font, ushort ch, 
+		                                   ref int minx, ref int maxx, 
+		                                   ref int miny, ref int maxy, 
+		                                   ref int advance)
+		{
+			return 0;	
+		}
+		public static int TTF_FontAscent(TTF_Font font)
+		{
+			return 0;
+		}
+		public static SDL_Surface TTF_RenderGlyph_Shaded(TTF_Font font, UInt16 ch, SDL_Color fg, SDL_Color bg)
+		{
+			return null;
 		}
 		
 		public static TTF_Font TTF_OpenFont(CharPtr file, int ptsize)
@@ -785,9 +1039,27 @@ namespace onscripter_csharp
 			return null;
 		}
 		
-		public static void __unused(bool x)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		public static SDL_Surface IMG_Load_RW(SDL_RWops src, int freesrc)
 		{
-			
+			return null;
 		}
+		public static CharPtr IMG_GetError()
+		{
+			return null;
+		}
+		
+		
 	}
 }
