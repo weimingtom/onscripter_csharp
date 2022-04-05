@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.IO;
 
 namespace onscripter_csharp
 {
@@ -15,8 +16,16 @@ namespace onscripter_csharp
 	/// </summary>
 	public class FILEPtr
 	{
+		public Stream stream;
+		
 		public FILEPtr()
 		{
+			
+		}
+		
+		public FILEPtr(Stream stream)
+		{
+			this.stream = stream;
 		}
 	}
 }

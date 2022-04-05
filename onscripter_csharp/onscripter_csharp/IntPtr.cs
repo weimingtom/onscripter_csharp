@@ -9,6 +9,7 @@
 using System;
 using System.Diagnostics;
 
+//NOTE!!! reapeat name of System.IntPtr!!!!!
 namespace onscripter_csharp
 {
 	/// <summary>

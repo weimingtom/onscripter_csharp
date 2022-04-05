@@ -13,11 +13,14 @@ using System.Diagnostics;
 namespace onscripter_csharp
 {
 	public partial class ONScripter {
-		public const int EOF = -1; //FIXME:????
+
 		public const int SEEK_SET = 1; //FIXME:
 		public const int SEEK_END = 2; //FIXME:
-		public const FILEPtr stdout = null;//FIXME:
-		public const FILEPtr stderr = null;//FIXME:
+		
+		//done
+		//public static FILEPtr stdin = new FILEPtr(Console.OpenStandardInput());
+		public static FILEPtr stdout = new FILEPtr(Console.OpenStandardOutput());
+		public static FILEPtr stderr = new FILEPtr(Console.OpenStandardError());
 		
 		
 		
@@ -68,26 +71,33 @@ namespace onscripter_csharp
 		
 		
 		
-		
-		public static void printf(string str, params Object[] args) 
+		//done
+		public static int printf(string str, params Object[] args) 
 		{
-			
+			Tools.printf(str.ToString(), args);
+			return 1; //Returns the number of characters printed
 		}
 		
 		public static void snprintf(CharPtr dst, int n, string str, params Object[] args)
 		{
 			
 		}
-		
-				
+		//done	
 		public static void sprintf(CharPtr dst, CharPtr str, params Object[] args)
 		{
-			
+			string temp = Tools.sprintf(str.ToString(), args);
+			strcpy(dst, new CharPtr(temp));
 		}
-			
-		public static void fprintf(FILEPtr fp, string str, params Object[] args) 
+		//done
+		public static int fprintf(FILEPtr fp, string str, params Object[] args) 
 		{
-			
+			string result = Tools.sprintf(str.ToString(), args);
+			char[] chars = result.ToCharArray();
+			byte[] bytes = new byte[chars.Length];
+			for (int i=0; i<chars.Length; i++)
+				bytes[i] = (byte)chars[i];
+			fp.stream.Write(bytes, 0, bytes.Length);
+			return 1; //Returns the number of characters printed
 		}
 		
 		public static CharPtr sscanf(CharPtr dst, string str, params Object[] args)
@@ -154,13 +164,45 @@ namespace onscripter_csharp
 			return dst;	
 		}
 		
+		//done
 		public static int strcmp(CharPtr s1, CharPtr s2)
 		{
-			return 0;
+			if (s1 == s2)
+				return 0;
+			if (s1 == null)
+				return -1;
+			if (s2 == null)
+				return 1;
+
+			for (int i = 0; ; i++)
+			{
+				if (s1[i] != s2[i])
+				{
+					if (s1[i] < s2[i])
+						return -1;
+					else
+						return 1;
+				}
+				if (s1[i] == '\0')
+					return 0;
+			}
 		}
 		
-		public static CharPtr strchr(CharPtr s, int c)
+		//done
+		public static CharPtr strchr(CharPtr str, int c)
 		{
+			if (c != '\0')
+			{
+				for (int index = str.index; str.chars[index] != 0; index++)
+					if (str.chars[index] == c)
+						return new CharPtr(str.chars, index);
+			}
+			else
+			{
+				for (int index = str.index; index < str.chars.Length; index++)
+					if (str.chars[index] == c)
+						return new CharPtr(str.chars, index);
+			}
 			return null;
 		}
 		
@@ -240,6 +282,28 @@ namespace onscripter_csharp
 		{
 			//FIXME:???
 		}
+		
+		public static void memset(IntPtr s, int ch, uint n)
+		{
+			
+		}
+		public static void memset(CharPtr s, int ch, uint n)
+		{
+			
+		}
+		public static void memset(UnsignedCharPtr s, int ch, uint n)
+		{
+			
+		}
+		public static void memset(UnsignedLongPtr s, int ch, uint n)
+		{
+			
+		}
+		public static void memset(DirectReader.FileInfo s, int ch, uint n)
+		{
+			
+		}
+		
 		
 		
 		
@@ -326,30 +390,74 @@ namespace onscripter_csharp
 		
 		
 		
-		
-		
-				
-		public static FILEPtr fopen(CharPtr path, CharPtr mode)
+		//done
+		public const int EOF = -1;
+		//done
+		public static FILEPtr fopen(CharPtr filename, CharPtr mode)
 		{
-			return null;
+			FileStream stream = null;
+			string str = filename.ToString();			
+			FileMode filemode = FileMode.Open;
+			FileAccess fileaccess = (FileAccess)0;			
+			for (int i=0; mode[i] != '\0'; i++)
+				switch (mode[i])
+				{
+					case 'r': 
+						fileaccess = fileaccess | FileAccess.Read;
+						if (!File.Exists(str))
+							return null;
+						break;
+
+					case 'w':
+						filemode = FileMode.Create;
+						fileaccess = fileaccess | FileAccess.Write;
+						break;
+				}
+			try
+			{
+				stream = new FileStream(str, filemode, fileaccess);
+			}
+			catch
+			{
+				stream = null;
+			}			
+			
+			FILEPtr ret = new FILEPtr();
+			ret.stream = stream;
+			return ret;
 		}
+		
 		public static FILEPtr _wfopen(UnsignedShortPtr path, UnsignedShortPtr mode)
 		{
 			return null;
 		}
+		//done
+		public static void fclose(FILEPtr fp)
+		{
+			try
+			{
+				fp.stream.Flush();
+				fp.stream.Close();
+			}
+			catch { }			
+		}
+				
+		
 		public static int feof(FILEPtr fp)
 		{
 			return 0;
 		}
-			
+
+		//done		
 		public static int fgetc(FILEPtr fp)
 		{
-			return 0;
-		}
-		
-		public static void fclose(FILEPtr fp)
-		{
-			
+			int result = fp.stream.ReadByte();
+			if (result == (int)'\r') //FIXME: only tested under Windows
+			{
+				result = fp.stream.ReadByte();
+			}
+			return result;
+
 		}
 		
 		public static void fseek(FILEPtr fp, int pos, int mode)
@@ -388,8 +496,14 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
+		//done
 		public static void fflush(FILEPtr fp)
 		{
+			try
+			{
+				fp.stream.Flush();
+			}
+			catch { }	
 		}
 		
 		
@@ -475,26 +589,7 @@ namespace onscripter_csharp
 		
 		
 		
-		public static void memset(IntPtr s, int ch, uint n)
-		{
-			
-		}
-		public static void memset(CharPtr s, int ch, uint n)
-		{
-			
-		}
-		public static void memset(UnsignedCharPtr s, int ch, uint n)
-		{
-			
-		}
-		public static void memset(UnsignedLongPtr s, int ch, uint n)
-		{
-			
-		}
-		public static void memset(DirectReader.FileInfo s, int ch, uint n)
-		{
-			
-		}
+
 		
 		
 		
@@ -565,13 +660,15 @@ namespace onscripter_csharp
 		{
 			return 0;
 		}
+		//done
 		public static CharPtr getenv(CharPtr name)
 		{
-			return null;
+			return Environment.GetEnvironmentVariable(name.ToString());
 		}
-		public static int toupper(int x)
+		//done
+		public static int toupper(int c)
 		{
-			return 0;
+			return (int)Char.ToUpper((char)c);
 		}
 				
 				
@@ -589,7 +686,7 @@ namespace onscripter_csharp
 		//done
 		public static void OutputDebugString(CharPtr str)
 		{
-			Debug.WriteLine(str);
+			Debug.WriteLine(str.ToString());
 		}
 		
 		public const uint CP_ACP = 0;
@@ -696,6 +793,22 @@ namespace onscripter_csharp
 			  CharPtr lpDirectory,
 			  int    nShowCmd
 			) {
+			
+//			ProcessStartInfo processStartInfo = new ProcessStartInfo();
+//            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+//            processStartInfo.CreateNoWindow = true;
+//            processStartInfo.UseShellExecute = false;
+//            processStartInfo.RedirectStandardOutput = true;
+//            processStartInfo.RedirectStandardError = true;
+//            processStartInfo.FileName = "cmd";
+//            processStartInfo.Arguments = "/c ";
+//            processStartInfo.Arguments += str.ToString();
+//
+//            Process process = Process.Start(processStartInfo);
+//            process.WaitForExit();
+//            return process.ExitCode;
+
+            
 			return 0;
 		}
 		
@@ -721,6 +834,15 @@ namespace onscripter_csharp
 		    int lpSecurityAttributes
 		    )
 		{
+			try {
+				if (!Directory.Exists(lpPathName.ToString()))
+				{
+					Directory.CreateDirectory(lpPathName.ToString());
+					return 1;
+				}
+			} catch {
+			
+			}
 			return 0;
 		}
 		
