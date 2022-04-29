@@ -120,5 +120,7 @@ namespace onscripter_csharp
 		public static CharPtr fromUnsignedCharPtr(UnsignedCharPtr str) {
 			return null;
 		}
+		
+		//ToString, TODO!!!!!
 	}
 }

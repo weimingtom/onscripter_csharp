@@ -116,7 +116,7 @@ namespace onscripter_csharp
 		            data = null;
 		            if (null!=av.data){
 		            	data = new IntPtr(new int[total_dim]);
-		            	memcpy(data, av.data, (uint)(sizeof(int)*total_dim));
+		            	memcpy(data, av.data, (uint)(sizeof(int)*total_dim), total_dim);
 		            }
 		
 		            return this;

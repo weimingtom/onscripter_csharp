@@ -9,14 +9,13 @@
 using System;
 using System.IO;
 using System.Diagnostics;
+using System.Text;
 
 namespace onscripter_csharp
 {
 	public partial class ONScripter {
 
-		public const int SEEK_SET = 1; //FIXME:
-		public const int SEEK_END = 2; //FIXME:
-		
+
 		//done
 		//public static FILEPtr stdin = new FILEPtr(Console.OpenStandardInput());
 		public static FILEPtr stdout = new FILEPtr(Console.OpenStandardOutput());
@@ -78,9 +77,11 @@ namespace onscripter_csharp
 			return 1; //Returns the number of characters printed
 		}
 		
+		//done
 		public static void snprintf(CharPtr dst, int n, string str, params Object[] args)
 		{
-			
+			string temp = Tools.sprintf(str.ToString(), args);
+			strncpy(dst, new CharPtr(temp), (uint)n);
 		}
 		//done	
 		public static void sprintf(CharPtr dst, CharPtr str, params Object[] args)
@@ -189,6 +190,31 @@ namespace onscripter_csharp
 		}
 		
 		//done
+		public static int strncmp(CharPtr str1, CharPtr str2, int n)
+		{
+			if (str1 == str2)
+				return 0;
+			if (str1 == null)
+				return -1;
+			if (str2 == null)
+				return 1;
+
+			for (int i = 0; i < n; i++)
+			{
+				if (str1[i] != str2[i])
+				{
+					if (str1[i] < str2[i])
+						return -1;
+					else
+						return 1;
+				}
+				if (str1[i] == '\0')
+					return 0;
+			}
+			return 0;
+		}
+		
+		//done
 		public static CharPtr strchr(CharPtr str, int c)
 		{
 			if (c != '\0')
@@ -206,83 +232,133 @@ namespace onscripter_csharp
 			return null;
 		}
 		
-				
+		//done
 		public static CharPtr strrchr(CharPtr str, char ch)
 		{
+			int result = -1;
+			if (ch != '\0')
+			{
+				for (int index = str.index; str.chars[index] != 0; index++) 
+					if (str.chars[index] == ch)
+						result = index;
+			}
+			else
+			{
+				for (int index = str.index; index < str.chars.Length; index++)
+					if (str.chars[index] == ch)
+						result = index;
+			}
+			if (result >= 0) 
+			{
+				return new CharPtr(str.chars, result);
+			}
 			return null;
 		}
 		
-		public static int strncmp(CharPtr str1, CharPtr str2, int n)
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		public static void memcpy(CharPtr ptr1, CharPtr ptr2, uint size)
+		{
+			for (int i = 0; i < size; i++)
+				ptr1[i] = ptr2[i];
+		}
+		public static void memcpy(IntPtr ptr1, IntPtr ptr2, uint length, int size)
+		{
+			for (int i = 0; i < size; i++)
+				ptr1[i] = ptr2[i];
+		}
+		public static void memcpy(UnsignedCharPtr ptr1, UnsignedCharPtr ptr2, uint size)
+		{
+			for (int i = 0; i < size; i++)
+				ptr1[i] = ptr2[i];			
+		}
+		//----------------//
+		public static int sizeof_ONSBuf()
 		{
 			return 0;
-		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		public static void memcpy(CharPtr s1, CharPtr s2, uint length)
-		{
-			
-		}
-		public static void memcpy(IntPtr s1, IntPtr s2, uint length)
-		{
-			
-		}
-		public static void memcpy(UnsignedCharPtr s1, UnsignedCharPtr s2, uint length)
-		{
-			
 		}
 		public static void memcpy(Uint32Ptr s1, Uint32Ptr s2, uint length)
 		{
 			
 		}
+		//----------------//
+		public static int sizeof_WAVE_HEADER() 
+		{
+			return 0;
+		}
 		public static void memcpy(UnsignedCharPtr s1, WAVE_HEADER s2, uint length)
 		{
 			
 		}
-		public static void memcpy(CharPtr s1, UnsignedCharPtr s2, uint length)
+		//----------------//
+		public static void memcpy(CharPtr ptr1, UnsignedCharPtr ptr2, uint size)
 		{
-			
+			for (int i = 0; i < size; i++)
+				ptr1[i] = (char)ptr2[i];
 		}
-		public static void memcpy(UnsignedCharPtr s1, CharPtr s2, uint length)
+		public static void memcpy(UnsignedCharPtr ptr1, CharPtr ptr2, uint size)
 		{
-			
+			for (int i = 0; i < size; i++)
+				ptr1[i] = (byte)ptr2[i];			
 		}
 		public static void memcpy(ScriptHandler.ExtendedVariableData[] s1, ScriptHandler.ExtendedVariableData s2, uint length)
 		{
 			//FIXME:???
 		}
+		//----------------//
+		public static int sizeof_DirPaths() 
+		{
+			return 0;
+		}
 		public static void memcpy(DirPaths s1, DirPaths s2, uint length)
 		{
 			//FIXME:???
+		}
+		//----------------//
+		public static int sizeof_AnimationInfo()
+		{
+			return 0;
 		}
 		public static void memcpy(AnimationInfo s1, AnimationInfo s2, uint length)
 		{
 			//FIXME:???
 		}
+		//----------------//
+		public static int sizeof_int()
+		{
+			return 0;
+		}
 		public static void memcpy(int[] s1, int[] s2, uint length)
 		{
 			//FIXME:???
+		}
+		//----------------//
+		public static int sizeof_uchar3()
+		{
+			return 0;
 		}
 		public static void memcpy(byte[][] s1, byte[][] s2, uint length)
 		{
 			//FIXME:???
 		}
-		
+		//----------------//
 		public static void memset(IntPtr s, int ch, uint n)
 		{
 			
@@ -299,11 +375,16 @@ namespace onscripter_csharp
 		{
 			
 		}
+		//----------------//
+		public static int sizeof_DirectReader_FileInfo()
+		{
+			return 0;
+		}
 		public static void memset(DirectReader.FileInfo s, int ch, uint n)
 		{
 			
 		}
-		
+		//----------------//
 		
 		
 		
@@ -460,6 +541,8 @@ namespace onscripter_csharp
 
 		}
 		
+		public const int SEEK_SET = 1; //FIXME:
+		public const int SEEK_END = 2; //FIXME:
 		public static void fseek(FILEPtr fp, int pos, int mode)
 		{
 			
@@ -506,10 +589,43 @@ namespace onscripter_csharp
 			catch { }	
 		}
 		
-		
-		public static CharPtr fgets(CharPtr str, int n, FILEPtr stream)
+		//done
+		public static CharPtr fgets(CharPtr s, int n, FILEPtr fp)
 		{
-			return null;
+			bool isEnd = false;
+			StringBuilder sb = new StringBuilder();
+			while (true)
+			{
+				if (sb.Length >= n - 1)
+				{
+					break;
+				}
+				int result = fp.stream.ReadByte();
+				if (result == (int)'\r') //FIXME: only tested under Windows
+				{
+					result = fp.stream.ReadByte();
+					if (result == -1)
+					{
+						isEnd = true;
+						break;
+					}
+					break;
+				} 
+				else if (result == -1)
+				{
+					isEnd = true;
+					break;
+				}
+				sb.Append((char)(byte)result);
+			}
+			if (isEnd && sb.Length == 0)
+			{
+				//FIXME:if get eof not \n after the string, make eof like \n
+				return null;
+			}
+			CharPtr src = sb.ToString() + "\n"; //FIXME:\n
+			strcpy(s, src);
+			return s;
 		}
 		
 		public static int ferror(FILEPtr stream)
@@ -620,32 +736,8 @@ namespace onscripter_csharp
 		
 		
 		
-		public static int sizeof_WAVE_HEADER() {
-			return 0;
-		}
-		public static int sizeof_DirPaths() {
-			return 0;
-		}
-		public static int sizeof_DirectReader_FileInfo()
-		{
-			return 0;
-		}
-		public static int sizeof_AnimationInfo()
-		{
-			return 0;
-		}
-		public static int sizeof_int()
-		{
-			return 0;
-		}
-		public static int sizeof_uchar3()
-		{
-			return 0;
-		}
-		public static int sizeof_ONSBuf()
-		{
-			return 0;
-		}
+
+
 		
 		
 		
@@ -655,9 +747,18 @@ namespace onscripter_csharp
 		
 		
 		
-		
+		//done
 		public static int atoi(CharPtr str)
 		{
+			int result = 0;
+			try {
+				if (int.TryParse(str.ToString(), out result))
+			    {
+			    	return result;
+			    }
+			} catch (Exception) {
+				
+			}
 			return 0;
 		}
 		//done
