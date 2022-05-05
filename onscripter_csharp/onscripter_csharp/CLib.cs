@@ -507,10 +507,18 @@ namespace onscripter_csharp
 			ret.stream = stream;
 			return ret;
 		}
-		
+		//done
 		public static FILEPtr _wfopen(UnsignedShortPtr path, UnsignedShortPtr mode)
 		{
-			return null;
+			CharPtr path_utf8 = new CharPtr(new char[path.chars.Length * 2]);
+			int path_utf8_size = WideCharToMultiByte(CP_UTF8, 0, path, path.chars.Length, path_utf8, 0, null, null);
+			WideCharToMultiByte(CP_UTF8, 0, path, path.chars.Length, path_utf8, path_utf8_size, null, null);
+
+			CharPtr mode_utf8 = new CharPtr(new char[mode.chars.Length * 2]);
+			int mode_utf8_size = WideCharToMultiByte(CP_UTF8, 0, mode, mode.chars.Length, mode_utf8, 0, null, null);
+			WideCharToMultiByte(CP_UTF8, 0, mode, mode.chars.Length, mode_utf8, mode_utf8_size, null, null);
+			
+			return fopen(path_utf8, mode_utf8);
 		}
 		//done
 		public static void fclose(FILEPtr fp)
@@ -523,10 +531,10 @@ namespace onscripter_csharp
 			catch { }			
 		}
 				
-		
+		//done
 		public static int feof(FILEPtr fp)
 		{
-			return 0;
+			return fp.stream.Position >= fp.stream.Length ? 1 : 0;
 		}
 
 		//done		
@@ -541,16 +549,27 @@ namespace onscripter_csharp
 
 		}
 		
-		public const int SEEK_SET = 1; //FIXME:
-		public const int SEEK_END = 2; //FIXME:
+		//done
+		public const int SEEK_SET = 0;
+		public const int SEEK_CUR = 1;
+		public const int SEEK_END = 2;
 		public static void fseek(FILEPtr fp, int pos, int mode)
 		{
-			
+			if (mode == SEEK_SET) {
+				fp.stream.Seek(pos, SeekOrigin.Begin);
+			} else if (mode == SEEK_CUR) {
+				fp.stream.Seek(pos, SeekOrigin.Current);
+			} else if (mode == SEEK_END) {
+				fp.stream.Seek(pos, SeekOrigin.End);
+			} else {
+				throw new Exception("fseek mode not supported");
+			}
 		}
 
+		//done
 		public static long ftell(FILEPtr fp)
 		{
-			return 0;
+			return fp.stream.Position;
 		}
 		
 		public static uint fread(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
@@ -570,13 +589,34 @@ namespace onscripter_csharp
 			return 0;
 		}
 		
+		//done
 		public static int fputs(CharPtr buffer, FILEPtr fp)
 		{
-			return 0;
+			UnsignedCharPtr ptr = new UnsignedCharPtr(buffer);
+			fp.stream.Write(ptr.chars, ptr.index, (int)strlen(buffer));
+			if (feof(fp)!=0)
+			{
+				return EOF;
+			}
+			else
+			{
+				//This function returns a non-negative value, or else on error it returns EOF.
+				return 0;
+			}
 		}
+		
+		//done
 		public static int fputc(char buffer, FILEPtr fp)
 		{
-			return 0;
+			fp.stream.WriteByte((byte)buffer);
+			if (feof(fp)!=0)
+			{
+				return EOF;
+			}
+			else
+			{
+				return (int)buffer;
+			}
 		}
 		
 		//done
