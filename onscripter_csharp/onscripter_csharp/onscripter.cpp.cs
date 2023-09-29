@@ -395,7 +395,7 @@ namespace onscripter_csharp
 //		#elif !IS_LIB
 //		int main_temp( int argc, char **argv )
 //		#else
-		int main( int argc, CharPtr[] argv )
+		public static int main( int argc, CharPtr[] argv )
 //		#endif
 		{
 			ONScripterLabel ons = new ONScripterLabel();
