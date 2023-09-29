@@ -36,12 +36,19 @@ namespace onscripter_csharp
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.SuspendLayout();
 			// 
 			// MainForm
 			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Text = "onscripter_csharp";
+			this.ClientSize = new System.Drawing.Size(284, 261);
 			this.Name = "MainForm";
+			this.Text = "onscripter_csharp";
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyDown);
+			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyUp);
+			this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseClick);
+			this.ResumeLayout(false);
 		}
 	}
 }
