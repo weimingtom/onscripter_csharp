@@ -55,7 +55,7 @@ namespace onscripter_csharp
 //		    SDL_Rect calcBoundingBox( SDL_Rect src1, SDL_Rect &src2 );
 		
 		    public int screen_width, screen_height;
-		    public SDL_Rect bounding_box;
+		    public SDL_Rect bounding_box = new SDL_Rect();
 		}
 		
 		//#endif // __DIRTY_RECT__

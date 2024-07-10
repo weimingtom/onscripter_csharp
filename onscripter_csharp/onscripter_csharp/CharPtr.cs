@@ -36,25 +36,40 @@ namespace onscripter_csharp
 		
 		public CharPtr()
 		{
+			this.chars = null;
+			this.index = 0;
 		}
 		
-		public CharPtr(string str) {
-			
+		public CharPtr(string str) 
+		{
+			this.chars = (str + '\0').ToCharArray();
+			this.index = 0;			
 		}
 		
-		public CharPtr(char[] str) {
-			
+		public CharPtr(char[] str) 
+		{
+			this.chars = str;
+			this.index = 0;
 		}
 		
-		public CharPtr(CharPtr str) {
-			
+		public CharPtr(CharPtr str) 
+		{
+			this.chars = str.chars;
+			this.index = str.index;
 		}
 		
-		public CharPtr(CharPtr str, int offset) {
-			
+		public CharPtr(CharPtr str, int offset) 
+		{
+			this.chars = str.chars;
+			this.index = offset;			
 		}
 		public CharPtr(UnsignedCharPtr str, int offset) {
-			
+			this.chars = new char[str.chars.Length];
+			for (int i = 0; i < str.chars.Length; ++i)
+			{
+				this.chars[i] = (char)str.chars[i];
+			}
+			this.index = offset;	
 		}
 		
 		
@@ -94,31 +109,40 @@ namespace onscripter_csharp
 			return this;
 		}
 		
+		//public static int operator -(CharPtr ptr1, CharPtr ptr2) {
 		public static int minus(CharPtr s1, CharPtr s2)
 		{
-			return 0;
+			Debug.Assert(s1.chars == s2.chars); 
+			return s1.index - s2.index;
 		}
 		
 		//<
+		//public static bool operator <(CharPtr ptr1, CharPtr ptr2) {
 		public static bool isLessThen(CharPtr ptr1, CharPtr ptr2)
 		{
-			//FIXME:
-			return false;
+			Debug.Assert(ptr1.chars == ptr2.chars); 
+			return ptr1.index < ptr2.index;
 		}
 		
 		//>
+		//public static bool operator >(CharPtr ptr1, CharPtr ptr2) {
 		public static bool isLargerThen(CharPtr ptr1, CharPtr ptr2)
 		{
-			return false;
+			Debug.Assert(ptr1.chars == ptr2.chars); 
+			return ptr1.index > ptr2.index;
 		}
 		
 		//FIXME:todo
 		public static CharPtr fromDoubleByte(string str) {
-			return null;
+			//FIXME:
+			//return null;
+			return new CharPtr(str);
 		}
 		
 		public static CharPtr fromUnsignedCharPtr(UnsignedCharPtr str) {
-			return null;
+			//FIXME:
+			//return null;
+			return new CharPtr(str, 0);
 		}
 		
 		//ToString, TODO!!!!!

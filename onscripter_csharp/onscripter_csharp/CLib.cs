@@ -434,7 +434,7 @@ namespace onscripter_csharp
 		private static Random _random = new Random();
 		public static void srand(time_t t)
 		{
-			_random = new Random((int)DateTime.Now.Ticks);
+			_random = new Random((int)(DateTime.Now.Ticks & 0xffffffff));
 		}
 		//done
 		public const int RAND_MAX = 0x7fff;

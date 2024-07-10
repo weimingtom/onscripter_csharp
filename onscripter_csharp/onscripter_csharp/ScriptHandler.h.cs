@@ -264,7 +264,15 @@ namespace onscripter_csharp
 		        public int num_logs;
 		        public CharPtr filename;
 		    }
-		    public LogInfo[] log_info = new LogInfo[2];
+		    public LogInfo[] log_info = log_info_init(); //new LogInfo[2];
+		    private static LogInfo[] log_info_init() {
+		    	LogInfo[] result = new LogInfo[2];
+		    	for (int i = 0; i < result.Length; ++i)
+		    	{
+		    		result[i] = new LogInfo();
+		    	}
+		    	return result;
+		    }
 //		    LogLink *findAndAddLog( LogInfo &info, const char *name, bool add_flag );
 //		    void resetLog( LogInfo &info );
 		    
