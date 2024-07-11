@@ -78,8 +78,22 @@ namespace onscripter_csharp
 		
 		public char this[int offset]
 		{
-			get { return chars[index + offset]; }
-			set { chars[index + offset] = value; }
+			get { 
+				//FIXME:???
+				if (index + offset >= chars.Length || index + offset < 0) {
+					Debug.WriteLine("<< CharPtr.this.getter, index overflow return 0 : " + (index + offset) + ", len == " + chars.Length);
+					return '\0';
+				}
+				return chars[index + offset];
+			}
+			set { 
+				//FIXME:???
+				if (index + offset >= chars.Length || index + offset < 0) {
+					Debug.WriteLine("<< CharPtr.this.setter, index overflow return : " + (index + offset) + ", len == " + chars.Length);
+					return;
+				}
+				chars[index + offset] = value;
+			}
 		}
 		public char this[uint offset]
 		{

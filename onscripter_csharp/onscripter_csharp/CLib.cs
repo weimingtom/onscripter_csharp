@@ -146,6 +146,12 @@ namespace onscripter_csharp
 		//done
 		public static uint strlen(CharPtr str)
 		{
+			if (str == null) 
+			{
+				//FIXME:
+				Debug.WriteLine("<<< strlen str null");
+				return 0;
+			}
 			uint index = 0;
 			while (str[index] != '\0')
 				index++;
@@ -434,7 +440,7 @@ namespace onscripter_csharp
 		private static Random _random = new Random();
 		public static void srand(time_t t)
 		{
-			_random = new Random((int)(DateTime.Now.Ticks & 0xffffffff));
+			_random = new Random((int)(DateTime.Now.Ticks & 0x7fffffff));
 		}
 		//done
 		public const int RAND_MAX = 0x7fff;

@@ -374,8 +374,16 @@ namespace onscripter_csharp
 		    public FuncHash()
 		    { start = (-1); end = (-2); }
 		} 
-		public static FuncHash[] func_hash = new FuncHash['z'-'a'+1];
-		
+		public static FuncHash[] func_hash = func_hash_init(); //= new FuncHash['z'-'a'+1];
+		private static FuncHash[] func_hash_init() {
+			FuncHash[] result = new FuncHash['z'-'a'+1];
+			for (int i = 0; i < result.Length; ++i)
+			{
+				result[i] = new FuncHash();
+			}
+			return result;
+		}
+			
 		private static void SDL_Quit_Wrapper()
 		{
 		    SDL_Quit();
@@ -702,8 +710,16 @@ namespace onscripter_csharp
 			    readColor( ref linkcolor[0], "#FFFF22" ); // yellow - link color
 			    readColor( ref linkcolor[1], "#88FF88" ); // cyan - mouseover link color
 			    sprite_info  = new AnimationInfo[MAX_SPRITE_NUM];
+			    for (int i_ = 0; i_ < sprite_info.Length; ++i_)
+			    {
+			    	sprite_info[i_] = new AnimationInfo();
+			    }
 			    sprite2_info = new AnimationInfo[MAX_SPRITE2_NUM];
-			
+				for (int i_ = 0; i_ < sprite2_info.Length; ++i_)
+			    {
+			    	sprite2_info[i_] = new AnimationInfo();
+			    }
+				
 			    for (i=0 ; i<MAX_SPRITE2_NUM ; i++)
 			        sprite2_info[i].affine_flag = true;
 			    for (i=0 ; i<NUM_GLYPH_CACHE ; i++){

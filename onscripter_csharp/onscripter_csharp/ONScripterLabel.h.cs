@@ -794,8 +794,17 @@ namespace onscripter_csharp
 		
 		    /* ---------------------------------------- */
 		    /* Lookback related variables */
-		    public AnimationInfo[] lookback_info = new AnimationInfo[4];
-		
+		    public AnimationInfo[] lookback_info = lookback_info_init(); //new AnimationInfo[4];
+			private static AnimationInfo[] lookback_info_init()
+		    {
+		    	AnimationInfo[] ret = new AnimationInfo[4];
+		    	for (int i = 0; i < ret.Length; ++i)
+		    	{
+		    		ret[i] = new AnimationInfo();
+		    	}
+		    	return ret;
+		    }
+			
 		    /* ---------------------------------------- */
 		    /* Text related variables */
 			public AnimationInfo text_info = new AnimationInfo(), shelter_text_info = new AnimationInfo();

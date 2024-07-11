@@ -502,6 +502,14 @@ namespace onscripter_csharp
 		
 		    public class Kinsoku {
 		    	public char[] chr = new char[2];
+//		    	private char[] chr_ = new char[2];
+//		    	
+//		    	public char[] chr {
+//		    		get { return chr_; }
+//		    		set { 
+//		    			chr_ = value; 
+//		    		}
+//		    	}
 		    } 
 		    public Kinsoku[] start_kinsoku = null; public Kinsoku[] end_kinsoku = null; //Mion: for kinsoku chars
 		    public int num_start_kinsoku, num_end_kinsoku;

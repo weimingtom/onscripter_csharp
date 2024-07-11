@@ -48,7 +48,13 @@ namespace onscripter_csharp
 		{
 			Debug.WriteLine("onStart");
 			//int main( int argc, CharPtr[] argv )
-			ONScripter.main(0, null);
+			string[] args = Environment.GetCommandLineArgs();
+			CharPtr[] argv = new CharPtr[args.Length + 1]; //FIXME:???why add one argv
+			for (int i = 0; i < args.Length; ++i)
+			{
+				argv[i] = new CharPtr(args[i]);
+			}
+			ONScripter.main(args.Length, argv);
 		}
 		
 		
@@ -100,12 +106,18 @@ namespace onscripter_csharp
 		
 		private void timer1_Tick(object sender, EventArgs e)
         {
-            Debug.WriteLine("hello");
+            Debug.WriteLine("timer1_Tick");
 		}
 		
 		public void setTitle(string str)
 		{
 			this.Text = str;
+		}
+		
+		void MainFormFormClosing(object sender, FormClosingEventArgs e)
+		{
+			Application.Exit();
+			Environment.Exit(0);
 		}
 	}
 }

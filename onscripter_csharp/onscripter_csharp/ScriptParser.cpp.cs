@@ -1283,6 +1283,10 @@ namespace onscripter_csharp
 			        num_start_kinsoku = 0;
 			    }
 			    start_kinsoku = new Kinsoku[num_start_kinsoku + num_start];
+			    for (int i_ = 0; i_ < start_kinsoku.Length; ++i_)
+			    {
+			    	start_kinsoku[i_] = new Kinsoku();
+			    }
 			    kchr = start_chrs;
 			    for (i=0; i<num_start_kinsoku+num_start; i++) {
 			        if (i < num_start_kinsoku)
@@ -1315,6 +1319,10 @@ namespace onscripter_csharp
 			        num_end_kinsoku = 0;
 			    }
 			    end_kinsoku = new Kinsoku[num_end_kinsoku + num_end];
+			    for (int i_ = 0; i_ < end_kinsoku.Length; ++i_)
+			    {
+			    	end_kinsoku[i_] = new Kinsoku();
+			    }
 			    kchr = end_chrs;
 			    for (i=0; i<num_end_kinsoku+num_end; i++) {
 			        if (i < num_end_kinsoku)

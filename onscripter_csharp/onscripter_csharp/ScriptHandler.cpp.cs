@@ -88,6 +88,10 @@ namespace onscripter_csharp
 			    gosub_string_buffer = new char[STRING_BUFFER_LENGTH];
 			
 			    variable_data = new VariableData[VARIABLE_RANGE];
+			    for (int i = 0; i < variable_data.Length; ++i)
+			    {
+			    	variable_data[i] = new VariableData();
+			    }
 			    extended_variable_data = null;
 			    num_extended_variable_data = 0;
 			    max_extended_variable_data = 1;

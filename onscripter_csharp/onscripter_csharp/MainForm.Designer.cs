@@ -45,6 +45,7 @@ namespace onscripter_csharp
 			this.ClientSize = new System.Drawing.Size(284, 261);
 			this.Name = "MainForm";
 			this.Text = "onscripter_csharp";
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainFormFormClosing);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyDown);
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.MainFormKeyUp);
 			this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MainFormMouseClick);
