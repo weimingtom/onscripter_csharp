@@ -75,15 +75,15 @@ namespace onscripter_csharp
 			        paths = new CharPtr[num_paths + 1];
 			        for (int i=0; i<=num_paths; i++) {
 			            if (old_paths[i] != null) {
-			                paths[i] = new char[strlen(old_paths[i]) + 1];
+			        		paths[i] = new CharPtr(new char[strlen(old_paths[i]) + 1]);
 			                strcpy(paths[i], old_paths[i]);
 			            } else
 			                paths[i] = null;
 			        }
 			    }
 			    if (all_paths != null) {
-			        CharPtr old_all_paths = all_paths;
-			        all_paths = new char[strlen(old_all_paths) + 1];
+					CharPtr old_all_paths = new CharPtr(all_paths);
+			        all_paths = new CharPtr(new char[strlen(old_all_paths) + 1]);
 			        strcpy(all_paths, old_all_paths);
 			    }
 			}
@@ -146,7 +146,7 @@ namespace onscripter_csharp
 			        CharPtr[] old_paths = paths;
 			        paths = new CharPtr[num_paths + 1];
 			        for (int i=0; i<cur_num; i++) {
-			            paths[i] = old_paths[i];
+			        	paths[i] = new CharPtr(old_paths[i]);
 			        }
 			        old_paths = null;//delete[] old_paths;
 			    } else {
@@ -159,7 +159,7 @@ namespace onscripter_csharp
 			            snprintf(paths[0], 2, "%s%c", ".", DELIMITER);
 			        }
 			    }
-			    CharPtr ptr2 = new CharPtr(new_paths); ptr1 = new CharPtr(new_paths);
+			    ptr1 = new CharPtr(new_paths); CharPtr ptr2 = new CharPtr(ptr1); 
 			    do {
 			    	while ((ptr2[0] != '\0') && (ptr2[0] != PATH_DELIMITER)) ptr2.inc();
 			        if (ptr2 == ptr1) {
@@ -168,11 +168,12 @@ namespace onscripter_csharp
 			            ptr2.inc();
 			            continue;
 			        } else {
-			        	paths[cur_num] = new char[CharPtr.minus(ptr2, ptr1) + 2];
-			            CharPtr dptr = paths[cur_num];
+			    		int index_ = CharPtr.minus(ptr2, ptr1) + 2;
+			        	paths[cur_num] = new char[index_];
+			        	CharPtr dptr = new CharPtr(paths[cur_num]);
 			            if (ptr1 != ptr2) {
 			            	while (ptr1 != ptr2) { dptr[0] = ptr1[0]; dptr.inc(); ptr1.inc(); }
-			            	if ((new CharPtr(dptr, -1))[0] != DELIMITER) {
+			            	if (dptr[-1] != DELIMITER) {
 			                    // put a slash on the end if there isn't one already
 			                    dptr[0] = DELIMITER; dptr.inc();
 			                }

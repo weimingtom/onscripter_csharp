@@ -7,6 +7,7 @@
  * To change this template use Tools | Options | Coding | Edit Standard Headers.
  */
 using System;
+using System.Diagnostics;
 
 namespace onscripter_csharp
 {
@@ -1254,15 +1255,16 @@ namespace onscripter_csharp
 			
 			    // count chrs
 			    num_start = 0;
-			    kchr = start_chrs;
+			    kchr = new CharPtr(start_chrs);
 			    while (kchr[0] != '\0') {
+			    	//Debug.WriteLine("num_start : " + num_start + " : " + (int)kchr[0]);
 			    	if (IS_TWO_BYTE(kchr[0])) kchr.inc();
 			        kchr.inc();
 			        num_start++;
 			    }
-			
+				
 			    num_end = 0;
-			    kchr = end_chrs;
+			    kchr = new CharPtr(end_chrs);
 			    while (kchr[0] != '\0') {
 			    	if (IS_TWO_BYTE(kchr[0])) kchr.inc();
 			        kchr.inc();
@@ -1287,7 +1289,7 @@ namespace onscripter_csharp
 			    {
 			    	start_kinsoku[i_] = new Kinsoku();
 			    }
-			    kchr = start_chrs;
+			    kchr = new CharPtr(start_chrs);
 			    for (i=0; i<num_start_kinsoku+num_start; i++) {
 			        if (i < num_start_kinsoku)
 			            start_kinsoku[i].chr[0] = tmp[i].chr[0];
@@ -1323,7 +1325,7 @@ namespace onscripter_csharp
 			    {
 			    	end_kinsoku[i_] = new Kinsoku();
 			    }
-			    kchr = end_chrs;
+			    kchr = new CharPtr(end_chrs);
 			    for (i=0; i<num_end_kinsoku+num_end; i++) {
 			        if (i < num_end_kinsoku)
 			            end_kinsoku[i].chr[0] = tmp[i].chr[0];

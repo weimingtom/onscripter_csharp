@@ -8,6 +8,7 @@
  */
 using System;
 using System.Diagnostics;
+using System.Text;
 
 namespace onscripter_csharp
 {
@@ -42,12 +43,37 @@ namespace onscripter_csharp
 		
 		public CharPtr(string str) 
 		{
-			this.chars = (str + '\0').ToCharArray();
-			this.index = 0;			
+			if (false)
+			{
+				this.chars = (str + '\0').ToCharArray();
+				this.index = 0;
+			}
+			else
+			{
+				byte[] gbk = Encoding.GetEncoding("GBK").GetBytes(str);
+				char[] result = new char[gbk.Length + 1];
+				for (int i = 0; i < gbk.Length; ++i)
+				{
+					result[i] = (char)gbk[i];
+				}
+				result[gbk.Length] = '\0';
+				this.chars = result;
+				this.index = 0;
+			}
 		}
 		
 		public CharPtr(char[] str) 
 		{
+			if (str != null)
+			{
+				for (int i = 0; i < str.Length; ++i)
+				{
+					if ((int)str[i] > 255)
+					{
+						Debug.WriteLine("<< CharPtr(char[]) overflow : " + i);
+					}
+				}
+			}
 			this.chars = str;
 			this.index = 0;
 		}
@@ -160,5 +186,48 @@ namespace onscripter_csharp
 		}
 		
 		//ToString, TODO!!!!!
+		
+		
+		
+		//FIXME: for compare, like:
+		//		if (ptr1 != ptr2)
+		
+			public static int operator -(CharPtr ptr1, CharPtr ptr2) {
+				Debug.Assert(ptr1.chars == ptr2.chars); return ptr1.index - ptr2.index; }
+			public static bool operator <(CharPtr ptr1, CharPtr ptr2) {
+				Debug.Assert(ptr1.chars == ptr2.chars); return ptr1.index < ptr2.index; }
+			public static bool operator <=(CharPtr ptr1, CharPtr ptr2) {
+				Debug.Assert(ptr1.chars == ptr2.chars); return ptr1.index <= ptr2.index; }
+			public static bool operator >(CharPtr ptr1, CharPtr ptr2) {
+				Debug.Assert(ptr1.chars == ptr2.chars); return ptr1.index > ptr2.index; }
+			public static bool operator >=(CharPtr ptr1, CharPtr ptr2) {
+				Debug.Assert(ptr1.chars == ptr2.chars); return ptr1.index >= ptr2.index; }
+			public static bool operator ==(CharPtr ptr1, CharPtr ptr2) {
+				object o1 = ptr1 as CharPtr;
+				object o2 = ptr2 as CharPtr;
+				if ((o1 == null) && (o2 == null)) return true;
+				if (o1 == null) return false;
+				if (o2 == null) return false;
+				return (ptr1.chars == ptr2.chars) && (ptr1.index == ptr2.index); }
+			public static bool operator !=(CharPtr ptr1, CharPtr ptr2) {return !(ptr1 == ptr2); }
+
+			
+			//FIXME: (new CharPtr(dptr, -1))[0] != DELIMITER
+		
+			public static bool operator ==(CharPtr ptr, char ch) { return ptr[0] == ch; }
+			public static bool operator ==(char ch, CharPtr ptr) { return ptr[0] == ch; }
+			public static bool operator !=(CharPtr ptr, char ch) { return ptr[0] != ch; }
+			public static bool operator !=(char ch, CharPtr ptr) { return ptr[0] != ch; }
+			
+			
+			//FIXME: fprintf(stderr, "Adding path: %s\n", new_paths);
+			public override string ToString()
+			{
+				string result = "";
+				for (int i = index; (i<chars.Length) && (chars[i] != '\0'); i++)
+					result += chars[i];
+				return result;
+			}
+			
 	}
 }

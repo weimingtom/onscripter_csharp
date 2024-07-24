@@ -93,6 +93,7 @@ namespace onscripter_csharp
 		public static int fprintf(FILEPtr fp, string str, params Object[] args) 
 		{
 			string result = Tools.sprintf(str.ToString(), args);
+			Debug.WriteLine("[fprintf]" + result + "[/fprintf]");
 			char[] chars = result.ToCharArray();
 			byte[] bytes = new byte[chars.Length];
 			for (int i=0; i<chars.Length; i++)
@@ -810,7 +811,8 @@ namespace onscripter_csharp
 		//done
 		public static CharPtr getenv(CharPtr name)
 		{
-			return Environment.GetEnvironmentVariable(name.ToString());
+			string result = Environment.GetEnvironmentVariable(name.ToString());
+			return result != null ? new CharPtr(result) : null;
 		}
 		//done
 		public static int toupper(int c)
