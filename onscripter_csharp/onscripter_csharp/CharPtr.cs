@@ -87,7 +87,7 @@ namespace onscripter_csharp
 		public CharPtr(CharPtr str, int offset) 
 		{
 			this.chars = str.chars;
-			this.index = offset;			
+			this.index = str.index + offset;			
 		}
 		public CharPtr(UnsignedCharPtr str, int offset) {
 			this.chars = new char[str.chars.Length];
@@ -95,7 +95,7 @@ namespace onscripter_csharp
 			{
 				this.chars[i] = (char)str.chars[i];
 			}
-			this.index = offset;	
+			this.index = str.index + offset;	
 		}
 		
 		

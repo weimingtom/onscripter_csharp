@@ -444,3 +444,30 @@ namespace onscripter_csharp
 
 	}
 }
+
+/*
+if no 0.txt
+test ~ONScripterLabel()
+
+(1)
+    //exit(-1);
+	return;
+<-
+    exit(-1);
+	//return;
+	
+(2)
+	    if (ons.init()) return(-1); //exit(-1);
+	    <-
+	    if (ons.init()) exit(-1);
+	
+(3)
+	//delete[] file_name;
+<-
+    delete[] file_name;	
+*/
+
+/*
+if no 0.txt, it will run openDebugFolders
+TODO: openDebugFolders not implemented good
+*/

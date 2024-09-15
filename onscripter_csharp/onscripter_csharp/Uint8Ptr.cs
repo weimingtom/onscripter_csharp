@@ -16,6 +16,8 @@ namespace onscripter_csharp
 	/// </summary>
 	public class Uint8Ptr
 	{
+		//like UnsignedCharPtr
+		
 		public bool checkChange = false;		
 		
 		public byte[] chars;

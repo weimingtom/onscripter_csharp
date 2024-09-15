@@ -258,7 +258,16 @@ namespace onscripter_csharp
 				public UserFuncLUT root = new UserFuncLUT();
 		        public UserFuncLUT last = null;
 		    } 
-			public UserFuncHash[] user_func_hash = new UserFuncHash['z'-'a'+1];
+		    public UserFuncHash[] user_func_hash = user_func_hash_init(); 
+		    private static UserFuncHash[] user_func_hash_init() 
+		    {
+		    	UserFuncHash[] result = new UserFuncHash['z'-'a'+1];
+		    	for (int i = 0; i < result.Length; ++i)
+		    	{
+		    		result[i] = new UserFuncHash();
+		    	}
+		    	return result;
+		    }
 		
 		    public class NestInfo{
 		        public const int LABEL = 0;

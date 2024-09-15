@@ -461,7 +461,7 @@ namespace onscripter_csharp
 			    		UnsignedCharPtr src_buffer = new UnsignedCharPtr(SDL_Surface_get_pixels(txt_surface), + SDL_Surface_get_pitch(txt_surface) * (SDL_Surface_get_h(txt_surface) - x2 - 1) + y2 + i);
 			    		for ( int j=dst_rect.w ; j!=0 ; j--, dst_buffer.inc() ){
 			                BLEND_TEXT();
-			                src_buffer.minus(SDL_Surface_get_pitch(txt_surface));
+			                src_buffer.dec(SDL_Surface_get_pitch(txt_surface));
 			            }
 			    		dst_buffer.inc(SDL_Surface_get_w(dst_surface) - dst_rect.w);
 			        }

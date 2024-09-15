@@ -457,7 +457,7 @@ namespace onscripter_csharp
 		//done
 		public static void exit(int exitCode)
 		{
-			Environment.Exit(exitCode);
+			Environment.Exit(exitCode); //breakpoint here
 		}
 		
 		

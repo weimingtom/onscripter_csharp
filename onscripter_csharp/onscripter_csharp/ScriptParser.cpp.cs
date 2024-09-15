@@ -320,7 +320,7 @@ namespace onscripter_csharp
 			    if (null!=savedir) savedir = null;//delete[] savedir;
 			}
 			
-			public virtual void reset()
+			public /*virtual*/ void reset() //FIXME:not virtual
 			{
 			    resetDefineFlags();
 			
@@ -1162,11 +1162,14 @@ namespace onscripter_csharp
 			        fp = ONScripter.fopen( file_name, mode );
 			    } else if (save) {
 			        root = script_h.save_path;
-			        file_name = new char[strlen(root)+strlen(path)+1];
-			        sprintf( file_name, "%s%s", root, path );
-			        //printf("parser:fopen(\"%s\")\n", file_name);
-			
-			        fp = ONScripter.fopen( file_name, mode );
+			        if (root != null) //FIXME:this code added
+			        {
+				        file_name = new char[strlen(root)+strlen(path)+1];
+				        sprintf( file_name, "%s%s", root, path );
+				        //printf("parser:fopen(\"%s\")\n", file_name);
+				
+				        fp = ONScripter.fopen( file_name, mode );
+			        }
 			    } else {
 			        // search within archive_path dirs
 			        file_name = new char[archive_path.max_path_len()+strlen(path)+1];

@@ -1141,7 +1141,7 @@ namespace onscripter_csharp
 			    return 0;
 			}
 			
-			public override void reset()
+			public /*override*/new void reset() //FIXME:not override!!!!
 			{
 			    resetFlags();
 			
