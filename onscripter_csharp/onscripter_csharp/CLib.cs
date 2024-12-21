@@ -942,21 +942,24 @@ namespace onscripter_csharp
 			  CharPtr lpDirectory,
 			  int    nShowCmd
 			) {
-			
-//			ProcessStartInfo processStartInfo = new ProcessStartInfo();
-//            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-//            processStartInfo.CreateNoWindow = true;
-//            processStartInfo.UseShellExecute = false;
-//            processStartInfo.RedirectStandardOutput = true;
-//            processStartInfo.RedirectStandardError = true;
-//            processStartInfo.FileName = "cmd";
-//            processStartInfo.Arguments = "/c ";
-//            processStartInfo.Arguments += str.ToString();
-//
-//            Process process = Process.Start(processStartInfo);
-//            process.WaitForExit();
-//            return process.ExitCode;
-
+			if (false) 
+			{
+				string str = "explorer ."; //FIXME:
+				
+				ProcessStartInfo processStartInfo = new ProcessStartInfo();
+	            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+	            processStartInfo.CreateNoWindow = true;
+	            processStartInfo.UseShellExecute = false;
+	            processStartInfo.RedirectStandardOutput = true;
+	            processStartInfo.RedirectStandardError = true;
+	            processStartInfo.FileName = "cmd";
+	            processStartInfo.Arguments = "/c ";
+	            processStartInfo.Arguments += str.ToString();
+	
+	            Process process = Process.Start(processStartInfo);
+	            process.WaitForExit();
+	            return process.ExitCode;
+			}
             
 			return 0;
 		}

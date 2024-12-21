@@ -132,12 +132,21 @@ namespace onscripter_csharp
 			    if ( null!=script_buffer ) script_buffer = null;//delete[] script_buffer;
 			    if ( null!=kidoku_buffer ) kidoku_buffer = null;//delete[] kidoku_buffer;
 			
-			    string_buffer=null;//delete[] string_buffer;
-			    str_string_buffer = null;// delete[] str_string_buffer;
-			    saved_string_buffer = null;//delete[] saved_string_buffer;
-			    gosub_string_buffer = null;//delete[] gosub_string_buffer;
-			    variable_data = null;//delete[] variable_data;
-			    
+			    //FIXME:original code no assign null, if assign null, return variable_data[no];	will crash variable_data = null
+			    //public VariableData getVariableData(int no)
+				//{
+				//if (no >= 0 && no < VARIABLE_RANGE)
+			    //    return variable_data[no];	
+				
+			    if (false) //FIXME: see upper problem
+			    {
+				    string_buffer=null;//delete[] string_buffer;
+				    str_string_buffer = null;// delete[] str_string_buffer;
+				    saved_string_buffer = null;//delete[] saved_string_buffer;
+				    gosub_string_buffer = null;//delete[] gosub_string_buffer;
+				    variable_data = null;//delete[] variable_data;
+			    }
+			        
 			    if (null!=script_path) script_path=null;//delete[] script_path;
 			    if (null!=save_path) save_path=null;//delete[] save_path;
 			    if (null!=savedir) savedir=null;//delete[] savedir;
