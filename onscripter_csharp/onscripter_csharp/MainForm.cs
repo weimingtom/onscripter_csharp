@@ -20,6 +20,7 @@ namespace onscripter_csharp
 	/// </summary>
 	public partial class MainForm : Form
 	{
+		//FIXME:see SDL_SetVideoMode
 		public MainForm()
 		{
 			//

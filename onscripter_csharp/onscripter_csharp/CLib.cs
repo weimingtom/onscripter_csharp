@@ -1270,7 +1270,8 @@ namespace onscripter_csharp
 		public const UInt32 DEFAULT_VIDEO_SURFACE_FLAG = (SDL_SWSURFACE);
 		public static SDL_Surface SDL_SetVideoMode(int width, int height, int bpp, UInt32 flags)
 		{
-			return null;
+			//FIXME:see MainForm
+			return new SDL_Surface();
 		}
 		
 		

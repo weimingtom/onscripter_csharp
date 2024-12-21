@@ -1562,6 +1562,10 @@ namespace onscripter_csharp
 			    int current_line = 0;
 			    CharPtr buf = new CharPtr(script_buffer);
 			    label_info = new LabelInfo[ num_of_labels+1 ];
+			    for (int i = 0; i < label_info.Length; ++i)
+			    {
+			    	label_info[i] = new LabelInfo();
+			    }
 			
 			    while ( CharPtr.isLessThen(buf, new CharPtr(script_buffer, + script_buffer_length)) ){
 			        SKIP_SPACE( buf );
