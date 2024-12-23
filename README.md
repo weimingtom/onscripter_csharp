@@ -19,3 +19,12 @@ ref: onscripter_en_fork2_sdlport2_master_min.zip
 
 ## TODO
 * put vendor files (and mod, to compare) about onscripter_en_fork2_sdlport2  
+
+## TODO, 20241223
+```
+CLib.cs:582, not implemented
+public static uint fread(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
+public static uint fread(CharPtr buffer, uint size, uint count, FILEPtr fp)
+public static uint fwrite(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
+public static uint fwrite(CharPtr buffer, uint size, uint count, FILEPtr fp)
+```
