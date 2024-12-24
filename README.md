@@ -28,3 +28,8 @@ public static uint fread(CharPtr buffer, uint size, uint count, FILEPtr fp)
 public static uint fwrite(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
 public static uint fwrite(CharPtr buffer, uint size, uint count, FILEPtr fp)
 ```
+
+## TODO, 20241225
+```
+public static long SHGetFolderPathA(int param1, UInt32 param2, int param3, int param4, CharPtr hpath)
+```

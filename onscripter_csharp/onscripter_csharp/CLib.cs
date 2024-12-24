@@ -299,20 +299,22 @@ namespace onscripter_csharp
 		//----------------//
 		public static int sizeof_ONSBuf()
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memcpy(Uint32Ptr s1, Uint32Ptr s2, uint length)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static int sizeof_WAVE_HEADER() 
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memcpy(UnsignedCharPtr s1, WAVE_HEADER s2, uint length)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static void memcpy(CharPtr ptr1, UnsignedCharPtr ptr2, uint size)
@@ -328,68 +330,78 @@ namespace onscripter_csharp
 		public static void memcpy(ScriptHandler.ExtendedVariableData[] s1, ScriptHandler.ExtendedVariableData s2, uint length)
 		{
 			//FIXME:???
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static int sizeof_DirPaths() 
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memcpy(DirPaths s1, DirPaths s2, uint length)
 		{
 			//FIXME:???
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static int sizeof_AnimationInfo()
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memcpy(AnimationInfo s1, AnimationInfo s2, uint length)
 		{
 			//FIXME:???
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static int sizeof_int()
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memcpy(int[] s1, int[] s2, uint length)
 		{
 			//FIXME:???
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static int sizeof_uchar3()
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memcpy(byte[][] s1, byte[][] s2, uint length)
 		{
 			//FIXME:???
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static void memset(IntPtr s, int ch, uint n)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void memset(CharPtr s, int ch, uint n)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void memset(UnsignedCharPtr s, int ch, uint n)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void memset(UnsignedLongPtr s, int ch, uint n)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		public static int sizeof_DirectReader_FileInfo()
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void memset(DirectReader.FileInfo s, int ch, uint n)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		//----------------//
 		
@@ -579,21 +591,77 @@ namespace onscripter_csharp
 			return fp.stream.Position;
 		}
 		
+		//done
 		public static uint fread(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
 		{
-			return 0;
+			int num_bytes = (int)(count * size);
+			byte[] bytes = new byte[num_bytes];
+			try
+			{
+				int result = fp.stream.Read(bytes, 0, num_bytes);
+				for (int i = 0; i < result; i++)
+					buffer[i] = (byte)bytes[i];
+				return (uint)(result/size);
+			}
+			catch
+			{
+				return 0;
+			}
+			//return 0;
 		}
+		//done
 		public static uint fread(CharPtr buffer, uint size, uint count, FILEPtr fp)
 		{
-			return 0;
+			int num_bytes = (int)(count * size);
+			byte[] bytes = new byte[num_bytes];
+			try
+			{
+				int result = fp.stream.Read(bytes, 0, num_bytes);
+				for (int i = 0; i < result; i++)
+					buffer[i] = (char)bytes[i];
+				return (uint)(result/size);
+			}
+			catch
+			{
+				return 0;
+			}
+			//return 0;
 		}
+		//done
 		public static uint fwrite(UnsignedCharPtr buffer, uint size, uint count, FILEPtr fp)
 		{
-			return 0;
+			int num_bytes = (int)(count * size);
+			byte[] bytes = new byte[num_bytes];
+			for (int i = 0; i < num_bytes; i++)
+				bytes[i] = (byte)buffer[i];
+			try
+			{
+				fp.stream.Write(bytes, 0, num_bytes);
+			}
+			catch
+			{
+				return 0;
+			}
+			return count;
+			//return 0;
 		}
+		//done
 		public static uint fwrite(CharPtr buffer, uint size, uint count, FILEPtr fp)
 		{
-			return 0;
+			int num_bytes = (int)(count * size);
+			byte[] bytes = new byte[num_bytes];
+			for (int i = 0; i < num_bytes; i++)
+				bytes[i] = (byte)buffer[i];
+			try
+			{
+				fp.stream.Write(bytes, 0, num_bytes);
+			}
+			catch
+			{
+				return 0;
+			}
+			return count;
+			//return 0;
 		}
 		
 		//done
@@ -677,7 +745,8 @@ namespace onscripter_csharp
 		
 		public static int ferror(FILEPtr stream)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		
@@ -847,7 +916,8 @@ namespace onscripter_csharp
 			    UnsignedShortPtr   lpWideCharStr,
 			    int      cchWideChar)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int WideCharToMultiByte(uint     CodePage,
 			    long    dwFlags,
@@ -858,7 +928,8 @@ namespace onscripter_csharp
 			    CharPtr   lpDefaultChar,
 			    bool[]   lpUsedDefaultChar)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public const UInt32 GENERIC_READ = (UInt32)(0x80000000L);
 		public const int OPEN_EXISTING = 3;
@@ -874,11 +945,12 @@ namespace onscripter_csharp
 		    uint hTemplateFile
 		    )
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void CloseHandle(uint handle)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		
 		public class FILETIME
@@ -903,21 +975,23 @@ namespace onscripter_csharp
 		    FILETIME lpLastWriteTime
 		    )
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static bool FileTimeToLocalFileTime(
 		    FILETIME lpFileTime,
 		    FILETIME lpLocalFileTime
 		    )
 		{
-			return false;
+			throw new Exception("not implemented");
+			//return false;
 		}
 		public static bool FileTimeToSystemTime(
 		    FILETIME lpFileTime,
 		    SYSTEMTIME lpSystemTime
 		    )
 		{
-			return false;
+			throw new Exception("not implemented");
+			//return false;
 		}
 		
 		
@@ -928,7 +1002,8 @@ namespace onscripter_csharp
 		    uint wParam,
 		    CharPtr/*long*/ lParam) //FIXME:change to CharPtr
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		
@@ -977,7 +1052,8 @@ namespace onscripter_csharp
 		//FIXME:???
 		public static long SHGetFolderPathA(int param1, UInt32 param2, int param3, int param4, CharPtr hpath)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 				
@@ -1020,39 +1096,43 @@ namespace onscripter_csharp
 		
 		public static void SDL_XXX()
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static int SDL_BlitSurface(SDL_Surface src, SDL_Rect srcrect, SDL_Surface dst, SDL_Rect dstrect)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_Surface_get_w(SDL_Surface surface)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_Surface_get_h(SDL_Surface surface)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void SDL_savebmp(MSD_Surface surf, CharPtr name)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void SDL_FreeSurface(SDL_Surface surface)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void SDL_LockSurface(SDL_Surface x)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void SDL_UnlockSurface(SDL_Surface x)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static UnsignedCharPtr SDL_Surface_get_pixels(SDL_Surface x)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		
 		public static UInt32 SDL_MapRGB(SDL_PixelFormat format, 
@@ -1060,23 +1140,27 @@ namespace onscripter_csharp
 		                                       byte g, 
 		                                       byte b)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static SDL_PixelFormat SDL_Surface_get_format(SDL_Surface surface)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		public static int SDL_Surface_get_pitch(SDL_Surface x)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static void SDL_RWclose(SDL_RWops ctx)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static SDL_RWops SDL_RWFromMem(UnsignedCharPtr mem, int size)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		
 		public const UInt32 SDL_SWSURFACE = 0x00000000;
@@ -1084,29 +1168,35 @@ namespace onscripter_csharp
 			UInt32 flags, int width, int height, int depth, 
 			UInt32 Rmask, UInt32 Gmask, UInt32 Bmask, UInt32 Amask)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		public static UInt32 SDL_MapRGBA(SDL_PixelFormat format, 
 		    byte r, byte g, byte b, byte a)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_FillRect(SDL_Surface dst, SDL_Rect dstrect, UInt32 color)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static SDL_Surface SDL_ConvertSurface(SDL_Surface src, SDL_PixelFormat fmt, UInt32 flags)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		public const byte SDL_ALPHA_OPAQUE = 255;
 		public static int SDL_SetAlpha(SDL_Surface surface, UInt32 flag, byte alpha)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_WaitEvent(SDL_Event event_)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public const int SDL_RELEASED = 0;
 		public const int SDL_PRESSED = 1;
@@ -1146,7 +1236,8 @@ namespace onscripter_csharp
 		}
 		public static int SDL_PeepEvents(SDL_Event events, int numevents, SDL_eventaction action, UInt32 mask)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		public delegate UInt32 SDL_NewTimerCallback(UInt32 interval, object param);
@@ -1163,35 +1254,40 @@ namespace onscripter_csharp
 		}
 		public static SDL_TimerID SDL_AddTimer(UInt32 interval, SDL_NewTimerCallback callback, object param)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		public static SDL_bool SDL_RemoveTimer(SDL_TimerID t)
 		{
-			return SDL_bool.SDL_FALSE;
+			throw new Exception("not implemented");
+			//return SDL_bool.SDL_FALSE;
 		}
 		public static int SDL_PushEvent(SDL_Event event_)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_PollEvent(SDL_Event event_)
 		{
-			return 0;	
+			throw new Exception("not implemented");
+			//return 0;	
 		}
 		
 		
 		public static void SDL_UpdateRect(SDL_Surface screen, Int32 x, Int32 y, UInt32 w, UInt32 h)
 		{
-			return;
+			throw new Exception("not implemented");
+			//return;
 		}
 		
 		public static void SDL_WM_SetCaption(CharPtr title, CharPtr icon)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		
 		public static void SDL_Delay(UInt32 ms)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public const int SDL_BUTTON_LEFT = 1;
 		public const int SDL_BUTTON_MIDDLE = 2;
@@ -1201,36 +1297,41 @@ namespace onscripter_csharp
 		
 		public static UInt32 SDL_GetTicks()
 		{
-			return 0;
+			//throw new Exception("not implemented");
+			//return 0;
+			return (uint)(DateTime.Now.Ticks & 0xffffffff);
 		}
 		
 		public static int SDL_GetWMInfo(SDL_SysWMinfo info)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_SaveBMP(SDL_Surface surface, CharPtr file)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		
 		public static byte SDL_GetMouseState(ref int x, ref int y)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		public static void SDL_PumpEvents()
 		{
-			
+			throw new Exception("not implemented");
 		}
 		
 		public static void SDL_UpdateRects(SDL_Surface screen, int numrects, SDL_Rect[] rects)
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public static void SDL_Quit() 
 		{
-			
+			throw new Exception("not implemented");
 		}
 		public const UInt32	SDL_INIT_TIMER = 0x00000001;
 		public const UInt32	SDL_INIT_AUDIO = 0x00000010;
@@ -1242,29 +1343,35 @@ namespace onscripter_csharp
 		public const UInt32	SDL_INIT_EVERYTHING	= 0x0000FFFF;
 		public static int SDL_Init(UInt32 flags)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static CharPtr SDL_GetError()
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		public delegate void atexit_func();
 		public static int atexit(atexit_func func)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		public static int SDL_InitSubSystem(UInt32 flags)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static int SDL_EnableUNICODE(int enable)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static SDL_VideoInfo SDL_GetVideoInfo()
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		
 		public const UInt32 DEFAULT_VIDEO_SURFACE_FLAG = (SDL_SWSURFACE);
@@ -1290,7 +1397,8 @@ namespace onscripter_csharp
 				
 		public static int TTF_Init()
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		
 		public static int TTF_GlyphMetrics(TTF_Font font, ushort ch, 
@@ -1298,20 +1406,24 @@ namespace onscripter_csharp
 		                                   ref int miny, ref int maxy, 
 		                                   ref int advance)
 		{
-			return 0;	
+			throw new Exception("not implemented");
+			//return 0;	
 		}
 		public static int TTF_FontAscent(TTF_Font font)
 		{
-			return 0;
+			throw new Exception("not implemented");
+			//return 0;
 		}
 		public static SDL_Surface TTF_RenderGlyph_Shaded(TTF_Font font, UInt16 ch, SDL_Color fg, SDL_Color bg)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		
 		public static TTF_Font TTF_OpenFont(CharPtr file, int ptsize)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		
 		
@@ -1328,11 +1440,13 @@ namespace onscripter_csharp
 		
 		public static SDL_Surface IMG_Load_RW(SDL_RWops src, int freesrc)
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		public static CharPtr IMG_GetError()
 		{
-			return null;
+			throw new Exception("not implemented");
+			//return null;
 		}
 		
 		
